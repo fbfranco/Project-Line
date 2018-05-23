@@ -1,6 +1,6 @@
 export class Client {
     IdClient: Number;
     Names: string;
-    Lastname: string;
+    LastName: string;
     Telephone: string;
 }
