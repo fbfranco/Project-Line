@@ -1,0 +1,20 @@
+<div style="height: 100vh;">
+  <mat-toolbar color="primary" class="menu-bar">
+    <span (click)="sidenav.toggle()"><i class="fas fa-bars"></i>  Menu</span>
+  </mat-toolbar>
+
+  <mat-sidenav-container fxFlexFill>
+    <mat-sidenav #sidenav fxLayout="column" mode="side" opened class="content-sidenav">
+      <div fxLayout="column">
+        <a (click)="sidenav.toggle()" mat-button>Close</a>
+        <span><a routerLink="/Client">Client</a></span>
+        <span>Client</span>                                   
+        <span>Client</span>
+        <span>Client</span>
+      </div>
+    </mat-sidenav>
+    <mat-sidenav-content fxFlexFill class="main-container">
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

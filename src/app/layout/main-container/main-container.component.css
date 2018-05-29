@@ -1,0 +1,23 @@
+.general-container {
+    background-color: blueviolet;
+}
+.main-container {
+    padding: 1em;
+}
+.content-sidenav {
+    background-color: rgb(63, 81, 181);
+    width: 150px;
+    color: white;
+    box-shadow: -6px 0 12px -3px rgba(22, 21, 21, 0.87) inset;
+}
+.content-sidenav span {
+    cursor: pointer;
+    padding: 10px;                                                                                  
+}
+.content-sidenav span:hover {
+    display: block;
+    box-shadow: 0 -6px 12px -3px rgba(22, 21, 21, 0.87) inset;    
+}
+.menu-bar {
+    box-shadow: 0 -6px 12px -3px rgba(22, 21, 21, 0.87) inset;
+}
