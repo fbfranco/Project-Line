@@ -8,7 +8,7 @@ import { Route, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-main-container',
   templateUrl: './main-container.component.html',
-  styleUrls: ['./main-container.component.css']
+  styleUrls: ['./main-container.component.scss']
 })
 export class MainContainerComponent implements OnInit {
 
@@ -16,7 +16,7 @@ export class MainContainerComponent implements OnInit {
   constructor (media:  ObservableMedia) {
     media.asObservable()
      .pipe(
-        filter((change: MediaChange) => change.mqAlias  ===  'sm' )
+        filter((change: MediaChange) => change.mqAlias  ===  'xs' )
      ).subscribe (() =>  this.sideNav.toggle());
 }
 
