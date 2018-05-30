@@ -1,0 +1,19 @@
+<mat-toolbar class="mat-elevation-z4 menu-bar">
+  <div class="content-toolbar" fxLayout="row">
+    <div class="content-btn-menu">
+      <button mat-button>
+        <h3><i class="fas fa-bars"></i>  Menu</h3>
+      </button>
+    </div>
+    <div class="content-title" fxLayout="row" fxLayoutAlign="space-between center">
+      <h3>ProjectLine</h3>      
+      <mat-menu #menu="matMenu" xPosition="before" [overlapTrigger]="false">
+        <button mat-menu-item>Item 1</button>
+        <button mat-menu-item>Item 2</button>
+      </mat-menu>
+      <button class="user-name" mat-button mat-icon-button [matMenuTriggerFor]="menu">
+        fbfranco29  <i class="fas fa-circle"></i>
+      </button>
+    </div>
+  </div>
+</mat-toolbar>
