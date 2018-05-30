@@ -8,7 +8,8 @@ import {
   MatIconModule,
   MatButtonModule,
   MatAccordionDisplayMode,
-  MatExpansionModule
+  MatExpansionModule,
+  MatMenuModule
  } from '@angular/material';
 
 @NgModule({
@@ -18,7 +19,8 @@ import {
     MatSidenavModule,
     MatIconModule,
     MatButtonModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatMenuModule
   ],
   exports: [
     CommonModule,
@@ -26,7 +28,8 @@ import {
     MatSidenavModule,
     MatIconModule,
     MatButtonModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatMenuModule
   ]
 })
 export class AngularMaterialModule { }

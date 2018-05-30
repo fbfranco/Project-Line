@@ -20,9 +20,4 @@
   display: block;
   box-shadow: 0 -6px 12px -3px rgba(22, 21, 21, 0.87);
 }
-.menu-bar {
-  position: fixed;
-  z-index: 100;
-  background-color: rgb(6, 170, 214);
-  box-shadow: 0 -6px 12px -3px rgba(22, 21, 21, 0.87);
-}
+
