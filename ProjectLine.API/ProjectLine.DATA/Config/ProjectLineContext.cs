@@ -31,15 +31,12 @@ namespace ProjectLine.DATA.Config
 
             #region Model Phase
             modelBuilder.Entity<Phase>().HasKey(x => x.PhaseID);            
-            modelBuilder.Entity<Phase>().Property(x => x.Title).HasMaxLength(30).IsRequired();
-            modelBuilder.Entity<Phase>().Property(x => x.Description).HasMaxLength(250);
-            modelBuilder.Entity<Phase>().Property(x => x.StarDate).IsRequired();
-            modelBuilder.Entity<Phase>().Property(x => x.EndDate).IsRequired();
-            modelBuilder.Entity<Phase>().Property(x => x.StatusID).IsRequired();
-            modelBuilder.Entity<Phase>().Property(x => x.ProjectID).IsRequired();
+            modelBuilder.Entity<Phase>().Property(x => x.Title).HasMaxLength(150).IsRequired();
+            modelBuilder.Entity<Phase>().Property(x => x.Description).HasMaxLength(1000);
+            modelBuilder.Entity<Phase>().Property(x => x.StartDate);
+            modelBuilder.Entity<Phase>().Property(x => x.EndDate);
+            modelBuilder.Entity<Phase>().Property(x => x.DemoUrl).HasMaxLength(255);
             #endregion
         }
-
-
     }
 }

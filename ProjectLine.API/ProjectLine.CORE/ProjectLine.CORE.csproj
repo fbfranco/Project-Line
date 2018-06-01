@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interface\IPhaseRepository.cs" />
     <Compile Include="Interface\IProjectRepository.cs" />
     <Compile Include="Models\Phase.cs" />
     <Compile Include="Models\Project.cs" />

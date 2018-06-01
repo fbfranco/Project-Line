@@ -4,3 +4,8 @@ D:\infoarch\ProjectLine\ProjectLine.CORE\obj\Debug\ProjectLine.CORE.csprojResolv
 D:\infoarch\ProjectLine\ProjectLine.CORE\obj\Debug\ProjectLine.CORE.csproj.CoreCompileInputs.cache
 D:\infoarch\ProjectLine\ProjectLine.CORE\obj\Debug\ProjectLine.CORE.dll
 D:\infoarch\ProjectLine\ProjectLine.CORE\obj\Debug\ProjectLine.CORE.pdb
+D:\infoarch\ProjectLine\ProjectLine.API\ProjectLine.CORE\bin\Debug\ProjectLine.CORE.dll
+D:\infoarch\ProjectLine\ProjectLine.API\ProjectLine.CORE\bin\Debug\ProjectLine.CORE.pdb
+D:\infoarch\ProjectLine\ProjectLine.API\ProjectLine.CORE\obj\Debug\ProjectLine.CORE.csproj.CoreCompileInputs.cache
+D:\infoarch\ProjectLine\ProjectLine.API\ProjectLine.CORE\obj\Debug\ProjectLine.CORE.dll
+D:\infoarch\ProjectLine\ProjectLine.API\ProjectLine.CORE\obj\Debug\ProjectLine.CORE.pdb

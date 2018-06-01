@@ -184,6 +184,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PhasesController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -258,6 +259,16 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectLine.CORE\ProjectLine.CORE.csproj">
+      <Project>{7b699e0f-775d-4082-b523-ec4371d55a9c}</Project>
+      <Name>ProjectLine.CORE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectLine.DATA\ProjectLine.DATA.csproj">
+      <Project>{fabdc30d-814c-42bf-85f5-607c79e2ebb4}</Project>
+      <Name>ProjectLine.DATA</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
