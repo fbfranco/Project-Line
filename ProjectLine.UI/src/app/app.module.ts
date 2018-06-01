@@ -9,12 +9,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 // Components
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './layout/layout.component';
-import { ToolbarComponent } from './layout/toolbar/toolbar.component';
 import { MainContainerComponent } from './layout/main-container/main-container.component';
-import { SidenavComponent } from './layout/sidenav/sidenav.component';
 import { ClientsComponent } from './components/clients/clients.component';
 import { ClientComponent } from './components/clients/client/client.component';
 import { ClientListComponent } from './components/clients/client-list/client-list.component';
+import { ProjectsComponent } from './components/projects/projects.component';
+import { ProjectListComponent } from './components/projects/project-list/project-list.component';
 // Services
 import { ClientService } from './services/client.service';
 // Angular Material
@@ -28,9 +28,9 @@ import { RoutingModule } from './routes/routing.module';
     ClientComponent,
     ClientListComponent,
     LayoutComponent,
-    ToolbarComponent,
-    SidenavComponent,
-    MainContainerComponent
+    MainContainerComponent,
+    ProjectsComponent,
+    ProjectListComponent
   ],
   imports: [
     BrowserModule,

@@ -16,8 +16,12 @@ export class MainContainerComponent implements OnInit {
   constructor (media:  ObservableMedia) {
     media.asObservable()
      .pipe(
-        filter((change: MediaChange) => change.mqAlias  ===  'xs' )
-     ).subscribe (() =>  this.sideNav.toggle());
+        filter((change: MediaChange) => change.mqAlias  ===  'xs')
+     ).subscribe (() =>  this.sideNav.close());
+    media.asObservable()
+     .pipe(
+        filter((change: MediaChange) => change.mqAlias  ===  'sm')
+     ).subscribe (() =>  this.sideNav.open());
 }
 
   ngOnInit() {

@@ -1,4 +1,4 @@
-<form class="emp-form" #clientForm="ngForm" (ngSubmit)="onSubmit(clientForm)">
+<!-- <form class="emp-form" #clientForm="ngForm" (ngSubmit)="onSubmit(clientForm)">
     <input type="hidden" name="IdClient" #IdClient="ngModel" [(ngModel)]="clientService.selectedClient.IdClient">
     <div class="form-row">
       <div class="form-group col-md-6">
@@ -8,7 +8,6 @@
       </div>
       <div class="form-group col-md-6">
         <input class="form-control" name="LastName" #LastName="ngModel" [(ngModel)]="clientService.selectedClient.LastName" placeholder="Last Name" required>
-        <!-- <div class="validation-error" *ngIf="LastName.invalid && LastName.touched">This Field is Required.</div> -->
       </div>
     </div>
     <div class="form-row">
@@ -26,4 +25,21 @@
           <i class="fa fa-repeat"></i> Reset</button>
       </div>
     </div>
-  </form>
+</form> -->
+<form action="#">
+  <div class="example-container">
+    <mat-form-field>
+      <input matInput placeholder="Input">
+    </mat-form-field>
+    
+    <mat-form-field>
+      <textarea matInput placeholder="Textarea"></textarea>
+    </mat-form-field>
+    
+    <mat-form-field>
+      <mat-select placeholder="Select">
+        <mat-option value="option">Option</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</form>
