@@ -1,32 +1,14 @@
-.sidenav-container {
-  position: absolute;
-  top: 50px;
-  left: 0;
-}
-.main-container {
-    padding: 1em;
-}
-.content-sidenav {
-    background-color: rgb(34, 45, 49);
-    width: 150px;
-    color: white;
-    box-shadow: -6px 0 12px -3px rgba(22, 21, 21, 0.87);
-}
-.content-sidenav span {
-  cursor: pointer;
-  padding: 10px;
-}
-.content-sidenav span:hover {
-  display: block;
-  box-shadow: 0 -6px 12px -3px rgba(22, 21, 21, 0.87);
-}
+// VARIABLES
+$color-primary: rgb(6, 170, 214);
+$color-dark: rgb(34, 45, 49);
 
+// TOOLBAR
 .menu-bar {
   color: white;
   height: 50px;
   position: fixed;
   z-index: 100;
-  background-color: rgb(6, 170, 214);
+  background-color: $color-primary;
   box-shadow: 0 3px 5px -1px rgba(0,0,0,.2),
               0 6px 10px 0 rgba(0,0,0,.14),
               0 1px 18px 0 rgba(0,0,0,.12);
@@ -36,9 +18,14 @@
     height: 100%;
 
     & .content-btn-menu {
-      width: 156px;
+      width: 184px;
       height: 100%;
       border-right: 1px solid rgba($color: #ffffff, $alpha: 0.3);
+
+      & button {
+        padding: 0;
+        text-align: left;
+      }
     }
     & .content-title {
       width: 100%;
@@ -57,4 +44,63 @@
     line-height: 50px;
   }
 }
+
+// SIDE-NAV
+.sidenav-container {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  height: calc(100vh - 50px);
+  width: 100%;
+  
+  
+  & .content-sidenav {
+    background-color: $color-dark; 
+    width: 200px;
+    color: white;
+    padding: 1em 0 0 0;
+
+    & button {
+      width: 100%;
+      text-align: left;
+      line-height: 50px;
+      font-size: 1em;
+      font-weight: 400;
+
+      & i {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  & .main-container{
+    min-height: calc(100vh - 50px);
+    padding: 1em 1em 0 1em;
+
+    & .content-router-outlet {
+      min-height: calc(100vh - 80px - 2em);
+      height: 100%;
+    }
+    & .footer {
+      margin-top: 1em;
+      position: relative;
+      height: 30px;
+      & span {
+        line-height: 30px;
+        color: rgba(0, 0, 0, 0.623);
+        font-size: 0.8em;
+      }
+      &::before{
+        content: " ";
+        height: 1px;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        border: 1px solid $color-dark;
+      }
+    }
+  }
+}
+
+
 

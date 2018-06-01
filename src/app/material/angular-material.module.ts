@@ -9,7 +9,12 @@ import {
   MatButtonModule,
   MatAccordionDisplayMode,
   MatExpansionModule,
-  MatMenuModule
+  MatMenuModule,
+  MatFormFieldModule,
+  MatSelectModule,
+  MatInputModule,
+  MatListModule,
+  MatCardModule
  } from '@angular/material';
 
 @NgModule({
@@ -20,7 +25,12 @@ import {
     MatIconModule,
     MatButtonModule,
     MatExpansionModule,
-    MatMenuModule
+    MatMenuModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    MatListModule,
+    MatCardModule
   ],
   exports: [
     CommonModule,
@@ -29,7 +39,12 @@ import {
     MatIconModule,
     MatButtonModule,
     MatExpansionModule,
-    MatMenuModule
+    MatMenuModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    MatListModule,
+    MatCardModule
   ]
 })
 export class AngularMaterialModule { }
