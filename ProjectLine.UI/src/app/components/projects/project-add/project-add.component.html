@@ -1,0 +1,51 @@
+<h2>Add Proyect</h2>
+<hr>
+
+<div class="General">
+  <form class="example-form">
+
+    <!-- Title -->
+    <mat-form-field class="example-full-width">
+      <input maxlength="150" matInput placeholder="Title" >
+    </mat-form-field>
+    <br>
+    <br>
+  
+    <!-- Description -->
+    <mat-form-field  class="example-full-width">
+      <textarea maxlength="1000" matInput placeholder="Description"></textarea>
+    </mat-form-field>
+    <br>
+    <br>
+  
+    <!-- Start Date -->
+    <mat-form-field class="example-full-width">
+      <input matInput [matDatepicker]="startdate" placeholder="Start Date" [value]="date.value" [formControl]="date">
+      <mat-datepicker-toggle matSuffix [for]="startdate"></mat-datepicker-toggle>
+      <mat-datepicker #startdate disabled="false"></mat-datepicker>
+    </mat-form-field>
+    <br>
+    <br>
+  
+    <!-- End Date -->
+     <mat-form-field class="example-full-width">
+      <input matInput [min]="date.value" [matDatepicker]="endDate" placeholder="End Date" [value]="date.value" disabled>
+      <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+      <mat-datepicker #endDate disabled="false"></mat-datepicker>
+    </mat-form-field>
+
+    <br>
+    <br>
+  
+  </form>
+  <div>
+    <a routerLink="/Project">
+      <button mat-raised-button>Cancel</button>
+    </a>
+    &nbsp;
+    <a routerLink="/Project/Add">
+      <button mat-raised-button color="primary">Add</button>
+    </a>
+  </div>
+  
+</div>

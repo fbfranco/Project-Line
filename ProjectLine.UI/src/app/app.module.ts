@@ -20,6 +20,10 @@ import { ClientService } from './services/client.service';
 // Angular Material
 import { AngularMaterialModule } from './material/angular-material.module';
 import { RoutingModule } from './routes/routing.module';
+import { ProjectAddComponent } from './components/projects/project-add/project-add.component';
+
+
+
 
 @NgModule({
   declarations: [
@@ -30,7 +34,9 @@ import { RoutingModule } from './routes/routing.module';
     LayoutComponent,
     MainContainerComponent,
     ProjectsComponent,
-    ProjectListComponent
+    ProjectListComponent,
+    ProjectAddComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -47,4 +53,6 @@ import { RoutingModule } from './routes/routing.module';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  
+ }

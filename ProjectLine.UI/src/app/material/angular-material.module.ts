@@ -1,5 +1,17 @@
-import { NgModule } from '@angular/core';
+import {  
+  NgModule, 
+  Component
+} from '@angular/core';
+
+import { 
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule
+} from '@angular/forms';
+
 import { CommonModule } from '@angular/common';
+
+
 
 // Angular Material Components
 import {
@@ -14,7 +26,9 @@ import {
   MatSelectModule,
   MatInputModule,
   MatListModule,
-  MatCardModule
+  MatCardModule,
+  MatDatepickerModule,
+  MatNativeDateModule
  } from '@angular/material';
 
 @NgModule({
@@ -30,7 +44,11 @@ import {
     MatSelectModule,
     MatInputModule,
     MatListModule,
-    MatCardModule
+    MatCardModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [
     CommonModule,
@@ -44,7 +62,17 @@ import {
     MatSelectModule,
     MatInputModule,
     MatListModule,
-    MatCardModule
+    MatCardModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
-export class AngularMaterialModule { }
+
+export class AngularMaterialModule {
+
+  date = new FormControl(new Date());
+  serializedDate = new FormControl((new Date()).toISOString());
+ }
+
