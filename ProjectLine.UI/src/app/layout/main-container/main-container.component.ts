@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
-import { filter } from 'rxjs/operators/filter';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { MediaChange, ObservableMedia } from '@angular/flex-layout';
 import { MatSidenav } from '@angular/material';
 import { Route, RouterModule } from '@angular/router';
