@@ -15,7 +15,7 @@ export class ProjectAddComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.date = "";
+  
   }
 
 }
