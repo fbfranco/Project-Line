@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ProjectLine.DATA.Persistence
@@ -31,11 +29,11 @@ namespace ProjectLine.DATA.Persistence
             }
         }
 
-        public Phase FindById(int id)
+        public async Task<Phase> FindById(int id)
         {
             using (Context = new ProjectLineContext())
             {
-                var result = Context.Phases.Where(s => s.PhaseID == id).FirstOrDefault();
+                var result = await Context.Phases.Where(s => s.PhaseID == id).FirstOrDefaultAsync();
                 return result;
             }
         }
@@ -47,6 +45,11 @@ namespace ProjectLine.DATA.Persistence
                 var result = await Context.Phases.Take(100).ToListAsync();
                 return result;
             }
+        }
+
+        Phase IPhaseRepository.FindById(int id)
+        {
+            throw new NotImplementedException();
         }
 
         //public async Task Update(Phase phase)
