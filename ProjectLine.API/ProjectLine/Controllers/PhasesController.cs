@@ -9,19 +9,19 @@ namespace ProjectLine.Controllers
 {
     public class PhasesController : ApiController
     {
-        PhaseRepository repo = new PhaseRepository();
+        PhaseRepository Repository = new PhaseRepository();
 
         // GET: api/Phases
         public async Task<IEnumerable<Phase>> GetPhases()
         {
-            var phase = await repo.GetPhases();
+            var phase = await Repository.GetPhases();
             return phase;
         }
 
         // GET: api/Phases/5
         public async Task<IHttpActionResult> GetPhase(int id)
         {
-            var phase = await repo.FindById(id);
+            var phase = await Repository.FindById(id);
             if (phase == null)
             {
                 return NotFound();
@@ -41,7 +41,7 @@ namespace ProjectLine.Controllers
             {
                 try 
                 {
-                    await repo.Create(phase);
+                    await Repository.Create(phase);
                     return Ok();
                 } 
                 catch (Exception error) 
