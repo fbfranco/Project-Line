@@ -21,6 +21,8 @@ import { ClientService } from './services/client.service';
 import { AngularMaterialModule } from './material/angular-material.module';
 import { RoutingModule } from './routes/routing.module';
 import { ProjectAddComponent } from './components/projects/project-add/project-add.component';
+import { PhasesComponent } from './components/phases/phases.component';
+import { PhasesFormComponent } from './components/phases/phases-form/phases-form.component';
 
 
 
@@ -36,6 +38,8 @@ import { ProjectAddComponent } from './components/projects/project-add/project-a
     ProjectsComponent,
     ProjectListComponent,
     ProjectAddComponent,
+    PhasesComponent,
+    PhasesFormComponent,
 
   ],
   imports: [

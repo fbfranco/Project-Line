@@ -4,11 +4,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { ClientComponent } from '../components/clients/client/client.component';
 import { ProjectListComponent } from '../components/projects/project-list/project-list.component';
 import { ProjectAddComponent } from '../components/projects/project-add/project-add.component';
+import { PhasesFormComponent } from '../components/phases/phases-form/phases-form.component';
 
 const routes: Routes = [
   { path: 'Client', component: ClientComponent },
   { path: 'Project', component: ProjectListComponent },
-  { path: 'Project/Add', component: ProjectAddComponent }
+  { path: 'Project/Add', component: ProjectAddComponent },
+  { path: 'Phase', component: PhasesFormComponent }
 ];
 
 @NgModule({
