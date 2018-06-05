@@ -1,5 +1,5 @@
 
-import {map} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, RequestMethod } from '@angular/http';
 import { Observable } from 'rxjs';
@@ -19,8 +19,8 @@ export class ClientService {
 
   postClient(model: Client) {
     const body = JSON.stringify(model);
-    const headerOptions = new Headers({'Content-Type': 'application/json'});
-    const requestOptions = new RequestOptions({method : RequestMethod.Post, headers: headerOptions});
+    const headerOptions = new Headers({ 'Content-Type': 'application/json' });
+    const requestOptions = new RequestOptions({ method: RequestMethod.Post, headers: headerOptions });
     return this.http.post('http://localhost:57135/api/Clients', body, requestOptions);
   }
 
@@ -33,11 +33,11 @@ export class ClientService {
 
   getClientList() {
     this.http.get('http://localhost:57135/api/Clients').pipe(
-    map((data: Response) => {
-      return data.json() as Client[];
-    })).toPromise().then(x => {
-      this.clientList = x;
-    });
+      map((data: Response) => {
+        return data.json() as Client[];
+      })).toPromise().then(x => {
+        this.clientList = x;
+      });
   }
 
   deleteClient(id: number) {
