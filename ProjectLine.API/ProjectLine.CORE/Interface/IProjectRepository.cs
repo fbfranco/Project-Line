@@ -1,4 +1,5 @@
 ﻿using ProjectLine.CORE.Models;
+using ProjectLine.CORE.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,6 +12,6 @@ namespace ProjectLine.CORE.Interface
     public interface IProjectRepository
     {
         Task<IEnumerable<Project>> GetProjects();
-        Task Create(Project project);
+        void Create(ProjectViewModel project);
     }
 }
