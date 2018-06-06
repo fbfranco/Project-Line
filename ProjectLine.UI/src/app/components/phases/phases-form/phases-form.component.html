@@ -1,4 +1,8 @@
-<mat-card class="col-md-6">
+<div class="row">
+  
+</div>
+
+<mat-card class="col-md-6 col-xs-12">
   <mat-card-header fxLayoutAlign="center start">
     <mat-card-title>
       <h1>General</h1>
@@ -21,7 +25,7 @@
       </mat-form-field>
       <!-- Description -->
       <mat-form-field class="example-full-width">
-        <textarea matInput #Description name="Description" maxlength="1000" placeholder="Phase Description"></textarea>
+        <textarea matInput #Description name="Description" maxlength="1000" placeholder="Phase Description" matTextareaAutosize matAutosizeMinRows="4" matAutosizeMaxRows="5"></textarea>
         <mat-hint align="end">{{Description.value?.length || 0}}/1000</mat-hint>
       </mat-form-field>
       <div fxLayoutAlign="space-between start">
