@@ -50,12 +50,12 @@ $color-dark: rgb(34, 45, 49);
   position: absolute;
   top: 50px;
   left: 0;
-  height: calc(100vh - 50px);
+  //height: calc(100vh - 50px);
   width: 100%;
-  
-  
+
+
   & .content-sidenav {
-    background-color: $color-dark; 
+    background-color: $color-dark;
     width: 200px;
     color: white;
     padding: 1em 0 0 0;
@@ -85,7 +85,10 @@ $color-dark: rgb(34, 45, 49);
       margin-top: 1em;
       position: relative;
       height: 30px;
+
       & span {
+        position: absolute;
+        right: 0;
         line-height: 30px;
         color: rgba(0, 0, 0, 0.623);
         font-size: 0.8em;
