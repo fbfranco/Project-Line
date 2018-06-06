@@ -23,6 +23,7 @@ import { RoutingModule } from './routes/routing.module';
 import { ProjectAddComponent } from './components/projects/project-add/project-add.component';
 import { PhasesComponent } from './components/phases/phases.component';
 import { PhasesFormComponent } from './components/phases/phases-form/phases-form.component';
+import { MatTableModule } from '@angular/material';
 
 
 
@@ -50,7 +51,8 @@ import { PhasesFormComponent } from './components/phases/phases-form/phases-form
     BrowserAnimationsModule,
     AngularMaterialModule,
     FlexLayoutModule,
-    RoutingModule
+    RoutingModule,
+    MatTableModule
   ],
   providers: [
     ClientService
