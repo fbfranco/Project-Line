@@ -1,15 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 
+//Add import by Dev-Sebastian
+import { PhaseService } from '../../services/phase.service';
+
 @Component({
   selector: 'app-phases',
   templateUrl: './phases.component.html',
-  styles: []
+  styles: [],
+  //Add provider by Dev-Sebastian
+  providers: [PhaseService]
 })
+
 export class PhasesComponent implements OnInit {
 
-  constructor() { }
+  //Edit constructor by Dev-Sebastian
+  constructor(public phaseService: PhaseService) { }
 
   ngOnInit() {
   }
-
 }

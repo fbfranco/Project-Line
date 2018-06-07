@@ -9,6 +9,7 @@ import { Phase } from '../models/phase.model';
 @Injectable({
 	providedIn: 'root'
 })
+
 export class PhaseService {
 
 	selectedPhase: Phase;
@@ -17,28 +18,24 @@ export class PhaseService {
 
 	postPhase(model: Phase) {
 		const body = JSON.stringify(model);
-		const headerOptions = new Headers({'Content-Type': 'application/json'});
-		const requestOptions = new RequestOptions({method : RequestMethod.Post, headers: headerOptions});
-		return this.http.post('http://localhost:57135/api/Phases', body, requestOptions);
+		const headerOptions = new Headers({ 'Content-Type': 'application/json' });
+		const requestOptions = new RequestOptions({ method: RequestMethod.Post, headers: headerOptions });
+		return this.http.post('http://localhost:57135/api/Phases', body, requestOptions).map(x => x.json());
+	}
+
+	putPhase(id, phase) {
+		var body = JSON.stringify(phase);
+		var headerOptions = new Headers({ 'Content-Type': 'application/json' });
+		var requestOptions = new RequestOptions({ method: RequestMethod.Put, headers: headerOptions });
+		return this.http.put('http://localhost:57135/api/Phases/' + id, body, requestOptions).map(res => res.json());
 	}
 
 	getPhaseList() {
 		this.http.get('http://localhost:57135/api/Phases')
-		.map((data: Response) => {
-			return data.json() as Phase[];
-		}).toPromise().then(x => {
-			this.phaseList = x;
-		});
+			.map((data: Response) => {
+				return data.json() as Phase[];
+			}).toPromise().then(x => {
+				this.phaseList = x;
+			});
 	}
-
-	// putPhase(id, model) {
-	// 	const body = JSON.stringify(model);
-	// 	const headerOptions = new Headers({ 'Content-Type': 'application/json' });
-	// 	const requestOptions = new RequestOptions({ method: RequestMethod.Put, headers: headerOptions });
-	// 	return this.http.put('http://localhost:57135/api/Phases/' + id, body, requestOptions);
-	// }
-
-	// deletePhase(id: number) {
-	// 	return this.http.delete('http://localhost:57135/api/Phases/' + id);
-	// }
 }
