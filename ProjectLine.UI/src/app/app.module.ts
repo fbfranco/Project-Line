@@ -17,6 +17,7 @@ import { ProjectsComponent } from './components/projects/projects.component';
 import { ProjectListComponent } from './components/projects/project-list/project-list.component';
 // Services
 import { ClientService } from './services/client.service';
+import { ProjectService } from './services/project.service';
 // Angular Material
 import { AngularMaterialModule } from './material/angular-material.module';
 import { RoutingModule } from './routes/routing.module';
@@ -24,6 +25,7 @@ import { ProjectAddComponent } from './components/projects/project-add/project-a
 import { PhasesComponent } from './components/phases/phases.component';
 import { PhasesFormComponent } from './components/phases/phases-form/phases-form.component';
 import { MatTableModule } from '@angular/material';
+import { ViewModelProject } from './models/viewmodelproject.model';
 
 
 
@@ -55,10 +57,12 @@ import { MatTableModule } from '@angular/material';
     MatTableModule
   ],
   providers: [
-    ClientService
+    ClientService,
+    ProjectService,
+    ViewModelProject
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  
+
  }

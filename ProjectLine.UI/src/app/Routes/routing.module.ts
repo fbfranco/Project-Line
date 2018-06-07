@@ -7,10 +7,9 @@ import { ProjectAddComponent } from '../components/projects/project-add/project-
 import { PhasesFormComponent } from '../components/phases/phases-form/phases-form.component';
 
 const routes: Routes = [
-  { path: 'Client', component: ClientComponent },
   { path: 'Project', component: ProjectListComponent },
   { path: 'Project/Add', component: ProjectAddComponent },
-  { path: 'Phase', component: PhasesFormComponent }
+  { path: 'Project/Add/Phase', component: PhasesFormComponent }
 ];
 
 @NgModule({

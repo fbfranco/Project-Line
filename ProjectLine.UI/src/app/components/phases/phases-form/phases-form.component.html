@@ -1,55 +1,48 @@
-<div class="row">
-  
-</div>
-
-<mat-card class="col-md-6 col-xs-12">
+<mat-card>
   <mat-card-header fxLayoutAlign="center start">
     <mat-card-title>
-      <h1>General</h1>
+      <h1 mat-dialog-title>Edit Phase</h1>
     </mat-card-title>
   </mat-card-header>
-  <h3>Edith Phase</h3>
-  <mat-card-content>
-    <!-- Phase Form -->
-    <form class="example-form" fxLayout="column">
-      <!-- Id-Phase -->
-      <input type="hidden" #PhaseID name="PhaseID">
-      <!-- Title -->
-      <mat-form-field>
-        <input matInput #Title name="Title" maxlength="150" placeholder="Title" [formControl]="ErrorTitleControl" [errorStateMatcher]="matcher">
-        <mat-hint align="end">{{Title.value?.length || 0}}/150</mat-hint>
-        <mat-error *ngIf="ErrorTitleControl.hasError('required')">
-          The title of phase is
-          <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-      <!-- Description -->
-      <mat-form-field class="example-full-width">
-        <textarea matInput #Description name="Description" maxlength="1000" placeholder="Phase Description" matTextareaAutosize matAutosizeMinRows="4" matAutosizeMaxRows="5"></textarea>
-        <mat-hint align="end">{{Description.value?.length || 0}}/1000</mat-hint>
-      </mat-form-field>
-      <div fxLayoutAlign="space-between start">
-        <!-- Start-Date -->
-        <mat-form-field fxFlex="40%">
-          <input matInput [value]="date.value" [formControl]="date" [matDatepicker]="dateStart" placeholder="Start Date">
-          <mat-datepicker-toggle matSuffix [for]="dateStart"></mat-datepicker-toggle>
-          <mat-datepicker #dateStart disabled="false"></mat-datepicker>
+    <mat-card-content mat-dialog-content>
+      <!-- Phase Form -->
+      <form class="example-form" fxLayout="column">
+        <!-- Id-Phase -->
+        <input type="hidden" #PhaseID name="PhaseID">
+        <!-- Title -->
+        <mat-form-field>
+          <input matInput #Title name="Title" maxlength="150" value="{{data.Title}}" placeholder="Title*" [formControl]="ErrorTitleControl" [errorStateMatcher]="matcher">
+          <mat-hint align="end">{{Title.value?.length || 0}}/150</mat-hint>
+          <mat-error *ngIf="ErrorTitleControl.hasError('required')">
+            The title of phase is required
+          </mat-error>
         </mat-form-field>
-        <!-- End-Date -->
-        <mat-form-field fxFlex="40%">
-          <input matInput [min]="date.value" [value]="date.value" [matDatepicker]="dateEnd" placeholder="End Date" id="dateEnd" disabled>
-          <mat-datepicker-toggle matSuffix [for]="dateEnd"></mat-datepicker-toggle>
-          <mat-datepicker #dateEnd disabled="false"></mat-datepicker>
+        <!-- Description -->
+        <mat-form-field class="example-full-width">
+          <textarea matInput #Description name="Description" value="{{data.Description}}" maxlength="1000" placeholder="Phase Description" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5"></textarea>
+          <mat-hint align="end">{{Description.value?.length || 0}}/1000</mat-hint>
         </mat-form-field>
-      </div>
-      <!-- Demo-Url -->
-      <mat-form-field>
-        <input matInput #DemoUrl name="DemoUrl" placeholder="Demo-Url">
-      </mat-form-field>
-    </form>
-  </mat-card-content>
+        <div fxLayoutAlign="space-between start">
+          <!-- Start-Date -->
+          <mat-form-field fxFlex="40%">
+            <input matInput   name="startdate" #startdate="ngModel" [(ngModel)]="datePrueba"  [matDatepicker]="dateStart" placeholder="Start Date">
+            <mat-datepicker-toggle matSuffix [for]="dateStart"></mat-datepicker-toggle>
+            <mat-datepicker #dateStart disabled="false"></mat-datepicker>
+          </mat-form-field>
+          <!-- End-Date -->
+          <mat-form-field fxFlex="40%">
+            <input matInput [min]="date.value" name="enddate" #enddate="ngModel" [(ngModel)]="datePrueba2" [matDatepicker]="dateEnd" placeholder="End Date" id="dateEnd">
+            <mat-datepicker-toggle matSuffix [for]="dateEnd"></mat-datepicker-toggle>
+            <mat-datepicker #dateEnd disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <!-- Demo-Url -->
+        <mat-form-field>
+          <input matInput #DemoUrl name="DemoUrl" value="{{data.DemoUrl}}" placeholder="Demo-Url">
+        </mat-form-field>
+      </form>
+    </mat-card-content>
   <mat-card-actions fxLayoutAlign="center start">
-    <!-- <button mat-raised-button color="primary">Save</button> "Dev-Sebastian" -->
-    <button mat-raised-button color="primary">Add</button>
+    <button mat-raised-button color="primary">Save</button>
   </mat-card-actions>
 </mat-card>

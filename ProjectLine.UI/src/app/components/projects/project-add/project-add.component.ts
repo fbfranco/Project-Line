@@ -1,7 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import {MatTableDataSource} from '@angular/material';
+import { MatTableDataSource } from '@angular/material';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { PhasesFormComponent } from '../../phases/phases-form/phases-form.component';
+
+import { PhaseService } from '../../../services/phase.service';
+import { ProjectService } from '../../../services/project.service';
+import { Phase } from '../../../models/phase.model';
+import { Project } from '../../../models/project.model';
+import { ViewModelProject } from '../../../models/viewmodelproject.model';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -16,69 +25,94 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './project-add.component.html',
   styleUrls: ['./project-add.component.css']
 })
-export class ProjectAddComponent implements OnInit {  
+export class ProjectAddComponent implements OnInit {
+  // Datepicker
+  date = new FormControl({ value: new Date(), disabled: true });
+  // min Date
+  mindate =  new Date();
+  viewmodel = new ViewModelProject();
+  // Validate Input
+  FormControl = new FormControl('', [
+    Validators.required
+  ]);
+  // Call Function to active err
+  matcher = new MyErrorStateMatcher();
 
-    //Datepicker
-    date = new FormControl({ value: new Date(), disabled: true });
-    //min Date
-    mindate =  new Date();
+  // Grid Add Phase to Project
+  ListPhases = this.phaseService.phaseList;
+  displayedColumns = ['Title', 'Description', 'StartDate', 'EndDate', 'Edit', 'Delete'];
+  dataSource = new MatTableDataSource(this.ListPhases);
 
-    //Validate Input
-    FormControl = new FormControl('', [
-      Validators.required
-    ]);
-  
-    //Call Function to active err
-    matcher = new MyErrorStateMatcher();
+  constructor(public dialog: MatDialog, public phaseService: PhaseService,
+              public projectService: ProjectService, public viewmodelProject: ViewModelProject) { }
 
-    //Grid Add Phase to Project
-    displayedColumns = ['nro','phase', 'description', 'startdate', 'enddate','edit','delete'];
-    dataSource = new MatTableDataSource(ELEMENT_DATA);
-
-    AddRows(filterValue: string)
-  {  
-    let res=ELEMENT_DATA.length+1;
-    ELEMENT_DATA.push({nro:res,phase: 'phase'+res, description: 'Description', startdate: '05/06/2018', enddate: '06/06/2018',edit:'Edit',delete:'Delete'});   
-    console.log(this.dataSource);
-    filterValue = '';
-    this.dataSource.filter = filterValue;
-  }
-  DeleteRows(index: number){
-
-    //alert(index);
-    let r=index-1;
-    //alert(r);
-    if(confirm("Surely you want to eliminate this phase?")){
-
-        ELEMENT_DATA.splice(r,1); 
-        let filterValue = '';
-        this.dataSource.filter = filterValue;
-        let res=ELEMENT_DATA.length+1;
+    DateFormat(myDate: Date) {
+      return `${myDate.getDate()}/${(myDate.getMonth() + 1)}/${myDate.getFullYear()}`;
     }
-    
-  }
 
-  constructor() { }
+    AddRows() {
+      const nroPhase =  this.ListPhases.length + 1;
+      this.ListPhases.push({ PhaseID: 0,
+                             Title: `Phase ${nroPhase}`,
+                             Description: 'Description',
+                             StartDate: new Date(),
+                             EndDate: new Date(),
+                             DemoUrl: 'demo',
+                             Edit: 'Edit',
+                             Delete: 'Delete'});
+      this.dataSource = new MatTableDataSource(this.ListPhases);
+    }
+
+    DeleteRow(element) {
+      const indexPhase = this.ListPhases.indexOf(element);
+
+      if (confirm('Surely you want to eliminate this phase?')) {
+          this.ListPhases.splice(indexPhase, 1);
+          this.dataSource.filter = '';
+      }
+    }
+
+    openDialog(dataPhases) {
+      const dialogRef = this.dialog.open(PhasesFormComponent, {
+        data: dataPhases
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        dataPhases = result;
+        console.log(dataPhases);
+      });
+    }
   ngOnInit() {
-  
+    this.ListPhases = [];
+    this.projectService.selectedProject = new Project();
+    this.projectService.selectedProject.StartDate = new Date();
+    this.projectService.selectedProject.EndDate = new Date();
   }
 
+  onSubmit(form: NgForm) {
+    // console.table(form.value);
+    // console.table(this.ListPhases);
+    this.viewmodel.ModelProject = form.value;
+    this.viewmodel.ModelPhase = this.ListPhases;
+    console.log(this.viewmodel);
+    this.projectService.postProject(this.viewmodel);
+  //    .subscribe(data => {
+  //      //this.resetForm(form);
+  //      //this.projectService.getClientList();
+  //    });
 }
-export interface  PeriodicElement {
-  nro:number;
-  phase: string;
-  description: string;
-  startdate: string;
-  enddate: string;
-  edit:string;
-  delete: string;
+// Agregar(form: NgForm) {
+// console.table(this.projectService.selectedProject);
+//  console.log(form);
+// }
 
-  
+
+// const DatosPrueba=[
+//   Title= "Titulo1",
+//     Description= "descripcion1",
+//     StartDate= Date,
+//     EndDate= ,
+//     DemoUrl= "Demo1",
+// ];
+
 }
-const ELEMENT_DATA: PeriodicElement[] = [
-  // {nro:1,phase: 'phase', description: 'Description', startdate: '05/06/2018', enddate: '06/06/2018',edit:'Edit',delete:'Delete'},
-  // {nro:2,phase: 'phase', description: 'Description', startdate: '05/06/2018', enddate: '06/06/2018',edit:'Edit',delete:'Delete'},
-  // {nro:3,phase: 'phase', description: 'Description', startdate: '05/06/2018', enddate: '06/06/2018',edit:'Edit',delete:'Delete'},
-  // {nro:4,phase: 'phase', description: 'Description', startdate: '05/06/2018', enddate: '06/06/2018',edit:'Edit',delete:'Delete'},
-  // {nro:5,phase: 'phase', description: 'Description', startdate: '05/06/2018', enddate: '06/06/2018',edit:'Edit',delete:'Delete'}
-]

@@ -5,4 +5,7 @@ export class Phase {
     StartDate: Date;
     EndDate: Date;
     DemoUrl: string;
+
+    Edit: string;
+    Delete: string;
 }

@@ -1,111 +1,114 @@
-<h2>Add Project</h2>
+<h2>Add Proyect</h2>
 <hr>
-
-
-
 <mat-card class="example-card">
   <mat-card-header>
     <!-- <mat-card-title>Shiba Inu</mat-card-title> -->
   </mat-card-header>
   <mat-card-content>
-    <form class="example-form" fxLayout="column">
+    <form class="example-form"  #projectForm="ngForm" (ngSubmit)="onSubmit(projectForm)">
 
       <!-- Title -->
-      <mat-form-field >
-        <input matInput maxlength="150" placeholder="Title*" [formControl]="FormControl" [errorStateMatcher]="matcher">
+      <mat-form-field class="example-full-width">
+        <input matInput maxlength="150" placeholder="Title*"  [errorStateMatcher]="matcher"  name="Title" #Title="ngModel" [(ngModel)]="projectService.selectedProject.Title">
         <mat-error *ngIf="FormControl.hasError('required')">
-          Title is required
+          Title is
+          <strong>required</strong>
         </mat-error>
       </mat-form-field>
       <br>
       <br>
 
       <!-- Description -->
-      <mat-form-field  >
-        <textarea matInput maxlength="1000" placeholder="Description" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="2"></textarea>
+      <mat-form-field class="example-full-width">
+        <textarea matInput maxlength="1000" placeholder="Description" matTextareaAutosize matAutosizeMinRows="4" matAutosizeMaxRows="5"  name="Description" #Description="ngModel" [(ngModel)]="projectService.selectedProject.Description" ></textarea>
       </mat-form-field>
       <br>
       <br>
 
+      <!-- Start Date -->
+      <mat-form-field class="example-full-width">
+        <input matInput [matDatepicker]="startdate" placeholder="Start Date*" [value]="date.value" name="StartDate" #StartDate="ngModel" [(ngModel)]="projectService.selectedProject.StartDate" >
+        <mat-datepicker-toggle matSuffix [for]="startdate"></mat-datepicker-toggle>
+        <mat-datepicker #startdate disabled="false"></mat-datepicker>
+      </mat-form-field>
+      <br>
+      <br>
 
-      <div fxLayoutAlign="space-between start" fxLayout="row"  fxLayout.sm="column"  fxLayout.xs="column" fxLayoutGap="1em">
-        <!-- Start Date -->
-        <mat-form-field  fxFlex="40%" >
-          <input matInput [matDatepicker]="startdate" placeholder="Start Date" [value]="date.value" [formControl]="date">
-          <mat-datepicker-toggle matSuffix [for]="startdate"></mat-datepicker-toggle>
-          <mat-datepicker #startdate disabled="false"></mat-datepicker>
-        </mat-form-field>
-        
-        <!-- End Date -->
-        <mat-form-field  fxFlex="40%">
-          <input matInput [min]="date.value" [matDatepicker]="endDate" placeholder="End Date" [value]="date.value" disabled>
-          <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
-          <mat-datepicker #endDate disabled="false"></mat-datepicker>
-        </mat-form-field>
+      <!-- End Date -->
+      <mat-form-field class="example-full-width">
+        <input matInput [min]="date.value" [matDatepicker]="endDate" placeholder="End Date*" [value]="date.value" disabled name="EndDate" #EndDate="ngModel" [(ngModel)]="projectService.selectedProject.EndDate">
+        <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+        <mat-datepicker #endDate disabled="false"></mat-datepicker>
+      </mat-form-field>
 
-      </div>
-
+      <br>
+      <br>
+      <button mat-raised-button color="primary" type="submit">Add</button>
     </form>
-
   </mat-card-content>
-  <h4>Add Phase
-    <button mat-raised-button color="primary" (click)="AddRows()">+</button>
-  </h4>
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    <!--Nro Column -->
-    <ng-container matColumnDef="nro">
-      <th mat-header-cell *matHeaderCellDef> Nro </th>
-      <td mat-cell *matCellDef="let element"> {{element.nro}} </td>
-    </ng-container>
+  <hr>
+  <div class="content-add-phases">
+    <h4>Add Phase <button mat-raised-button color="primary" (click)="AddRows()">+</button></h4>
+    <table mat-table #phasesGrid [dataSource]="dataSource" class="mat-elevation-z8">
+      <!--Nro Column -->
+      <ng-container matColumnDef="state">
+        <th mat-header-cell *matHeaderCellDef> State </th>
+        <td mat-cell *matCellDef="let element"> {{element.state}} </td>
+      </ng-container>
 
-    <!--Phase Column -->
-    <ng-container matColumnDef="phase">
-      <th mat-header-cell *matHeaderCellDef> Phase. </th>
-      <td mat-cell *matCellDef="let element"> {{element.phase}} </td>
-    </ng-container>
+      <!--Phase Column -->
+      <ng-container matColumnDef="Title">
+        <th mat-header-cell *matHeaderCellDef> Title</th>
+        <td mat-cell *matCellDef="let element"> {{element.Title}} </td>
+      </ng-container>
 
-    <!-- Description Column -->
-    <ng-container matColumnDef="description">
-      <th mat-header-cell *matHeaderCellDef> Description </th>
-      <td mat-cell *matCellDef="let element"> {{element.description}} </td>
-    </ng-container>
+      <!-- Description Column -->
+      <ng-container matColumnDef="Description">
+        <th mat-header-cell *matHeaderCellDef> Description </th>
+        <td mat-cell *matCellDef="let element"> {{element.Description}} </td>
+      </ng-container>
 
-    <!-- start Date Column -->
-    <ng-container matColumnDef="startdate">
-      <th mat-header-cell *matHeaderCellDef> Start Date </th>
-      <td mat-cell *matCellDef="let element"> {{element.startdate}} </td>
-    </ng-container>
+      <!-- start Date Column -->
+      <ng-container matColumnDef="StartDate">
+        <th mat-header-cell *matHeaderCellDef> Start Date </th>
+        <td mat-cell *matCellDef="let element"> {{DateFormat(element.StartDate)}} </td>
+      </ng-container>
 
-    <!-- End date Column -->
-    <ng-container matColumnDef="enddate">
-      <th mat-header-cell *matHeaderCellDef> End Date </th>
-      <td mat-cell *matCellDef="let element"> {{element.enddate}} </td>
-    </ng-container>
+      <!-- End date Column -->
+      <ng-container matColumnDef="EndDate">
+        <th mat-header-cell *matHeaderCellDef> End Date </th>
+        <td mat-cell *matCellDef="let element"> {{DateFormat(element.EndDate)}} </td>
+      </ng-container>
 
-    <!-- Edit Column -->
-    <ng-container matColumnDef="edit">
-      <th mat-header-cell *matHeaderCellDef> Editar </th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-raised-button>{{element.edit}}</button>
-      </td>
-    </ng-container>
+        <!-- Edit Column -->
+        <ng-container matColumnDef="Edit">
+          <th mat-header-cell *matHeaderCellDef > Edit </th>
+          <td mat-cell *matCellDef="let element"><button mat-raised-button (click)="openDialog(element)"><i class="fas fa-edit"></i></button>  </td>
+        </ng-container>
 
-    <!-- Delete Column -->
-    <ng-container matColumnDef="delete">
-      <th mat-header-cell *matHeaderCellDef> Delete </th>
-      <!-- <td>{{element.phase}}</td> -->
-      <td mat-cell *matCellDef="let element" (click)="DeleteRows(element.nro)">
-        <button mat-raised-button color="warn">{{element.delete}}</button>
-      </td>
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+         <!-- Delete Column -->
+         <ng-container matColumnDef="Delete">
+            <th mat-header-cell *matHeaderCellDef > Delete </th>
+            <!-- <td>{{element.phase}}</td> -->
+            <td mat-cell *matCellDef="let element">
+              <button mat-raised-button color="warn" (click)="DeleteRow(element)" ><i class="fas fa-trash-alt"></i></button>
+            </td>
+          </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
 
+  </div>
   <mat-card-actions>
-    <!-- <button routerLink="/Project" mat-raised-button>Cancel</button>
-      <button routerLink="/Project/Add" mat-raised-button color="primary">Add</button> -->
-    <button  routerLink="/Project" mat-button>Cancel</button>
-    <button routerLink="/Project/Add" mat-button>Save</button>
+    <a routerLink="/Project">
+      <button mat-raised-button>Cancel</button>
+    </a>
+    &nbsp;
+    <a routerLink="/Project/Add">
+
+    </a>
   </mat-card-actions>
 </mat-card>
+
+
+
