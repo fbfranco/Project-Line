@@ -15,7 +15,7 @@ export class MainContainerComponent implements OnInit {
   @ViewChild('sidenav') sideNav: MatSidenav;
   currentDate = new Date();
   currentYear = this.currentDate.getFullYear();
-  constructor (media:  ObservableMedia) {
+  constructor (public media:  ObservableMedia) {
     media.asObservable()
      .pipe(
         filter((change: MediaChange) => change.mqAlias  ===  'xs')

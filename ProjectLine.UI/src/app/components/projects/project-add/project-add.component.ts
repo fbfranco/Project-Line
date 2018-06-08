@@ -12,31 +12,17 @@ import { Phase } from '../../../models/phase.model';
 import { Project } from '../../../models/project.model';
 import { ViewModelProject } from '../../../models/viewmodelproject.model';
 
-/** Error when invalid control is dirty, touched, or submitted. */
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
-
 @Component({
   selector: 'app-project-add',
   templateUrl: './project-add.component.html',
-  styleUrls: ['./project-add.component.css']
+  styleUrls: ['./project-add.component.scss']
 })
 export class ProjectAddComponent implements OnInit {
   // Datepicker
   date = new FormControl({ value: new Date(), disabled: true });
-  // min Date
   mindate =  new Date();
   viewmodel = new ViewModelProject();
-  // Validate Input
-  FormControl = new FormControl('', [
-    Validators.required
-  ]);
-  // Call Function to active err
-  matcher = new MyErrorStateMatcher();
+  confirmMessage = 0;
 
   // Grid Add Phase to Project
   ListPhases = this.phaseService.phaseList;
@@ -82,37 +68,27 @@ export class ProjectAddComponent implements OnInit {
         console.log(dataPhases);
       });
     }
-  ngOnInit() {
-    this.ListPhases = [];
-    this.projectService.selectedProject = new Project();
-    this.projectService.selectedProject.StartDate = new Date();
-    this.projectService.selectedProject.EndDate = new Date();
-  }
 
-  onSubmit(form: NgForm) {
-    // console.table(form.value);
-    // console.table(this.ListPhases);
-    this.viewmodel.ModelProject = form.value;
-    this.viewmodel.ModelPhase = this.ListPhases;
-    console.log(this.viewmodel);
-    this.projectService.postProject(this.viewmodel);
-  //    .subscribe(data => {
-  //      //this.resetForm(form);
-  //      //this.projectService.getClientList();
-  //    });
-}
-// Agregar(form: NgForm) {
-// console.table(this.projectService.selectedProject);
-//  console.log(form);
-// }
+    ngOnInit() {
+      this.ListPhases = [];
+      this.projectService.selectedProject = new Project();
+      this.projectService.selectedProject.StartDate = new Date();
+      this.projectService.selectedProject.EndDate = new Date();
+    }
 
+    onSubmit(form: NgForm) {
+      this.viewmodel.Project = form.value;
+      this.viewmodel.Phases = this.ListPhases;
+      this.projectService.postProject(this.viewmodel).subscribe(data => {
+        alert('Successfull!');
+        this.resetForm();
+      });
+    }
 
-// const DatosPrueba=[
-//   Title= "Titulo1",
-//     Description= "descripcion1",
-//     StartDate= Date,
-//     EndDate= ,
-//     DemoUrl= "Demo1",
-// ];
-
+    resetForm() {
+      this.ListPhases = [];
+      this.dataSource = new MatTableDataSource(this.ListPhases);
+      this.projectService.selectedProject = new Project();
+      this.confirmMessage = 0;
+    }
 }

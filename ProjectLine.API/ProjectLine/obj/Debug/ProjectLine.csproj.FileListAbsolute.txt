@@ -56,3 +56,6 @@ D:\infoarch\ProjectLine\ProjectLine.API\ProjectLine\bin\ProjectLine.DATA.dll
 D:\infoarch\ProjectLine\ProjectLine.API\ProjectLine\bin\ProjectLine.CORE.pdb
 D:\infoarch\ProjectLine\ProjectLine.API\ProjectLine\bin\ProjectLine.DATA.pdb
 D:\infoarch\ProjectLine\ProjectLine.API\ProjectLine\bin\ProjectLine.DATA.dll.config
+D:\InfoArch\ProjectLine\ProjectLine.API\ProjectLine\bin\System.Web.Cors.dll
+D:\InfoArch\ProjectLine\ProjectLine.API\ProjectLine\bin\System.Web.Http.Cors.dll
+D:\InfoArch\ProjectLine\ProjectLine.API\ProjectLine\bin\System.Web.Http.Cors.xml

@@ -18,9 +18,14 @@ $color-dark: rgb(34, 45, 49);
     height: 100%;
 
     & .content-btn-menu {
-      min-width: 30px;
+      width: 184px;
       height: 100%;
+      border-right: 1px solid rgba(255, 255, 255, 0.685);
+      transition: all 500ms;
 
+      @media screen and(max-width: 659px) {
+        width: 30px;
+      }
       & button {
         padding: 0;
         text-align: left;
@@ -77,9 +82,9 @@ $color-dark: rgb(34, 45, 49);
 
     & .content-router-outlet {
       min-height: calc(100vh - 80px - 2em);
-      padding-button: 1em;
+      max-height: calc(100vh - 80px - 2em);
+      padding-bottom: 1em;
       overflow: auto;
-      height: 100%;
     }
     & .footer {
       margin-top: 1em;
