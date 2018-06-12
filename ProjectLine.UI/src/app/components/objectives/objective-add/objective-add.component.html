@@ -1,4 +1,4 @@
-<form>
+<form class="objective-form">
 
   <!-- <mat-card> -->
   <mat-card-header fxLayout="column">
@@ -15,32 +15,52 @@
     <mat-form-field>
 
       <input matInput #Title name="Title" maxlength="150" placeholder="Title" name="Title" required>
-      <mat-hint align="end">{{Title.value?.length || 0}}/150</mat-hint>
-      <div *ngIf="Title.invalid && Title.touched">This Field is Required.</div>
 
     </mat-form-field>
-
-    <br>
-    <br>
 
     <!-- Description -->
     <mat-form-field>
 
       <textarea matInput maxlength="1000" placeholder="Description" matTextareaAutosize matAutosizeMinRows="4" matAutosizeMaxRows="5"
         name="Description"></textarea>
-      <mat-hint align="end">{{Description.value?.length || 0}}/1000</mat-hint>
 
     </mat-form-field>
 
-    <div fxLayout="row" fxLayoutGap="1em" class="form-options">
+    <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="1em">
 
-      <a mat-raised-button color="primary" [disabled]="!projectForm.valid" (click)="AddRows()">Add Phase</a>
-      <button mat-raised-button color="accent" [disabled]="!projectForm.valid" type="submit">Save</button>
+      <!-- Weight -->
+      <mat-form-field fxFlex.sm="30%" fxFlexFill>
+
+        <input matInput placeholder="Weight">
+
+      </mat-form-field>
+
+      <!-- Estimated -->
+      <mat-form-field fxFlex.sm="30%" fxFlexFill>
+
+        <input matInput placeholder="Estimated">
+
+      </mat-form-field>
+
+      <!-- Effort -->
+      <mat-form-field fxFlex.sm="30%" fxFlexFill>
+
+        <input matInput placeholder="Effort">
+
+      </mat-form-field>
+
+    </div>
+
+    <br>
+
+    <div fxLayout="row" fxLayoutGap="1em">
+
+      <button mat-raised-button color="accent">Ok</button>
       <a mat-raised-button color="warn">Cancel</a>
 
     </div>
 
-    <div *ngIf="confirmMessage == 1">
+    <div>
 
       <span>Successfull !</span>
 
@@ -49,3 +69,4 @@
   </mat-card-content>
   <!-- </mat-card> -->
 
+</form>
