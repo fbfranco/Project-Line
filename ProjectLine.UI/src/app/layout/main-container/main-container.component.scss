@@ -50,6 +50,58 @@ $color-dark: rgb(34, 45, 49);
 }
 
 // SIDE-NAV
+
+//*[@id="mat-expansion-panel-header-0"]/span[2]
+
+
+.SubMenu-Styles{
+  background-color: $color-dark;
+  border: none;
+
+
+  .Sub-Title{
+    color: white;
+    font-size: 1.1em;
+    margin: 0;
+
+    .toggle-icon{
+      border: 1px solid red;
+      float: right;
+    }
+  }
+
+  ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  li{
+    width: 100%;
+
+    &:hover {
+      background-color: #1E282B;
+      cursor: pointer;
+    }
+  }
+
+
+  a{
+    text-decoration: none;
+    display: block;
+    color: white;
+    padding: 5px;
+    padding-left: 15px;
+  }
+
+
+}
+
+
+.mat-acordion{
+  border: 5px solid green;
+}
+
 .sidenav-container {
   position: absolute;
   top: 50px;
