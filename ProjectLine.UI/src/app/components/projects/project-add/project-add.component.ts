@@ -91,4 +91,5 @@ export class ProjectAddComponent implements OnInit {
       this.projectService.selectedProject = new Project();
       this.confirmMessage = 0;
     }
+    // limpiar el formulario
 }
