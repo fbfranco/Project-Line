@@ -1,0 +1,27 @@
+.mat-card-content {
+  max-width: 700px;
+}
+.mat-table {
+  max-width: 700px;
+  min-width: 700px;
+}
+.table-phases {
+  max-height: 220px;
+  overflow: auto;
+}
+.title {
+  font-size: 1em;
+  font-weight: 400;
+}
+.form-options {
+  margin-bottom: 2em;
+  margin-top: 1em;
+}
+.date-content {
+  & .mat-form-field {
+    width: 47%;
+    @media screen and(max-width: 960px) {
+      width: 100%;
+    }
+  }
+}

@@ -1,0 +1,27 @@
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+$color-primary: rgb(6, 170, 214);
+$color-dark: rgb(34, 45, 49);
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar {
+	width: 7px;
+	height: 7px;
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 7px;
+	background-color: $color-primary;
+}

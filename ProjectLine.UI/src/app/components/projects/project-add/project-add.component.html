@@ -10,17 +10,20 @@
         <input matInput #Title name="Title" maxlength="150"  placeholder="Title" name="Title" #Title="ngModel" [(ngModel)]="projectService.selectedProject.Title" required>
           <mat-hint align="end">{{Title.value?.length || 0}}/150</mat-hint>
         <div *ngIf="Title.invalid && Title.touched">This Field is Required.</div>
-
       </mat-form-field>
+      <br>
+      <br>
       <!-- Description -->
       <mat-form-field>
-        <textarea matInput maxlength="1000" placeholder="Description" matTextareaAutosize matAutosizeMinRows="4" matAutosizeMaxRows="5"  name="Description" #Description="ngModel" [(ngModel)]="projectService.selectedProject.Description" ></textarea>
+        <textarea matInput maxlength="1000" placeholder="Description" matTextareaAutosize matAutosizeMinRows="4" matAutosizeMaxRows="5"
+          name="Description" #Description="ngModel" [(ngModel)]="projectService.selectedProject.Description"></textarea>
         <mat-hint align="end">{{Description.value?.length || 0}}/1000</mat-hint>
       </mat-form-field>
       <div class="date-content" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign.gt-xs="space-between start" fxLayoutAlign.md="space-between start">
         <!-- Start Date -->
         <mat-form-field>
-          <input matInput [matDatepicker]="startdate"  placeholder="Start Date*" [value]="date.value" name="StartDate" #StartDate="ngModel" [(ngModel)]="projectService.selectedProject.StartDate" >
+        <input matInput [matDatepicker]="startdate" placeholder="Start Date*" [value]="date.value" name="StartDate" #StartDate="ngModel"
+          [(ngModel)]="projectService.selectedProject.StartDate">
           <mat-datepicker-toggle matSuffix [for]="startdate"></mat-datepicker-toggle>
           <mat-datepicker #startdate disabled="false"></mat-datepicker>
         </mat-form-field>
