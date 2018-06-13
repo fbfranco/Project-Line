@@ -44,5 +44,12 @@ namespace ProjectLine.Controllers
                 }
             }
         }
+
+        // GET: api/Projects
+        public async Task<IEnumerable<Project>> GetProjects()
+        {
+            var project = await Repository.GetProjects();
+            return project;
+        }
     }
 }
