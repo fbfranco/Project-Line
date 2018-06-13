@@ -23,7 +23,7 @@
         <!-- Start Date -->
         <mat-form-field>
         <input matInput [matDatepicker]="startdate" placeholder="Start Date*" [value]="date.value" name="StartDate" #StartDate="ngModel"
-          [(ngModel)]="projectService.selectedProject.StartDate">
+          [(ngModel)]="projectService.selectedProject.StartDate" >
           <mat-datepicker-toggle matSuffix [for]="startdate"></mat-datepicker-toggle>
           <mat-datepicker #startdate disabled="false"></mat-datepicker>
         </mat-form-field>
@@ -36,9 +36,7 @@
         </mat-form-field>
       </div>
       <div fxLayout="row" fxLayoutGap="1em" class="form-options">
-        <a mat-raised-button color="primary" [disabled]="!projectForm.valid" (click)="AddRows()">Add Phase</a>
-        <!-- <button mat-raised-button color="accent" [disabled]="!projectForm.valid" type="submit">Save</button>
-        <a mat-raised-button color="warn">Cancel</a> -->
+        <a mat-raised-button color="primary" *ngIf="projectForm.valid" (click)="AddRows()">Add Phase</a>
       </div>
       <div *ngIf="confirmMessage == 1"><span>Successfull !</span></div>
       <div class="table-phases" *ngIf="dataSource.data.length > 0">

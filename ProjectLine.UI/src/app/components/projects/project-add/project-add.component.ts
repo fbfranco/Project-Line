@@ -11,6 +11,7 @@ import { ProjectService } from '../../../services/project.service';
 import { Phase } from '../../../models/phase.model';
 import { Project } from '../../../models/project.model';
 import { ViewModelProject } from '../../../models/viewmodelproject.model';
+//import { Http } from 'http';
 
 @Component({
   selector: 'app-project-add',
@@ -24,6 +25,10 @@ export class ProjectAddComponent implements OnInit {
   viewmodel = new ViewModelProject();
   confirmMessage = 0;
 
+  // OptionSelected: string;
+  // Selection: string;
+  
+
   // Grid Add Phase to Project
   ListPhases = this.phaseService.phaseList;
   displayedColumns = ['Title', 'Description', 'StartDate', 'EndDate', 'Edit', 'Delete'];
@@ -32,22 +37,29 @@ export class ProjectAddComponent implements OnInit {
   constructor(public dialog: MatDialog, public phaseService: PhaseService,
               public projectService: ProjectService, public viewmodelProject: ViewModelProject) { }
 
-    DateFormat(myDate: Date) {
-      return `${myDate.getDate()}/${(myDate.getMonth() + 1)}/${myDate.getFullYear()}`;
+     DateFormat(myDate: Date) {
+      return `${(myDate.getMonth() + 1)}/${myDate.getDate()}/${myDate.getFullYear()}`;
     }
 
     AddRows() {
+      //var a= this.GetVal();
       const nroPhase =  this.ListPhases.length + 1;
       this.ListPhases.push({ PhaseID: 0,
                              Title: `Phase ${nroPhase}`,
                              Description: 'Description',
-                             StartDate: new Date(),
+                             StartDate: this.projectService.selectedProject.StartDate,
                              EndDate: new Date(),
                              DemoUrl: 'demo',
                              Edit: 'Edit',
                              Delete: 'Delete'});
       this.dataSource = new MatTableDataSource(this.ListPhases);
     }
+    // GetVal()
+    // {
+    //   this.Selection = this.OptionSelected;
+    //    //alert(this.Selection);
+    //   return this.Selection;
+    // }
 
     DeleteRow(element) {
       const indexPhase = this.ListPhases.indexOf(element);
