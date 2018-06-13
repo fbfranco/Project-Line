@@ -18,7 +18,7 @@ namespace ProjectLine.DATA.Persistence
         public async Task<IEnumerable<Project>> GetProjects()
         {
             //ProjectLineContext Context = new ProjectLineContext();
-            using (Context)
+            using (Context = new ProjectLineContext())
             {
                 var result = await Context.Projects.Take(100).ToListAsync();
                 return result;
