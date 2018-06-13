@@ -1,0 +1,52 @@
+<h3>Objective</h3>
+<br>
+<form class="width-form">
+
+  <mat-card-header fxLayout="column">
+    <span class="title">Add Objective Form</span>
+  </mat-card-header>
+
+  <hr>
+  <br>
+
+  <mat-card-content fxLayout="column">
+    <!-- Title -->
+    <mat-form-field>
+      <input matInput maxlength="150" placeholder="Title">
+    </mat-form-field>
+    <!-- Description -->
+    <mat-form-field>
+      <textarea matInput maxlength="1000" placeholder="Description" matTextareaAutosize matAutosizeMinRows="4" matAutosizeMaxRows="5"
+        name="Description"></textarea>
+    </mat-form-field>
+    <!-- Checkbox -->
+    <mat-checkbox>Completed</mat-checkbox>
+
+    <br>
+
+    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+      <!-- Weight -->
+      <mat-form-field fxFlex="30%" fxFlex.xs="100%">
+        <input matInput placeholder="Weight">
+      </mat-form-field>
+      <!-- Estimated -->
+      <mat-form-field fxFlex="30%" fxFlex.xs="100%">
+        <input matInput placeholder="Estimated">
+      </mat-form-field>
+      <!-- Effort -->
+      <mat-form-field fxFlex="30%" fxFlex.xs="100%">
+        <input matInput placeholder="Effort">
+      </mat-form-field>
+    </div>
+
+    <br>
+    <br>
+
+    <div fxLayout="row" fxLayoutGap="1em">
+      <button mat-raised-button color="accent">Save</button>
+      <a mat-raised-button color="warn">Cancel</a>
+    </div>
+
+  </mat-card-content>
+
+</form>
