@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, Form } from '@angular/forms';
+import { Objective } from '../../../models/objective.model';
 
 @Component({
   selector: 'app-objective-add',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ObjectiveAddComponent implements OnInit {
 
-  constructor() { }
+  @Input() objective: Objective;
+  @Output() notify: EventEmitter<any> = new EventEmitter<any>();
+
+  objectForm: FormGroup;
+
+  constructor() {    
+
+  }
 
   ngOnInit() {
+
   }
 
 }

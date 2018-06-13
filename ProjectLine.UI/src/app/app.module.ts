@@ -17,7 +17,6 @@ import { ProjectsComponent } from './components/projects/projects.component';
 import { ProjectListComponent } from './components/projects/project-list/project-list.component';
 import { ObjectivesComponent } from './components/objectives/objectives.component';
 import { ObjectiveAddComponent } from './components/objectives/objective-add/objective-add.component';
-import { ObjectiveListComponent } from './components/objectives/objective-list/objective-list.component';
 // Services
 import { ClientService } from './services/client.service';
 import { ProjectService } from './services/project.service';
@@ -48,8 +47,6 @@ import { ViewModelProject } from './models/viewmodelproject.model';
     PhasesFormComponent,
     ObjectivesComponent,
     ObjectiveAddComponent,
-    ObjectiveListComponent,
-
   ],
   imports: [
     BrowserModule,

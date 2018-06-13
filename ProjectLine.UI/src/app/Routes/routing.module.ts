@@ -6,13 +6,15 @@ import { ProjectListComponent } from '../components/projects/project-list/projec
 import { ProjectAddComponent } from '../components/projects/project-add/project-add.component';
 import { PhasesFormComponent } from '../components/phases/phases-form/phases-form.component';
 import { ObjectivesComponent } from '../components/objectives/objectives.component';
+import { ObjectiveAddComponent } from '../components/objectives/objective-add/objective-add.component';
 
 const routes: Routes = [
   { path: 'Project', component: ProjectListComponent },
   { path: 'Project/Add', component: ProjectAddComponent },
   { path: 'Project/Add/Phase', component: PhasesFormComponent },
   { path: 'Client', component: PhasesFormComponent },
-  { path: 'Objective', component: ObjectivesComponent }
+  { path: 'Objective', component: ObjectivesComponent },
+  { path: 'Objective/Add', component: ObjectiveAddComponent }
 ];
 
 @NgModule({
