@@ -21,7 +21,7 @@ namespace ProjectLine.Controllers
         // GET: api/Phases/5
         public async Task<IHttpActionResult> GetPhase(int id)
         {
-            var phase = await Repository.FindById(id);
+            var phase = Repository.FindById(id);
             if (phase == null)
             {
                 return NotFound();
