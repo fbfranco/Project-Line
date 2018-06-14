@@ -40,20 +40,20 @@ namespace ProjectLine.TEST.Tests
             Project name = new Project()
             {
 
-                Title="David",
-	            Description="Descripcion1",
-	            StartDate= new DateTime (2017,08,09),
-	            EndDate=new DateTime(2017,08,09),
-	            StatusID=5
+                Title = "David",
+                Description = "Descripcion1",
+                StartDate = new DateTime(2017, 08, 09),
+                EndDate = new DateTime(2017, 08, 09),
+                StatusID = 5
             };
-            
+
             Phase NamePhase = new Phase()
             {
-                    Title ="FaseDavid",
-	                Description="Descripcion1",
-	                StartDate= new DateTime (2017,08,09),
-	                 EndDate= new DateTime(2017,08,09),
-	                DemoUrl="Demo1"
+                Title = "FaseDavid",
+                Description = "Descripcion1",
+                StartDate = new DateTime(2017, 08, 09),
+                EndDate = new DateTime(2017, 08, 09),
+                DemoUrl = "Demo1"
             };
 
 
@@ -70,10 +70,27 @@ namespace ProjectLine.TEST.Tests
             };
             ListPhase.Add(NamePhase2);
 
-            ProjectViewModel ViewModel = new ProjectViewModel() {
-                Project = name, Phases = ListPhase
+            ProjectViewModel ViewModel = new ProjectViewModel()
+            {
+                Project = name,
+                Phases = ListPhase
             };
-           repos.Create(ViewModel);
+            repos.Create(ViewModel);
+        }
+
+        ObjectiveRepository obj = new ObjectiveRepository();
+
+        [TestMethod]
+        public void AddObjective()
+        {
+            Objective o = new Objective()
+            {
+                Title = "David",
+                Description = "Descripcion1",
+                Completed = true,
+                PhaseID = 1
+            };
+            obj.Create(o);
         }
     }
 }

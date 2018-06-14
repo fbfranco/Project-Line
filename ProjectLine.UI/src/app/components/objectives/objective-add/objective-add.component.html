@@ -1,6 +1,6 @@
 <h3>Objective</h3>
 <br>
-<form class="width-form">
+<form class="width-form" novalidate (ngSubmit)="save()" [formGroup]="formGroup">
 
   <mat-card-header fxLayout="column">
     <span class="title">Add Objective Form</span>
@@ -12,30 +12,30 @@
   <mat-card-content fxLayout="column">
     <!-- Title -->
     <mat-form-field>
-      <input matInput maxlength="150" placeholder="Title">
+      <input matInput maxlength="150" placeholder="Title" formControlName="title" required>
     </mat-form-field>
     <!-- Description -->
     <mat-form-field>
       <textarea matInput maxlength="1000" placeholder="Description" matTextareaAutosize matAutosizeMinRows="4" matAutosizeMaxRows="5"
-        name="Description"></textarea>
+        formControlName="description"></textarea>
     </mat-form-field>
     <!-- Checkbox -->
-    <mat-checkbox>Completed</mat-checkbox>
+    <mat-checkbox formControlName="completed">Completed</mat-checkbox>
 
     <br>
 
     <div fxLayout="row wrap" fxLayoutAlign="space-between center">
       <!-- Weight -->
       <mat-form-field fxFlex="30%" fxFlex.xs="100%">
-        <input matInput placeholder="Weight">
+        <input matInput placeholder="Weight" formControlName="weight">
       </mat-form-field>
       <!-- Estimated -->
       <mat-form-field fxFlex="30%" fxFlex.xs="100%">
-        <input matInput placeholder="Estimated">
+        <input matInput placeholder="Estimated" formControlName="estimated">
       </mat-form-field>
       <!-- Effort -->
       <mat-form-field fxFlex="30%" fxFlex.xs="100%">
-        <input matInput placeholder="Effort">
+        <input matInput placeholder="Effort" formControlName="effort">
       </mat-form-field>
     </div>
 
@@ -43,7 +43,7 @@
     <br>
 
     <div fxLayout="row" fxLayoutGap="1em">
-      <button mat-raised-button color="accent">Save</button>
+      <button mat-raised-button color="accent" type="submit" [disabled]="!formGroup.valid">Save</button>
       <a mat-raised-button color="warn">Cancel</a>
     </div>
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProjectLine.DATA.Config
 {
-    public class ProjectLineContext:DbContext
+    public class ProjectLineContext : DbContext
     {
         //Config Data Base
         public ProjectLineContext() : base("DefaultConnection") { }
@@ -16,6 +16,7 @@ namespace ProjectLine.DATA.Config
         //create data model
         public DbSet<Project> Projects { get; set; }
         public DbSet<Phase> Phases { get; set; }
+        public DbSet<Objective> Objectives { get; set; }
 
         //Tables Model
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -30,12 +31,23 @@ namespace ProjectLine.DATA.Config
             #endregion
 
             #region Model Phase
-            modelBuilder.Entity<Phase>().HasKey(x => x.PhaseID);            
+            modelBuilder.Entity<Phase>().HasKey(x => x.PhaseID);
             modelBuilder.Entity<Phase>().Property(x => x.Title).HasMaxLength(150).IsRequired();
             modelBuilder.Entity<Phase>().Property(x => x.Description).HasMaxLength(1000);
             modelBuilder.Entity<Phase>().Property(x => x.StartDate);
             modelBuilder.Entity<Phase>().Property(x => x.EndDate);
             modelBuilder.Entity<Phase>().Property(x => x.DemoUrl).HasMaxLength(255);
+            #endregion
+
+            #region Model Objective
+            modelBuilder.Entity<Objective>().HasKey(x => x.ObjectiveID);
+            modelBuilder.Entity<Objective>().Property(x => x.Title).HasMaxLength(150).IsRequired();
+            modelBuilder.Entity<Objective>().Property(x => x.Description).HasMaxLength(1000);
+            modelBuilder.Entity<Objective>().Property(x => x.Completed);
+            modelBuilder.Entity<Objective>().Property(x => x.Weight);
+            modelBuilder.Entity<Objective>().Property(x => x.Estimated);
+            modelBuilder.Entity<Objective>().Property(x => x.Effort);
+            modelBuilder.Entity<Objective>().Property(x => x.PhaseID);
             #endregion
         }
     }

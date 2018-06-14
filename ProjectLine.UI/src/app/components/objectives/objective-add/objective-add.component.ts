@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, Form } from '@angular/forms';
+
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Objective } from '../../../models/objective.model';
+import { ObjectiveService } from '../../../services/objective.service';
 
 @Component({
   selector: 'app-objective-add',
@@ -9,17 +12,38 @@ import { Objective } from '../../../models/objective.model';
 })
 export class ObjectiveAddComponent implements OnInit {
 
-  @Input() objective: Objective;
-  @Output() notify: EventEmitter<any> = new EventEmitter<any>();
+  constructor(private fb: FormBuilder,
+    private objectiveService: ObjectiveService,
+    private router: Router) { }
 
-  objectForm: FormGroup;
-
-  constructor() {    
-
-  }
+  formGroup: FormGroup;
 
   ngOnInit() {
 
+    this.formGroup = this.fb.group({
+      title: '',
+      description: '',
+      completed: false,
+      weight: 0,
+      estimated: 0,
+      effort: 0,
+
+      phaseId: 1
+    });
+
   }
 
-}
+  save() {
+    let objective: Objective = Object.assign({}, this.formGroup.value);
+    console.table(objective);
+
+    this.objectiveService.createObjective(objective)
+      .subscribe(objective => this.onSaveSuccess(),
+        error => console.error(error));
+  }
+
+  onSaveSuccess() {
+    this.router.navigate(["/Objective"]);
+  }
+
+} 

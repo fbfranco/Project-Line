@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { HttpClientModule } from '@angular/common/http';
 // Components
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './layout/layout.component';
@@ -20,6 +21,7 @@ import { ObjectiveAddComponent } from './components/objectives/objective-add/obj
 // Services
 import { ClientService } from './services/client.service';
 import { ProjectService } from './services/project.service';
+import { ObjectiveService } from './services/objective.service';
 // Angular Material
 import { AngularMaterialModule } from './material/angular-material.module';
 import { RoutingModule } from './routes/routing.module';
@@ -52,16 +54,18 @@ import { ViewModelProject } from './models/viewmodelproject.model';
     BrowserModule,
     FormsModule,
     HttpModule,
+    HttpClientModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
     AngularMaterialModule,
     FlexLayoutModule,
     RoutingModule,
-    MatTableModule
+    MatTableModule,
   ],
   providers: [
     ClientService,
     ProjectService,
+    ObjectiveService,
     ViewModelProject
   ],
   bootstrap: [AppComponent]
