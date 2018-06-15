@@ -30,6 +30,7 @@ import { PhasesComponent } from './components/phases/phases.component';
 import { PhasesFormComponent } from './components/phases/phases-form/phases-form.component';
 import { MatTableModule } from '@angular/material';
 import { ViewModelProject } from './models/viewmodelproject.model';
+import { ObjectivesListComponent } from './components/objectives/objectives-list/objectives-list.component';
 
 
 
@@ -49,6 +50,7 @@ import { ViewModelProject } from './models/viewmodelproject.model';
     PhasesFormComponent,
     ObjectivesComponent,
     ObjectiveAddComponent,
+    ObjectivesListComponent,
   ],
   imports: [
     BrowserModule,
