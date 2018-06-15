@@ -21,4 +21,8 @@ export class ProjectService {
     const requestOptions = new RequestOptions({ method: RequestMethod.Post, headers: headerOptions });
     return this.http.post('http://localhost:44226/api/Projects', body, requestOptions);
   }
+
+  getProjectsList():Observable<Project[]> {
+    return this.http.get('http://localhost:44226/api/Projects').pipe(map((data: Response) => <Project[]>data.json()));
+  }
 }
