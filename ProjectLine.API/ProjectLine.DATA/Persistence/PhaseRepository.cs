@@ -13,6 +13,23 @@ namespace ProjectLine.DATA.Persistence
     {
         ProjectLineContext Context;
 
+        public Phase FindById(int id)
+        {
+            using (Context = new ProjectLineContext())
+            {
+                var result = Context.Phases.Where(s => s.PhaseID == id).FirstOrDefaultAsync();
+                return result.Result;
+            }
+        }
+        public async Task<IEnumerable<Phase>> GetPhases()
+        {
+            using (Context = new ProjectLineContext())
+            {
+                var result = await Context.Phases.Take(100).ToListAsync();
+                return result;
+            }
+        }
+
         public async Task Create(Phase phase)
         {
             try
@@ -28,49 +45,47 @@ namespace ProjectLine.DATA.Persistence
                 Console.Write(ex);
             }
         }
-
-        public async Task<Phase> FindById(int id)
+        public void Update(Phase phase)
         {
-            using (Context = new ProjectLineContext())
+            try
             {
-                var result = await Context.Phases.Where(s => s.PhaseID == id).FirstOrDefaultAsync();
-                return result;
+                var update = FindById(phase.PhaseID);
+                using (Context = new ProjectLineContext())
+                {
+                    update.Title = phase.Title;
+                    update.Description = phase.Description;
+                    update.StartDate = phase.StartDate;
+                    update.EndDate = phase.EndDate;
+                    update.DemoUrl = phase.DemoUrl;
+
+                    Context.Entry(update).State = EntityState.Modified;
+                    Context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
             }
         }
 
-        public async Task<IEnumerable<Phase>> GetPhases()
+        public void Update(Phase phase, ProjectLineContext context)
         {
-            using (Context = new ProjectLineContext())
+            try
             {
-                var result = await Context.Phases.Take(100).ToListAsync();
-                return result;
+                var update = FindById(phase.PhaseID);
+                update.Title = phase.Title;
+                update.Description = phase.Description;
+                update.StartDate = phase.StartDate;
+                update.EndDate = phase.EndDate;
+                update.DemoUrl = phase.DemoUrl;
+
+                context.Entry(update).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
             }
         }
-
-        Phase IPhaseRepository.FindById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        //public async Task Update(Phase phase)
-        //{
-        //    try
-        //    {
-        //        using (Context)
-        //        {
-        //            var update = FindById(phase.PhaseID);
-        //            update.Title = phase.Title;
-        //            update.Description = phase.Description;
-        //            update.StartDate = phase.StartDate;
-        //            update.EndDate = phase.EndDate;
-        //            update.DemoUrl = phase.DemoUrl;
-        //            await Context.SaveChangesAsync();
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.Write(ex);
-        //    }
-        //}
     }
 }

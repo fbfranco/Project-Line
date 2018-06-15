@@ -15,20 +15,30 @@ namespace ProjectLine.DATA.Persistence
    public class ProjectRepository : IProjectRepository
     {
         private ProjectLineContext Context= new ProjectLineContext();
+        private PhaseRepository phaseRepository = new PhaseRepository();
+
         public async Task<IEnumerable<Project>> GetProjects()
         {
-            //ProjectLineContext Context = new ProjectLineContext();
-            using (Context)
+            using (Context = new ProjectLineContext())
             {
-                var result = await Context.Projects.Take(100).ToListAsync();
+                var result = await Context.Projects.Include("Phases").Where(x => x.StatusID == 1).ToListAsync();
                 return result;
             }
         }
+        public Project FindById(int id)
+        {
+            using (Context = new ProjectLineContext())
+            {
+                var result = Context.Projects.Where(s => s.ProjectID == id).FirstOrDefaultAsync();
+                return result.Result;
+            }
+        }
+
         public void Create(ProjectViewModel project)
         {
             try
             {
-                using (var Trans=Context.Database.BeginTransaction())//destruir variables
+                using (var Trans=Context.Database.BeginTransaction())
                 {
                     try
                     {
@@ -54,7 +64,64 @@ namespace ProjectLine.DATA.Persistence
             {
                 Console.Write(ex);
             }
-            //throw new NotImplementedException();
+        }
+        public void Update(ProjectViewModel project)
+        {
+            try
+            {
+                var context = new ProjectLineContext();
+                using  (var Trans = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var update = FindById(project.Project.ProjectID);
+                        update.Title = project.Project.Title;
+                        update.Description = project.Project.Description;
+                        update.StartDate = project.Project.StartDate;
+                        update.EndDate = project.Project.EndDate;
+
+                        context.Entry(update).State = EntityState.Modified;
+                        context.SaveChanges();
+
+                        foreach (var phase in project.Phases)
+                        {
+                           phaseRepository.Update(phase);
+                        }
+                        Trans.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.Write(ex);
+                        Trans.Rollback();
+                    }
+                }
+                context.Dispose();
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+            }
         }
     }
 }
+
+//public async Task Update(Phase phase)
+//{
+//    try
+//    {
+//        using (Context)
+//        {
+//            var update = FindById(phase.PhaseID);
+//            update.Title = phase.Title;
+//            update.Description = phase.Description;
+//            update.StartDate = phase.StartDate;
+//            update.EndDate = phase.EndDate;
+//            update.DemoUrl = phase.DemoUrl;
+//            await Context.SaveChangesAsync();
+//        }
+//    }
+//    catch (Exception ex)
+//    {
+//        Console.Write(ex);
+//    }
+//}
