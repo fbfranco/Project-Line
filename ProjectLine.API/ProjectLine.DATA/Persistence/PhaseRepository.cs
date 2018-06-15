@@ -21,6 +21,12 @@ namespace ProjectLine.DATA.Persistence
                 return result.Result;
             }
         }
+        public Phase FindById(int id, ProjectLineContext context)
+        {
+            var result = context.Phases.Where(s => s.PhaseID == id).FirstOrDefaultAsync();
+            return result.Result;
+        }
+
         public async Task<IEnumerable<Phase>> GetPhases()
         {
             using (Context = new ProjectLineContext())
@@ -30,14 +36,14 @@ namespace ProjectLine.DATA.Persistence
             }
         }
 
-        public async Task Create(Phase phase)
+        public void Create(Phase phase)
         {
             try
             {
                 using (Context = new ProjectLineContext())
                 {
                     Context.Phases.Add(phase);
-                    await Context.SaveChangesAsync();
+                    Context.SaveChanges();
                 }
             }
             catch (Exception ex)
@@ -45,6 +51,19 @@ namespace ProjectLine.DATA.Persistence
                 Console.Write(ex);
             }
         }
+        public void Create(Phase phase, ProjectLineContext context)
+        {
+            try
+            {
+                context.Phases.Add(phase);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+            }
+        }
+
         public void Update(Phase phase)
         {
             try
@@ -67,7 +86,6 @@ namespace ProjectLine.DATA.Persistence
                 Console.Write(ex);
             }
         }
-
         public void Update(Phase phase, ProjectLineContext context)
         {
             try
@@ -80,6 +98,37 @@ namespace ProjectLine.DATA.Persistence
                 update.DemoUrl = phase.DemoUrl;
 
                 context.Entry(update).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+            }
+        }
+
+        public void Delete(int id)
+        {
+            try
+            {
+                var phaseDelete = FindById(id);
+                using (var Context = new ProjectLineContext())
+                {
+                    Context.Phases.Remove(phaseDelete);
+                    Context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+            }
+        }
+        public void Delete(int id, ProjectLineContext context)
+        {
+            try
+            {
+                var phaseDelete = FindById(id, context);
+
+                context.Phases.Remove(phaseDelete);
                 context.SaveChanges();
             }
             catch (Exception ex)
