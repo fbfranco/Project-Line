@@ -26,3 +26,17 @@ D:\infoarch\ProjectLine\ProjectLine.API\ProjectLine.DATA\obj\Debug\ProjectLine.D
 D:\infoarch\ProjectLine\ProjectLine.API\ProjectLine.DATA\obj\Debug\ProjectLine.DATA.csproj.CopyComplete
 D:\infoarch\ProjectLine\ProjectLine.API\ProjectLine.DATA\obj\Debug\ProjectLine.DATA.dll
 D:\infoarch\ProjectLine\ProjectLine.API\ProjectLine.DATA\obj\Debug\ProjectLine.DATA.pdb
+C:\Users\Bismarck.Franco\Documents\ProjectLine\ProjectLine.API\ProjectLine.DATA\bin\Debug\ProjectLine.DATA.dll.config
+C:\Users\Bismarck.Franco\Documents\ProjectLine\ProjectLine.API\ProjectLine.DATA\bin\Debug\ProjectLine.DATA.dll
+C:\Users\Bismarck.Franco\Documents\ProjectLine\ProjectLine.API\ProjectLine.DATA\bin\Debug\ProjectLine.DATA.pdb
+C:\Users\Bismarck.Franco\Documents\ProjectLine\ProjectLine.API\ProjectLine.DATA\bin\Debug\EntityFramework.dll
+C:\Users\Bismarck.Franco\Documents\ProjectLine\ProjectLine.API\ProjectLine.DATA\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Bismarck.Franco\Documents\ProjectLine\ProjectLine.API\ProjectLine.DATA\bin\Debug\ProjectLine.CORE.dll
+C:\Users\Bismarck.Franco\Documents\ProjectLine\ProjectLine.API\ProjectLine.DATA\bin\Debug\ProjectLine.CORE.pdb
+C:\Users\Bismarck.Franco\Documents\ProjectLine\ProjectLine.API\ProjectLine.DATA\bin\Debug\EntityFramework.xml
+C:\Users\Bismarck.Franco\Documents\ProjectLine\ProjectLine.API\ProjectLine.DATA\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Bismarck.Franco\Documents\ProjectLine\ProjectLine.API\ProjectLine.DATA\obj\Debug\ProjectLine.DATA.csprojAssemblyReference.cache
+C:\Users\Bismarck.Franco\Documents\ProjectLine\ProjectLine.API\ProjectLine.DATA\obj\Debug\ProjectLine.DATA.csproj.CoreCompileInputs.cache
+C:\Users\Bismarck.Franco\Documents\ProjectLine\ProjectLine.API\ProjectLine.DATA\obj\Debug\ProjectLine.DATA.csproj.CopyComplete
+C:\Users\Bismarck.Franco\Documents\ProjectLine\ProjectLine.API\ProjectLine.DATA\obj\Debug\ProjectLine.DATA.dll
+C:\Users\Bismarck.Franco\Documents\ProjectLine\ProjectLine.API\ProjectLine.DATA\obj\Debug\ProjectLine.DATA.pdb

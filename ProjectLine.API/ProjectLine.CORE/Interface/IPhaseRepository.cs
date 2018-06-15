@@ -12,7 +12,6 @@ namespace ProjectLine.CORE.Interface
         Task Create(Phase phase);
         Task<IEnumerable<Phase>> GetPhases();
         Phase FindById(int id);
-
-        //Task Update(Phase phase);
+        void Update(Phase phase);
     }
 }
