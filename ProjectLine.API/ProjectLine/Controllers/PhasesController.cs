@@ -31,7 +31,7 @@ namespace ProjectLine.Controllers
         }        
 
         // POST: api/Phases
-        public async Task<IHttpActionResult> PostPhase([FromBody]Phase phase)
+        public IHttpActionResult PostPhase([FromBody]Phase phase)
         {
             if (!ModelState.IsValid)
             {
@@ -41,7 +41,7 @@ namespace ProjectLine.Controllers
             {
                 try 
                 {
-                    await Repository.Create(phase);
+                    Repository.Create(phase);
                     return Ok();
                 } 
                 catch (Exception error) 

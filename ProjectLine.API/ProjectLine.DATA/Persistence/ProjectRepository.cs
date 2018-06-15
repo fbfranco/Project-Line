@@ -29,7 +29,7 @@ namespace ProjectLine.DATA.Persistence
         {
             using (Context = new ProjectLineContext())
             {
-                var result = Context.Projects.Where(s => s.ProjectID == id).FirstOrDefaultAsync();
+                var result = Context.Projects.Include("Phases").Where(s => s.ProjectID == id).FirstOrDefaultAsync();
                 return result.Result;
             }
         }
@@ -74,7 +74,30 @@ namespace ProjectLine.DATA.Persistence
                 {
                     try
                     {
+                        //Get Project of the DB
                         var update = FindById(project.Project.ProjectID);
+
+                        foreach (var phaseDelete in update.Phases)
+                        {
+                            var phaseFound = false;
+                            foreach (var phaseView in project.Phases)
+                            {
+                                //Check exist phase of the DB
+                                if (phaseDelete.PhaseID == phaseView.PhaseID)
+                                {
+                                    phaseFound = true;
+                                    break;
+                                }
+                            }
+
+                            if (!phaseFound)
+                            {
+                                //Delete phase if no exist in the DB
+                                phaseRepository.Delete(phaseDelete.PhaseID, context);
+                            }
+                        }
+
+                        //Update Project Data
                         update.Title = project.Project.Title;
                         update.Description = project.Project.Description;
                         update.StartDate = project.Project.StartDate;
@@ -85,7 +108,17 @@ namespace ProjectLine.DATA.Persistence
 
                         foreach (var phase in project.Phases)
                         {
-                           phaseRepository.Update(phase);
+                            if (phase.PhaseID == 0)
+                            {
+                                //Add phase if no exist in the DB
+                                phase.ProjectID = project.Project.ProjectID;
+                                phaseRepository.Create(phase, context);
+                            }
+                            else
+                            {
+                                //Update phase if exist in the DB
+                                phaseRepository.Update(phase, context);
+                            }
                         }
                         Trans.Commit();
                     }
@@ -104,24 +137,3 @@ namespace ProjectLine.DATA.Persistence
         }
     }
 }
-
-//public async Task Update(Phase phase)
-//{
-//    try
-//    {
-//        using (Context)
-//        {
-//            var update = FindById(phase.PhaseID);
-//            update.Title = phase.Title;
-//            update.Description = phase.Description;
-//            update.StartDate = phase.StartDate;
-//            update.EndDate = phase.EndDate;
-//            update.DemoUrl = phase.DemoUrl;
-//            await Context.SaveChangesAsync();
-//        }
-//    }
-//    catch (Exception ex)
-//    {
-//        Console.Write(ex);
-//    }
-//}

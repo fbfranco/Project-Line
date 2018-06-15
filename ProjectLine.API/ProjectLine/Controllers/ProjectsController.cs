@@ -23,6 +23,13 @@ namespace ProjectLine.Controllers
     {
         ProjectRepository Repository = new ProjectRepository();
 
+        // GET: api/Projects
+        public async Task<IEnumerable<Project>> Get()
+        {
+            var project = await Repository.GetProjects();
+            return project;
+        }
+        
         //POST api/<controller>
         public IHttpActionResult Post([FromBody]ProjectViewModel model)
         {
@@ -69,11 +76,5 @@ namespace ProjectLine.Controllers
             }
         }
 
-            // GET: api/Projects
-            public async Task<IEnumerable<Project>> GetProjects()
-        {
-            var project = await Repository.GetProjects();
-            return project;
-        }
     }
 }
