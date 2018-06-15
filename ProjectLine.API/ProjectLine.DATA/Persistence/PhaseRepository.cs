@@ -49,17 +49,38 @@ namespace ProjectLine.DATA.Persistence
         {
             try
             {
+                var update = FindById(phase.PhaseID);
                 using (Context = new ProjectLineContext())
                 {
-                    var update = FindById(phase.PhaseID);
                     update.Title = phase.Title;
                     update.Description = phase.Description;
                     update.StartDate = phase.StartDate;
                     update.EndDate = phase.EndDate;
                     update.DemoUrl = phase.DemoUrl;
-                    Context = new ProjectLineContext();
+
+                    Context.Entry(update).State = EntityState.Modified;
                     Context.SaveChanges();
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+            }
+        }
+
+        public void Update(Phase phase, ProjectLineContext context)
+        {
+            try
+            {
+                var update = FindById(phase.PhaseID);
+                update.Title = phase.Title;
+                update.Description = phase.Description;
+                update.StartDate = phase.StartDate;
+                update.EndDate = phase.EndDate;
+                update.DemoUrl = phase.DemoUrl;
+
+                context.Entry(update).State = EntityState.Modified;
+                context.SaveChanges();
             }
             catch (Exception ex)
             {

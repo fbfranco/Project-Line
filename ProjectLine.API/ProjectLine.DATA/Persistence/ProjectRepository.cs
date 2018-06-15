@@ -80,13 +80,14 @@ namespace ProjectLine.DATA.Persistence
                         update.StartDate = project.Project.StartDate;
                         update.EndDate = project.Project.EndDate;
 
+                        context.Entry(update).State = EntityState.Modified;
+                        context.SaveChanges();
+
                         foreach (var phase in project.Phases)
                         {
                            phaseRepository.Update(phase);
                         }
-                        context.SaveChanges();
                         Trans.Commit();
-                        context.SaveChanges();
                     }
                     catch (Exception ex)
                     {
