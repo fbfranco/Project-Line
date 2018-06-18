@@ -1,20 +1,17 @@
 <h3>Objective</h3>
 <br>
-<!-- <a routerLink="/Objective/Add"> -->
-<button mat-raised-button (click)="openDialog()"> Add Objective</button>
-<!-- </a> -->
+<a mat-raised-button (click)="openDialog(myForm)"> Add Objective</a>
 <br>
 <br>
-<form [formGroup]="stateForm">
+
+<form class="example-form" [formGroup]="formGroup">
     <mat-form-field>
-        <input type="text" matInput placeholder="States Group" formControlName="stateGroup" required [matAutocomplete]="autoGroup"
-        />
-        <mat-autocomplete #autoGroup="matAutocomplete">
-            <mat-optgroup *ngFor="let group of stateGroupOptions | async" [label]="group.letter">
-                <mat-option *ngFor="let name of group.names" [value]="name">
-                    {{ name }}
-                </mat-option>
-            </mat-optgroup>
-        </mat-autocomplete>
+        <input matInput placeholder="Choose option" [formControl]="myForm" [matAutocomplete]="auto" formControlName="title"/>
     </mat-form-field>
+
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let item of filteredOptions | async" [value]="item">
+            <div>{{item.cat}}</div>
+        </mat-option>
+    </mat-autocomplete>
 </form>
