@@ -29,7 +29,8 @@ import {
   MatCardModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatAutocompleteModule
  } from '@angular/material';
 
 @NgModule({
@@ -51,6 +52,7 @@ import {
     FormsModule,
     ReactiveFormsModule,
     MatCheckboxModule,
+    MatAutocompleteModule,
   ],
   exports: [
     CommonModule,
@@ -70,6 +72,7 @@ import {
     FormsModule,
     ReactiveFormsModule,
     MatCheckboxModule,
+    MatAutocompleteModule,
   ]
 })
 

@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Objective } from '../../../models/objective.model';
 import { ObjectiveService } from '../../../services/objective.service';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-objective-add',
@@ -12,9 +12,13 @@ import { ObjectiveService } from '../../../services/objective.service';
 })
 export class ObjectiveAddComponent implements OnInit {
 
-  constructor(private fb: FormBuilder,
+  constructor(
+
+    private fb: FormBuilder,
     private objectiveService: ObjectiveService,
-    private router: Router) { }
+    private dialogRef: MatDialogRef<ObjectiveAddComponent>
+
+  ) { }
 
   formGroup: FormGroup;
 
@@ -43,7 +47,11 @@ export class ObjectiveAddComponent implements OnInit {
   }
 
   onSaveSuccess() {
-    this.router.navigate(["/Objective"]);
+    // this.router.navigate(["/Objective"]);
+  }
+
+  onCancelClick(): void {
+    this.dialogRef.close();
   }
 
 } 
