@@ -22,6 +22,13 @@ export class ProjectService {
     return this.http.post('http://localhost:44226/api/Projects', body, requestOptions);
   }
 
+  putProject(model: ViewModelProject) {
+    const body = JSON.stringify(model);
+    const headerOptions = new Headers({ 'Content-Type': 'application/json' });
+    const requestOptions = new RequestOptions({ method: RequestMethod.Post, headers: headerOptions });
+    return this.http.put(`http://localhost:44226/api/Projects/${model.Project.ProjectID}`, body, requestOptions);
+  }
+
   getProjectsList(): Observable<Project[]> {
     return this.http.get('http://localhost:44226/api/Projects').pipe(map((data: Response) => <Project[]>data.json()));
   }
