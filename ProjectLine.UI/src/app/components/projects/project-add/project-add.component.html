@@ -1,5 +1,4 @@
 <form #projectForm="ngForm" (ngSubmit)="onSubmit(projectForm)">
-  <!-- <mat-card> -->
     <mat-card-header fxLayout="column">
       <span class="title">Add Project</span>
     </mat-card-header>
@@ -12,36 +11,38 @@
           <mat-hint align="end">{{Title.value?.length || 0}}/150</mat-hint>
         <div *ngIf="Title.invalid && Title.touched">This Field is Required.</div>
       </mat-form-field>
+
       <!-- Description -->
       <mat-form-field>
         <textarea matInput maxlength="1000" placeholder="Description" matTextareaAutosize matAutosizeMinRows="4" matAutosizeMaxRows="5"
           name="Description" #Description="ngModel" [(ngModel)]="projectService.selectedProject.Description"></textarea>
         <mat-hint align="end">{{Description.value?.length || 0}}/1000</mat-hint>
       </mat-form-field>
+
       <div class="date-content" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign.gt-xs="space-between start" fxLayoutAlign.md="space-between start">
         <!-- Start Date -->
         <mat-form-field>
-        <input matInput [max]="projectService.selectedProject.EndDate" [matDatepicker]="startdate" placeholder="Start Date*" name="StartDate" #StartDate="ngModel"
+          <input matInput [max]="projectService.selectedProject.EndDate" [matDatepicker]="startdate" placeholder="Start Date*" name="StartDate" #StartDate="ngModel"
           [(ngModel)]="projectService.selectedProject.StartDate" >
           <mat-datepicker-toggle matSuffix [for]="startdate"></mat-datepicker-toggle>
           <mat-datepicker #startdate disabled="false"></mat-datepicker>
         </mat-form-field>
         <!-- End Date -->
-        <!-- AQUI -->
         <mat-form-field>
           <input matInput [min]="projectService.selectedProject.StartDate" [matDatepicker]="endDate" placeholder="Stimated End Date*"  name="EndDate" #EndDate="ngModel" [(ngModel)]="projectService.selectedProject.EndDate">
           <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
           <mat-datepicker #endDate disabled="false"></mat-datepicker>
         </mat-form-field>
       </div>
+
       <div fxLayout="row" fxLayoutGap="1em" class="form-options">
         <a mat-raised-button color="primary" *ngIf="projectForm.valid" (click)="AddRows()">Add Phase</a>
       </div>
-      <div *ngIf="confirmMessage == 1"><span>Successfull !</span></div>
+
       <div class="table-phases" *ngIf="dataSource.data.length > 0">
         <h4 class="title">Phases</h4>
         <table mat-table #phasesGrid [dataSource]="dataSource" class="mat-elevation-z8">
-          <!--Nro Column -->
+        <!--Nro Column -->
         <ng-container matColumnDef="state">
           <th mat-header-cell *matHeaderCellDef> State </th>
           <td mat-cell *matCellDef="let element"> {{element.state}} </td>
@@ -62,14 +63,14 @@
         <!-- start Date Column -->
         <ng-container matColumnDef="StartDate">
           <th mat-header-cell *matHeaderCellDef> Start Date </th>
-          <td mat-cell *matCellDef="let element"> {{element.StartDate}} </td>
+          <td mat-cell *matCellDef="let element"> {{DateFormat(element.StartDate)}} </td>
         </ng-container>
 
         <!-- End date Column -->
         <!-- AQUI -->
         <ng-container matColumnDef="EndDate">
           <th mat-header-cell *matHeaderCellDef> Stimated End Date </th>
-          <td mat-cell *matCellDef="let element"> {{element.EndDate}} </td>
+          <td mat-cell *matCellDef="let element"> {{DateFormat(element.EndDate)}} </td>
         </ng-container>
 
           <!-- Edit Column -->
@@ -90,11 +91,9 @@
       </table>
       </div>
     </mat-card-content>
-    <!-- AQUI -->
     <div fxLayout="row" fxLayoutGap="1em" class="form-options">
       <button mat-raised-button color="primary" [disabled]="!projectForm.valid" type="submit">Save</button>
       <a mat-raised-button color="warn">Cancel</a>
     </div>
-<!-- </mat-card> -->
 </form>
 

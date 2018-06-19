@@ -24,14 +24,14 @@ namespace ProjectLine.Controllers
         ProjectRepository Repository = new ProjectRepository();
 
         // GET: api/Projects
-        public async Task<IEnumerable<Project>> Get()
+        public async Task<IEnumerable<Project>> GetProjects()
         {
             var project = await Repository.GetProjects();
             return project;
         }
         
         //POST api/<controller>
-        public IHttpActionResult Post([FromBody]ProjectViewModel model)
+        public IHttpActionResult SaveProject([FromBody]ProjectViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -52,7 +52,7 @@ namespace ProjectLine.Controllers
         }
 
         // PUT: api/Phases/5
-        public IHttpActionResult Put(int id, [FromBody]ProjectViewModel model)
+        public IHttpActionResult UpdateProject(int id, [FromBody]ProjectViewModel model)
         {
             if (!ModelState.IsValid || id != model.Project.ProjectID)
             {

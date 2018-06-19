@@ -1,17 +1,6 @@
-import {  
-  NgModule, 
-  Component
-} from '@angular/core';
-
-import { 
-  FormControl,
-  FormsModule,
-  ReactiveFormsModule
-} from '@angular/forms';
-
+import { NgModule } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
-
 
 // Angular Material Components
 import {
@@ -19,7 +8,6 @@ import {
   MatSidenavModule,
   MatIconModule,
   MatButtonModule,
-  MatAccordionDisplayMode,
   MatExpansionModule,
   MatMenuModule,
   MatFormFieldModule,
@@ -31,6 +19,7 @@ import {
   MatNativeDateModule
  } from '@angular/material';
 
+ import { MatSnackBarModule } from '@angular/material/snack-bar';
 @NgModule({
   imports: [
     CommonModule,
@@ -49,6 +38,7 @@ import {
     MatNativeDateModule,
     FormsModule,
     ReactiveFormsModule,
+    MatSnackBarModule
 
   ],
   exports: [
@@ -68,6 +58,7 @@ import {
     MatNativeDateModule,
     FormsModule,
     ReactiveFormsModule,
+    MatSnackBarModule
 
   ]
 })
