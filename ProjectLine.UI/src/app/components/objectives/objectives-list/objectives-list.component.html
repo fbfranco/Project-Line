@@ -1,12 +1,29 @@
-<form [formGroup]="stateForm">
-  <mat-form-field>
-    <input type="text" matInput placeholder="States Group" formControlName="stateGroup" required [matAutocomplete]="autoGroup"/>
-      <mat-autocomplete #autoGroup="matAutocomplete">
-        <mat-optgroup *ngFor="let group of stateGroupOptions | async" [label]="group.letter">
-          <mat-option *ngFor="let name of group.names" [value]="name">
-            {{ name }}
-          </mat-option>
-      </mat-optgroup>
+<form class="example-form">
+  <mat-form-field class="example-full-width">
+    <input type="text" placeholder="Select Project" aria-label="Number" matInput [matAutocomplete]="ProjectList">
+    <mat-autocomplete #ProjectList="matAutocomplete" (optionSelected)="warehouseChanged($event)" 
+    [displayWith]="displayWarehouseFn">
+      <mat-option *ngFor="let Project of ListProjects" [value]="Project">
+        {{ Project.Title }}
+      </mat-option>
     </mat-autocomplete>
-  </mat-form-field> 
-</form>  
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input type="text" placeholder="Select Phase" aria-label="Number" matInput  [matAutocomplete]="PhasesList">
+    <mat-autocomplete #PhasesList="matAutocomplete">
+      <mat-option *ngFor="let Phase of ListPhases" [value]="Phase.Title">
+        {{ Phase.Title}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
+
+<form class="example-form">
+
+</form>
+
+
+
+
+

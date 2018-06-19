@@ -1,109 +1,69 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { MatTableDataSource } from '@angular/material';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
+//Services
+import { ProjectService } from "../../../services/project.service";
+import { PhaseService } from "../../../services/phase.service";
+// Models
+import { Project } from "../../../models/project.model";
+import { Phase } from "../../../models/phase.model";
 
-export interface StateGroup {
-  letter: string;
-  names: string[];
-}
 
 @Component({
   selector: 'app-objectives-list',
   templateUrl: './objectives-list.component.html',
-  styleUrls: ['./objectives-list.component.css']
+  styleUrls: ['./objectives-list.component.scss']
 })
+
 export class ObjectivesListComponent implements OnInit {
-  stateForm: FormGroup = this.fb.group({
-    stateGroup: '',
-  });
+  //myControl: FormControl = new FormControl();
 
-  stateGroups: StateGroup[] = [{
-    letter: 'A',
-    names: ['Alabama', 'Alaska', 'Arizona', 'Arkansas']
-  }, {
-    letter: 'C',
-    names: ['California', 'Colorado', 'Connecticut']
-  }, {
-    letter: 'D',
-    names: ['Delaware']
-  }, {
-    letter: 'F',
-    names: ['Florida']
-  }, {
-    letter: 'G',
-    names: ['Georgia']
-  }, {
-    letter: 'H',
-    names: ['Hawaii']
-  }, {
-    letter: 'I',
-    names: ['Idaho', 'Illinois', 'Indiana', 'Iowa']
-  }, {
-    letter: 'K',
-    names: ['Kansas', 'Kentucky']
-  }, {
-    letter: 'L',
-    names: ['Louisiana']
-  }, {
-    letter: 'M',
-    names: ['Maine', 'Maryland', 'Massachusetts', 'Michigan',
-      'Minnesota', 'Mississippi', 'Missouri', 'Montana']
-  }, {
-    letter: 'N',
-    names: ['Nebraska', 'Nevada', 'New Hampshire', 'New Jersey',
-      'New Mexico', 'New York', 'North Carolina', 'North Dakota']
-  }, {
-    letter: 'O',
-    names: ['Ohio', 'Oklahoma', 'Oregon']
-  }, {
-    letter: 'P',
-    names: ['Pennsylvania']
-  }, {
-    letter: 'R',
-    names: ['Rhode Island']
-  }, {
-    letter: 'S',
-    names: ['South Carolina', 'South Dakota']
-  }, {
-    letter: 'T',
-    names: ['Tennessee', 'Texas']
-  }, {
-    letter: 'U',
-    names: ['Utah']
-  }, {
-    letter: 'V',
-    names: ['Vermont', 'Virginia']
-  }, {
-    letter: 'W',
-    names: ['Washington', 'West Virginia', 'Wisconsin', 'Wyoming']
-  }];
+  //List Projects
+  ListProjects : Project[];
+  ListPhases: Phase[];
 
-  stateGroupOptions: Observable<StateGroup[]>;
+  
+  warehouseId: number;
 
-  constructor(private fb: FormBuilder) { }
+  constructor( public projectService: ProjectService, public phasesServices:PhaseService) { }
 
-  ngOnInit() {
-    this.stateGroupOptions = this.stateForm.get('stateGroup')!.valueChanges
-      .pipe(
-        startWith(''),
-        map(val => this.filterGroup(val))
-      );
+  //show Item Autocomplete
+  displayWarehouseFn(warehouse): string {
+    if (!warehouse ) return '';
+    console.log(warehouse);
+    return warehouse ? warehouse.Title : warehouse;
   }
 
-  filterGroup(val: string): StateGroup[] {
-    if (val) {
-      return this.stateGroups
-        .map(group => ({ letter: group.letter, names: this._filter(group.names, val) }))
-        .filter(group => group.names.length > 0);
-    }
-
-    return this.stateGroups;
+  //Event Get ProjectID
+  warehouseChanged(event): void{
+    //get Warehose Stocks for the drop down select
+    this.warehouseId = event.option.value.ProjectID;
+    console.log("ProjectID: "+this.warehouseId);
+    
   }
 
-  private _filter(opt: string[], val: string) {
-    const filterValue = val.toLowerCase();
-    return opt.filter(item => item.toLowerCase().startsWith(filterValue));
+  ngOnInit() 
+  {  
+    //getting service data Projects List
+    this.projectService.getProjectsList().subscribe((datalist: Project[])=>{
+      this.ListProjects = datalist;
+      console.log(this.ListProjects);
+    },error=>{
+      console.log("Error getting the list of projects");
+    });
+
+      //getting service data Phases List
+      console.log(this.ListPhases);
+      this.phasesServices.getPhasesList(this.warehouseId).subscribe((datalistPhase: Phase[])=>{
+        this.ListPhases = datalistPhase;
+        
+      },error=>{
+        console.log("Error getting the list of Phases");
+      });
+    
   }
+
 
 }
