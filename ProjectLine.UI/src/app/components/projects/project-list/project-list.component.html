@@ -5,51 +5,49 @@
     <button mat-raised-button color="primary" (click)="newProject()"> Add Project</button>
   </a>
 </div>
-
-<table mat-table [dataSource]="ListProjects" class="mat-elevation-z8">
-  <!-- ID Column -->
-  <ng-container matColumnDef="ProjectID">
-    <th mat-header-cell *matHeaderCellDef> Id. </th>
-    <td mat-cell *matCellDef="let project"> {{project.ProjectID}} </td>
-  </ng-container>
-  <!-- Title Column -->
-  <ng-container matColumnDef="Title">
-    <th mat-header-cell *matHeaderCellDef> Title </th>
-    <td mat-cell *matCellDef="let project"> {{project.Title}} </td>
-  </ng-container>
-  <!-- Description Column -->
-  <ng-container matColumnDef="Description">
-    <th mat-header-cell *matHeaderCellDef> Description </th>
-    <td mat-cell *matCellDef="let project"> {{project.Description}} </td>
-  </ng-container>
-  <!-- StartDate Column -->
-  <ng-container matColumnDef="StartDate">
-    <th mat-header-cell *matHeaderCellDef> Start Date </th>
-    <td mat-cell *matCellDef="let project"> {{project.StartDate | date: 'MM/dd/yyyy'}} </td>
-  </ng-container>
-  <!-- EndDate Column -->
-  <ng-container matColumnDef="EndDate">
-    <th mat-header-cell *matHeaderCellDef> Estimate Date </th>
-    <td mat-cell *matCellDef="let project"> {{project.EndDate | date: 'MM/dd/yyyy'}} </td>
-  </ng-container>
-  <!-- Edit Column -->
-  <ng-container matColumnDef="Edit">
-    <th mat-header-cell *matHeaderCellDef> Edit </th>
-    <td mat-cell *matCellDef="let project">
-      <a mat-raised-button routerLink="/Project/Edit" (click)="getSelectedProject(project)">
-        <i class="fas fa-edit"></i>
-      </a>
-    </td>
-  </ng-container>
-  <!-- Delete Column -->
-  <ng-container matColumnDef="Delete">
-    <th mat-header-cell *matHeaderCellDef> Detele </th>
-    <td mat-cell *matCellDef="let project">
-      <a mat-raised-button color="warn">
-        <i class="fas fa-times"></i>
-      </a>
-    </td>
-  </ng-container>
-  <tr mat-header-row *matHeaderRowDef="HeaderColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: HeaderColumns;"></tr>
-</table>
+<div class="table-content">
+  <table mat-table [dataSource]="ListProjects" class="mat-elevation-z8">
+    <!-- Title Column -->
+    <ng-container matColumnDef="Title">
+      <th mat-header-cell *matHeaderCellDef> Title </th>
+      <td mat-cell *matCellDef="let project"> {{project.Title}} </td>
+    </ng-container>
+    <!-- Description Column -->
+    <ng-container matColumnDef="Description">
+      <th mat-header-cell *matHeaderCellDef> Description </th>
+      <td mat-cell *matCellDef="let project">
+        <div class="long-cell"> {{project.Description}} </div>
+      </td>
+    </ng-container>
+    <!-- StartDate Column -->
+    <ng-container matColumnDef="StartDate">
+      <th mat-header-cell *matHeaderCellDef> Start Date </th>
+      <td mat-cell *matCellDef="let project"> {{project.StartDate | date: 'MM/dd/yyyy'}} </td>
+    </ng-container>
+    <!-- EndDate Column -->
+    <ng-container matColumnDef="EndDate">
+      <th mat-header-cell *matHeaderCellDef> Estimate End Date </th>
+      <td mat-cell *matCellDef="let project"> {{project.EndDate | date: 'MM/dd/yyyy'}} </td>
+    </ng-container>
+    <!-- Edit Column -->
+    <ng-container matColumnDef="Edit">
+      <th mat-header-cell *matHeaderCellDef> Edit </th>
+      <td mat-cell *matCellDef="let project">
+        <a mat-raised-button routerLink="/Project/Edit" (click)="getSelectedProject(project)">
+          <i class="fas fa-edit"></i>
+        </a>
+      </td>
+    </ng-container>
+    <!-- Delete Column -->
+    <ng-container matColumnDef="Delete">
+      <th mat-header-cell *matHeaderCellDef> Detele </th>
+      <td mat-cell *matCellDef="let project">
+        <a mat-raised-button color="warn">
+          <i class="fas fa-times"></i>
+        </a>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="HeaderColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: HeaderColumns;"></tr>
+  </table>
+</div>

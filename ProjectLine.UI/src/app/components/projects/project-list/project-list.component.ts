@@ -15,7 +15,7 @@ export class ProjectListComponent implements OnInit {
 
   // List Projects
   ListProjects: Project[];
-  HeaderColumns = ['ProjectID', 'Title', 'Description', 'StartDate', 'EndDate', 'Edit', 'Delete'];
+  HeaderColumns = ['Title', 'Description', 'StartDate', 'EndDate', 'Edit', 'Delete'];
 
   constructor( public projectService: ProjectService,
                private phasesService: PhaseService) { }

@@ -1,16 +1,35 @@
-// VARIABLES
-$color-primary: rgb(6, 170, 214);
-$color-dark: rgb(34, 45, 49);
-
+//Buttons and Controllers
 .div-controller{
     width: 100%;
     display: inline-block;
     button{
         float: right;
+        @media screen and (max-width: 1024px) {
+            float: left;
+        }
     }
 }
-
-//Table
-table{
-    width: 100%;
+//Data-Table
+.table-content{
+    position: relative;
+    table{
+        width: 100%;
+        @media screen and (max-width: 320px) {
+            width: 100%;
+            display: block;
+            overflow-x: auto;
+        }
+    }
+    th{
+        text-align: center;
+    }
+    td{
+        margin: 0;
+        padding: 12px;
+    }
+    .long-cell{
+        width: 100%;
+        max-height:50px;
+        overflow-y: auto;
+    }
 }
