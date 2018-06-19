@@ -1,6 +1,6 @@
 <mat-card>
 
-  <form class="width-form" novalidate (ngSubmit)="save()" [formGroup]="formGroup">
+  <form class="width-form" novalidate (ngSubmit)="saveObjective()" [formGroup]="formGroup">
 
     <mat-card-header fxLayoutAlign="center start">
       <h1 mat-dialog-title>Add Objective</h1>
@@ -12,7 +12,7 @@
     <mat-card-content mat-dialog-content fxLayout="column">
       <!-- Title -->
       <mat-form-field>
-        <input matInput #Title maxlength="150" placeholder="Title" formControlName="title" required>
+        <input matInput #Title maxlength="150" placeholder="Title" formControlName="title" required autofocus>
         <mat-hint align="end">{{Title.value?.length || 0}}/150</mat-hint>
       </mat-form-field>
       <!-- Description -->

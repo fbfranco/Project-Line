@@ -1,63 +1,83 @@
 import { Component, OnInit } from '@angular/core';
-
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { startWith, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ObjectiveAddComponent } from './objective-add/objective-add.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { PhaseService } from "../../services/phase.service";
+import { Phase } from '../../models/phase.model';
 
 @Component({
   selector: 'app-objectives',
   templateUrl: './objectives.component.html',
-  styleUrls: ['./objectives.component.css']
 })
 export class ObjectivesComponent implements OnInit {
 
+  binLocationForm: FormGroup;
+  phaseList: Phase[] = [];
+  warehouseStockCtrl: FormControl;
+  filteredPhases: Observable<Phase[]>;
+  phaseIdNumber: number;
+
   constructor(
-
-    public dialog: MatDialog,
-    private fb: FormBuilder
-
-  ) { }
-
-  openDialog() {
-    console.log(this.formGroup);
+    private fb: FormBuilder,
+    private dialog: MatDialog,
+    private phaseService: PhaseService,
+    private snackBar: MatSnackBar,
+  ) {
+    this.warehouseStockCtrl = new FormControl();
   }
 
-  myForm: FormControl;
-  filteredOptions: Observable<any[]>;
+  ngOnInit() {
+    this.getPhasesList();
+  }
 
-  formGroup: FormGroup;
-  variable: string;
-
-  options: any[] = [
-    { "id": 1, "name": "colour", "cat": "red" },
-    { "id": 2, "name": "colour", "cat": "blue" },
-    { "id": 3, "name": "colour", "cat": "green" }
-  ];
-
-  ngOnInit(): void {
-    this.myForm = new FormControl();
-    this.filteredOptions = this.myForm.valueChanges
-      .pipe(
-        startWith(''),
-        map(val => this.findOption(val))
-      );
-
-    this.formGroup = this.fb.group({
-      title: '',
-      description: ''
+  newGroup(): void {
+    this.binLocationForm = this.fb.group({
+      warehouseId: ['', Validators.required]
     });
   }
 
-  findOption(val: string) {
-    this.variable=val;
-    console.log(val.toString()+"---------");
-    return this.options.filter((s) => new RegExp(val, 'gi').test(s.cat));
+  getPhasesList(): void {
+    this.phaseService.getPhaseList().subscribe((datalist: Phase[]) => {
+      this.phaseList = datalist;
+    }, error => {
+      console.log('Error getting the list of projects');
+    });
   }
 
-  displayFn(country): string {
-    return country ? country.cat : country;
+  filterInput(): void {
+    this.filteredPhases = this.binLocationForm.controls.warehouseId.valueChanges
+      .pipe(
+        startWith(''),
+        map(warehouse => warehouse ? this.filterPhases(warehouse) : this.phaseList.slice())
+      );
+  }
+
+  filterPhases(warehouseFilter: string) {
+    return this.phaseList.filter(val =>
+      val.Title.toLowerCase().indexOf(warehouseFilter) === 0);
+  }
+
+  warehouseChanged(event): void {
+    this.phaseIdNumber = event.option.value.PhaseID;
+  }
+
+  displayFn(val): string {
+    if (!val) return '';
+    return val ? val.Title : val;
+  }
+
+  openDialog() {
+    if (this.phaseIdNumber > 0) {
+      const dialogRef = this.dialog.open(ObjectiveAddComponent, {
+        data: this.phaseIdNumber
+      });
+    } else {
+      this.snackBar.open('Wait', 'Select a Phase', {
+        duration: 2000,
+      });
+    }
   }
 
 }

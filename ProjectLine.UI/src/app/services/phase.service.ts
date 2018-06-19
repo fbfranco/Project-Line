@@ -11,6 +11,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
 import { Phase } from '../models/phase.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ import { Phase } from '../models/phase.model';
 export class PhaseService {
   selectedPhase: Phase;
   phaseList: Phase[];
-  constructor(private http: Http) {}
+  constructor(private http: Http) { }
 
   postPhase(model: Phase) {
     const body = JSON.stringify(model);
@@ -28,32 +29,13 @@ export class PhaseService {
       headers: headerOptions
     });
     return this.http.post(
-      'http://localhost:57135/api/Phases',
+      'http://localhost:44226/api/Phases',
       body,
       requestOptions
     );
   }
 
-  getPhaseList() {
-    this.http
-      .get('http://localhost:57135/api/Phases')
-      .map((data: Response) => {
-        return data.json() as Phase[];
-      })
-      .toPromise()
-      .then(x => {
-        this.phaseList = x;
-      });
+  getPhaseList(): Observable<Phase[]> {
+    return this.http.get('http://localhost:44226/api/Phases').pipe(map((data: Response) => <Phase[]>data.json()));
   }
-
-  // putPhase(id, model) {
-  // 	const body = JSON.stringify(model);
-  // 	const headerOptions = new Headers({ 'Content-Type': 'application/json' });
-  // 	const requestOptions = new RequestOptions({ method: RequestMethod.Put, headers: headerOptions });
-  // 	return this.http.put('http://localhost:57135/api/Phases/' + id, body, requestOptions);
-  // }
-
-  // deletePhase(id: number) {
-  // 	return this.http.delete('http://localhost:57135/api/Phases/' + id);
-  // }
 }

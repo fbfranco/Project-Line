@@ -1,17 +1,17 @@
 <h3>Objective</h3>
 <br>
-<a mat-raised-button (click)="openDialog(myForm)"> Add Objective</a>
-<br>
 <br>
 
-<form class="example-form" [formGroup]="formGroup">
+<form novalidate>
     <mat-form-field>
-        <input matInput placeholder="Choose option" [formControl]="myForm" [matAutocomplete]="auto" formControlName="title"/>
+        <input matInput placeholder="Choose Phase" [matAutocomplete]="auto" />
     </mat-form-field>
 
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-        <mat-option *ngFor="let item of filteredOptions | async" [value]="item">
-            <div>{{item.cat}}</div>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="warehouseChanged($event)" [displayWith]="displayFn">
+        <mat-option *ngFor="let item of phaseList" [value]="item">
+            {{item.Title}}
         </mat-option>
     </mat-autocomplete>
 </form>
+
+<a mat-raised-button color="primary" (click)="openDialog()"> Add Objective</a>
