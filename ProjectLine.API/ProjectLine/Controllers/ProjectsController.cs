@@ -21,9 +21,15 @@ namespace ProjectLine.Controllers
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class ProjectsController : ApiController
     {
-        // private ProjectLineContext db = new ProjectLineContext();
         ProjectRepository Repository = new ProjectRepository();
 
+        // GET: api/Projects
+        public async Task<IEnumerable<Project>> Get()
+        {
+            var project = await Repository.GetProjects();
+            return project;
+        }
+        
         //POST api/<controller>
         public IHttpActionResult Post([FromBody]ProjectViewModel model)
         {
@@ -45,11 +51,30 @@ namespace ProjectLine.Controllers
             }
         }
 
-        // GET: api/Projects
-        public async Task<IEnumerable<Project>> GetProjects()
+        // PUT: api/Phases/5
+        public IHttpActionResult Put(int id, [FromBody]ProjectViewModel model)
         {
-            var project = await Repository.GetProjects();
-            return project;
+            if (!ModelState.IsValid || id != model.Project.ProjectID)
+            {
+                return BadRequest(ModelState);
+            }
+            if (Repository.FindById(id) == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                try
+                {
+                    Repository.Update(model);
+                    return Ok();
+                }
+                catch (Exception error)
+                {
+                    return BadRequest(error.ToString());
+                }
+            }
         }
+
     }
 }

@@ -9,10 +9,11 @@ namespace ProjectLine.CORE.Interface
 {
     public interface IPhaseRepository
     {
-        Task Create(Phase phase);
         Task<IEnumerable<Phase>> GetPhases();
         Phase FindById(int id);
 
-        //Task Update(Phase phase);
+        void Create(Phase phase);
+        void Update(Phase phase);
+        void Delete(int id);
     }
 }

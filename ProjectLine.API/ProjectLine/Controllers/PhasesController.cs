@@ -21,7 +21,7 @@ namespace ProjectLine.Controllers
         // GET: api/Phases/5
         public async Task<IHttpActionResult> GetPhase(int id)
         {
-            var phase = await Repository.FindById(id);
+            var phase = Repository.FindById(id);
             if (phase == null)
             {
                 return NotFound();
@@ -31,7 +31,7 @@ namespace ProjectLine.Controllers
         }        
 
         // POST: api/Phases
-        public async Task<IHttpActionResult> PostPhase([FromBody]Phase phase)
+        public IHttpActionResult PostPhase([FromBody]Phase phase)
         {
             if (!ModelState.IsValid)
             {
@@ -41,7 +41,7 @@ namespace ProjectLine.Controllers
             {
                 try 
                 {
-                    await Repository.Create(phase);
+                    Repository.Create(phase);
                     return Ok();
                 } 
                 catch (Exception error) 

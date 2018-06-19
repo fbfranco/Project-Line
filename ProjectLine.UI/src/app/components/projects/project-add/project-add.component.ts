@@ -1,17 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { NgForm } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material';
-import { SelectionModel } from '@angular/cdk/collections';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { PhasesFormComponent } from '../../phases/phases-form/phases-form.component';
 
 import { PhaseService } from '../../../services/phase.service';
 import { ProjectService } from '../../../services/project.service';
-import { Phase } from '../../../models/phase.model';
 import { Project } from '../../../models/project.model';
 import { ViewModelProject } from '../../../models/viewmodelproject.model';
-//import { Http } from 'http';
 
 @Component({
   selector: 'app-project-add',
@@ -19,89 +15,81 @@ import { ViewModelProject } from '../../../models/viewmodelproject.model';
   styleUrls: ['./project-add.component.scss']
 })
 export class ProjectAddComponent implements OnInit {
-  // Datepicker
-  date = new FormControl({ value: new Date(), disabled: true });
-  mindate =  new Date();
+
   viewmodel = new ViewModelProject();
   confirmMessage = 0;
-
-  // OptionSelected: string;
-  // Selection: string;
-  
-
-  // Grid Add Phase to Project
   ListPhases = this.phaseService.phaseList;
   displayedColumns = ['Title', 'Description', 'StartDate', 'EndDate', 'Edit', 'Delete'];
   dataSource = new MatTableDataSource(this.ListPhases);
 
-  constructor(public dialog: MatDialog, public phaseService: PhaseService,
-              public projectService: ProjectService, public viewmodelProject: ViewModelProject) { }
+  constructor(public dialog: MatDialog,
+              public phaseService: PhaseService,
+              public projectService: ProjectService,
+              public viewmodelProject: ViewModelProject) { }
 
-     DateFormat(myDate: Date) {
-      return `${(myDate.getMonth() + 1)}/${myDate.getDate()}/${myDate.getFullYear()}`;
+  ngOnInit() {
+    console.log(this.ListPhases);
+  }
+
+  DateFormat(myDate: Date) {
+    return `${(myDate.getMonth() + 1)}/${myDate.getDate()}/${myDate.getFullYear()}`;
+  }
+
+  AddRows() {
+    const nroPhase =  this.ListPhases.length + 1;
+    this.ListPhases.push({ PhaseID: 0,
+                            Title: `Phase ${nroPhase}`,
+                            Description: 'Description',
+                            StartDate: this.projectService.selectedProject.StartDate,
+                            EndDate: new Date(),
+                            DemoUrl: 'demo',
+                            Edit: 'Edit',
+                            Delete: 'Delete'});
+    this.dataSource = new MatTableDataSource(this.ListPhases);
+    console.log(this.projectService.selectedProject);
+  }
+
+  DeleteRow(element) {
+    const indexPhase = this.ListPhases.indexOf(element);
+
+    if (confirm('Surely you want to eliminate this phase?')) {
+        this.ListPhases.splice(indexPhase, 1);
+        this.dataSource.filter = '';
     }
+  }
 
-    AddRows() {
-      //var a= this.GetVal();
-      const nroPhase =  this.ListPhases.length + 1;
-      this.ListPhases.push({ PhaseID: 0,
-                             Title: `Phase ${nroPhase}`,
-                             Description: 'Description',
-                             StartDate: this.projectService.selectedProject.StartDate,
-                             EndDate: new Date(),
-                             DemoUrl: 'demo',
-                             Edit: 'Edit',
-                             Delete: 'Delete'});
-      this.dataSource = new MatTableDataSource(this.ListPhases);
-    }
-    // GetVal()
-    // {
-    //   this.Selection = this.OptionSelected;
-    //    //alert(this.Selection);
-    //   return this.Selection;
-    // }
+  openDialog(dataPhases) {
+    const dialogRef = this.dialog.open(PhasesFormComponent, {
+      data: dataPhases
+    });
 
-    DeleteRow(element) {
-      const indexPhase = this.ListPhases.indexOf(element);
+    dialogRef.afterClosed().subscribe(result => {
+      dataPhases = result;
+      console.log(dataPhases);
+    });
+  }
 
-      if (confirm('Surely you want to eliminate this phase?')) {
-          this.ListPhases.splice(indexPhase, 1);
-          this.dataSource.filter = '';
-      }
-    }
+  onSubmit(form: NgForm) {
+    this.viewmodel.Project = form.value;
+    this.viewmodel.Phases = this.ListPhases;
 
-    openDialog(dataPhases) {
-      const dialogRef = this.dialog.open(PhasesFormComponent, {
-        data: dataPhases
-      });
-
-      dialogRef.afterClosed().subscribe(result => {
-        dataPhases = result;
-        console.log(dataPhases);
-      });
-    }
-
-    ngOnInit() {
-      this.ListPhases = [];
-      this.projectService.selectedProject = new Project();
-      this.projectService.selectedProject.StartDate = new Date();
-      this.projectService.selectedProject.EndDate = new Date();
-    }
-
-    onSubmit(form: NgForm) {
-      this.viewmodel.Project = form.value;
-      this.viewmodel.Phases = this.ListPhases;
+    if (typeof form.value.ProjectID === 'undefined') {
       this.projectService.postProject(this.viewmodel).subscribe(data => {
         alert('Successfull!');
         this.resetForm();
       });
+    } else {
+      this.projectService.putProject(this.viewmodel).subscribe(data => {
+        alert('Successfull!');
+        this.resetForm();
+      });
     }
+  }
 
-    resetForm() {
-      this.ListPhases = [];
-      this.dataSource = new MatTableDataSource(this.ListPhases);
-      this.projectService.selectedProject = new Project();
-      this.confirmMessage = 0;
-    }
-    // limpiar el formulario
+  resetForm() {
+    this.ListPhases = [];
+    this.dataSource = new MatTableDataSource(this.ListPhases);
+    this.projectService.selectedProject = new Project();
+    this.confirmMessage = 0;
+  }
 }

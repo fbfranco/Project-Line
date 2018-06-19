@@ -1,8 +1,8 @@
 // Config
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
 // Services
 import { ProjectService } from '../../../services/project.service';
+import { PhaseService } from '../../../services/phase.service';
 // Models
 import { Project } from '../../../models/project.model';
 
@@ -17,7 +17,8 @@ export class ProjectListComponent implements OnInit {
   ListProjects: Project[];
   HeaderColumns = ['ProjectID', 'Title', 'Description', 'StartDate', 'EndDate', 'Edit', 'Delete'];
 
-  constructor( public projectService: ProjectService) { }
+  constructor( public projectService: ProjectService,
+               private phasesService: PhaseService) { }
 
   ngOnInit() {
     // getting service data
@@ -26,5 +27,18 @@ export class ProjectListComponent implements OnInit {
     }, error => {
       console.log('Error getting the list of projects');
     });
+  }
+
+  newProject() {
+    this.phasesService.phaseList = [];
+    this.projectService.selectedProject = new Project();
+    this.projectService.selectedProject.StartDate = new Date();
+    this.projectService.selectedProject.EndDate = new Date();
+  }
+
+  getSelectedProject(project: Project) {
+    this.projectService.selectedProject = Object.assign({}, project);
+    this.phasesService.phaseList = this.projectService.selectedProject.Phases;
+    console.log(this.projectService.selectedProject);
   }
 }
