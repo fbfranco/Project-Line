@@ -1,46 +1,55 @@
-<h1>Projects List</h1>
+<h1>Projects</h1>
 
 <div class="div-controller">
-    <a routerLink="/Project/Add"><button mat-raised-button color="primary"> Add Project</button></a>
+  <a routerLink="/Project/Add">
+    <button mat-raised-button color="primary"> Add Project</button>
+  </a>
 </div>
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-  <!-- ProjectID Column -->
-  <ng-container matColumnDef="Id">
+<table mat-table [dataSource]="ListProjects" class="mat-elevation-z8">
+  <!-- ID Column -->
+  <ng-container matColumnDef="ProjectID">
     <th mat-header-cell *matHeaderCellDef> Id. </th>
-    <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
+    <td mat-cell *matCellDef="let project"> {{project.ProjectID}} </td>
   </ng-container>
-  <!-- Name Column -->
+  <!-- Title Column -->
   <ng-container matColumnDef="Title">
     <th mat-header-cell *matHeaderCellDef> Title </th>
-    <td mat-cell *matCellDef="let element"> {{element.Title}} </td>
+    <td mat-cell *matCellDef="let project"> {{project.Title}} </td>
   </ng-container>
-  <!-- Weight Column -->
+  <!-- Description Column -->
   <ng-container matColumnDef="Description">
     <th mat-header-cell *matHeaderCellDef> Description </th>
-    <td mat-cell *matCellDef="let element"> {{element.Description}} </td>
+    <td mat-cell *matCellDef="let project"> {{project.Description}} </td>
   </ng-container>
   <!-- StartDate Column -->
   <ng-container matColumnDef="StartDate">
-    <th mat-header-cell *matHeaderCellDef> StartDate </th>
-    <td mat-cell *matCellDef="let element"> {{element.StartDate}} </td>
+    <th mat-header-cell *matHeaderCellDef> Start Date </th>
+    <td mat-cell *matCellDef="let project"> {{project.StartDate | date: 'MM/dd/yyyy'}} </td>
   </ng-container>
-  <!-- EstimateDate Column -->
-  <ng-container matColumnDef="EstimateDate">
-    <th mat-header-cell *matHeaderCellDef> EstimateDate </th>
-    <td mat-cell *matCellDef="let element"> {{element.EstimateDate}} </td>
+  <!-- EndDate Column -->
+  <ng-container matColumnDef="EndDate">
+    <th mat-header-cell *matHeaderCellDef> Estimate Date </th>
+    <td mat-cell *matCellDef="let project"> {{project.EndDate | date: 'MM/dd/yyyy'}} </td>
   </ng-container>
   <!-- Edit Column -->
   <ng-container matColumnDef="Edit">
     <th mat-header-cell *matHeaderCellDef> Edit </th>
-    <td mat-cell *matCellDef="let element"> {{element.Edit}} </td>
+    <td mat-cell *matCellDef="let project">
+      <a mat-raised-button>
+        <i class="fas fa-edit"></i>
+      </a>
+    </td>
   </ng-container>
-  <!-- Status Column -->
-  <ng-container matColumnDef="Status">
-    <th mat-header-cell *matHeaderCellDef> Status </th>
-    <td mat-cell *matCellDef="let element"> {{element.Status}} </td>
+  <!-- Delete Column -->
+  <ng-container matColumnDef="Delete">
+    <th mat-header-cell *matHeaderCellDef> Detele </th>
+    <td mat-cell *matCellDef="let project">
+      <a mat-raised-button color="warn">
+        <i class="fas fa-times"></i>
+      </a>
+    </td>
   </ng-container>
-
   <tr mat-header-row *matHeaderRowDef="HeaderColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: HeaderColumns;"></tr>
 </table>
