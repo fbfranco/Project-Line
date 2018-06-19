@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatSnackBar } from '@angular/material';
 import { MatDialog } from '@angular/material';
 import { PhasesFormComponent } from '../../phases/phases-form/phases-form.component';
 
@@ -17,7 +17,6 @@ import { ViewModelProject } from '../../../models/viewmodelproject.model';
 export class ProjectAddComponent implements OnInit {
 
   viewmodel = new ViewModelProject();
-  confirmMessage = 0;
   ListPhases = this.phaseService.phaseList;
   displayedColumns = ['Title', 'Description', 'StartDate', 'EndDate', 'Edit', 'Delete'];
   dataSource = new MatTableDataSource(this.ListPhases);
@@ -25,14 +24,16 @@ export class ProjectAddComponent implements OnInit {
   constructor(public dialog: MatDialog,
               public phaseService: PhaseService,
               public projectService: ProjectService,
-              public viewmodelProject: ViewModelProject) { }
+              public viewmodelProject: ViewModelProject,
+              public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     console.log(this.ListPhases);
   }
 
   DateFormat(myDate: Date) {
-    return `${(myDate.getMonth() + 1)}/${myDate.getDate()}/${myDate.getFullYear()}`;
+    const date = new Date(myDate);
+    return `${(date.getMonth() + 1)}/${date.getDate()}/${date.getFullYear()}`;
   }
 
   AddRows() {
@@ -46,7 +47,6 @@ export class ProjectAddComponent implements OnInit {
                             Edit: 'Edit',
                             Delete: 'Delete'});
     this.dataSource = new MatTableDataSource(this.ListPhases);
-    console.log(this.projectService.selectedProject);
   }
 
   DeleteRow(element) {
@@ -75,21 +75,28 @@ export class ProjectAddComponent implements OnInit {
 
     if (typeof form.value.ProjectID === 'undefined') {
       this.projectService.postProject(this.viewmodel).subscribe(data => {
-        alert('Successfull!');
+        this.openSnackBar('Saved');
         this.resetForm();
       });
     } else {
       this.projectService.putProject(this.viewmodel).subscribe(data => {
-        alert('Successfull!');
+        this.openSnackBar('Saved');
         this.resetForm();
       });
     }
+  }
+
+  openSnackBar(message: string) {
+    this.snackBar.open(message, null, {
+      duration: 2000,
+    });
   }
 
   resetForm() {
     this.ListPhases = [];
     this.dataSource = new MatTableDataSource(this.ListPhases);
     this.projectService.selectedProject = new Project();
-    this.confirmMessage = 0;
+    this.projectService.selectedProject.StartDate = new Date();
+    this.projectService.selectedProject.EndDate = new Date();
   }
 }

@@ -39,6 +39,5 @@ export class ProjectListComponent implements OnInit {
   getSelectedProject(project: Project) {
     this.projectService.selectedProject = Object.assign({}, project);
     this.phasesService.phaseList = this.projectService.selectedProject.Phases;
-    console.log(this.projectService.selectedProject);
   }
 }
