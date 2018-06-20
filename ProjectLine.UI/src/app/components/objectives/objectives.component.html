@@ -2,16 +2,22 @@
 <br>
 <br>
 
-<form novalidate>
+<form novalidate (ngSubmit)="openDialog()" [formGroup]="formGroup">
+
+    <input type="hidden" #phaseID formControlName="id" required/>
+
     <mat-form-field>
-        <input matInput placeholder="Choose Phase" [matAutocomplete]="auto" />
+        <input matInput placeholder="Choose Phase" [matAutocomplete]="phaseTitle" />
     </mat-form-field>
 
-    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="warehouseChanged($event)" [displayWith]="displayFn">
+    <mat-autocomplete #phaseTitle="matAutocomplete" (optionSelected)="phaseChanged($event)" [displayWith]="displayFn">
         <mat-option *ngFor="let item of phaseList" [value]="item">
             {{item.Title}}
         </mat-option>
     </mat-autocomplete>
-</form>
 
-<a mat-raised-button color="primary" (click)="openDialog()"> Add Objective</a>
+    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!formGroup.valid"> Add Objective </button>
+    </div>
+
+</form>

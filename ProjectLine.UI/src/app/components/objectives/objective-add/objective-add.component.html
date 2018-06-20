@@ -12,7 +12,7 @@
     <mat-card-content mat-dialog-content fxLayout="column">
       <!-- Title -->
       <mat-form-field>
-        <input matInput #Title maxlength="150" placeholder="Title" formControlName="title" required autofocus>
+        <input matInput #Title maxlength="150" placeholder="Title" formControlName="title" required>
         <mat-hint align="end">{{Title.value?.length || 0}}/150</mat-hint>
       </mat-form-field>
       <!-- Description -->
