@@ -6,7 +6,6 @@ import {
   RequestOptions,
   RequestMethod
 } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
@@ -18,6 +17,8 @@ import { Phase } from '../models/phase.model';
 export class PhaseService {
   selectedPhase: Phase;
   phaseList: Phase[];
+  indexPhase: number;
+
   constructor(private http: Http) {}
 
   postPhase(model: Phase) {

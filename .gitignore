@@ -25,7 +25,14 @@ bld/
 [Ll]og/
 
 # Visual Studio 2015/2017 cache/options directory
-.vs/
+ProjectLine.API/.vs/
+ProjectLine.API/ProjectLine.CORE/obj/
+ProjectLine.API/ProjectLine.CORE/bin/
+ProjectLine.API/ProjectLine.DATA/obj/
+ProjectLine.API/ProjectLine.DATA/bin/
+ProjectLine.API/ProjectLine/obj/
+ProjectLine.API/ProjectLine.TEST/bin/
+ProjectLine.API/ProjectLine.TEST/obj/
 # Uncomment if you have tasks that create the project's static files in wwwroot
 #wwwroot/
 

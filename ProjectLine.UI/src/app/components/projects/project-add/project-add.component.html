@@ -9,7 +9,7 @@
       <mat-form-field>
         <input matInput #Title name="Title" maxlength="150"  placeholder="Title" name="Title" #Title="ngModel" [(ngModel)]="projectService.selectedProject.Title" required>
           <mat-hint align="end">{{Title.value?.length || 0}}/150</mat-hint>
-        <div *ngIf="Title.invalid && Title.touched">This Field is Required.</div>
+        <mat-error *ngIf="Title.invalid && Title.touched">This Field is Required.</mat-error>
       </mat-form-field>
 
       <!-- Description -->

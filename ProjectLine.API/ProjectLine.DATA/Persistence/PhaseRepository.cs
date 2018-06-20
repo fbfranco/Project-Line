@@ -90,7 +90,7 @@ namespace ProjectLine.DATA.Persistence
         {
             try
             {
-                var update = FindById(phase.PhaseID);
+                var update = FindById(phase.PhaseID, context);
                 update.Title = phase.Title;
                 update.Description = phase.Description;
                 update.StartDate = phase.StartDate;
