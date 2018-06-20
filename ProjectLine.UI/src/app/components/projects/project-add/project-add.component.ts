@@ -7,6 +7,7 @@ import { PhasesFormComponent } from '../../phases/phases-form/phases-form.compon
 import { PhaseService } from '../../../services/phase.service';
 import { ProjectService } from '../../../services/project.service';
 import { Project } from '../../../models/project.model';
+import { Phase } from '../../../models/phase.model';
 import { ViewModelProject } from '../../../models/viewmodelproject.model';
 
 @Component({
@@ -28,7 +29,6 @@ export class ProjectAddComponent implements OnInit {
               public snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    console.log(this.ListPhases);
   }
 
   DateFormat(myDate: Date) {
@@ -59,13 +59,11 @@ export class ProjectAddComponent implements OnInit {
   }
 
   openDialog(dataPhases) {
-    const dialogRef = this.dialog.open(PhasesFormComponent, {
-      data: dataPhases
-    });
+    this.getSelectedPhase(dataPhases);
+    const dialogRef = this.dialog.open(PhasesFormComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      dataPhases = result;
-      console.log(dataPhases);
+      this.dataSource = new MatTableDataSource(this.phaseService.phaseList);
     });
   }
 
@@ -98,5 +96,9 @@ export class ProjectAddComponent implements OnInit {
     this.projectService.selectedProject = new Project();
     this.projectService.selectedProject.StartDate = new Date();
     this.projectService.selectedProject.EndDate = new Date();
+  }
+
+  getSelectedPhase(phase: Phase) {
+    this.phaseService.selectedPhase = Object.assign({}, phase);
   }
 }

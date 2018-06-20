@@ -38,11 +38,15 @@ export class PhasesFormComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any, public phaseService: PhaseService) { }
 
   ngOnInit() {
-    this.datePrueba = new Date(this.data.StartDate);
-    this.datePrueba2 = new Date(this.data.EndDate);
   }
 
   onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  updatePhase() {
+    const indexPhase = this.phaseService.phaseList.indexOf(this.phaseService.selectedPhase);
+    this.phaseService.phaseList.splice(indexPhase, 1,this.phaseService.selectedPhase);
     this.dialogRef.close();
   }
 }
