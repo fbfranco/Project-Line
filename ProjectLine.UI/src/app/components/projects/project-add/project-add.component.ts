@@ -32,7 +32,8 @@ export class ProjectAddComponent implements OnInit {
 
   DateFormat(myDate: Date) {
     const date = new Date(myDate);
-    return `${(date.getMonth() + 1)}/${date.getDate()}/${date.getFullYear()}`;
+    const month = (date.getMonth() + 1) < 9 ? `0${(date.getMonth() + 1)}` : (date.getMonth() + 1);
+    return `${month}/${date.getDate()}/${date.getFullYear()}`;
   }
 
   AddRows() {
@@ -75,7 +76,6 @@ export class ProjectAddComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.dataSource = new MatTableDataSource(this.phaseService.phaseList);
-      console.log(this.phaseService.phaseList);
     });
   }
 
