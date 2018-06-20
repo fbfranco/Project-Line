@@ -28,12 +28,7 @@ export class ProjectAddComponent implements OnInit {
               public snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    console.log(this.ListPhases);
-  }
-
-  DateFormat(myDate: Date) {
-    const date = new Date(myDate);
-    return `${(date.getMonth() + 1)}/${date.getDate()}/${date.getFullYear()}`;
+    // console.log(this.ListPhases);
   }
 
   AddRows() {
@@ -48,6 +43,17 @@ export class ProjectAddComponent implements OnInit {
                             Delete: 'Delete'});
     this.dataSource = new MatTableDataSource(this.ListPhases);
   }
+
+  // AddRows() {
+  //   const nroPhase =  this.ListPhases.length + 1;
+  //   this.ListPhases.push({ PhaseID: 0,
+  //                           Title: `Phase ${nroPhase}`,
+  //                           Description: 'Description',
+  //                           StartDate: this.projectService.selectedProject.StartDate,
+  //                           EndDate: new Date(),
+  //                           DemoUrl: 'demo'});
+  //   this.dataSource = new MatTableDataSource(this.ListPhases);
+  // }
 
   DeleteRow(element) {
     const indexPhase = this.ListPhases.indexOf(element);
@@ -64,8 +70,9 @@ export class ProjectAddComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      dataPhases = result;
-      console.log(dataPhases);
+      console.table(dataPhases);
+      // dataPhases = result;
+      // console.log(dataPhases);
     });
   }
 
@@ -80,7 +87,7 @@ export class ProjectAddComponent implements OnInit {
       });
     } else {
       this.projectService.putProject(this.viewmodel).subscribe(data => {
-        this.openSnackBar('Saved');
+        this.openSnackBar('Fail');
         this.resetForm();
       });
     }

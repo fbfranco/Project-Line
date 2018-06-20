@@ -41,12 +41,12 @@
 
       <div class="table-phases" *ngIf="dataSource.data.length > 0">
         <h4 class="title">Phases</h4>
-        <table mat-table #phasesGrid [dataSource]="dataSource" class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <!--Nro Column -->
-        <ng-container matColumnDef="state">
+        <!-- <ng-container matColumnDef="state">
           <th mat-header-cell *matHeaderCellDef> State </th>
           <td mat-cell *matCellDef="let element"> {{element.state}} </td>
-        </ng-container>
+        </ng-container> -->
 
         <!--Phase Column -->
         <ng-container matColumnDef="Title">
@@ -63,14 +63,14 @@
         <!-- start Date Column -->
         <ng-container matColumnDef="StartDate">
           <th mat-header-cell *matHeaderCellDef> Start Date </th>
-          <td mat-cell *matCellDef="let element"> {{DateFormat(element.StartDate)}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.StartDate | date: 'MM/dd/yyyy'}} </td>
         </ng-container>
-
+        
         <!-- End date Column -->
         <!-- AQUI -->
         <ng-container matColumnDef="EndDate">
           <th mat-header-cell *matHeaderCellDef> Stimated End Date </th>
-          <td mat-cell *matCellDef="let element"> {{DateFormat(element.EndDate)}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.EndDate | date: 'MM/dd/yyyy'}} </td>
         </ng-container>
 
           <!-- Edit Column -->

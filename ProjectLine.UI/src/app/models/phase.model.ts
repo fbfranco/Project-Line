@@ -6,6 +6,6 @@ export class Phase {
     EndDate: Date;
     DemoUrl: string;
 
-    Edit: string;
-    Delete: string;
+    Edit?: string;
+    Delete?: string;
 }
