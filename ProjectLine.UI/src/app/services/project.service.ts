@@ -30,6 +30,14 @@ export class ProjectService {
   }
 
   getProjectsList(): Observable<Project[]> {
-    return this.http.get('http://localhost:44226/api/Projects/GetProjects').pipe(map((data: Response) => <Project[]>data.json()));
+    return this.http.get('http://localhost:44226/api/Projects/GetProjects/').pipe(map((data: Response) => <Project[]>data.json()));
+  }
+
+  putProjectDeletePasive(id) {
+    //const body = JSON.stringify(model);
+    const headerOptions = new Headers({ 'Content-Type': 'application/json' });
+    const requestOptions = new RequestOptions({ method: RequestMethod.Put, headers: headerOptions });
+    return this.http.put('http://localhost:44226/api/Projects/Change/' + id, requestOptions);
+    
   }
 }

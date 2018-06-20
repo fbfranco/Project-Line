@@ -27,6 +27,7 @@ namespace ProjectLine.DATA.Config
             modelBuilder.Entity<Project>().Property(x => x.StartDate).IsRequired();
             modelBuilder.Entity<Project>().Property(x => x.EndDate).IsRequired();
             modelBuilder.Entity<Project>().Property(x => x.StatusID).IsRequired();
+            modelBuilder.Entity<Project>().Property(x => x.Active).IsRequired();
             #endregion
 
             #region Model Phase

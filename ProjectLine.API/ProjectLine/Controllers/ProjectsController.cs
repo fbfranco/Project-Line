@@ -24,7 +24,7 @@ namespace ProjectLine.Controllers
         ProjectRepository Repository = new ProjectRepository();
 
         // GET: api/Projects
-        public async Task<IEnumerable<Project>> GetProjects()
+        public async Task<IEnumerable<Project>>GetProjects()
         {
             var project = await Repository.GetProjects();
             return project;
@@ -67,6 +67,29 @@ namespace ProjectLine.Controllers
                 try
                 {
                     Repository.Update(model);
+                    return Ok();
+                }
+                catch (Exception error)
+                {
+                    return BadRequest(error.ToString());
+                }
+            }
+        }
+
+        [HttpPut]
+        public IHttpActionResult Change(int id)
+        {
+
+            if (Repository.FindById(id) == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                try
+                {
+
+                    Repository.DeletePasive(id);
                     return Ok();
                 }
                 catch (Exception error)

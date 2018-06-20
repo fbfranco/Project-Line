@@ -26,7 +26,7 @@
     </ng-container>
     <!-- EndDate Column -->
     <ng-container matColumnDef="EndDate">
-      <th mat-header-cell *matHeaderCellDef> Estimate End Date </th>
+      <th mat-header-cell *matHeaderCellDef> Estimated End Date </th>
       <td mat-cell *matCellDef="let project"> {{project.EndDate | date: 'MM/dd/yyyy'}} </td>
     </ng-container>
     <!-- Edit Column -->
@@ -40,9 +40,9 @@
     </ng-container>
     <!-- Delete Column -->
     <ng-container matColumnDef="Delete">
-      <th mat-header-cell *matHeaderCellDef> Detele </th>
+      <th mat-header-cell *matHeaderCellDef> Delete </th>
       <td mat-cell *matCellDef="let project">
-        <a mat-raised-button color="warn">
+        <a mat-raised-button color="warn" (click)="DeletePasive(project.ProjectID)">
           <i class="fas fa-times"></i>
         </a>
       </td>
