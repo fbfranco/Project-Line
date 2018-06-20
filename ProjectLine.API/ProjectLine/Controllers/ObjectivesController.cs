@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using ProjectLine.CORE.Models;
@@ -17,7 +18,14 @@ namespace ProjectLine.Controllers
     {
         ObjectiveRepository Repository = new ObjectiveRepository();
 
+        // GET: api/Objetives/1
+        public async Task<IEnumerable<Objective>> Get(int id)
+        {
 
+            var objective = await Repository.GetObjectives(id);
+
+            return objective;
+        }
 
 
         // POST: api/Personas

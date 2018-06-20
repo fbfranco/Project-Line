@@ -6,9 +6,12 @@ import { startWith, map } from 'rxjs/operators';
 //Services
 import { ProjectService } from "../../../services/project.service";
 import { PhaseService } from "../../../services/phase.service";
+import { ObjectiveService } from "../../../services/objective.service";
+
 // Models
 import { Project } from "../../../models/project.model";
 import { Phase } from "../../../models/phase.model";
+import { Objective } from "../../../models/objective.model";
 import { ObjectiveAddComponent } from '../objective-add/objective-add.component';
 
 
@@ -32,7 +35,11 @@ export class ObjectivesListComponent implements OnInit {
   wareFaseId: number;
   binLocationForm: FormGroup;
 
-  constructor( public projectService: ProjectService, public phasesServices:PhaseService,private fb: FormBuilder, private dialog: MatDialog) { }
+    // List Projects
+    ListObjectives: Objective[];
+    HeaderColumns = ['ObjectiveID', 'Title', 'Description','Edit', 'Delete'];
+
+  constructor( public projectService: ProjectService, public phasesServices:PhaseService,private fb: FormBuilder, private dialog: MatDialog,public objectiveServices: ObjectiveService) { }
 
   //show Item Autocomplete
   displayWarehouseFn(warehouse): string {
@@ -70,6 +77,14 @@ export class ObjectivesListComponent implements OnInit {
     this.phaseIdNumber = event.option.value.PhaseID;
     this.newGroup(this.phaseIdNumber);
     console.log("PhaseID: "+this.phaseIdNumber);
+
+    //getting service data ObjectivesList
+    this.objectiveServices.getObjectivesList(this.wareFaseId).subscribe((datalistPhase: Objective[])=>{
+      this.ListObjectives = datalistPhase;        
+    },error=>{
+      console.log("Error getting the list of Phases");
+    });
+      console.log(this.ListObjectives); 
     
   }
 

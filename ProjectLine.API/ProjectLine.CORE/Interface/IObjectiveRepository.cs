@@ -9,6 +9,7 @@ namespace ProjectLine.CORE.Interface
 {
     public interface IObjectiveRepository
     {
+        Task<IEnumerable<Objective>> GetObjectives(int id);
         void Create(Objective objective);
     }
 }
