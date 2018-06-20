@@ -42,6 +42,7 @@ namespace ProjectLine.DATA.Persistence
                 {
                     try
                     {
+                        project.Project.StatusID = 1;
                         Context.Projects.Add(project.Project);
                         Context.SaveChanges();
                         var id = Context.Projects.OrderByDescending(i => i.ProjectID).First().ProjectID;
