@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ObjectiveAddComponent } from './objective-add/objective-add.component';
 import { MatDialog, MatSnackBar } from '@angular/material';
-import { PhaseService } from "../../services/phase.service";
+import { PhaseService } from '../../services/phase.service';
 import { Phase } from '../../models/phase.model';
 
 @Component({
@@ -22,21 +22,12 @@ export class ObjectivesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getPhasesList();
     this.newGroup('');
   }
 
   newGroup(val): void {
     this.formGroup = this.fb.group({
       id: val
-    });
-  }
-
-  getPhasesList(): void {
-    this.phaseService.getPhaseList().subscribe((datalist: Phase[]) => {
-      this.phaseList = datalist;
-    }, error => {
-      console.log('Error getting the list of projects');
     });
   }
 
