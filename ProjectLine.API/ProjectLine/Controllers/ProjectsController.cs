@@ -52,7 +52,7 @@ namespace ProjectLine.Controllers
         }
 
         // PUT: api/Phases/5
-        public IHttpActionResult UpdateProject(int id, [FromBody]ProjectViewModel model)
+        public IHttpActionResult UpdateProjectAndPhases(int id, [FromBody]ProjectViewModel model)
         {
             if (!ModelState.IsValid || id != model.Project.ProjectID)
             {
