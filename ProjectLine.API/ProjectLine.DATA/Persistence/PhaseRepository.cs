@@ -13,13 +13,15 @@ namespace ProjectLine.DATA.Persistence
     {
         ProjectLineContext Context;
 
+
         public Phase FindById(int id)
         {
             using (Context = new ProjectLineContext())
             {
-                var result = Context.Phases.Where(s => s.PhaseID == id).FirstOrDefaultAsync();
+                var result = Context.Phases.Where(s => s.ProjectID == id).FirstOrDefaultAsync();
                 return result.Result;
             }
+
         }
         public Phase FindById(int id, ProjectLineContext context)
         {
@@ -32,6 +34,16 @@ namespace ProjectLine.DATA.Persistence
             using (Context = new ProjectLineContext())
             {
                 var result = await Context.Phases.Take(100).ToListAsync();
+                return result;
+            }
+        }
+
+        public async Task<IEnumerable<Phase>> GetPhase(int id)
+        {
+
+            using (Context = new ProjectLineContext())
+            {
+                var result = await Context.Phases.Where(x => x.ProjectID == id).ToListAsync();
                 return result;
             }
         }

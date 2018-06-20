@@ -26,3 +26,17 @@ D:\infoarch\ProjectLine\ProjectLine.API\ProjectLine.DATA\obj\Debug\ProjectLine.D
 D:\infoarch\ProjectLine\ProjectLine.API\ProjectLine.DATA\obj\Debug\ProjectLine.DATA.csproj.CopyComplete
 D:\infoarch\ProjectLine\ProjectLine.API\ProjectLine.DATA\obj\Debug\ProjectLine.DATA.dll
 D:\infoarch\ProjectLine\ProjectLine.API\ProjectLine.DATA\obj\Debug\ProjectLine.DATA.pdb
+D:\infoarch\FirstLine\ProjectLine.API\ProjectLine.DATA\bin\Debug\ProjectLine.DATA.dll.config
+D:\infoarch\FirstLine\ProjectLine.API\ProjectLine.DATA\bin\Debug\ProjectLine.DATA.dll
+D:\infoarch\FirstLine\ProjectLine.API\ProjectLine.DATA\bin\Debug\ProjectLine.DATA.pdb
+D:\infoarch\FirstLine\ProjectLine.API\ProjectLine.DATA\bin\Debug\EntityFramework.dll
+D:\infoarch\FirstLine\ProjectLine.API\ProjectLine.DATA\bin\Debug\EntityFramework.SqlServer.dll
+D:\infoarch\FirstLine\ProjectLine.API\ProjectLine.DATA\bin\Debug\ProjectLine.CORE.dll
+D:\infoarch\FirstLine\ProjectLine.API\ProjectLine.DATA\bin\Debug\ProjectLine.CORE.pdb
+D:\infoarch\FirstLine\ProjectLine.API\ProjectLine.DATA\bin\Debug\EntityFramework.xml
+D:\infoarch\FirstLine\ProjectLine.API\ProjectLine.DATA\bin\Debug\EntityFramework.SqlServer.xml
+D:\infoarch\FirstLine\ProjectLine.API\ProjectLine.DATA\obj\Debug\ProjectLine.DATA.csprojResolveAssemblyReference.cache
+D:\infoarch\FirstLine\ProjectLine.API\ProjectLine.DATA\obj\Debug\ProjectLine.DATA.csproj.CoreCompileInputs.cache
+D:\infoarch\FirstLine\ProjectLine.API\ProjectLine.DATA\obj\Debug\ProjectLine.DATA.csproj.CopyComplete
+D:\infoarch\FirstLine\ProjectLine.API\ProjectLine.DATA\obj\Debug\ProjectLine.DATA.dll
+D:\infoarch\FirstLine\ProjectLine.API\ProjectLine.DATA\obj\Debug\ProjectLine.DATA.pdb

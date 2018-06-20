@@ -26,8 +26,10 @@ export class ObjectivesListComponent implements OnInit {
 
   
   warehouseId: number;
+  wareFaseId: number;
+  binLocationForm: FormGroup;
 
-  constructor( public projectService: ProjectService, public phasesServices:PhaseService) { }
+  constructor( public projectService: ProjectService, public phasesServices:PhaseService,private fb: FormBuilder) { }
 
   //show Item Autocomplete
   displayWarehouseFn(warehouse): string {
@@ -35,13 +37,32 @@ export class ObjectivesListComponent implements OnInit {
     console.log(warehouse);
     return warehouse ? warehouse.Title : warehouse;
   }
+  displayWarehouseStockFn(warehouseStock): string {
+    if (!warehouseStock) return '';
+    return warehouseStock ? warehouseStock.Title : warehouseStock;
+  }
 
   //Event Get ProjectID
   warehouseChanged(event): void{
     //get Warehose Stocks for the drop down select
     this.warehouseId = event.option.value.ProjectID;
     console.log("ProjectID: "+this.warehouseId);
+
+    //getting service data Phases List
+    this.phasesServices.getPhasesList(this.warehouseId).subscribe((datalistPhase: Phase[])=>{
+      this.ListPhases = datalistPhase;        
+    },error=>{
+      console.log("Error getting the list of Phases");
+    });
+      console.log(this.ListPhases); 
     
+    
+  }
+
+  FasewarehouseChanged(event): void{
+    //get Warehose Stocks for the drop down select
+    this.wareFaseId = event.option.value.PhaseID;
+    console.log("PhaseID: "+this.wareFaseId);
   }
 
   ngOnInit() 
@@ -54,14 +75,14 @@ export class ObjectivesListComponent implements OnInit {
       console.log("Error getting the list of projects");
     });
 
-      //getting service data Phases List
-      console.log(this.ListPhases);
-      this.phasesServices.getPhasesList(this.warehouseId).subscribe((datalistPhase: Phase[])=>{
-        this.ListPhases = datalistPhase;
-        
-      },error=>{
-        console.log("Error getting the list of Phases");
-      });
+    this.binLocationForm = this.fb.group({
+      warehouseId:'',
+      warehouseTitle:''
+    });
+
+    
+
+   
     
   }
 

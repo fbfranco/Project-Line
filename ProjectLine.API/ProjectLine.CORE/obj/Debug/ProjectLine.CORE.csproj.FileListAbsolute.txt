@@ -10,3 +10,9 @@ D:\infoarch\ProjectLine\ProjectLine.API\ProjectLine.CORE\obj\Debug\ProjectLine.C
 D:\infoarch\ProjectLine\ProjectLine.API\ProjectLine.CORE\obj\Debug\ProjectLine.CORE.dll
 D:\infoarch\ProjectLine\ProjectLine.API\ProjectLine.CORE\obj\Debug\ProjectLine.CORE.pdb
 D:\infoarch\ProjectLine\ProjectLine.API\ProjectLine.CORE\obj\Debug\ProjectLine.CORE.csprojAssemblyReference.cache
+D:\infoarch\FirstLine\ProjectLine.API\ProjectLine.CORE\bin\Debug\ProjectLine.CORE.dll
+D:\infoarch\FirstLine\ProjectLine.API\ProjectLine.CORE\bin\Debug\ProjectLine.CORE.pdb
+D:\infoarch\FirstLine\ProjectLine.API\ProjectLine.CORE\obj\Debug\ProjectLine.CORE.csprojResolveAssemblyReference.cache
+D:\infoarch\FirstLine\ProjectLine.API\ProjectLine.CORE\obj\Debug\ProjectLine.CORE.csproj.CoreCompileInputs.cache
+D:\infoarch\FirstLine\ProjectLine.API\ProjectLine.CORE\obj\Debug\ProjectLine.CORE.dll
+D:\infoarch\FirstLine\ProjectLine.API\ProjectLine.CORE\obj\Debug\ProjectLine.CORE.pdb
