@@ -1,9 +1,9 @@
-<mat-card>
+<mat-card fxFlex.gt-xs="400px">
 
   <form class="width-form" novalidate (ngSubmit)="saveObjective()" [formGroup]="formGroup">
 
-    <mat-card-header fxLayoutAlign="center start">
-      <h1 mat-dialog-title>Add Objective</h1>
+    <mat-card-header fxLayoutAlign="center">
+      <h1 mat-dialog-title>Objective</h1>
     </mat-card-header>
 
     <br>
@@ -22,30 +22,13 @@
         <mat-hint align="end">{{Description.value?.length || 0}}/1000</mat-hint>
       </mat-form-field>
       <!-- Checkbox -->
-      <mat-checkbox formControlName="completed">Completed</mat-checkbox>
-
-      <br>
-
-      <div fxLayout="row wrap" fxLayoutAlign="space-between center">
-        <!-- Weight -->
-        <mat-form-field fxFlex="30%" fxFlex.xs="100%">
-          <input matInput placeholder="Weight" formControlName="weight">
-        </mat-form-field>
-        <!-- Estimated -->
-        <mat-form-field fxFlex="30%" fxFlex.xs="100%">
-          <input matInput placeholder="Estimated" formControlName="estimated">
-        </mat-form-field>
-        <!-- Effort -->
-        <mat-form-field fxFlex="30%" fxFlex.xs="100%">
-          <input matInput placeholder="Effort" formControlName="effort">
-        </mat-form-field>
-      </div>
+      <mat-checkbox formControlName="completed" color="primary">Completed</mat-checkbox>
 
       <br>
       <br>
 
       <div fxLayout="row wrap" fxLayoutAlign="space-between center">
-        <button mat-raised-button color="accent" type="submit" [disabled]="!formGroup.valid">Save</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!formGroup.valid">Save</button>
         <a mat-raised-button color="warn" (click)="onCancelClick()">Cancel</a>
       </div>
 

@@ -51,7 +51,7 @@ export class ObjectiveAddComponent implements OnInit {
 
   onSaveSuccess() {
     this.snackBar.open('Successfull', 'The Objective was Created', {
-      duration: 2000,
+      duration: 4000,
     });
     this.newForm();
   }
