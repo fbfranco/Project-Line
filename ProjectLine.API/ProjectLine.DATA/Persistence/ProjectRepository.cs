@@ -12,16 +12,16 @@ using System.Threading.Tasks;
 
 namespace ProjectLine.DATA.Persistence
 {
-   public class ProjectRepository : IProjectRepository
+    public class ProjectRepository : IProjectRepository
     {
-        private ProjectLineContext Context= new ProjectLineContext();
+        private ProjectLineContext Context = new ProjectLineContext();
         private PhaseRepository phaseRepository = new PhaseRepository();
 
         public async Task<IEnumerable<Project>> GetProjects()
         {
             using (Context = new ProjectLineContext())
             {
-                var result = await Context.Projects.Include("Phases").Where(x => x.StatusID == 1).ToListAsync();
+                var result = await Context.Projects.Include("Phases").Where(x => x.Active == true).ToListAsync();
                 return result;
             }
         }
@@ -38,7 +38,7 @@ namespace ProjectLine.DATA.Persistence
         {
             try
             {
-                using (var Trans=Context.Database.BeginTransaction())
+                using (var Trans = Context.Database.BeginTransaction())
                 {
                     try
                     {
@@ -57,7 +57,7 @@ namespace ProjectLine.DATA.Persistence
                     {
                         Console.Write(ex);
                         Trans.Rollback();
-                    }           
+                    }
                 }
             }
             catch (Exception ex)
@@ -70,7 +70,7 @@ namespace ProjectLine.DATA.Persistence
             try
             {
                 var context = new ProjectLineContext();
-                using  (var Trans = context.Database.BeginTransaction())
+                using (var Trans = context.Database.BeginTransaction())
                 {
                     try
                     {
@@ -135,5 +135,25 @@ namespace ProjectLine.DATA.Persistence
                 Console.Write(ex);
             }
         }
+
+        public void DeletePasive(int id)
+        {
+            try
+            {
+                var StatusUpdate = FindById(id);
+                using (Context = new ProjectLineContext())
+                {
+                    // StatusUpdate.StatusID = 0;
+                    StatusUpdate.Active = false;
+                    Context.Entry(StatusUpdate).State = EntityState.Modified;
+                    Context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+            }
+        }
     }
+
 }

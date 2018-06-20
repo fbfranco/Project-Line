@@ -40,4 +40,14 @@ export class ProjectListComponent implements OnInit {
     this.projectService.selectedProject = Object.assign({}, project);
     this.phasesService.phaseList = this.projectService.selectedProject.Phases;
   }
+
+  DeletePasive(id) {
+    if (confirm('Surely you want to eliminate this phase?')) {
+      this.projectService.putProjectDeletePasive(id)
+    .subscribe(data => {
+     this.projectService.getProjectsList().subscribe((datalist: Project[])=>{
+      this.ListProjects = datalist;})
+    }); 
+  }      
+}
 }

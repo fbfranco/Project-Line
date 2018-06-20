@@ -14,7 +14,15 @@ namespace ProjectLine.CORE.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int StatusID { get; set; }
+        public Boolean Active { get; set; }
         public ICollection<Phase> Phases { get; set; }
+
+
+       public Project()
+        {
+            StatusID = 1;
+            Active = true;
+        } 
 
     }
 }

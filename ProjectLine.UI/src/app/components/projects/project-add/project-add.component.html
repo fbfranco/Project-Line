@@ -29,7 +29,7 @@
         </mat-form-field>
         <!-- End Date -->
         <mat-form-field>
-          <input matInput [min]="projectService.selectedProject.StartDate" [matDatepicker]="endDate" placeholder="Stimated End Date*"  name="EndDate" #EndDate="ngModel" [(ngModel)]="projectService.selectedProject.EndDate">
+          <input matInput [min]="projectService.selectedProject.StartDate" [matDatepicker]="endDate" placeholder="Estimated End Date*"  name="EndDate" #EndDate="ngModel" [(ngModel)]="projectService.selectedProject.EndDate">
           <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
           <mat-datepicker #endDate disabled="false"></mat-datepicker>
         </mat-form-field>
@@ -69,7 +69,7 @@
         <!-- End date Column -->
         <!-- AQUI -->
         <ng-container matColumnDef="EndDate">
-          <th mat-header-cell *matHeaderCellDef> Stimated End Date </th>
+          <th mat-header-cell *matHeaderCellDef> Estimated End Date </th>
           <td mat-cell *matCellDef="let element"> {{element.EndDate | date: 'MM/dd/yyyy'}} </td>
         </ng-container>
 

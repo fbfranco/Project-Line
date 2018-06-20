@@ -8,4 +8,5 @@ export class Project {
   EndDate: Date;
   StatusID: Number;
   Phases: Phase[];
+  Active: boolean;
 }
