@@ -1,10 +1,10 @@
-//Config
+// Config
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
-//Services
-import { ProjectService } from "../../../services/project.service";
+// Services
+import { ProjectService } from '../../../services/project.service';
 // Models
-import { Project } from "../../../models/project.model";
+import { Project } from '../../../models/project.model';
 
 @Component({
   selector: 'app-project-list',
@@ -13,19 +13,18 @@ import { Project } from "../../../models/project.model";
 })
 export class ProjectListComponent implements OnInit {
 
-  //Lis Projects
-  ListProjects : Project[];
-  HeaderColumns = ['ProjectID','Title', 'Description', 'StartDate', 'EndDate','Edit','Delete'];
+  // List Projects
+  ListProjects: Project[];
+  HeaderColumns = ['ProjectID', 'Title', 'Description', 'StartDate', 'EndDate', 'Edit', 'Delete'];
 
   constructor( public projectService: ProjectService) { }
 
   ngOnInit() {
-    //getting service data
-    this.projectService.getProjectsList().subscribe((datalist: Project[])=>{
+    // getting service data
+    this.projectService.getProjectsList().subscribe((datalist: Project[]) => {
       this.ListProjects = datalist;
-    },error=>{
-      console.log("Error getting the list of projects");
+    }, error => {
+      console.log('Error getting the list of projects');
     });
-
   }
 }

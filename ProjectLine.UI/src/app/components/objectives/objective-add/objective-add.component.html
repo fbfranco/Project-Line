@@ -1,54 +1,56 @@
-<h3>Objective</h3>
-<br>
-<form class="width-form" novalidate (ngSubmit)="save()" [formGroup]="formGroup">
+<mat-card>
 
-  <mat-card-header fxLayout="column">
-    <span class="title">Add Objective Form</span>
-  </mat-card-header>
+  <form class="width-form" novalidate (ngSubmit)="saveObjective()" [formGroup]="formGroup">
 
-  <hr>
-  <br>
-
-  <mat-card-content fxLayout="column">
-    <!-- Title -->
-    <mat-form-field>
-      <input matInput #Title maxlength="150" placeholder="Title" formControlName="title" required>
-      <mat-hint align="end">{{Title.value?.length || 0}}/150</mat-hint>
-    </mat-form-field>
-    <!-- Description -->
-    <mat-form-field>
-      <textarea matInput #Description maxlength="1000" placeholder="Description" matTextareaAutosize matAutosizeMinRows="4" matAutosizeMaxRows="5"
-        formControlName="description"></textarea>
-      <mat-hint align="end">{{Description.value?.length || 0}}/1000</mat-hint>
-    </mat-form-field>
-    <!-- Checkbox -->
-    <mat-checkbox formControlName="completed">Completed</mat-checkbox>
-
-    <br>
-
-    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
-      <!-- Weight -->
-      <mat-form-field fxFlex="30%" fxFlex.xs="100%">
-        <input matInput placeholder="Weight" formControlName="weight">
-      </mat-form-field>
-      <!-- Estimated -->
-      <mat-form-field fxFlex="30%" fxFlex.xs="100%">
-        <input matInput placeholder="Estimated" formControlName="estimated">
-      </mat-form-field>
-      <!-- Effort -->
-      <mat-form-field fxFlex="30%" fxFlex.xs="100%">
-        <input matInput placeholder="Effort" formControlName="effort">
-      </mat-form-field>
-    </div>
+    <mat-card-header fxLayoutAlign="center start">
+      <h1 mat-dialog-title>Add Objective</h1>
+    </mat-card-header>
 
     <br>
     <br>
 
-    <div fxLayout="row" fxLayoutGap="1em">
-      <button mat-raised-button color="accent" type="submit" [disabled]="!formGroup.valid">Save</button>
-      <a mat-raised-button color="warn">Cancel</a>
-    </div>
+    <mat-card-content mat-dialog-content fxLayout="column">
+      <!-- Title -->
+      <mat-form-field>
+        <input matInput #Title maxlength="150" placeholder="Title" formControlName="title" required>
+        <mat-hint align="end">{{Title.value?.length || 0}}/150</mat-hint>
+      </mat-form-field>
+      <!-- Description -->
+      <mat-form-field>
+        <textarea matInput #Description maxlength="1000" placeholder="Description" matTextareaAutosize matAutosizeMinRows="4" matAutosizeMaxRows="5"
+          formControlName="description"></textarea>
+        <mat-hint align="end">{{Description.value?.length || 0}}/1000</mat-hint>
+      </mat-form-field>
+      <!-- Checkbox -->
+      <mat-checkbox formControlName="completed">Completed</mat-checkbox>
 
-  </mat-card-content>
+      <br>
 
-</form>
+      <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+        <!-- Weight -->
+        <mat-form-field fxFlex="30%" fxFlex.xs="100%">
+          <input matInput placeholder="Weight" formControlName="weight">
+        </mat-form-field>
+        <!-- Estimated -->
+        <mat-form-field fxFlex="30%" fxFlex.xs="100%">
+          <input matInput placeholder="Estimated" formControlName="estimated">
+        </mat-form-field>
+        <!-- Effort -->
+        <mat-form-field fxFlex="30%" fxFlex.xs="100%">
+          <input matInput placeholder="Effort" formControlName="effort">
+        </mat-form-field>
+      </div>
+
+      <br>
+      <br>
+
+      <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+        <button mat-raised-button color="accent" type="submit" [disabled]="!formGroup.valid">Save</button>
+        <a mat-raised-button color="warn" (click)="onCancelClick()">Cancel</a>
+      </div>
+
+    </mat-card-content>
+
+  </form>
+
+</mat-card>

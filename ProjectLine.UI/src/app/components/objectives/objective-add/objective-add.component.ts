@@ -1,25 +1,33 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Objective } from '../../../models/objective.model';
 import { ObjectiveService } from '../../../services/objective.service';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-objective-add',
   templateUrl: './objective-add.component.html',
-  styleUrls: ['./objective-add.component.css']
 })
 export class ObjectiveAddComponent implements OnInit {
 
-  constructor(private fb: FormBuilder,
+  constructor(
+
+    private fb: FormBuilder,
     private objectiveService: ObjectiveService,
-    private router: Router) { }
+    private dialogRef: MatDialogRef<ObjectiveAddComponent>,
+    private snackBar: MatSnackBar,
+    @Inject(MAT_DIALOG_DATA) private data: number
+
+  ) { }
 
   formGroup: FormGroup;
 
   ngOnInit() {
+    this.newForm();
+  }
 
+  newForm() {
     this.formGroup = this.fb.group({
       title: '',
       description: '',
@@ -27,13 +35,12 @@ export class ObjectiveAddComponent implements OnInit {
       weight: 0,
       estimated: 0,
       effort: 0,
-
-      phaseId: 1
+      phaseId: this.data
     });
-
+    console.log(this.data);
   }
 
-  save() {
+  saveObjective() {
     let objective: Objective = Object.assign({}, this.formGroup.value);
     console.table(objective);
 
@@ -43,7 +50,15 @@ export class ObjectiveAddComponent implements OnInit {
   }
 
   onSaveSuccess() {
-    this.router.navigate(["/Objective"]);
+    this.snackBar.open('Successfull', 'The Objective was Created', {
+      duration: 2000,
+    });
+    this.newForm();
   }
+
+  onCancelClick(): void {
+    this.dialogRef.close();
+  }
+
 
 } 

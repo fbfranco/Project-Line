@@ -1,18 +1,61 @@
 import { Component, OnInit } from '@angular/core';
-
-import { Objective } from '../../models/objective.model';
-import { ObjectiveService } from '../../services/objective.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { ObjectiveAddComponent } from './objective-add/objective-add.component';
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { PhaseService } from "../../services/phase.service";
+import { Phase } from '../../models/phase.model';
 
 @Component({
   selector: 'app-objectives',
   templateUrl: './objectives.component.html',
-  styleUrls: ['./objectives.component.css']
 })
 export class ObjectivesComponent implements OnInit {
 
-  constructor(private objectiveService: ObjectiveService) { }
+  formGroup: FormGroup;
+  phaseList: Phase[] = [];
+  phaseIdNumber: number;
+
+  constructor(
+    private fb: FormBuilder,
+    private dialog: MatDialog,
+    private phaseService: PhaseService,
+  ) { }
 
   ngOnInit() {
+    this.getPhasesList();
+    this.newGroup('');
+  }
+
+  newGroup(val): void {
+    this.formGroup = this.fb.group({
+      id: val
+    });
+  }
+
+  getPhasesList(): void {
+    this.phaseService.getPhaseList().subscribe((datalist: Phase[]) => {
+      this.phaseList = datalist;
+    }, error => {
+      console.log('Error getting the list of projects');
+    });
+  }
+
+  phaseChanged(event): void {
+    this.phaseIdNumber = event.option.value.PhaseID;
+    this.newGroup(this.phaseIdNumber);
+  }
+
+  displayFn(val): string {
+    if (!val) return '';
+    return val ? val.Title : val;
+  }
+
+  openDialog() {
+    if (this.phaseIdNumber > 0) {
+      const dialogRef = this.dialog.open(ObjectiveAddComponent, {
+        data: this.phaseIdNumber
+      });
+    }
   }
 
 }
