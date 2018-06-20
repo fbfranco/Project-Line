@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { startWith, map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { ObjectiveAddComponent } from './objective-add/objective-add.component';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { PhaseService } from "../../services/phase.service";
@@ -13,28 +11,24 @@ import { Phase } from '../../models/phase.model';
 })
 export class ObjectivesComponent implements OnInit {
 
-  binLocationForm: FormGroup;
+  formGroup: FormGroup;
   phaseList: Phase[] = [];
-  warehouseStockCtrl: FormControl;
-  filteredPhases: Observable<Phase[]>;
   phaseIdNumber: number;
 
   constructor(
     private fb: FormBuilder,
     private dialog: MatDialog,
     private phaseService: PhaseService,
-    private snackBar: MatSnackBar,
-  ) {
-    this.warehouseStockCtrl = new FormControl();
-  }
+  ) { }
 
   ngOnInit() {
     this.getPhasesList();
+    this.newGroup('');
   }
 
-  newGroup(): void {
-    this.binLocationForm = this.fb.group({
-      warehouseId: ['', Validators.required]
+  newGroup(val): void {
+    this.formGroup = this.fb.group({
+      id: val
     });
   }
 
@@ -46,21 +40,9 @@ export class ObjectivesComponent implements OnInit {
     });
   }
 
-  filterInput(): void {
-    this.filteredPhases = this.binLocationForm.controls.warehouseId.valueChanges
-      .pipe(
-        startWith(''),
-        map(warehouse => warehouse ? this.filterPhases(warehouse) : this.phaseList.slice())
-      );
-  }
-
-  filterPhases(warehouseFilter: string) {
-    return this.phaseList.filter(val =>
-      val.Title.toLowerCase().indexOf(warehouseFilter) === 0);
-  }
-
-  warehouseChanged(event): void {
+  phaseChanged(event): void {
     this.phaseIdNumber = event.option.value.PhaseID;
+    this.newGroup(this.phaseIdNumber);
   }
 
   displayFn(val): string {
@@ -72,10 +54,6 @@ export class ObjectivesComponent implements OnInit {
     if (this.phaseIdNumber > 0) {
       const dialogRef = this.dialog.open(ObjectiveAddComponent, {
         data: this.phaseIdNumber
-      });
-    } else {
-      this.snackBar.open('Wait', 'Select a Phase', {
-        duration: 2000,
       });
     }
   }
