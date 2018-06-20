@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 import { Http, Response, Headers, RequestOptions, RequestMethod } from '@angular/http';
-import { Objective } from "../models/objective.model";
+import { Objective } from '../models/objective.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
