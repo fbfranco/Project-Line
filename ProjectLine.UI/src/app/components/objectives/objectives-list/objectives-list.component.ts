@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatDialog } from '@angular/material';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 //Services
@@ -9,6 +9,7 @@ import { PhaseService } from "../../../services/phase.service";
 // Models
 import { Project } from "../../../models/project.model";
 import { Phase } from "../../../models/phase.model";
+import { ObjectiveAddComponent } from '../objective-add/objective-add.component';
 
 
 @Component({
@@ -24,12 +25,14 @@ export class ObjectivesListComponent implements OnInit {
   ListProjects : Project[];
   ListPhases: Phase[];
 
-  
+  formGroup: FormGroup;
+  phaseIdNumber: number;
+
   warehouseId: number;
   wareFaseId: number;
   binLocationForm: FormGroup;
 
-  constructor( public projectService: ProjectService, public phasesServices:PhaseService,private fb: FormBuilder) { }
+  constructor( public projectService: ProjectService, public phasesServices:PhaseService,private fb: FormBuilder, private dialog: MatDialog) { }
 
   //show Item Autocomplete
   displayWarehouseFn(warehouse): string {
@@ -63,6 +66,11 @@ export class ObjectivesListComponent implements OnInit {
     //get Warehose Stocks for the drop down select
     this.wareFaseId = event.option.value.PhaseID;
     console.log("PhaseID: "+this.wareFaseId);
+
+    this.phaseIdNumber = event.option.value.PhaseID;
+    this.newGroup(this.phaseIdNumber);
+    console.log("PhaseID: "+this.phaseIdNumber);
+    
   }
 
   ngOnInit() 
@@ -80,10 +88,23 @@ export class ObjectivesListComponent implements OnInit {
       warehouseTitle:''
     });
 
-    
+    this.newGroup('');
 
-   
-    
+  }
+
+  newGroup(val): void {
+    this.formGroup = this.fb.group({
+      id: val
+    });
+  }
+
+
+  openDialog() {
+    if (this.phaseIdNumber > 0) {
+      const dialogRef = this.dialog.open(ObjectiveAddComponent, {
+        data: this.phaseIdNumber
+      });
+    }
   }
 
 

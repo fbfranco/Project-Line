@@ -1,8 +1,10 @@
-<form class="input-form " novalidate [formGroup]="binLocationForm">
+<form novalidate (ngSubmit)="openDialog()" [formGroup]="formGroup">
+
+  <input type="hidden" #phaseID formControlName="id" required/>
+
   <mat-form-field class="example-full-width">
-    <input type="text" placeholder="Select Project" aria-label="Number" matInput [matAutocomplete]="ProjectList" formControlName="warehouseId">
-    <mat-autocomplete #ProjectList="matAutocomplete" (optionSelected)="warehouseChanged($event)" 
-    [displayWith]="displayWarehouseFn">
+    <input type="text" placeholder="Select Project" aria-label="Number" matInput [matAutocomplete]="ProjectList">
+    <mat-autocomplete #ProjectList="matAutocomplete" (optionSelected)="warehouseChanged($event)" [displayWith]="displayWarehouseFn">
       <mat-option *ngFor="let Project of ListProjects" [value]="Project">
         {{ Project.Title }}
       </mat-option>
@@ -10,18 +12,16 @@
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-    <input type="text" placeholder="Select Phase" aria-label="Number" matInput  [matAutocomplete]="PhasesList" formControlName="warehouseTitle">
+    <input type="text" placeholder="Select Phase" aria-label="Number" matInput [matAutocomplete]="PhasesList">
     <mat-autocomplete #PhasesList="matAutocomplete" (optionSelected)="FasewarehouseChanged($event)" [displayWith]="displayWarehouseStockFn">
       <mat-option *ngFor="let Phase of ListPhases" [value]="Phase">
         {{ Phase.Title}}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
+
+  <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+    <button mat-raised-button color="primary" type="submit" [disabled]="!formGroup.valid"> Add Objective </button>
+  </div>
+  
 </form>
-
-
-
-
-
-
-
