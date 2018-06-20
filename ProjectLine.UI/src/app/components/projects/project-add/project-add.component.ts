@@ -18,9 +18,8 @@ import { ViewModelProject } from '../../../models/viewmodelproject.model';
 export class ProjectAddComponent implements OnInit {
 
   viewmodel = new ViewModelProject();
-  ListPhases = this.phaseService.phaseList;
   displayedColumns = ['Title', 'Description', 'StartDate', 'EndDate', 'Edit', 'Delete'];
-  dataSource = new MatTableDataSource(this.ListPhases);
+  dataSource = new MatTableDataSource(this.phaseService.phaseList);
 
   constructor(public dialog: MatDialog,
               public phaseService: PhaseService,
@@ -37,8 +36,8 @@ export class ProjectAddComponent implements OnInit {
   }
 
   AddRows() {
-    const nroPhase =  this.ListPhases.length + 1;
-    this.ListPhases.push({ PhaseID: 0,
+    const nroPhase =  this.phaseService.phaseList.length + 1;
+    this.phaseService.phaseList.push({ PhaseID: 0,
                             Title: `Phase ${nroPhase}`,
                             Description: 'Description',
                             StartDate: this.projectService.selectedProject.StartDate,
@@ -46,30 +45,32 @@ export class ProjectAddComponent implements OnInit {
                             DemoUrl: 'demo',
                             Edit: 'Edit',
                             Delete: 'Delete'});
-    this.dataSource = new MatTableDataSource(this.ListPhases);
+    this.dataSource = new MatTableDataSource(this.phaseService.phaseList);
   }
 
   DeleteRow(element) {
-    const indexPhase = this.ListPhases.indexOf(element);
+    const indexPhase = this.phaseService.phaseList.indexOf(element);
 
     if (confirm('Surely you want to eliminate this phase?')) {
-        this.ListPhases.splice(indexPhase, 1);
+        this.phaseService.phaseList.splice(indexPhase, 1);
         this.dataSource.filter = '';
     }
   }
 
   openDialog(dataPhases) {
+    this.phaseService.indexPhase = this.phaseService.phaseList.indexOf(dataPhases);
     this.getSelectedPhase(dataPhases);
     const dialogRef = this.dialog.open(PhasesFormComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       this.dataSource = new MatTableDataSource(this.phaseService.phaseList);
+      console.log(this.phaseService.phaseList);
     });
   }
 
   onSubmit(form: NgForm) {
     this.viewmodel.Project = form.value;
-    this.viewmodel.Phases = this.ListPhases;
+    this.viewmodel.Phases = this.phaseService.phaseList;
 
     if (typeof form.value.ProjectID === 'undefined') {
       this.projectService.postProject(this.viewmodel).subscribe(data => {
@@ -91,8 +92,8 @@ export class ProjectAddComponent implements OnInit {
   }
 
   resetForm() {
-    this.ListPhases = [];
-    this.dataSource = new MatTableDataSource(this.ListPhases);
+    this.phaseService.phaseList = [];
+    this.dataSource = new MatTableDataSource(this.phaseService.phaseList);
     this.projectService.selectedProject = new Project();
     this.projectService.selectedProject.StartDate = new Date();
     this.projectService.selectedProject.EndDate = new Date();

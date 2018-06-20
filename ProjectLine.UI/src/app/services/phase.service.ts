@@ -17,6 +17,8 @@ import { Phase } from '../models/phase.model';
 export class PhaseService {
   selectedPhase: Phase;
   phaseList: Phase[];
+  indexPhase: number;
+
   constructor(private http: Http) {}
 
   postPhase(model: Phase) {
