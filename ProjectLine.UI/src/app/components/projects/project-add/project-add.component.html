@@ -1,13 +1,13 @@
 <form #projectForm="ngForm" (ngSubmit)="onSubmit(projectForm)">
     <mat-card-header fxLayout="column">
-      <span class="title">Add Project</span>
+      <span class="title">{{titleForm}}</span>
     </mat-card-header>
     <hr>
     <mat-card-content fxLayout="column">
       <input type="hidden" name="ProjectID" #ProjectID="ngModel" [(ngModel)]="projectService.selectedProject.ProjectID">
       <!-- Title -->
       <mat-form-field>
-        <input matInput #Title name="Title" maxlength="150"  placeholder="Title" name="Title" #Title="ngModel" [(ngModel)]="projectService.selectedProject.Title" required>
+        <input matInput maxlength="150"  placeholder="Title" name="Title" #Title="ngModel" [(ngModel)]="projectService.selectedProject.Title" required>
           <mat-hint align="end">{{Title.value?.length || 0}}/150</mat-hint>
         <mat-error *ngIf="Title.invalid && Title.touched">This Field is Required.</mat-error>
       </mat-form-field>
@@ -23,7 +23,7 @@
         <!-- Start Date -->
         <mat-form-field>
           <input matInput [max]="projectService.selectedProject.EndDate" [matDatepicker]="startdate" placeholder="Start Date*" name="StartDate" #StartDate="ngModel"
-          [(ngModel)]="projectService.selectedProject.StartDate" >
+          [(ngModel)]="projectService.selectedProject.StartDate">
           <mat-datepicker-toggle matSuffix [for]="startdate"></mat-datepicker-toggle>
           <mat-datepicker #startdate disabled="false"></mat-datepicker>
         </mat-form-field>
@@ -67,7 +67,6 @@
         </ng-container>
 
         <!-- End date Column -->
-        <!-- AQUI -->
         <ng-container matColumnDef="EndDate">
           <th mat-header-cell *matHeaderCellDef> Estimated End Date </th>
           <td mat-cell *matCellDef="let element"> {{DateFormat(element.EndDate)}} </td>

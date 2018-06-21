@@ -17,6 +17,7 @@ import { ViewModelProject } from '../../../models/viewmodelproject.model';
 })
 export class ProjectAddComponent implements OnInit {
 
+  titleForm  = '';
   viewmodel = new ViewModelProject();
   displayedColumns = ['Title', 'Description', 'StartDate', 'EndDate', 'Edit', 'Delete'];
   dataSource = new MatTableDataSource(this.phaseService.phaseList);
@@ -28,6 +29,7 @@ export class ProjectAddComponent implements OnInit {
               public snackBar: MatSnackBar) { }
 
   ngOnInit() {
+    this.titleForm = this.projectService.selectedProject.Title === undefined ? `Add Project` : `Edit Project`;
   }
 
   DateFormat(myDate: Date) {
