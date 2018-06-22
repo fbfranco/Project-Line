@@ -12,7 +12,7 @@ import { map } from 'rxjs/operators';
 
 export class ObjectiveService {
 
-  private apiURL = 'http://localhost:44226/api/objectives';
+  private apiURL = 'http://localhost:44226/api/objectives/PostObjective/';
 
   constructor(private http: Http) { }
 
@@ -24,6 +24,6 @@ export class ObjectiveService {
   }
 
   getObjectivesList(PhaseID: number): Observable<Objective[]> {
-    return this.http.get('http://localhost:44226/api/Objectives/'+PhaseID).pipe(map((data: Response) => <Objective[]>data.json()));
+    return this.http.get('http://localhost:44226/api/Objectives/Get/'+PhaseID).pipe(map((data: Response) => <Objective[]>data.json()));
   }
 }

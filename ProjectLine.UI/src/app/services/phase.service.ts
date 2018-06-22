@@ -11,6 +11,7 @@ import 'rxjs/add/operator/toPromise';
 
 import { Phase } from '../models/phase.model';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +48,7 @@ export class PhaseService {
       });
   }
     getPhasesList(ProjectID: number):Observable<Phase[]> {
-      return this.http.get('http://localhost:44226/api/Phases/'+ProjectID).pipe(map((data: Response) => <Phase[]>data.json()));
+      return this.http.get('http://localhost:44226/api/Phases/Get/'+ProjectID).pipe(map((data: Response) => <Phase[]>data.json()));
     }
   //  getPhasesList():Observable<Phase[]> {
   //    return this.http.get('http://localhost:44226/api/Phases').pipe(map((data: Response) => <Phase[]>data.json()));
