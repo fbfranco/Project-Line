@@ -53,12 +53,11 @@ export class ObjectiveAddComponent implements OnInit {
     this.snackBar.open('Successfull', 'The Objective was Created', {
       duration: 4000,
     });
-    this.onCancelClick();
+    this.dialogRef.close('save');
   }
 
   onCancelClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close('cancel');
   }
-
 
 } 

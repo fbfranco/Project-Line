@@ -103,7 +103,16 @@ export class ObjectivesListComponent implements OnInit {
       const dialogRef = this.dialog.open(ObjectiveAddComponent, {
         data: this.phaseIdNumber
       });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result == 'save') {
+          this.objectiveServices.getObjectivesList(this.phaseIdNumber).subscribe((datalistPhase: Objective[]) => {
+            this.ListObjectives = datalistPhase;
+          }, error => {
+            console.log("Error getting the list of Phases");
+          });
+        }
+      });
     }
   }
-  
+
 }
