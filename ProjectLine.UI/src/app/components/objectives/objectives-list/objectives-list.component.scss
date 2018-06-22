@@ -8,9 +8,19 @@ $color-dark: rgb(34, 45, 49);
     button{
         float: right;
     }
+    margin-bottom: 1%;
 }
 
 //Table
 table{
     width: 100%;
+}
+.AutocompleteProject{
+    width: 45%;
+    float: left;
+}
+.AutocompletePhases
+{
+    width: 45%;
+    float: right;
 }

@@ -32,7 +32,7 @@ export class ObjectivesListComponent implements OnInit {
 
   // List Objectives
   ListObjectives: Objective[];
-  HeaderColumns = ['ObjectiveID', 'Title', 'Description', 'Edit', 'Delete'];
+  HeaderColumns = ['Title', 'Description', 'Edit', 'Delete'];
 
   constructor(public projectService: ProjectService, public phasesServices: PhaseService, private fb: FormBuilder, private dialog: MatDialog, public objectiveServices: ObjectiveService) { }
 
@@ -59,12 +59,15 @@ export class ObjectivesListComponent implements OnInit {
       console.log("Error getting the list of Phases");
     });
     console.log(this.ListPhases);
+
+    this.newGroup('', '');
   }
 
   phaseChanged(event): void {
     this.phaseIdNumber = event.option.value.PhaseID;
-    this.newGroup(this.phaseIdNumber);
-    console.log("PhaseID: " + this.phaseIdNumber);
+    let title = this.formGroup.controls['PhaseTitle'].value;
+    this.newGroup(this.phaseIdNumber, title);
+    console.log("PhaseID: " + this.phaseIdNumber + "___" + title);
     this.objectiveServices.getObjectivesList(this.phaseIdNumber).subscribe((datalistPhase: Objective[]) => {
       this.ListObjectives = datalistPhase;
     }, error => {
@@ -85,12 +88,13 @@ export class ObjectivesListComponent implements OnInit {
       projectIdNumber: '',
       warehouseTitle: ''
     });
-    this.newGroup('');
+    this.newGroup('', '');
   }
 
-  newGroup(val): void {
+  newGroup(val, title): void {
     this.formGroup = this.fb.group({
-      id: val
+      id: val,
+      PhaseTitle: title
     });
   }
 
@@ -101,4 +105,5 @@ export class ObjectivesListComponent implements OnInit {
       });
     }
   }
+  
 }
