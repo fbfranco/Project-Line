@@ -61,17 +61,6 @@ export class ProjectAddComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.phaseService.phaseList);
   }
 
-  // AddRows() {
-  //   const nroPhase =  this.ListPhases.length + 1;
-  //   this.ListPhases.push({ PhaseID: 0,
-  //                           Title: `Phase ${nroPhase}`,
-  //                           Description: 'Description',
-  //                           StartDate: this.projectService.selectedProject.StartDate,
-  //                           EndDate: new Date(),
-  //                           DemoUrl: 'demo'});
-  //   this.dataSource = new MatTableDataSource(this.ListPhases);
-  // }
-
   DeleteRow(element) {
     const indexPhase = this.phaseService.phaseList.indexOf(element);
 
@@ -102,7 +91,7 @@ export class ProjectAddComponent implements OnInit {
       });
     } else {
       this.projectService.putProject(this.viewmodel).subscribe(data => {
-        this.openSnackBar('Fail');
+        this.openSnackBar('Saved');
         this.resetForm();
       });
     }
