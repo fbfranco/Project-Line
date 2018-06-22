@@ -8,7 +8,7 @@
       <!-- Phase Form -->
       <form class="example-form" fxLayout="column">
         <!-- Id-Phase -->
-        <input type="hidden" #PhaseID name="PhaseID" [(ngModel)]="PhaseModel.PhaseID">
+        <input type="hidden" #PhaseID name="PhaseID">
         <!-- Title -->
         <mat-form-field>
           <input matInput maxlength="150" placeholder="Title" name="Title" #Title="ngModel" [(ngModel)]="phaseService.selectedPhase.Title" required>
@@ -45,7 +45,7 @@
     </mat-card-content>
     <!-- AQUI -->
   <mat-card-actions fxLayoutAlign="center start">
-    <button mat-raised-button color="primary" (click)="updatePhase()">Save</button>
-    <a mat-raised-button color="warn">Cancel</a>
+    <button mat-raised-button color="primary" (click)="updatePhase()">Accept</button>
+    <a mat-raised-button color="warn" (click)="onNoClick()">Cancel</a>
   </mat-card-actions>
 </mat-card>

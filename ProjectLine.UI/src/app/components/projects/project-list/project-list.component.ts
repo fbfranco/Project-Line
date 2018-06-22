@@ -5,6 +5,8 @@ import { ProjectService } from '../../../services/project.service';
 import { PhaseService } from '../../../services/phase.service';
 // Models
 import { Project } from '../../../models/project.model';
+import { MatDialog } from '@angular/material';
+import { MessageComponent } from '../../../components/dialog/message/message.component';
 
 @Component({
   selector: 'app-project-list',
@@ -16,9 +18,10 @@ export class ProjectListComponent implements OnInit {
   // List Projects
   ListProjects: Project[];
   HeaderColumns = ['Title', 'Description', 'StartDate', 'EndDate', 'Edit', 'Delete'];
+  VariableSet:string;
 
   constructor( public projectService: ProjectService,
-               private phasesService: PhaseService) { }
+               private phasesService: PhaseService, public dialog:MatDialog) { }
 
   ngOnInit() {
     // getting service data
@@ -42,12 +45,24 @@ export class ProjectListComponent implements OnInit {
   }
 
   DeletePasive(id) {
-    if (confirm('Surely you want to eliminate this phase?')) {
+   
       this.projectService.putProjectDeletePasive(id)
     .subscribe(data => {
      this.projectService.getProjectsList().subscribe((datalist: Project[])=>{
       this.ListProjects = datalist;})
     }); 
-  }      
+        
+}
+
+openDialog(ids): void {
+  let dialogRef = this.dialog.open(MessageComponent, {
+  });
+  dialogRef.afterClosed().subscribe(result => {
+    this.VariableSet = result;
+    if(this.VariableSet=='confirma')
+    {
+      this.DeletePasive(ids);
+    }    
+  });
 }
 }

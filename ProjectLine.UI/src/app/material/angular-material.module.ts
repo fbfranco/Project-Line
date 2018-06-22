@@ -16,7 +16,8 @@ import {
   MatListModule,
   MatCardModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatTableModule
  } from '@angular/material';
 
  import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -38,7 +39,8 @@ import {
     MatNativeDateModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTableModule
 
   ],
   exports: [
@@ -58,14 +60,11 @@ import {
     MatNativeDateModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSnackBarModule
-
+    MatSnackBarModule,
+    MatTableModule
   ]
 })
 
 export class AngularMaterialModule {
-
-  date = new FormControl(new Date());
-  serializedDate = new FormControl((new Date()).toISOString());
- }
+}
 

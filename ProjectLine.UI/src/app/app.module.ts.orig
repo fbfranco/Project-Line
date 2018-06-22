@@ -28,7 +28,15 @@ import { HelperService } from './services/helper.service';
 import { AngularMaterialModule } from './material/angular-material.module';
 //Routes
 import { RoutingModule } from './routes/routing.module';
+<<<<<<< HEAD
+=======
+import { ProjectAddComponent } from './components/projects/project-add/project-add.component';
+import { PhasesComponent } from './components/phases/phases.component';
+import { PhasesFormComponent } from './components/phases/phases-form/phases-form.component';
+import { MatTableModule } from '@angular/material';
+import { ViewModelProject } from './models/viewmodelproject.model';
 import { MessageComponent } from './components/dialog/message/message.component';
+>>>>>>> e59ddb97a5c2674fb67dfc8328ace2d53e9983ac
 
 
 
