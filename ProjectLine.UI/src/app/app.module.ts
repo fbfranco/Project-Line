@@ -26,6 +26,7 @@ import { PhasesComponent } from './components/phases/phases.component';
 import { PhasesFormComponent } from './components/phases/phases-form/phases-form.component';
 import { MatTableModule } from '@angular/material';
 import { ViewModelProject } from './models/viewmodelproject.model';
+import { MessageComponent } from './components/dialog/message/message.component';
 
 
 
@@ -43,6 +44,7 @@ import { ViewModelProject } from './models/viewmodelproject.model';
     ProjectAddComponent,
     PhasesComponent,
     PhasesFormComponent,
+    MessageComponent,
 
   ],
   imports: [
@@ -56,6 +58,7 @@ import { ViewModelProject } from './models/viewmodelproject.model';
     RoutingModule,
     MatTableModule
   ],
+  entryComponents:[MessageComponent],
   providers: [
     ClientService,
     ProjectService,

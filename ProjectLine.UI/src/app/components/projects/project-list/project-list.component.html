@@ -42,7 +42,7 @@
     <ng-container matColumnDef="Delete">
       <th mat-header-cell *matHeaderCellDef> Delete </th>
       <td mat-cell *matCellDef="let project">
-        <a mat-raised-button color="warn" (click)="DeletePasive(project.ProjectID)">
+        <a mat-raised-button color="warn" (click)="openDialog(project.ProjectID)">
           <i class="fas fa-times"></i>
         </a>
       </td>
