@@ -15,17 +15,19 @@ import { ClientComponent } from './components/clients/client/client.component';
 import { ClientListComponent } from './components/clients/client-list/client-list.component';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { ProjectListComponent } from './components/projects/project-list/project-list.component';
-// Services
-import { ClientService } from './services/client.service';
-import { ProjectService } from './services/project.service';
-// Angular Material
-import { AngularMaterialModule } from './material/angular-material.module';
-import { RoutingModule } from './routes/routing.module';
 import { ProjectAddComponent } from './components/projects/project-add/project-add.component';
 import { PhasesComponent } from './components/phases/phases.component';
 import { PhasesFormComponent } from './components/phases/phases-form/phases-form.component';
-import { MatTableModule } from '@angular/material';
+// Models
 import { ViewModelProject } from './models/viewmodelproject.model';
+// Services
+import { ClientService } from './services/client.service';
+import { ProjectService } from './services/project.service';
+import { HelperService } from './services/helper.service';
+// Angular Material
+import { AngularMaterialModule } from './material/angular-material.module';
+//Routes
+import { RoutingModule } from './routes/routing.module';
 
 
 
@@ -53,13 +55,13 @@ import { ViewModelProject } from './models/viewmodelproject.model';
     BrowserAnimationsModule,
     AngularMaterialModule,
     FlexLayoutModule,
-    RoutingModule,
-    MatTableModule
+    RoutingModule
   ],
   providers: [
     ClientService,
     ProjectService,
-    ViewModelProject
+    ViewModelProject,
+    HelperService
   ],
   bootstrap: [AppComponent]
 })

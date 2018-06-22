@@ -1,19 +1,32 @@
+// Config
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MatTableDataSource, MatSnackBar } from '@angular/material';
-import { MatDialog } from '@angular/material';
-import { PhasesFormComponent } from '../../phases/phases-form/phases-form.component';
-
+// Angular Material
+import { MatDialog, MatTableDataSource, MatSnackBar } from '@angular/material';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+// Services
 import { PhaseService } from '../../../services/phase.service';
 import { ProjectService } from '../../../services/project.service';
+import { HelperService } from '../../../services/helper.service';
+// Models
 import { Project } from '../../../models/project.model';
 import { Phase } from '../../../models/phase.model';
 import { ViewModelProject } from '../../../models/viewmodelproject.model';
+// Components
+import { PhasesFormComponent } from '../../phases/phases-form/phases-form.component';
+
+
+const helpers = new HelperService();
 
 @Component({
   selector: 'app-project-add',
   templateUrl: './project-add.component.html',
-  styleUrls: ['./project-add.component.scss']
+  styleUrls: ['./project-add.component.scss'],
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: helpers.formats },
+  ]
 })
 export class ProjectAddComponent implements OnInit {
 
@@ -25,17 +38,14 @@ export class ProjectAddComponent implements OnInit {
   constructor(public dialog: MatDialog,
               public phaseService: PhaseService,
               public projectService: ProjectService,
+              public helperService: HelperService,
               public viewmodelProject: ViewModelProject,
-              public snackBar: MatSnackBar) { }
+              public snackBar: MatSnackBar) { 
+                helperService = new HelperService(); 
+              }
 
   ngOnInit() {
     this.titleForm = this.projectService.selectedProject.Title === undefined ? `Add Project` : `Edit Project`;
-  }
-
-  DateFormat(myDate: Date) {
-    const date = new Date(myDate);
-    const month = (date.getMonth() + 1) < 9 ? `0${(date.getMonth() + 1)}` : (date.getMonth() + 1);
-    return `${month}/${date.getDate()}/${date.getFullYear()}`;
   }
 
   AddRows() {
