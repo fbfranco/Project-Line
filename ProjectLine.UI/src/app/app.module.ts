@@ -23,6 +23,8 @@ import { ObjectivesComponent } from './components/objectives/objectives.componen
 import { ObjectiveAddComponent } from './components/objectives/objective-add/objective-add.component';
 import { MessageComponent } from './components/dialog/message/message.component';
 import { ObjectivesListComponent } from './components/objectives/objectives-list/objectives-list.component';
+import { PhasesFormDeleteComponent } from './components/phases/phases-form-delete/phases-form-delete.component';
+
 // Models
 import { ViewModelProject } from './models/viewmodelproject.model';
 // Services
@@ -35,8 +37,7 @@ import { AngularMaterialModule } from './material/angular-material.module';
 import { MatTableModule } from '@angular/material';
 //Routes
 import { RoutingModule } from './routes/routing.module';
-
-
+ 
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { RoutingModule } from './routes/routing.module';
     ObjectivesComponent,
     ObjectiveAddComponent,
     ObjectivesListComponent,
-    MessageComponent
+    MessageComponent,
+    PhasesFormDeleteComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +71,7 @@ import { RoutingModule } from './routes/routing.module';
     RoutingModule,
     MatTableModule,
   ],
-  entryComponents:[MessageComponent],
+  entryComponents:[MessageComponent, PhasesFormDeleteComponent],
   providers: [
     ClientService,
     ProjectService,

@@ -15,6 +15,7 @@ import { Phase } from '../../../models/phase.model';
 import { ViewModelProject } from '../../../models/viewmodelproject.model';
 // Components
 import { PhasesFormComponent } from '../../phases/phases-form/phases-form.component';
+import { PhasesFormDeleteComponent } from '../../phases/phases-form-delete/phases-form-delete.component';
 
 
 const helpers = new HelperService();
@@ -30,44 +31,57 @@ const helpers = new HelperService();
 })
 export class ProjectAddComponent implements OnInit {
 
-  titleForm  = '';
+  titleForm = '';
   viewmodel = new ViewModelProject();
   displayedColumns = ['Title', 'Description', 'StartDate', 'EndDate', 'Edit', 'Delete'];
   dataSource = new MatTableDataSource(this.phaseService.phaseList);
+  VarSet: string;
 
   constructor(public dialog: MatDialog,
-              public phaseService: PhaseService,
-              public projectService: ProjectService,
-              public helperService: HelperService,
-              public viewmodelProject: ViewModelProject,
-              public snackBar: MatSnackBar) {
-                helperService = new HelperService();
-              }
+    public phaseService: PhaseService,
+    public projectService: ProjectService,
+    public helperService: HelperService,
+    public viewmodelProject: ViewModelProject,
+    public snackBar: MatSnackBar) {
+    helperService = new HelperService();
+  }
 
   ngOnInit() {
     this.titleForm = this.projectService.selectedProject.Title === undefined ? `Add Project` : `Edit Project`;
   }
 
   AddRows() {
-    const nroPhase =  this.phaseService.phaseList.length + 1;
-    this.phaseService.phaseList.push({ PhaseID: 0,
-                            Title: `Phase ${nroPhase}`,
-                            Description: 'Description',
-                            StartDate: this.projectService.selectedProject.StartDate,
-                            EndDate: new Date(),
-                            DemoUrl: 'demo',
-                            Edit: 'Edit',
-                            Delete: 'Delete'});
+    const nroPhase = this.phaseService.phaseList.length + 1;
+    this.phaseService.phaseList.push({
+      PhaseID: 0,
+      Title: `Phase ${nroPhase}`,
+      Description: 'Description',
+      StartDate: this.projectService.selectedProject.StartDate,
+      EndDate: new Date(),
+      DemoUrl: 'demo',
+      Edit: 'Edit',
+      Delete: 'Delete'
+    });
     this.dataSource = new MatTableDataSource(this.phaseService.phaseList);
   }
 
-  DeleteRow(element) {
-    const indexPhase = this.phaseService.phaseList.indexOf(element);
+  DeleteRow(dataPhases) {
+    const dialogRef = this.dialog.open(PhasesFormDeleteComponent, {
+      // data: indexPhase
+    });
 
-    if (confirm('Surely you want to eliminate this phase?')) {
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.VarSet = result;
+      if (this.VarSet == 'confirm') {
+
+        const indexPhase = this.phaseService.phaseList.indexOf(dataPhases);
         this.phaseService.phaseList.splice(indexPhase, 1);
         this.dataSource.filter = '';
-    }
+        console.log(this.phaseService.phaseList);
+      }
+    });
+
   }
 
   openDialog(dataPhases) {
