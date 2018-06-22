@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { HttpClientModule } from '@angular/common/http';
 // Components
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './layout/layout.component';
@@ -18,17 +19,22 @@ import { ProjectListComponent } from './components/projects/project-list/project
 import { ProjectAddComponent } from './components/projects/project-add/project-add.component';
 import { PhasesComponent } from './components/phases/phases.component';
 import { PhasesFormComponent } from './components/phases/phases-form/phases-form.component';
+import { ObjectivesComponent } from './components/objectives/objectives.component';
+import { ObjectiveAddComponent } from './components/objectives/objective-add/objective-add.component';
+import { MessageComponent } from './components/dialog/message/message.component';
+import { ObjectivesListComponent } from './components/objectives/objectives-list/objectives-list.component';
 // Models
 import { ViewModelProject } from './models/viewmodelproject.model';
 // Services
 import { ClientService } from './services/client.service';
 import { ProjectService } from './services/project.service';
 import { HelperService } from './services/helper.service';
+import { ObjectiveService } from './services/objective.service';
 // Angular Material
 import { AngularMaterialModule } from './material/angular-material.module';
+import { MatTableModule } from '@angular/material';
 //Routes
 import { RoutingModule } from './routes/routing.module';
-import { MessageComponent } from './components/dialog/message/message.component';
 
 
 
@@ -46,23 +52,28 @@ import { MessageComponent } from './components/dialog/message/message.component'
     ProjectAddComponent,
     PhasesComponent,
     PhasesFormComponent,
-    MessageComponent,
-
+    ObjectivesComponent,
+    ObjectiveAddComponent,
+    ObjectivesListComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    HttpClientModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
     AngularMaterialModule,
     FlexLayoutModule,
-    RoutingModule
+    RoutingModule,
+    MatTableModule,
   ],
   entryComponents:[MessageComponent],
   providers: [
     ClientService,
     ProjectService,
+    ObjectiveService,
     ViewModelProject,
     HelperService
   ],

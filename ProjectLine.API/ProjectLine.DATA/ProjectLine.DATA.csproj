@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Config\InitializeDB.cs" />
     <Compile Include="Config\ProjectLineContext.cs" />
+    <Compile Include="Persistence\ObjectiveRepository.cs" />
     <Compile Include="Persistence\PhaseRepository.cs" />
     <Compile Include="Persistence\ProjectRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

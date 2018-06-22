@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using ProjectLine.CORE.Models;
 using ProjectLine.DATA.Persistence;
 
 namespace ProjectLine.Controllers
 {
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class PhasesController : ApiController
     {
         PhaseRepository Repository = new PhaseRepository();
+
 
         // GET: api/Phases
         public async Task<IEnumerable<Phase>> GetPhases()
@@ -19,15 +22,12 @@ namespace ProjectLine.Controllers
         }
 
         // GET: api/Phases/5
-        public async Task<IHttpActionResult> GetPhase(int id)
+        public async Task<IEnumerable<Phase>> Get(int id)
         {
-            var phase = Repository.FindById(id);
-            if (phase == null)
-            {
-                return NotFound();
-            }
 
-            return Ok(phase);
+            var phase = await Repository.GetPhase(id);
+
+            return phase;
         }        
 
         // POST: api/Phases

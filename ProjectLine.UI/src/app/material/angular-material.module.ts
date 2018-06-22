@@ -17,10 +17,13 @@ import {
   MatCardModule,
   MatDatepickerModule,
   MatNativeDateModule,
+  MatCheckboxModule,
+  MatAutocompleteModule,
   MatTableModule
  } from '@angular/material';
-
+ 
  import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -39,9 +42,10 @@ import {
     MatNativeDateModule,
     FormsModule,
     ReactiveFormsModule,
+    MatCheckboxModule,
+    MatAutocompleteModule,
     MatSnackBarModule,
     MatTableModule
-
   ],
   exports: [
     CommonModule,
@@ -60,6 +64,8 @@ import {
     MatNativeDateModule,
     FormsModule,
     ReactiveFormsModule,
+    MatCheckboxModule,
+    MatAutocompleteModule,
     MatSnackBarModule,
     MatTableModule
   ]
