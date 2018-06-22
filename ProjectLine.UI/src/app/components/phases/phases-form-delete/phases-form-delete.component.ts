@@ -25,6 +25,5 @@ export class PhasesFormDeleteComponent implements OnInit {
 
   DelteRow(){ 
     this.dialogRef.close('confirm');
-  }
-
+  }//
 }
