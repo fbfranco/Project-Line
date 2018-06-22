@@ -40,8 +40,8 @@ export class ProjectAddComponent implements OnInit {
               public projectService: ProjectService,
               public helperService: HelperService,
               public viewmodelProject: ViewModelProject,
-              public snackBar: MatSnackBar) { 
-                helperService = new HelperService(); 
+              public snackBar: MatSnackBar) {
+                helperService = new HelperService();
               }
 
   ngOnInit() {
