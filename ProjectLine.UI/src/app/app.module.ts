@@ -35,10 +35,8 @@ import { ObjectiveService } from './services/objective.service';
 // Angular Material
 import { AngularMaterialModule } from './material/angular-material.module';
 import { MatTableModule } from '@angular/material';
-//Routes
+// Routes
 import { RoutingModule } from './routes/routing.module';
- 
-
 
 @NgModule({
   declarations: [
@@ -71,7 +69,7 @@ import { RoutingModule } from './routes/routing.module';
     RoutingModule,
     MatTableModule,
   ],
-  entryComponents:[MessageComponent, PhasesFormDeleteComponent],
+  entryComponents: [MessageComponent, PhasesFormDeleteComponent],
   providers: [
     ClientService,
     ProjectService,
