@@ -61,6 +61,7 @@ export class ObjectivesListComponent implements OnInit {
     console.log(this.ListPhases);
 
     this.newGroup('', '');
+    this.ListObjectives = null;
   }
 
   phaseChanged(event): void {

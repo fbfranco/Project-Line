@@ -116,23 +116,16 @@ export class ProjectAddComponent implements OnInit {
         this.resetForm();
       });
 
-    }
-    
-    // this.router.navigate(['/systems']);
-    //this.open(PhasesFormComponent);
-    
+    }    
   }
-
    ba() {
     this.router.navigate(['/Project']);
     }
-
   openSnackBar(message: string) {
     this.snackBar.open(message, null, {
       duration: 2000,
     });
   }
-
   resetForm() {
     this.phaseService.phaseList = [];
     this.dataSource = new MatTableDataSource(this.phaseService.phaseList);
@@ -140,7 +133,6 @@ export class ProjectAddComponent implements OnInit {
     this.projectService.selectedProject.StartDate = new Date();
     this.projectService.selectedProject.EndDate = new Date();
   }
-
   getSelectedPhase(phase: Phase) {
     this.phaseService.selectedPhase = Object.assign({}, phase);
   }
