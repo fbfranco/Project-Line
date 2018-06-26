@@ -1,25 +1,27 @@
 <h1>Objectives</h1>
 <form novalidate (ngSubmit)="openDialog()" [formGroup]="formGroup">
+
   <input type="hidden" #phaseID formControlName="id" required/>
 
   <mat-form-field class="AutocompleteProject">
-    <input type="text" placeholder="Project" aria-label="Number" matInput [matAutocomplete]="ProjectList">
+    <input type="text" placeholder="Project {{projectPlaceholder}}" aria-label="Number" matInput [matAutocomplete]="ProjectList">
     <mat-autocomplete #ProjectList="matAutocomplete" (optionSelected)="projectChanged($event)" [displayWith]="displayProjectFn">
       <mat-option *ngFor="let Project of ListProjects" [value]="Project">
         {{ Project.Title }}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
+
   <mat-form-field class="AutocompletePhases">
-    <input type="text" placeholder="Phase" aria-label="Number" matInput [matAutocomplete]="PhasesList" formControlName="PhaseTitle">
+    <input type="text" placeholder="Phase {{phasePlaceholder}}" aria-label="Number" matInput [matAutocomplete]="PhasesList" formControlName="PhaseTitle">
     <mat-autocomplete #PhasesList="matAutocomplete" (optionSelected)="phaseChanged($event)" [displayWith]="displayPhaseFn">
-      <mat-option *ngFor="let Phase of ListPhases" [value]="Phase">
-        {{ Phase.Title}}
+      <mat-option *ngFor="let Phase of ListPhases" [value]="Phase ">
+        {{ Phase.Title }}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
 
-  <div class="div-controller">
+  <div class="div-controller ">
     <button mat-raised-button color="primary" type="submit" [disabled]="!formGroup.valid"> Add Objective </button>
   </div>
 
@@ -27,6 +29,19 @@
 
 
 <table mat-table [dataSource]="ListObjectives" class="mat-elevation-z8">
+
+  <!-- ObjectiveID Column -->
+  <ng-container matColumnDef="ObjectiveID">
+    <th mat-header-cell *matHeaderCellDef> No. </th>
+    <td mat-cell *matCellDef="let Objective"> {{Objective.ObjectiveID}} </td>
+  </ng-container>
+
+  <!-- Completed Column -->
+  <ng-container matColumnDef="Completed">
+    <th mat-header-cell *matHeaderCellDef> Completed </th>
+    <td mat-cell *matCellDef="let Objective"> {{Objective.Completed}} </td>
+  </ng-container>
+
   <!-- Title Column -->
   <ng-container matColumnDef="Title">
     <th mat-header-cell *matHeaderCellDef> Title </th>
@@ -41,8 +56,8 @@
   <ng-container matColumnDef="Edit">
     <th mat-header-cell *matHeaderCellDef> Edit </th>
     <td mat-cell *matCellDef="let Objective">
-      <a mat-raised-button>
-        <i class="fas fa-edit"></i>
+      <a mat-raised-button (click)="openDialogEdit(Objective)">
+        <i class="fas fa-edit "></i>
       </a>
     </td>
   </ng-container>
@@ -51,7 +66,7 @@
     <th mat-header-cell *matHeaderCellDef> Delete </th>
     <td mat-cell *matCellDef="let Objective">
       <a mat-raised-button color="warn">
-        <i class="fas fa-times"></i>
+        <i class="fas fa-times "></i>
       </a>
     </td>
   </ng-container>

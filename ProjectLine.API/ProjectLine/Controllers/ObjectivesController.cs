@@ -28,8 +28,7 @@ namespace ProjectLine.Controllers
         }
 
 
-        // POST: api/Personas
-        [HttpPost]
+        // POST: api/Objectives/Create
         public IHttpActionResult PostObjective([FromBody]Objective objective)
         {
             if (!ModelState.IsValid)
@@ -41,6 +40,50 @@ namespace ProjectLine.Controllers
                 try
                 {
                     Repository.Create(objective);
+                    return Ok();
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.ToString());
+                }
+            }
+        }
+
+        // PUT: api/Objectives/Update
+        [HttpPut]
+        public IHttpActionResult UpdateObjective(int id, [FromBody]Objective objective)
+        {
+            if (Repository.FindById(id) == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                try
+                {
+                    Repository.Update(objective);
+                    return Ok();
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.ToString());
+                }
+            }
+        }
+
+        // DEL: api/Objectives/Delete
+        [HttpDelete]
+        public IHttpActionResult DeleteObjective(int id)
+        {
+            if (Repository.FindById(id) == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                try
+                {
+                    Repository.Delete(id);
                     return Ok();
                 }
                 catch (Exception ex)

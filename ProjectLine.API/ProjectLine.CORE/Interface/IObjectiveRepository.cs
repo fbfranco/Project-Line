@@ -10,6 +10,9 @@ namespace ProjectLine.CORE.Interface
     public interface IObjectiveRepository
     {
         Task<IEnumerable<Objective>> GetObjectives(int id);
+        Objective FindById(int id);
         void Create(Objective objective);
+        void Update(Objective objective);
+        void Delete(int id);
     }
 }

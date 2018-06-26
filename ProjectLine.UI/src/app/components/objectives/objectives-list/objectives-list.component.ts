@@ -12,7 +12,7 @@ import { Project } from "../../../models/project.model";
 import { Phase } from "../../../models/phase.model";
 import { Objective } from "../../../models/objective.model";
 import { ObjectiveAddComponent } from '../objective-add/objective-add.component';
-
+import { MessageComponent } from '../../dialog/message/message.component';
 
 @Component({
   selector: 'app-objectives-list',
@@ -28,66 +28,23 @@ export class ObjectivesListComponent implements OnInit {
   formGroup: FormGroup;
   projectIdNumber: number;
   phaseIdNumber: number;
-  binLocationForm: FormGroup;
+  projectPlaceholder: string;
+  phasePlaceholder: string;
 
   // List Objectives
   ListObjectives: Objective[];
   HeaderColumns = ['Title', 'Description', 'Edit', 'Delete'];
 
-  constructor(public projectService: ProjectService, public phasesServices: PhaseService, private fb: FormBuilder, private dialog: MatDialog, public objectiveServices: ObjectiveService) { }
-
-  //show Item Autocomplete
-  displayProjectFn(warehouse): string {
-    if (!warehouse) return '';
-    console.log(warehouse);
-    return warehouse ? warehouse.Title : warehouse;
-  }
-
-  displayPhaseFn(warehouseStock): string {
-    if (!warehouseStock) return '';
-    return warehouseStock ? warehouseStock.Title : warehouseStock;
-  }
-
-  //Event Get ProjectID
-  projectChanged(event): void {
-    this.projectIdNumber = event.option.value.ProjectID;
-    console.log("ProjectID: " + this.projectIdNumber);
-    //getting service data Phases List
-    this.phasesServices.getPhasesList(this.projectIdNumber).subscribe((datalistPhase: Phase[]) => {
-      this.ListPhases = datalistPhase;
-    }, error => {
-      console.log("Error getting the list of Phases");
-    });
-    console.log(this.ListPhases);
-
-    this.newGroup('', '');
-  }
-
-  phaseChanged(event): void {
-    this.phaseIdNumber = event.option.value.PhaseID;
-    let title = this.formGroup.controls['PhaseTitle'].value;
-    this.newGroup(this.phaseIdNumber, title);
-    console.log("PhaseID: " + this.phaseIdNumber + "___" + title);
-    this.objectiveServices.getObjectivesList(this.phaseIdNumber).subscribe((datalistPhase: Objective[]) => {
-      this.ListObjectives = datalistPhase;
-    }, error => {
-      console.log("Error getting the list of Phases");
-    });
-    console.log(this.ListObjectives);
-  }
+  constructor(
+    public projectService: ProjectService,
+    public phasesServices: PhaseService,
+    private fb: FormBuilder,
+    private dialog: MatDialog,
+    public objectiveServices: ObjectiveService
+  ) { }
 
   ngOnInit() {
-    //getting service data Projects List
-    this.projectService.getProjectsList().subscribe((datalist: Project[]) => {
-      this.ListProjects = datalist;
-      console.log(this.ListProjects);
-    }, error => {
-      console.log("Error getting the list of projects");
-    });
-    this.binLocationForm = this.fb.group({
-      projectIdNumber: '',
-      warehouseTitle: ''
-    });
+    this.getProjectList();
     this.newGroup('', '');
   }
 
@@ -95,6 +52,62 @@ export class ObjectivesListComponent implements OnInit {
     this.formGroup = this.fb.group({
       id: val,
       PhaseTitle: title
+    });
+  }
+
+  //show Item Autocomplete
+  displayProjectFn(project): string {
+    if (!project) return '';
+    return project ? project.Title : project;
+  }
+
+  displayPhaseFn(phase): string {
+    if (!phase) return '';
+    return phase ? phase.Title : phase;
+  }
+
+  //Event Get ProjectID
+  projectChanged(event): void {
+    this.projectIdNumber = event.option.value.ProjectID;
+    this.projectPlaceholder = event.option.value.Title;
+    this.getPhaseList();
+    this.newGroup('', '');
+    this.ListObjectives = null;
+  }
+
+  //Event Get PhaseID
+  phaseChanged(event): void {
+    this.phaseIdNumber = event.option.value.PhaseID;
+    this.phasePlaceholder = event.option.value.Title;
+    let title = this.formGroup.controls['PhaseTitle'].value;
+    this.newGroup(this.phaseIdNumber, title);
+    this.getObjectiveList();
+  }
+
+  getProjectList() {
+    //getting service data Projects List
+    this.projectService.getProjectsList().subscribe((datalist: Project[]) => {
+      this.ListProjects = datalist;
+    }, error => {
+      console.log("Error getting the list of projects");
+    });
+  }
+
+  getPhaseList() {
+    //getting service data Phases List
+    this.phasesServices.getPhasesList(this.projectIdNumber).subscribe((datalistPhase: Phase[]) => {
+      this.ListPhases = datalistPhase;
+    }, error => {
+      console.log("Error getting the list of Phases");
+    });
+  }
+
+  getObjectiveList() {
+    //getting service data Objectives List
+    this.objectiveServices.getObjectivesList(this.phaseIdNumber).subscribe((datalistPhase: Objective[]) => {
+      this.ListObjectives = datalistPhase;
+    }, error => {
+      console.log("Error getting the list of Phases");
     });
   }
 
@@ -113,6 +126,23 @@ export class ObjectivesListComponent implements OnInit {
         }
       });
     }
+  }
+
+  openDialogEdit(objective: Objective) {
+    this.objectiveServices.selectedObjective = Object.assign({}, objective);
+    const dialogRef = this.dialog.open(ObjectiveAddComponent);
+
+    console.log(objective);
+  }
+
+  openDialogDelete(idNumber): void {
+    let dialogRef = this.dialog.open(MessageComponent, {
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'confirma') {
+        this.objectiveServices.deleteObjective(idNumber);
+      }
+    });
   }
 
 }
