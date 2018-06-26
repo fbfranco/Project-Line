@@ -29,17 +29,19 @@ export class ObjectivesListComponent implements OnInit {
   projectIdNumber: number;
   phaseIdNumber: number;
   binLocationForm: FormGroup;
-
   // List Objectives
   ListObjectives: Objective[];
   HeaderColumns = ['Title', 'Description', 'Edit', 'Delete'];
 
-  constructor(public projectService: ProjectService, public phasesServices: PhaseService, private fb: FormBuilder, private dialog: MatDialog, public objectiveServices: ObjectiveService) { }
+  constructor(public projectService: ProjectService, 
+    public phasesServices: PhaseService, 
+    private fb: FormBuilder, 
+    private dialog: MatDialog, 
+    public objectiveServices: ObjectiveService) { }
 
   //show Item Autocomplete
   displayProjectFn(warehouse): string {
     if (!warehouse) return '';
-    console.log(warehouse);
     return warehouse ? warehouse.Title : warehouse;
   }
 
@@ -51,15 +53,12 @@ export class ObjectivesListComponent implements OnInit {
   //Event Get ProjectID
   projectChanged(event): void {
     this.projectIdNumber = event.option.value.ProjectID;
-    console.log("ProjectID: " + this.projectIdNumber);
     //getting service data Phases List
     this.phasesServices.getPhasesList(this.projectIdNumber).subscribe((datalistPhase: Phase[]) => {
       this.ListPhases = datalistPhase;
     }, error => {
       console.log("Error getting the list of Phases");
     });
-    console.log(this.ListPhases);
-
     this.newGroup('', '');
   }
 
@@ -67,20 +66,17 @@ export class ObjectivesListComponent implements OnInit {
     this.phaseIdNumber = event.option.value.PhaseID;
     let title = this.formGroup.controls['PhaseTitle'].value;
     this.newGroup(this.phaseIdNumber, title);
-    console.log("PhaseID: " + this.phaseIdNumber + "___" + title);
-    this.objectiveServices.getObjectivesList(this.phaseIdNumber).subscribe((datalistPhase: Objective[]) => {
-      this.ListObjectives = datalistPhase;
+    this.objectiveServices.getObjectivesList(this.phaseIdNumber).subscribe((datalistObjectives: Objective[]) => {
+      this.ListObjectives = datalistObjectives;
     }, error => {
       console.log("Error getting the list of Phases");
     });
-    console.log(this.ListObjectives);
   }
 
   ngOnInit() {
     //getting service data Projects List
     this.projectService.getProjectsList().subscribe((datalist: Project[]) => {
       this.ListProjects = datalist;
-      console.log(this.ListProjects);
     }, error => {
       console.log("Error getting the list of projects");
     });

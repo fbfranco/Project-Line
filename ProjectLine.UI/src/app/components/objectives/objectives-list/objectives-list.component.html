@@ -22,10 +22,9 @@
   <div class="div-controller">
     <button mat-raised-button color="primary" type="submit" [disabled]="!formGroup.valid"> Add Objective </button>
   </div>
-
 </form>
 
-
+<div class="table-content">
 <table mat-table [dataSource]="ListObjectives" class="mat-elevation-z8">
   <!-- Title Column -->
   <ng-container matColumnDef="Title">
@@ -35,7 +34,11 @@
   <!-- Description Column -->
   <ng-container matColumnDef="Description">
     <th mat-header-cell *matHeaderCellDef> Description </th>
-    <td mat-cell *matCellDef="let Objective"> {{Objective.Description}} </td>
+    <td mat-cell *matCellDef="let Objective"> 
+      <div class="long-cell">
+      {{Objective.Description}} 
+      </div>
+    </td>
   </ng-container>
   <!-- Edit Column -->
   <ng-container matColumnDef="Edit">
@@ -58,3 +61,4 @@
   <tr mat-header-row *matHeaderRowDef="HeaderColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: HeaderColumns;"></tr>
 </table>
+</div>
