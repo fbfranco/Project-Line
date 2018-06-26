@@ -36,7 +36,7 @@ export class ObjectiveAddComponent implements OnInit {
 
   newFormAddObjective() {
     this.formGroup = this.fb.group({
-      id: 0,
+      objectiveId: 0,
       title: '',
       description: '',
       completed: false,
@@ -62,7 +62,7 @@ export class ObjectiveAddComponent implements OnInit {
   }
 
   submitObjective() {
-    if (this.formGroup.controls['objectiveId'].value > 0) {
+    if (this.formGroup.controls['objectiveId'].value) {
       this.editObjective();
     } else {
       this.saveObjective();
