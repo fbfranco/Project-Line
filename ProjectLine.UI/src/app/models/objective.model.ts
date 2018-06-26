@@ -2,7 +2,7 @@ export class Objective {
     ObjectiveID: Number;
     Title: string;
     Description: string;
-    Complete: boolean;
+    Completed: boolean;
     Weight: number;
     Estimated: number;
     Effort: number;

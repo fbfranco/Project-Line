@@ -1,5 +1,4 @@
 import { Component, OnInit, Inject } from '@angular/core';
-
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Objective } from '../../../models/objective.model';
 import { ObjectiveService } from '../../../services/objective.service';
@@ -28,7 +27,16 @@ export class ObjectiveAddComponent implements OnInit {
   }
 
   newForm() {
+    if (this.data > 0) {
+      this.newFormAddObjective();
+    } else {
+      this.newFormEditObjective();
+    }
+  }
+
+  newFormAddObjective() {
     this.formGroup = this.fb.group({
+      id: 0,
       title: '',
       description: '',
       completed: false,
@@ -37,21 +45,46 @@ export class ObjectiveAddComponent implements OnInit {
       effort: 0,
       phaseId: this.data
     });
-    console.log(this.data);
+  }
+
+  newFormEditObjective() {
+    this.formGroup = this.fb.group({
+      objectiveId: this.objectiveService.selectedObjective.ObjectiveID,
+      title: this.objectiveService.selectedObjective.Title,
+      description: this.objectiveService.selectedObjective.Description,
+      completed: this.objectiveService.selectedObjective.Completed,
+      weight: this.objectiveService.selectedObjective.Weight,
+      estimated: this.objectiveService.selectedObjective.Estimated,
+      effort: this.objectiveService.selectedObjective.Effort,
+      phaseId: this.objectiveService.selectedObjective.PhaseID
+    });
+    console.log(this.formGroup.value);
+  }
+
+  submitObjective() {
+    if (this.formGroup.controls['objectiveId'].value > 0) {
+      this.editObjective();
+    } else {
+      this.saveObjective();
+    }
   }
 
   saveObjective() {
-    let objective: Objective = Object.assign({}, this.formGroup.value);
-    console.table(objective);
+    this.objectiveService.createObjective(this.formGroup.value)
+      .subscribe(data => this.onSaveSuccess(),
+        error => console.error(error));
+  }
 
-    this.objectiveService.createObjective(objective)
-      .subscribe(objective => this.onSaveSuccess(),
+  editObjective() {
+    this.objectiveService.updateObjective(this.formGroup.value)
+      .subscribe(data => this.onSaveSuccess(),
         error => console.error(error));
   }
 
   onSaveSuccess() {
-    this.snackBar.open('Successfull', 'The Objective was Created', {
-      duration: 4000,
+    this.snackBar.open('Saved', null, {
+      duration: 2000,
+      horizontalPosition: 'right'
     });
     this.dialogRef.close('save');
   }
@@ -60,4 +93,4 @@ export class ObjectiveAddComponent implements OnInit {
     this.dialogRef.close('cancel');
   }
 
-} 
+}

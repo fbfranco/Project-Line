@@ -24,6 +24,6 @@ export class HelperService {
   }
 
   DateFormat(myDate: Date) {
-    return moment(myDate).format("MM/DD/YYYY");
+    return moment(myDate).format('MM/DD/YYYY');
   }
 }
