@@ -49,7 +49,7 @@ export class ObjectiveAddComponent implements OnInit {
 
   newFormEditObjective() {
     this.formGroup = this.fb.group({
-      id: this.objectiveService.selectedObjective.ObjectiveID,
+      objectiveId: this.objectiveService.selectedObjective.ObjectiveID,
       title: this.objectiveService.selectedObjective.Title,
       description: this.objectiveService.selectedObjective.Description,
       completed: this.objectiveService.selectedObjective.Completed,
@@ -62,7 +62,7 @@ export class ObjectiveAddComponent implements OnInit {
   }
 
   submitObjective() {
-    if (this.formGroup.controls['id'].value > 0) {
+    if (this.formGroup.controls['objectiveId'].value > 0) {
       this.editObjective();
     } else {
       this.saveObjective();
@@ -70,16 +70,14 @@ export class ObjectiveAddComponent implements OnInit {
   }
 
   saveObjective() {
-    let objective: Objective = Object.assign({}, this.formGroup.value);
-    this.objectiveService.createObjective(objective)
-      .subscribe(objective => this.onSaveSuccess(),
+    this.objectiveService.createObjective(this.formGroup.value)
+      .subscribe(data => this.onSaveSuccess(),
         error => console.error(error));
   }
 
   editObjective() {
-    let objective: Objective = Object.assign({}, this.formGroup.value);
-    this.objectiveService.updateObjective(objective)
-      .subscribe(objective => this.onSaveSuccess(),
+    this.objectiveService.updateObjective(this.formGroup.value)
+      .subscribe(data => this.onSaveSuccess(),
         error => console.error(error));
   }
 
@@ -95,4 +93,4 @@ export class ObjectiveAddComponent implements OnInit {
     this.dialogRef.close('cancel');
   }
 
-} 
+}

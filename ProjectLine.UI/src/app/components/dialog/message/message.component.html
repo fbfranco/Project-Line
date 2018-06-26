@@ -1,12 +1,12 @@
 <mat-card>
-    <h4 mat-dialog-title> Please confirm </h4>
-    <div mat-dialog-content>
-      <p> Are you sure you want to remove this item? </p>
+  <h4 mat-dialog-title> Please confirm </h4>
+  <div mat-dialog-content>
+    <p> Are you sure you want to remove this item? </p>
+  </div>
+  <div mat-dialog-actions>
+    <div fxLayout="row" fxLayoutGap="1em" class="form-options" fxLayoutAlign="center start">
+      <button mat-button (click)="onCloseConfirm()" mat-raised-button color="primary">Yes</button>
+      <button mat-button (click)="onCloseCancel()" mat-raised-button color="warn">No</button>
     </div>
-    <div mat-dialog-actions fxLayoutAlign="space-between center">
-          <div fxLayout="row" fxLayoutGap="1em" class="form-options" fxLayoutAlign="center start">
-        <button mat-button (click)="onCloseConfirm()" mat-raised-button color="primary">Yes</button>
-        <button mat-button (click)="onCloseCancel()" mat-raised-button color="warn">No</button>
-      </div>
-    </div>
-    </mat-card>
+  </div>
+</mat-card>

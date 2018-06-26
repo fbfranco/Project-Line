@@ -21,7 +21,7 @@ export class PhaseService {
   phaseList: Phase[];
   indexPhase: number;
 
-  constructor(private http: Http) {}
+  constructor(private http: Http) { }
 
   postPhase(model: Phase) {
     const body = JSON.stringify(model);
@@ -47,9 +47,9 @@ export class PhaseService {
         this.phaseList = x;
       });
   }
-    getPhasesList(ProjectID: number):Observable<Phase[]> {
-      return this.http.get('http://localhost:44226/api/Phases/Get/'+ProjectID).pipe(map((data: Response) => <Phase[]>data.json()));
-    }
+  getPhasesList(ProjectID: number): Observable<Phase[]> {
+    return this.http.get('http://localhost:44226/api/Phases/Get/' + ProjectID).pipe(map((data: Response) => <Phase[]>data.json()));
+  }
   //  getPhasesList():Observable<Phase[]> {
   //    return this.http.get('http://localhost:44226/api/Phases').pipe(map((data: Response) => <Phase[]>data.json()));
   //  }
