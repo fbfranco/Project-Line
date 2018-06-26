@@ -28,18 +28,13 @@ export class ObjectivesListComponent implements OnInit {
   formGroup: FormGroup;
   projectIdNumber: number;
   phaseIdNumber: number;
-<<<<<<< HEAD
   projectPlaceholder: string;
   phasePlaceholder: string;
 
-=======
-  binLocationForm: FormGroup;
->>>>>>> UI/MT-ProjectFilterTL
   // List Objectives
   ListObjectives: Objective[];
   HeaderColumns = ['Title', 'Description', 'Edit', 'Delete'];
 
-<<<<<<< HEAD
   constructor(
     public projectService: ProjectService,
     public phasesServices: PhaseService,
@@ -65,18 +60,6 @@ export class ObjectivesListComponent implements OnInit {
   displayProjectFn(project): string {
     if (!project) { return ''; }
     return project ? project.Title : project;
-=======
-  constructor(public projectService: ProjectService, 
-    public phasesServices: PhaseService, 
-    private fb: FormBuilder, 
-    private dialog: MatDialog, 
-    public objectiveServices: ObjectiveService) { }
-
-  //show Item Autocomplete
-  displayProjectFn(warehouse): string {
-    if (!warehouse) return '';
-    return warehouse ? warehouse.Title : warehouse;
->>>>>>> UI/MT-ProjectFilterTL
   }
 
   displayPhaseFn(phase): string {
@@ -87,17 +70,8 @@ export class ObjectivesListComponent implements OnInit {
   // Event Get ProjectID
   projectChanged(event): void {
     this.projectIdNumber = event.option.value.ProjectID;
-<<<<<<< HEAD
     this.projectPlaceholder = event.option.value.Title;
     this.getPhaseList();
-=======
-    //getting service data Phases List
-    this.phasesServices.getPhasesList(this.projectIdNumber).subscribe((datalistPhase: Phase[]) => {
-      this.ListPhases = datalistPhase;
-    }, error => {
-      console.log("Error getting the list of Phases");
-    });
->>>>>>> UI/MT-ProjectFilterTL
     this.newGroup('', '');
     this.ListObjectives = null;
   }
@@ -108,15 +82,7 @@ export class ObjectivesListComponent implements OnInit {
     this.phasePlaceholder = event.option.value.Title;
     const title = this.formGroup.controls['PhaseTitle'].value;
     this.newGroup(this.phaseIdNumber, title);
-<<<<<<< HEAD
     this.getObjectiveList();
-=======
-    this.objectiveServices.getObjectivesList(this.phaseIdNumber).subscribe((datalistObjectives: Objective[]) => {
-      this.ListObjectives = datalistObjectives;
-    }, error => {
-      console.log("Error getting the list of Phases");
-    });
->>>>>>> UI/MT-ProjectFilterTL
   }
 
   getProjectList() {
