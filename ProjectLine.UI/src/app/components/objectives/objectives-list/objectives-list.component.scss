@@ -11,10 +11,7 @@ $color-dark: rgb(34, 45, 49);
     margin-bottom: 1%;
 }
 
-//Table
-table{
-    width: 100%;
-}
+
 .AutocompleteProject{
     width: 45%;
     float: left;
@@ -23,4 +20,25 @@ table{
 {
     width: 45%;
     float: right;
+}
+//Data-Table
+.table-content{
+    position: relative;
+    table{
+        width: 100%;
+        @media screen and (max-width: 900px) {
+            width: 100%;
+            display: block;
+            overflow-x: auto;
+        }
+    }
+    td{
+        margin: 0;
+        padding: 12px;
+    }
+    .long-cell{
+        width: 100%;
+        max-height:50px;
+        overflow-y: auto;
+    }
 }

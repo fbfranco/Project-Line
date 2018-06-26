@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core'
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatTable} from '@angular/material';
+import { Component, OnInit, Inject } from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 
 @Component({
@@ -16,7 +16,7 @@ export class MessageComponent implements OnInit {
   }
 
   onCloseConfirm() {
-    this.dialogRef.close('confirma');
+    this.dialogRef.close('confirm');
   }
    onCloseCancel() {
      this.dialogRef.close('cancel');
