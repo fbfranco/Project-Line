@@ -3,7 +3,7 @@
 <br>
 
 <mat-form-field class="AutocompleteProject">
-  <input type="text" placeholder="Project {{projectPlaceholder}}" aria-label="Number" matInput [matAutocomplete]="ProjectList">
+  <input type="text" placeholder="Project" aria-label="Number" matInput [matAutocomplete]="ProjectList">
   <mat-autocomplete #ProjectList="matAutocomplete" (optionSelected)="projectChanged($event)" [displayWith]="displayProjectFn">
     <mat-option *ngFor="let Project of ListProjects" [value]="Project">
       {{ Project.Title }}
@@ -15,34 +15,35 @@
 
   <dl>
     <dt>May 2016</dt>
-    <dd class="pos-left clearfix">
+    <dd *ngFor="let Phase of PhaseModel; let i = index" [ngClass]="{'pos-right': i%2 != 0,'pos-left': i%2 == 0}" class="clearfix">
       <div class="circ"></div>
-        <div class="events">
-        <div class="events-header">Fase 1 / 2018/07/07</div>
+      <div class="time">{{Phase.StartDate | date: 'MM-dd-yyyy'}} / {{Phase.EndDate | date: 'MM-dd-yyyy'}}</div>
+      <div class="events">
+        <div class="events-header">{{Phase.Title}}</div>
         <div class="events-body">
           <div class="row">
             <div class="events-desc">
               List of Objetives
             </div>
           </div>
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-md-6 pull-left">
               <img class="events-object img-responsive img-rounded" src="../../../../assets/plugins/timeline/img/dog02.jpeg" />
             </div>
             <div class="events-desc">
               
             </div>
-          </div>
+          </div> -->
 
         </div>
         <div class="events-footer">
         </div>
       </div>
     </dd>
-    
-    <dd class="pos-right clearfix">
+
+    <!-- <dd class="pos-right clearfix">
       <div class="circ"></div>
-     
+
       <div class="events">
         <div class="events-header">Fase 2 / 2018/08/08</div>
         <div class="events-body">
@@ -60,16 +61,16 @@
               
             </div>
           </div>
-          
+
         </div>
         <div class="events-footer">
 
         </div>
       </div>
-    </dd>
-    <dd class="pos-left clearfix">
+    </dd> -->
+    <!-- <dd class="pos-left clearfix">
       <div class="circ"></div>
-      
+
       <div class="events">
         <div class="events-header">Fase 3 / 2018/09/09</div>
         <div class="events-body">
@@ -80,7 +81,8 @@
           </div>
         </div>
       </div>
-    </dd>
+    </dd> -->
+
     <dt>Jan 2016</dt>
 
   </dl>

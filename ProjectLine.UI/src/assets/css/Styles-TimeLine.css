@@ -59,7 +59,7 @@
     left: 50%;
     display: inline-block;
     width: 100px;
-    padding-left: 20px;
+    padding: 10px 20px;
     color: #4fc1e9
 }
 
@@ -135,8 +135,7 @@
 
 .VivaTimeline dl dd.pos-right .time {
     margin-left: -100px;
-    text-align: left;
-    padding: 0;
+    text-align: right
 }
 
 .VivaTimeline dl dd.pos-right .events {
@@ -177,7 +176,7 @@
         left: 90px
     }
     .VivaTimeline dl dd .time {
-        left: 0px;
+        left: 20px
     }
     .VivaTimeline dl dd.pos-left .time {
         padding: 10px 0;
