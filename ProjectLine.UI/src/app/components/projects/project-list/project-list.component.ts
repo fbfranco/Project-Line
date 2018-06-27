@@ -8,6 +8,8 @@ import { Project } from '../../../models/project.model';
 import { MatDialog } from '@angular/material';
 import { MessageComponent } from '../../../components/dialog/message/message.component';
 
+declare var $:any;
+
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
@@ -30,6 +32,9 @@ export class ProjectListComponent implements OnInit {
     }, error => {
       console.log('Error getting the list of projects');
     });
+
+    $('.VivaTimeline').vivaTimeline();
+
   }
 
   newProject() {
@@ -66,3 +71,5 @@ openDialog(ids): void {
   });
 }
 }
+
+
