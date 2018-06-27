@@ -16,6 +16,9 @@ import { ViewModelProject } from '../../../models/viewmodelproject.model';
 // Components
 import { PhasesFormComponent } from '../../phases/phases-form/phases-form.component';
 import { PhasesFormDeleteComponent } from '../../phases/phases-form-delete/phases-form-delete.component';
+// import { RoutingModule } from '../../../Routes/routing.module';
+import { Route, RouterModule, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 
 const helpers = new HelperService();
@@ -38,6 +41,8 @@ export class ProjectAddComponent implements OnInit {
   VarSet: string;
 
   constructor(public dialog: MatDialog,
+    public route: ActivatedRoute,
+    public router: Router,
     public phaseService: PhaseService,
     public projectService: ProjectService,
     public helperService: HelperService,
@@ -55,7 +60,8 @@ export class ProjectAddComponent implements OnInit {
     this.phaseService.phaseList.push({
       PhaseID: 0,
       Title: `Phase ${nroPhase}`,
-      Description: 'Description',
+      // Description: 'Descriptionnn',
+      Description: '',
       StartDate: this.projectService.selectedProject.StartDate,
       EndDate: new Date(),
       DemoUrl: 'demo',
@@ -101,14 +107,21 @@ export class ProjectAddComponent implements OnInit {
     if (typeof form.value.ProjectID === 'undefined') {
       this.projectService.postProject(this.viewmodel).subscribe(data => {
         this.openSnackBar('Saved');
+        this.navigate_to_project_home_page();
         this.resetForm();
       });
     } else {
       this.projectService.putProject(this.viewmodel).subscribe(data => {
         this.openSnackBar('Saved');
+        this.navigate_to_project_home_page();
         this.resetForm();
       });
+
     }
+  }
+
+  navigate_to_project_home_page() {
+    this.router.navigate(['/Project']);
   }
 
   openSnackBar(message: string) {
@@ -116,7 +129,6 @@ export class ProjectAddComponent implements OnInit {
       duration: 2000,
     });
   }
-
   resetForm() {
     this.phaseService.phaseList = [];
     this.dataSource = new MatTableDataSource(this.phaseService.phaseList);
@@ -124,7 +136,6 @@ export class ProjectAddComponent implements OnInit {
     this.projectService.selectedProject.StartDate = new Date();
     this.projectService.selectedProject.EndDate = new Date();
   }
-
   getSelectedPhase(phase: Phase) {
     this.phaseService.selectedPhase = Object.assign({}, phase);
   }

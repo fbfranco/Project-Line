@@ -35,8 +35,11 @@ import { ObjectiveService } from './services/objective.service';
 // Angular Material
 import { AngularMaterialModule } from './material/angular-material.module';
 import { MatTableModule } from '@angular/material';
-// Routes
+//Routes
 import { RoutingModule } from './routes/routing.module';
+import { TimelineComponent } from './components/timeline/timeline/timeline.component';
+ 
+
 
 @NgModule({
   declarations: [
@@ -55,7 +58,8 @@ import { RoutingModule } from './routes/routing.module';
     ObjectiveAddComponent,
     ObjectivesListComponent,
     MessageComponent,
-    PhasesFormDeleteComponent
+    PhasesFormDeleteComponent,
+    TimelineComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +73,7 @@ import { RoutingModule } from './routes/routing.module';
     RoutingModule,
     MatTableModule,
   ],
-  entryComponents: [MessageComponent, PhasesFormDeleteComponent],
+  entryComponents:[MessageComponent, PhasesFormDeleteComponent],
   providers: [
     ClientService,
     ProjectService,

@@ -30,7 +30,8 @@ export class ProjectListComponent implements OnInit {
     }, error => {
       console.log('Error getting the list of projects');
     });
-  }
+
+   }
 
   newProject() {
     this.phasesService.phaseList = [];
@@ -66,3 +67,5 @@ openDialog(ids): void {
   });
 }
 }
+
+
