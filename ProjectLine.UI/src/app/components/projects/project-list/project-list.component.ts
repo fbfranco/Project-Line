@@ -18,10 +18,13 @@ export class ProjectListComponent implements OnInit {
   // List Projects
   ListProjects: Project[];
   HeaderColumns = ['Title', 'Description', 'StartDate', 'EndDate', 'Edit', 'Delete'];
-  VariableSet:string;
+  VariableSet: string;
 
-  constructor( public projectService: ProjectService,
-               private phasesService: PhaseService, public dialog:MatDialog) { }
+  constructor(
+    public projectService: ProjectService,
+    private phasesService: PhaseService,
+    public dialog: MatDialog
+  ) { }
 
   ngOnInit() {
     // getting service data
@@ -30,8 +33,7 @@ export class ProjectListComponent implements OnInit {
     }, error => {
       console.log('Error getting the list of projects');
     });
-
-   }
+  }
 
   newProject() {
     this.phasesService.phaseList = [];
@@ -46,26 +48,24 @@ export class ProjectListComponent implements OnInit {
   }
 
   DeletePasive(id) {
-   
-      this.projectService.putProjectDeletePasive(id)
-    .subscribe(data => {
-     this.projectService.getProjectsList().subscribe((datalist: Project[])=>{
-      this.ListProjects = datalist;})
-    }); 
-        
-}
 
-openDialog(ids): void {
-  let dialogRef = this.dialog.open(MessageComponent, {
-  });
-  dialogRef.afterClosed().subscribe(result => {
-    this.VariableSet = result;
-    if(this.VariableSet=='confirma')
-    {
-      this.DeletePasive(ids);
-    }    
-  });
-}
-}
+    this.projectService.putProjectDeletePasive(id)
+      .subscribe(data => {
+        this.projectService.getProjectsList().subscribe((datalist: Project[]) => {
+          this.ListProjects = datalist;
+        });
+      });
 
+  }
 
+  openDialog(ids): void {
+    let dialogRef = this.dialog.open(MessageComponent, {
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.VariableSet = result;
+      if (this.VariableSet === 'confirm') {
+        this.DeletePasive(ids);
+      }
+    });
+  }
+}
