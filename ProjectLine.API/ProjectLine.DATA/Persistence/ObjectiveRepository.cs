@@ -79,8 +79,8 @@ namespace ProjectLine.DATA.Persistence
         {
             try
             {
-                Objective Delete = FindById(id);
-                using (var Context = new ProjectLineContext())
+                var Delete = FindById(id);
+                using (Context = new ProjectLineContext())
                 {
                     Context.Objectives.Remove(Delete);
                     Context.SaveChanges();
