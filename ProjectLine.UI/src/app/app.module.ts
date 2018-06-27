@@ -37,7 +37,7 @@ import { AngularMaterialModule } from './material/angular-material.module';
 import { MatTableModule } from '@angular/material';
 //Routes
 import { RoutingModule } from './routes/routing.module';
-import { TimelineComponent } from './components/timeline/timeline.component';
+import { TimelineComponent } from './components/timeline/timeline/timeline.component';
  
 
 

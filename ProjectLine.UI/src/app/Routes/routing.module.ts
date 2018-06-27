@@ -6,7 +6,7 @@ import { ProjectAddComponent } from '../components/projects/project-add/project-
 import { PhasesFormComponent } from '../components/phases/phases-form/phases-form.component';
 import { ObjectivesComponent } from '../components/objectives/objectives.component';
 import { ObjectiveAddComponent } from '../components/objectives/objective-add/objective-add.component';
-import { TimelineComponent } from '../components/timeline/timeline.component';
+import { TimelineComponent } from '../components/timeline/timeline/timeline.component';
 
 const routes: Routes = [
   { path: 'Project', component: ProjectListComponent },
@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'Client', component: PhasesFormComponent },
   { path: 'Objective', component: ObjectivesComponent },
   { path: 'Objective/Add', component: ObjectiveAddComponent },
-  { path: 'timeline', component: TimelineComponent }
+  { path: 'TimeLine', component:TimelineComponent}
 ];
 
 @NgModule({

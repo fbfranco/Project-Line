@@ -30,7 +30,8 @@ export class ProjectListComponent implements OnInit {
     }, error => {
       console.log('Error getting the list of projects');
     });
-  }
+
+   }
 
   newProject() {
     this.phasesService.phaseList = [];
@@ -59,10 +60,12 @@ openDialog(ids): void {
   });
   dialogRef.afterClosed().subscribe(result => {
     this.VariableSet = result;
-    if(this.VariableSet=='confirma')
+    if(this.VariableSet=='confirm')
     {
       this.DeletePasive(ids);
     }    
   });
 }
 }
+
+
