@@ -11,6 +11,6 @@
         public int Effort { get; set; }
 
         public int PhaseID { get; set; }
-        public Phase Phase { get; set; }
+        
     }
 }
