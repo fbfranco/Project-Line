@@ -15,5 +15,6 @@ namespace ProjectLine.CORE.Models
         public DateTime EndDate { get; set; }
         public string DemoUrl { get; set; }
         public int ProjectID { get; set; }
+        public ICollection<Objective> Objectives { get; set; }
     }
 }
