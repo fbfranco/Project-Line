@@ -4,8 +4,7 @@
       <div class="VivaTimeline">
         <dl>
           <dt>Start Date <br> 06/26/2018</dt>
-          <!-- Trabajar en esta parte https://es.stackoverflow.com/questions/82214/c%C3%B3mo-cambiar-clase-mediante-una-condici%C3%B3n -->
-          <dd *ngFor="let Phase of PhaseLocal" ng-class="{'nombre-clase': condicion}" class="pos-left clearfix">  
+          <dd *ngFor="let Phase of PhaseModel; let i = index" [ngClass]="{'pos-right': i%2 != 0,'pos-left': i%2 == 0}" class="clearfix">  
             <div class="circ"></div>
             <div class="time">{{Phase.StartDate | date: 'MM-dd-yyyy'}} / {{Phase.EndDate | date: 'MM-dd-yyyy'}}</div>
             <div class="events">

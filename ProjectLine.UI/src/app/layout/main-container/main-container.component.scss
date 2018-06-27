@@ -1,6 +1,10 @@
 // VARIABLES
 $color-primary: rgb(6, 170, 214);
 $color-dark: rgb(34, 45, 49);
+
+.ProjectTitle:hover{
+  cursor: pointer;
+}
 // TOOLBAR
 .menu-bar {
   color: white;
