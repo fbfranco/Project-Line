@@ -49,7 +49,7 @@ namespace ProjectLine.Controllers
             }
         }
 
-        // PUT: api/Objectives/Update
+        // POST: api/Objectives/Update
         public IHttpActionResult UpdateObjective([FromBody]Objective objective)
         {
             if (Repository.FindById(objective.ObjectiveID) == null)
@@ -70,7 +70,7 @@ namespace ProjectLine.Controllers
             }
         }
 
-        // DEL: api/Objectives/Delete
+        // DELETE: api/Objectives/Delete/1
         public IHttpActionResult DeleteObjective(int id)
         {
             if (Repository.FindById(id) == null)
