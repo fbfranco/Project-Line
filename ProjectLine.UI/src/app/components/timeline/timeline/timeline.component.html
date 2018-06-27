@@ -1,6 +1,7 @@
 <h1>Timeline</h1>
 <br>
 <br>
+
 <mat-form-field class="AutocompleteProject">
   <input type="text" placeholder="Project {{projectPlaceholder}}" aria-label="Number" matInput [matAutocomplete]="ProjectList">
   <mat-autocomplete #ProjectList="matAutocomplete" (optionSelected)="projectChanged($event)" [displayWith]="displayProjectFn">
