@@ -17,7 +17,6 @@ export class TimelineComponent implements OnInit {
 
     // List Projects
     ListProjects: Project[];
-    projectIdNumber: number;
     EndDate: string;
     StartDate: string;
     
@@ -39,16 +38,13 @@ export class TimelineComponent implements OnInit {
   projectChanged(event): void{
     this.EndDate = event.option.value.EndDate;
     this.StartDate = event.option.value.StartDate;
-    console.log("EndDate: "+this.EndDate+" StarDate: "+this.StartDate);
   }
 
 
   getProjectList() {
     this.projectService.getProjectsList().subscribe((datalist: Project[]) => {
     this.ListProjects = datalist;
-    console.log(this.ListProjects);
     }, error => {
-      console.log('Error getting the list of projects');
     });
     
   }
