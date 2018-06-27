@@ -97,19 +97,16 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-<<<<<<< HEAD
-=======
-      </div>
-    </mat-card-content>
-    <div fxLayout="row" fxLayoutGap="1em" class="form-options">
-      <button mat-raised-button color="primary" [disabled]="!projectForm.valid"  type="submit">Save</button>
-      <a mat-raised-button color="warn" routerLink="/Project">Cancel</a>
->>>>>>> 76e58cffbd553e0eeae650e3ece290dca9315e89
     </div>
+
   </mat-card-content>
+
+
+  
+  
   <div fxLayout="row" fxLayoutGap="1em" class="form-options">
     <button mat-raised-button color="primary" [disabled]="!projectForm.valid" type="submit">Save</button>
     <a mat-raised-button color="warn" routerLink="/Project">Cancel</a>
   </div>
+  
 </form>
-
