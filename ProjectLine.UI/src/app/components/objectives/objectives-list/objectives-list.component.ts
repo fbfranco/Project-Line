@@ -142,9 +142,8 @@ export class ObjectivesListComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         if (result === 'confirm') {
           this.objectiveServices.deleteObjective(objective)
-            .subscribe(error => console.error(error));
-          this.getObjectiveList();
-          console.log(objective.ObjectiveID);
+            .subscribe(data => this.getObjectiveList(),
+              error => console.error(error));
         }
       });
     } else {
