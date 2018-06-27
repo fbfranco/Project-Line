@@ -79,10 +79,11 @@ namespace ProjectLine.DATA.Persistence
         {
             try
             {
-                Objective Delete = FindById(id);
-                using (var Context = new ProjectLineContext())
+                var delete = FindById(id);
+                using (Context = new ProjectLineContext())
                 {
-                    Context.Objectives.Remove(Delete);
+                    Context.Objectives.Attach(delete);
+                    Context.Objectives.Remove(delete);
                     Context.SaveChanges();
                 }
             }
