@@ -17,8 +17,8 @@ import { ViewModelProject } from '../../../models/viewmodelproject.model';
 import { PhasesFormComponent } from '../../phases/phases-form/phases-form.component';
 import { PhasesFormDeleteComponent } from '../../phases/phases-form-delete/phases-form-delete.component';
 // import { RoutingModule } from '../../../Routes/routing.module';
-  import { Route, RouterModule, Router } from '@angular/router';
-  import { ActivatedRoute } from '@angular/router';
+import { Route, RouterModule, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 
 const helpers = new HelperService();
@@ -41,8 +41,8 @@ export class ProjectAddComponent implements OnInit {
   VarSet: string;
 
   constructor(public dialog: MatDialog,
-     public route: ActivatedRoute,
-      public router: Router, 
+    public route: ActivatedRoute,
+    public router: Router,
     public phaseService: PhaseService,
     public projectService: ProjectService,
     public helperService: HelperService,
@@ -107,20 +107,23 @@ export class ProjectAddComponent implements OnInit {
     if (typeof form.value.ProjectID === 'undefined') {
       this.projectService.postProject(this.viewmodel).subscribe(data => {
         this.openSnackBar('Saved');
-        this.ba();
+        this.navigate_to_project_home_page();
         this.resetForm();
       });
     } else {
       this.projectService.putProject(this.viewmodel).subscribe(data => {
         this.openSnackBar('Saved');
+        this.navigate_to_project_home_page();
         this.resetForm();
       });
 
-    }    
-  }
-   ba() {
-    this.router.navigate(['/Project']);
     }
+  }
+
+  navigate_to_project_home_page() {
+    this.router.navigate(['/Project']);
+  }
+
   openSnackBar(message: string) {
     this.snackBar.open(message, null, {
       duration: 2000,
