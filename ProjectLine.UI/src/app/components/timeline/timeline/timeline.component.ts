@@ -19,19 +19,16 @@ export class TimelineComponent implements OnInit {
   PhaseModel: Phase[];
   ProjectID: number;
 
-  // List Projects
-  ListProjects: Project[];
-  EndDate: string;
-  StartDate: string;
+    // List Projects
+    ListProjects: Project[];
+    EndDate: string;
+    StartDate: string;
 
-  constructor(public projectService: ProjectService, private phaseService: PhaseService) {
-    this.ProjectID = 2; // set id of project
-  }
+  constructor(public projectService: ProjectService, private phaseService: PhaseService) { }
 
   ngOnInit() {
     $('.VivaTimeline').vivaTimeline();
     this.getProjectList();
-    this.displayPhasesOnTimeLine(this.ProjectID);
   }
 
   // show Item Autocomplete
@@ -44,24 +41,21 @@ export class TimelineComponent implements OnInit {
   projectChanged(event): void {
     this.EndDate = event.option.value.EndDate;
     this.StartDate = event.option.value.StartDate;
-    console.log("EndDate: " + this.EndDate + " StarDate: " + this.StartDate);
+    this.ProjectID = event.option.value.ProjectID;
+    this.displayPhasesOnTimeLine(this.ProjectID);
   }
 
   getProjectList() {
     this.projectService.getProjectsList().subscribe((datalist: Project[]) => {
-      this.ListProjects = datalist;
-      console.log(this.ListProjects);
+    this.ListProjects = datalist;
     }, error => {
-      console.log('Error getting the list of projects');
     });
-
   }
 
   displayPhasesOnTimeLine(projectID: number) {
     this.phaseService.getPhasesList(projectID).subscribe((data: Phase[]) => {
       this.PhaseModel = data;
     }, error => {
-      console.log('Error getting the list of phases');
     });
   }
 }
