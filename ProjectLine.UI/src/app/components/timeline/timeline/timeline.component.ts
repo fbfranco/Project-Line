@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 // Services
 import { ProjectService } from '../../../services/project.service';
+import { HelperService } from '../../../services/helper.service';
 // Models
 import { Phase } from '../../../models/phase.model';
 import { Project } from '../../../models/project.model';
@@ -16,14 +17,20 @@ export class TimelineComponent implements OnInit {
 
   // List Projects
   ListProjects: Project[];
-  EndDate: string;
-  StartDate: string;
 
-  constructor(public projectService: ProjectService) { }
+  // Variables when show the TimeLine
+
+  StartDate: any;
+  EndDate: any;
+  Hide: boolean;
+  values = '';
+  ProjectTitle: string;
+  constructor(public projectService: ProjectService,private helperService: HelperService) { }
 
   ngOnInit() {
     $('.VivaTimeline').vivaTimeline();
     this.getProjectList();
+    this.Hide = false;
   }
 
   // show Item Autocomplete
@@ -34,9 +41,14 @@ export class TimelineComponent implements OnInit {
 
   // Get the dates of the selected project
   projectChanged(event): void {
-    this.EndDate = event.option.value.EndDate;
-    this.StartDate = event.option.value.StartDate;
+    console.log(event);
+    this.StartDate = this.helperService.DateFormat( new Date(event.option.value.StartDate));
+    this.EndDate = this.helperService.DateFormat(event.option.value.EndDate);
+    this.ProjectTitle = event.option.value.Title;
     this.PhaseModel = event.option.value.Phases;
+    // this.ProjectID = event.option.value.ProjectID;
+    // this.displayPhasesOnTimeLine(this.ProjectID);
+    this.Hide = true;
   }
 
   getProjectList() {
@@ -45,4 +57,19 @@ export class TimelineComponent implements OnInit {
     }, error => {
     });
   }
+
+  inputEmpty(event: any) {
+    if (event !== '') {
+      this.Hide = false;
+      console.log(this.StartDate);
+    }
+  }
+
+
+  // displayPhasesOnTimeLine(projectID: number) {
+  //   this.phaseService.getPhasesList(projectID).subscribe((data: Phase[]) => {
+  //     this.PhaseModel = data;
+  //   }, error => {
+  //   });
+  // }
 }
