@@ -23,23 +23,15 @@ export class TimelineComponent implements OnInit {
     ListProjects: Project[];
     EndDate: string;
     StartDate: string;
-<<<<<<< HEAD
-    Hide : boolean;
+    Hide: boolean;
     values = '';
-    
-=======
->>>>>>> a3a47a630034bc26ebc61ff95fc0f5785ceb24f6
 
   constructor(public projectService: ProjectService, private phaseService: PhaseService) { }
 
   ngOnInit() {
     $('.VivaTimeline').vivaTimeline();
-<<<<<<< HEAD
-    this.getProjectList()
-    this.Hide = false;
-=======
     this.getProjectList();
->>>>>>> a3a47a630034bc26ebc61ff95fc0f5785ceb24f6
+    this.Hide = false;
   }
 
   // show Item Autocomplete
@@ -52,13 +44,9 @@ export class TimelineComponent implements OnInit {
   projectChanged(event): void {
     this.EndDate = event.option.value.EndDate;
     this.StartDate = event.option.value.StartDate;
-<<<<<<< HEAD
-    this.Hide = true;
-    console.log("EndDate: "+this.EndDate+" StarDate: "+this.StartDate);
-=======
     this.ProjectID = event.option.value.ProjectID;
     this.displayPhasesOnTimeLine(this.ProjectID);
->>>>>>> a3a47a630034bc26ebc61ff95fc0f5785ceb24f6
+    this.Hide = true;
   }
 
   getProjectList() {
@@ -67,19 +55,14 @@ export class TimelineComponent implements OnInit {
     }, error => {
     });
   }
-<<<<<<< HEAD
 
-  inputEmpty(event: any){
-     if (event != '' ) {
+  inputEmpty(event: any) {
+     if (event !== '' ) {
       this.Hide = false;
       console.log(this.StartDate);
-     }    
-      
-    
+     }
   }
-  
-=======
->>>>>>> a3a47a630034bc26ebc61ff95fc0f5785ceb24f6
+
 
   displayPhasesOnTimeLine(projectID: number) {
     this.phaseService.getPhasesList(projectID).subscribe((data: Phase[]) => {
