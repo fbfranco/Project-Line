@@ -3,7 +3,7 @@
 <br>
 
 <mat-form-field class="AutocompleteProject">
-  <input  type="text" (change)="inputEmpty($event)" placeholder="Project {{projectPlaceholder}}" aria-label="Number" matInput [matAutocomplete]="ProjectList">
+  <input  type="text" (change)="inputEmpty($event)" placeholder="Project" aria-label="Number" matInput [matAutocomplete]="ProjectList">
   <mat-autocomplete #ProjectList="matAutocomplete" (optionSelected)="projectChanged($event)"  [displayWith]="displayProjectFn">
     <mat-option *ngFor="let Project of ListProjects" [value]="Project">
       {{ Project.Title }}
