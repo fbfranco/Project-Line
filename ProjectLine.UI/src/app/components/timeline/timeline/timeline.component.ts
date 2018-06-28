@@ -14,7 +14,7 @@ declare var $: any;
 @Component({
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',
-  styleUrls: ['./timeline.component.css']
+  styleUrls: ['./timeline-filter-project.component.scss']
 })
 export class TimelineComponent implements OnInit {
   PhaseModel: Phase[];

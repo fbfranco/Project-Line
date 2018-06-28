@@ -1,7 +1,5 @@
-<h1>Timeline</h1>
 <br>
-<br>
-
+<div class="div-Container">
 <mat-form-field class="AutocompleteProject">
   <input  type="text" (change)="inputEmpty($event)" placeholder="Project {{projectPlaceholder}}" aria-label="Number" matInput [matAutocomplete]="ProjectList">
   <mat-autocomplete #ProjectList="matAutocomplete" (optionSelected)="projectChanged($event)"  [displayWith]="displayProjectFn">
@@ -10,9 +8,9 @@
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>
-
+</div>
 <div class="VivaTimeline" *ngIf="Hide"  >
-
+<h1>Title Project</h1>
   <dl>
     <dt>{{ StartDate }}</dt>
     <dd *ngFor="let Phase of PhaseModel; let i = index" [ngClass]="{'pos-right': i%2 != 0,'pos-left': i%2 == 0}" class="clearfix">
