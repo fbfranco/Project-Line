@@ -12,8 +12,8 @@
 </mat-form-field>
 
 <div class="VivaTimeline" *ngIf="Hide"  >
-
-  <dl>
+  <h1 fxLayoutAlign="center center">{{ ProjectTitle }}</h1>
+   <dl>
     <dt>{{ StartDate }}</dt>
     <dd *ngFor="let Phase of PhaseModel; let i = index" [ngClass]="{'pos-right': i%2 != 0,'pos-left': i%2 == 0}" class="clearfix">
       <div class="circ"></div>

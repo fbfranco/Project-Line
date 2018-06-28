@@ -22,10 +22,14 @@ export class TimelineComponent implements OnInit {
 
   // List Projects
   ListProjects: Project[];
+
+  // Variables when show the TimeLine
+
   StartDate: any;
   EndDate: any;
   Hide: boolean;
   values = '';
+  ProjectTitle: string;
   constructor(public projectService: ProjectService, private phaseService: PhaseService, private helperService: HelperService) { }
 
   ngOnInit() {
@@ -42,12 +46,10 @@ export class TimelineComponent implements OnInit {
 
   // Get the dates of the selected project
   projectChanged(event): void {
+    console.log(event);
     this.StartDate = this.helperService.DateFormat( new Date(event.option.value.StartDate));
     this.EndDate = this.helperService.DateFormat(event.option.value.EndDate);
-    console.log(this.StartDate);
-    /* this.EndDate = event.option.value.EndDate;
-    this.StartDate = event.option.value.StartDate; */
-
+    this.ProjectTitle = event.option.value.Title;
     this.ProjectID = event.option.value.ProjectID;
     this.displayPhasesOnTimeLine(this.ProjectID);
     this.Hide = true;
