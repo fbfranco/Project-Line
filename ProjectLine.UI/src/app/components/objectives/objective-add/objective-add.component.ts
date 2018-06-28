@@ -58,7 +58,6 @@ export class ObjectiveAddComponent implements OnInit {
       effort: this.objectiveService.selectedObjective.Effort,
       phaseId: this.objectiveService.selectedObjective.PhaseID
     });
-    console.log(this.formGroup.value);
   }
 
   submitObjective() {
