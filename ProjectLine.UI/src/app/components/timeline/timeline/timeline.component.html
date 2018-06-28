@@ -1,7 +1,5 @@
-<h1>Timeline</h1>
 <br>
-<br>
-
+<div class="div-Container">
 <mat-form-field class="AutocompleteProject">
   <input  type="text" (change)="inputEmpty($event)" placeholder="Project" aria-label="Number" matInput [matAutocomplete]="ProjectList">
   <mat-autocomplete #ProjectList="matAutocomplete" (optionSelected)="projectChanged($event)"  [displayWith]="displayProjectFn">
@@ -10,8 +8,60 @@
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>
+</div>
+<div class="VivaTimeline" *ngIf="Hide"  >
+<h1>Title Project</h1>
+  <dl>
+    <dt>{{ StartDate }}</dt>
+    <dd *ngFor="let Phase of PhaseModel; let i = index" [ngClass]="{'pos-right': i%2 != 0,'pos-left': i%2 == 0}" class="clearfix">
+      <div class="circ"></div>
+      <div class="time">{{Phase.StartDate | date: 'MM-dd-yyyy'}} / {{Phase.EndDate | date: 'MM-dd-yyyy'}}</div>
+      <div class="events">
+        <div class="events-header">{{Phase.Title}}</div>
+        <div class="events-body">
+          <div class="row">
+            <div class="events-desc">
+              List of Objetives
+            </div>
+          </div>
+          <!-- <div class="row">
+            <div class="col-md-6 pull-left">
+              <img class="events-object img-responsive img-rounded" src="../../../../assets/plugins/timeline/img/dog02.jpeg" />
+            </div>
+            <div class="events-desc">
+              
+            </div>
+          </div> -->
 
+        </div>
+        <div class="events-footer">
+        </div>
+      </div>
+    </dd>
 
+    <!-- <dd class="pos-right clearfix">
+      <div class="circ"></div>
+
+      <div class="events">
+        <div class="events-header">Fase 2 / 2018/08/08</div>
+        <div class="events-body">
+          <div class="row">
+
+            <div class="events-desc">
+              List of Objetives
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 pull-left">
+              <img class="events-object img-responsive img-rounded" src="../../../../assets/plugins/timeline/img/cat02.jpeg" />
+            </div>
+            <div class="events-desc">
+              
+            </div>
+          </div>
+
+        </div>
+        <div class="events-footer">
 
 <mat-card class="example-card">
     <mat-card-content flex="" layout-padding="" style="overflow: auto; height: 600px;">
@@ -31,14 +81,14 @@
                         List of Objetives
                       </div>
                     </div>
-                    <!-- <div class="row">
+                    <div class="row">
                       <div class="col-md-6 pull-left">
                         <img class="events-object img-responsive img-rounded" src="../../../../assets/plugins/timeline/img/dog02.jpeg" />
                       </div>
                       <div class="events-desc">
                         
                       </div>
-                    </div> -->
+                    </div> 
           
                   </div>
                   <div class="events-footer">
@@ -46,7 +96,7 @@
                 </div>
               </dd>
           
-              <!-- <dd class="pos-right clearfix">
+               <dd class="pos-right clearfix">
                 <div class="circ"></div>
           
                 <div class="events">
@@ -86,7 +136,7 @@
                     </div>
                   </div>
                 </div>
-              </dd> -->
+              </dd> 
           
               <dt>{{ EndDate }}</dt>
           
@@ -94,4 +144,4 @@
           </div>
     </mat-card-content>
 
-  </mat-card>
+  </mat-card>-->
