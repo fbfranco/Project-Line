@@ -20,6 +20,8 @@ export class TimelineComponent implements OnInit {
     projectIdNumber: number;
     EndDate: string;
     StartDate: string;
+    Hide : boolean;
+    values = '';
     
 
   constructor(public projectService: ProjectService) { }
@@ -27,6 +29,7 @@ export class TimelineComponent implements OnInit {
   ngOnInit() {
     $('.VivaTimeline').vivaTimeline();
     this.getProjectList()
+    this.Hide = false;
   }
 
   // show Item Autocomplete
@@ -39,6 +42,7 @@ export class TimelineComponent implements OnInit {
   projectChanged(event): void{
     this.EndDate = event.option.value.EndDate;
     this.StartDate = event.option.value.StartDate;
+    this.Hide = true;
     console.log("EndDate: "+this.EndDate+" StarDate: "+this.StartDate);
   }
 
@@ -50,6 +54,15 @@ export class TimelineComponent implements OnInit {
     }, error => {
       console.log('Error getting the list of projects');
     });
+    
+  }
+
+  inputEmpty(event: any){
+     if (event != '' ) {
+      this.Hide = false;
+      console.log(this.StartDate);
+     }    
+      
     
   }
   

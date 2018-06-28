@@ -1,19 +1,20 @@
 <h1>Timeline</h1>
 <br>
 <br>
+
 <mat-form-field class="AutocompleteProject">
-  <input type="text" placeholder="Project {{projectPlaceholder}}" aria-label="Number" matInput [matAutocomplete]="ProjectList">
-  <mat-autocomplete #ProjectList="matAutocomplete" (optionSelected)="projectChanged($event)" [displayWith]="displayProjectFn">
+  <input  type="text" (change)="inputEmpty($event)" placeholder="Project {{projectPlaceholder}}" aria-label="Number" matInput [matAutocomplete]="ProjectList">
+  <mat-autocomplete #ProjectList="matAutocomplete" (optionSelected)="projectChanged($event)"  [displayWith]="displayProjectFn">
     <mat-option *ngFor="let Project of ListProjects" [value]="Project">
       {{ Project.Title }}
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>
 
-<div class="VivaTimeline">
+<div class="VivaTimeline" *ngIf="Hide"  >
 
   <dl>
-    <dt>May 2016</dt>
+    <dt>{{ EndDate }}</dt>
     <dd class="pos-left clearfix">
       <div class="circ"></div>
         <div class="events">
