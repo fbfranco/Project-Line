@@ -10,12 +10,12 @@
 </mat-form-field>
 </div>
 <div class="VivaTimeline" *ngIf="Hide"  >
-<h1>Title Project</h1>
+<h1>{{ProjectTitle}}</h1>
   <dl>
     <dt>{{ StartDate }}</dt>
     <dd *ngFor="let Phase of PhaseModel; let i = index" [ngClass]="{'pos-right': i%2 != 0,'pos-left': i%2 == 0}" class="clearfix">
       <div class="circ"></div>
-      <div class="time">{{Phase.StartDate | date: 'MM-dd-yyyy'}} / {{Phase.EndDate | date: 'MM-dd-yyyy'}}</div>
+      <div class="time">{{helperService.DateFormat(Phase.StartDate)}} / {{helperService.DateFormat(Phase.EndDate)}}</div>
       <div class="events">
         <div class="events-header">{{Phase.Title}}</div>
         <div class="events-body">

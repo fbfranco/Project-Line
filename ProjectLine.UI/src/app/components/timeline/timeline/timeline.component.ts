@@ -19,11 +19,11 @@ export class TimelineComponent implements OnInit, DoCheck {
   // Variables when show the TimeLine
   StartDate: any;
   EndDate: any;
-  Hide: boolean;
-  values = '';
   ProjectTitle: string;
+
+  Hide: boolean;
   InitTimeline: boolean;
-  constructor(public projectService: ProjectService, private helperService: HelperService) { }
+  constructor(public projectService: ProjectService, public helperService: HelperService) { }
 
   ngOnInit() {
     this.getProjectList();
@@ -45,8 +45,7 @@ export class TimelineComponent implements OnInit, DoCheck {
 
   // Get the dates of the selected project
   projectChanged(event): void {
-    console.log(event);
-    this.StartDate = this.helperService.DateFormat(new Date(event.option.value.StartDate));
+    this.StartDate = this.helperService.DateFormat(event.option.value.StartDate);
     this.EndDate = this.helperService.DateFormat(event.option.value.EndDate);
     this.ProjectTitle = event.option.value.Title;
     this.PhaseModel = event.option.value.Phases;
@@ -64,7 +63,6 @@ export class TimelineComponent implements OnInit, DoCheck {
   inputEmpty(event: any) {
     if (event !== '') {
       this.Hide = false;
-      console.log(this.StartDate);
     }
   }
 }
