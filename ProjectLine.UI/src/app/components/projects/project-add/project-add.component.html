@@ -7,8 +7,7 @@
     <input type="hidden" name="ProjectID" #ProjectID="ngModel" [(ngModel)]="projectService.selectedProject.ProjectID">
     <!-- Title -->
     <mat-form-field>
-      <input matInput maxlength="150" placeholder="Title" name="Title" #Title="ngModel" [(ngModel)]="projectService.selectedProject.Title"
-        required>
+      <input matInput maxlength="150" placeholder="Title" name="Title" #Title="ngModel" [(ngModel)]="projectService.selectedProject.Title" required>
       <mat-hint align="end">{{Title.value?.length || 0}}/150</mat-hint>
       <mat-error *ngIf="Title.invalid && Title.touched">This Field is Required.</mat-error>
     </mat-form-field>
@@ -74,7 +73,6 @@
           <th mat-header-cell *matHeaderCellDef> Estimated End Date </th>
           <td mat-cell *matCellDef="let element"> {{helperService.DateFormat(element.EndDate)}} </td>
         </ng-container>
-
         <!-- Edit Column -->
         <ng-container matColumnDef="Edit">
           <th mat-header-cell *matHeaderCellDef> Edit </th>
@@ -84,7 +82,6 @@
             </a>
           </td>
         </ng-container>
-
         <!-- Delete Column -->
         <ng-container matColumnDef="Delete">
           <th mat-header-cell *matHeaderCellDef> Delete </th>
@@ -98,15 +95,9 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
     </div>
-
   </mat-card-content>
-
-
-  
-  
   <div fxLayout="row" fxLayoutGap="1em" class="form-options">
     <button mat-raised-button color="primary" [disabled]="!projectForm.valid" type="submit">Save</button>
     <a mat-raised-button color="warn" routerLink="/Project">Cancel</a>
   </div>
-  
 </form>

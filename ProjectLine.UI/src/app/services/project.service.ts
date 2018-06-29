@@ -34,10 +34,9 @@ export class ProjectService {
   }
 
   putProjectDeletePasive(id) {
-    //const body = JSON.stringify(model);
+
     const headerOptions = new Headers({ 'Content-Type': 'application/json' });
     const requestOptions = new RequestOptions({ method: RequestMethod.Put, headers: headerOptions });
     return this.http.put('http://localhost:44226/api/Projects/Change/' + id, requestOptions);
-    
   }
 }
