@@ -1,3 +1,5 @@
+import { Objective } from "./objective.model";
+
 export class Phase {
     PhaseID: Number;
     Title: string;
@@ -7,4 +9,5 @@ export class Phase {
     DemoUrl: string;
     Edit?: string;
     Delete?: string;
+    Objectives?: Objective[];
 }

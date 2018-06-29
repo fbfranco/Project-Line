@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 // Services
 import { ProjectService } from '../../../services/project.service';
 import { HelperService } from '../../../services/helper.service';
@@ -12,7 +12,7 @@ declare var $: any;
   templateUrl: './timeline.component.html',
   styleUrls: ['./timeline-filter-project.component.scss']
 })
-export class TimelineComponent implements OnInit {
+export class TimelineComponent implements OnInit, DoCheck {
   PhaseModel: Phase[];
   ListProjects: Project[];
 
@@ -22,12 +22,19 @@ export class TimelineComponent implements OnInit {
   Hide: boolean;
   values = '';
   ProjectTitle: string;
+  InitTimeline: boolean;
   constructor(public projectService: ProjectService, private helperService: HelperService) { }
 
   ngOnInit() {
-    $('.VivaTimeline').vivaTimeline();
     this.getProjectList();
     this.Hide = false;
+  }
+
+  ngDoCheck() {
+    if (this.InitTimeline) {
+      $('.VivaTimeline').vivaTimeline();
+      this.InitTimeline = false;
+    }
   }
 
   // show Item Autocomplete
@@ -44,6 +51,7 @@ export class TimelineComponent implements OnInit {
     this.ProjectTitle = event.option.value.Title;
     this.PhaseModel = event.option.value.Phases;
     this.Hide = true;
+    this.InitTimeline = true;
   }
 
   getProjectList() {

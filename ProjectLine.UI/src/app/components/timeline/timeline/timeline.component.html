@@ -21,17 +21,19 @@
         <div class="events-body">
           <div class="row">
             <div class="events-desc">
-              List of Objetives
+              <ul>
+                <li *ngFor="let obj of Phase.Objectives">{{obj.Title}}</li>
+              </ul>
             </div>
           </div>
-          <!-- <div class="row">
+          <div class="row">
             <div class="col-md-6 pull-left">
               <img class="events-object img-responsive img-rounded" src="../../../../assets/plugins/timeline/img/dog02.jpeg" />
             </div>
             <div class="events-desc">
-              
+
             </div>
-          </div> -->
+          </div>
 
         </div>
         <div class="events-footer">
@@ -56,7 +58,7 @@
               <img class="events-object img-responsive img-rounded" src="../../../../assets/plugins/timeline/img/cat02.jpeg" />
             </div>
             <div class="events-desc">
-              
+
             </div>
           </div>
 
@@ -67,7 +69,7 @@
     <mat-card-content flex="" layout-padding="" style="overflow: auto; height: 600px;">
         <h1 fxLayoutAlign="center center" *ngIf="Hide">{{ ProjectTitle }}</h1>
         <div class="VivaTimeline" *ngIf="Hide"  >
-            
+
              <dl>
               <dt>{{ StartDate }}</dt>
               <dd *ngFor="let Phase of PhaseModel; let i = index" [ngClass]="{'pos-right': i%2 != 0,'pos-left': i%2 == 0}" class="clearfix">
@@ -86,24 +88,24 @@
                         <img class="events-object img-responsive img-rounded" src="../../../../assets/plugins/timeline/img/dog02.jpeg" />
                       </div>
                       <div class="events-desc">
-                        
+
                       </div>
-                    </div> 
-          
+                    </div>
+
                   </div>
                   <div class="events-footer">
                   </div>
                 </div>
               </dd>
-          
+
                <dd class="pos-right clearfix">
                 <div class="circ"></div>
-          
+
                 <div class="events">
                   <div class="events-header">Fase 2 / 2018/08/08</div>
                   <div class="events-body">
                     <div class="row">
-          
+
                       <div class="events-desc">
                         List of Objetives
                       </div>
@@ -113,19 +115,19 @@
                         <img class="events-object img-responsive img-rounded" src="../../../../assets/plugins/timeline/img/cat02.jpeg" />
                       </div>
                       <div class="events-desc">
-                        
+
                       </div>
                     </div>
-          
+
                   </div>
                   <div class="events-footer">
-          
+
                   </div>
                 </div>
               </dd> -->
               <!-- <dd class="pos-left clearfix">
                 <div class="circ"></div>
-          
+
                 <div class="events">
                   <div class="events-header">Fase 3 / 2018/09/09</div>
                   <div class="events-body">
@@ -136,10 +138,10 @@
                     </div>
                   </div>
                 </div>
-              </dd> 
-          
+              </dd>
+
               <dt>{{ EndDate }}</dt>
-          
+
             </dl>
           </div>
     </mat-card-content>
