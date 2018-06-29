@@ -1,4 +1,3 @@
-<br>
 <div class="div-Container">
 <mat-form-field id="AutocompleteProject">
   <input  type="text" (change)="inputEmpty($event)" placeholder="Project" aria-label="Number" matInput [matAutocomplete]="ProjectList">
@@ -9,141 +8,39 @@
   </mat-autocomplete>
 </mat-form-field>
 </div>
-<div class="VivaTimeline" *ngIf="Hide"  >
-<h1>{{ProjectTitle}}</h1>
-  <dl>
-    <dt>{{ StartDate }}</dt>
-    <dd *ngFor="let Phase of PhaseModel; let i = index" [ngClass]="{'pos-right': i%2 != 0,'pos-left': i%2 == 0}" class="clearfix">
-      <div class="circ"></div>
-      <div class="time">{{helperService.DateFormat(Phase.StartDate)}} / {{helperService.DateFormat(Phase.EndDate)}}</div>
-      <div class="events">
-        <div class="events-header">{{Phase.Title}}</div>
-        <div class="events-body">
-          <div class="row">
-            <div class="events-desc">
-              <ul>
-                <li *ngFor="let obj of Phase.Objectives">{{obj.Title}}</li>
-              </ul>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 pull-left">
-              <img class="events-object img-responsive img-rounded" src="../../../../assets/plugins/timeline/img/dog02.jpeg" />
-            </div>
-            <div class="events-desc">
+  <h1 fxLayoutAlign="center center" *ngIf="Hide">{{ ProjectTitle }}</h1>
+  <div class="VivaTimeline" *ngIf="Hide"  >
 
-            </div>
-          </div>
-
-        </div>
-        <div class="events-footer">
-        </div>
-      </div>
-    </dd>
-
-    <!-- <dd class="pos-right clearfix">
-      <div class="circ"></div>
-
-      <div class="events">
-        <div class="events-header">Fase 2 / 2018/08/08</div>
-        <div class="events-body">
-          <div class="row">
-
-            <div class="events-desc">
-              List of Objetives
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 pull-left">
-              <img class="events-object img-responsive img-rounded" src="../../../../assets/plugins/timeline/img/cat02.jpeg" />
-            </div>
-            <div class="events-desc">
-
-            </div>
-          </div>
-
-        </div>
-        <div class="events-footer">
-
-<mat-card class="example-card">
-    <mat-card-content flex="" layout-padding="" style="overflow: auto; height: 600px;">
-        <h1 fxLayoutAlign="center center" *ngIf="Hide">{{ ProjectTitle }}</h1>
-        <div class="VivaTimeline" *ngIf="Hide"  >
-
-             <dl>
-              <dt>{{ StartDate }}</dt>
-              <dd *ngFor="let Phase of PhaseModel; let i = index" [ngClass]="{'pos-right': i%2 != 0,'pos-left': i%2 == 0}" class="clearfix">
-                <div class="circ"></div>
-                <div class="time">{{Phase.StartDate | date: 'MM-dd-yyyy'}} / {{Phase.EndDate | date: 'MM-dd-yyyy'}}</div>
-                <div class="events">
-                  <div class="events-header">{{Phase.Title}}</div>
-                  <div class="events-body">
-                    <div class="row">
-                      <div class="events-desc">
-                        List of Objetives
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6 pull-left">
-                        <img class="events-object img-responsive img-rounded" src="../../../../assets/plugins/timeline/img/dog02.jpeg" />
-                      </div>
-                      <div class="events-desc">
-
-                      </div>
-                    </div>
-
-                  </div>
-                  <div class="events-footer">
-                  </div>
+       <dl>
+        <dt>{{ StartDate }}</dt>
+        <dd *ngFor="let Phase of PhaseModel; let i = index" [ngClass]="{'pos-right': i%2 != 0,'pos-left': i%2 == 0}" class="clearfix">
+          <div class="circ"></div>
+          <div class="time">{{Phase.StartDate | date: 'MM-dd-yyyy'}} / {{Phase.EndDate | date: 'MM-dd-yyyy'}}</div>
+          <div class="events">
+            <div class="events-header">{{Phase.Title}}</div>
+            <div class="events-body">
+              <div class="row">
+                <div class="events-desc">
+                  <ul>
+                    <li *ngFor="let obj of Phase.Objectives">{{obj.Title}}</li>
+                  </ul>
                 </div>
-              </dd>
-
-               <dd class="pos-right clearfix">
-                <div class="circ"></div>
-
-                <div class="events">
-                  <div class="events-header">Fase 2 / 2018/08/08</div>
-                  <div class="events-body">
-                    <div class="row">
-
-                      <div class="events-desc">
-                        List of Objetives
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6 pull-left">
-                        <img class="events-object img-responsive img-rounded" src="../../../../assets/plugins/timeline/img/cat02.jpeg" />
-                      </div>
-                      <div class="events-desc">
-
-                      </div>
-                    </div>
-
-                  </div>
-                  <div class="events-footer">
-
-                  </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 pull-left">
+                  <img class="events-object img-responsive img-rounded" src="../../../../assets/plugins/timeline/img/dog02.jpeg" />
                 </div>
-              </dd> -->
-              <!-- <dd class="pos-left clearfix">
-                <div class="circ"></div>
+                <div class="events-desc">
 
-                <div class="events">
-                  <div class="events-header">Fase 3 / 2018/09/09</div>
-                  <div class="events-body">
-                    <div class="row">
-                      <div class="events-desc">
-                        List of Objetives
-                      </div>
-                    </div>
-                  </div>
                 </div>
-              </dd>
+              </div>
 
-              <dt>{{ EndDate }}</dt>
-
-            </dl>
+            </div>
+            <div class="events-footer">
+            </div>
           </div>
-    </mat-card-content>
+        </dd>
+        <dt>{{ EndDate }}</dt>
 
-  </mat-card>-->
+      </dl>
+    </div>
