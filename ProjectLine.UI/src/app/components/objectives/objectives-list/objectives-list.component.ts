@@ -12,7 +12,8 @@ import { Project } from '../../../models/project.model';
 import { Phase } from '../../../models/phase.model';
 import { Objective } from '../../../models/objective.model';
 import { ObjectiveAddComponent } from '../objective-add/objective-add.component';
-import { MessageComponent } from '../../dialog/message/message.component';
+import { MessageObjectiveComponent } from '../../../components/dialog/message-objective/message-objective.component';
+import { MessageComponent } from '../../../components/dialog/message/message.component';
 
 @Component({
   selector: 'app-objectives-list',
@@ -137,7 +138,7 @@ export class ObjectivesListComponent implements OnInit {
 
   openDialogDelete(objective: Objective) {
     if (objective.Completed === false) {
-      const dialogRef = this.dialog.open(MessageComponent, {
+      const dialogRef = this.dialog.open(MessageObjectiveComponent, {
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result === 'confirm') {

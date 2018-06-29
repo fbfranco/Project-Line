@@ -22,6 +22,7 @@ import { PhasesFormComponent } from './components/phases/phases-form/phases-form
 import { ObjectivesComponent } from './components/objectives/objectives.component';
 import { ObjectiveAddComponent } from './components/objectives/objective-add/objective-add.component';
 import { MessageComponent } from './components/dialog/message/message.component';
+import { MessageObjectiveComponent } from './components/dialog/message-objective/message-objective.component';
 import { ObjectivesListComponent } from './components/objectives/objectives-list/objectives-list.component';
 import { PhasesFormDeleteComponent } from './components/phases/phases-form-delete/phases-form-delete.component';
 
@@ -35,10 +36,10 @@ import { ObjectiveService } from './services/objective.service';
 // Angular Material
 import { AngularMaterialModule } from './material/angular-material.module';
 import { MatTableModule } from '@angular/material';
-//Routes
+// Routes
 import { RoutingModule } from './routes/routing.module';
 import { TimelineComponent } from './components/timeline/timeline/timeline.component';
- 
+
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { TimelineComponent } from './components/timeline/timeline/timeline.compo
     ObjectivesListComponent,
     MessageComponent,
     PhasesFormDeleteComponent,
-    TimelineComponent
+    TimelineComponent,
+    MessageObjectiveComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +75,12 @@ import { TimelineComponent } from './components/timeline/timeline/timeline.compo
     RoutingModule,
     MatTableModule,
   ],
-  entryComponents:[MessageComponent, PhasesFormDeleteComponent],
+  entryComponents: [
+    MessageComponent,
+    PhasesFormDeleteComponent,
+    MessageObjectiveComponent,
+    ObjectivesListComponent
+  ],
   providers: [
     ClientService,
     ProjectService,
@@ -85,4 +92,4 @@ import { TimelineComponent } from './components/timeline/timeline/timeline.compo
 })
 export class AppModule {
 
- }
+}
