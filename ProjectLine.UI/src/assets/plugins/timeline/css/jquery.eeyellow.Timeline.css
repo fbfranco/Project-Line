@@ -98,10 +98,14 @@
 }
 
 .VivaTimeline dl dd .events .events-body {
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     zoom: 1;
     background-color: #EEE;
-    padding: 10px;    
+    padding: 10px;
+    max-height: 220px;
+    min-height: 50px;
+
 }
 .VivaTimeline dl dd .events .events-body .row{
     display:none;  

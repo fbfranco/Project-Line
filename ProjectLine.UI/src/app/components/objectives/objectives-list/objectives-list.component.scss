@@ -38,9 +38,16 @@ $color-dark: rgb(34, 45, 49);
     }
     .long-cell{
         width: 100%;
-        max-height:70px;
+        max-height:120px;
         overflow-y: auto;
         text-align: justify;
-        padding: 8px;
+        padding: 10px;
+        min-width: 250px;
     }
+    .JustifyText{
+        text-align: justify;
+        max-height:120px;
+        overflow-y: auto;
+    }
+    
 }

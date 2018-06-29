@@ -40,6 +40,7 @@ export class ProjectAddComponent implements OnInit {
   dataSource = new MatTableDataSource(this.phaseService.phaseList);
   VarSet: string;
 
+
   constructor(public dialog: MatDialog,
     public route: ActivatedRoute,
     public router: Router,
@@ -79,7 +80,7 @@ export class ProjectAddComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.VarSet = result;
-      if (this.VarSet == 'confirm') {
+      if (this.VarSet === 'confirm') {
 
         const indexPhase = this.phaseService.phaseList.indexOf(dataPhases);
         this.phaseService.phaseList.splice(indexPhase, 1);
@@ -100,30 +101,31 @@ export class ProjectAddComponent implements OnInit {
     });
   }
 
-  onSubmit(form: NgForm) {
-    this.viewmodel.Project = form.value;
-    this.viewmodel.Phases = this.phaseService.phaseList;
 
-    if (typeof form.value.ProjectID === 'undefined') {
-      this.projectService.postProject(this.viewmodel).subscribe(data => {
-        this.openSnackBar('Saved');
-        this.navigate_to_project_home_page();
-        this.resetForm();
-      });
-    } else {
-      this.projectService.putProject(this.viewmodel).subscribe(data => {
-        this.openSnackBar('Saved');
-        this.navigate_to_project_home_page();
-        this.resetForm();
-      });
+    onSubmit(form: NgForm) {
+      this.viewmodel.Project = form.value;
+      this.viewmodel.Phases = this.phaseService.phaseList;
 
+      if (typeof form.value.ProjectID === 'undefined') {
+        this.projectService.postProject(this.viewmodel).subscribe(data => {
+          this.openSnackBar('Saved');
+          this.navigate_to_project_home_page();
+          this.resetForm();
+        });
+      } else {
+        this.projectService.putProject(this.viewmodel).subscribe(data => {
+          this.openSnackBar('Saved');
+          this.navigate_to_project_home_page();
+          this.resetForm();
+        });
+
+      }
     }
-  }
+
 
   navigate_to_project_home_page() {
     this.router.navigate(['/Project']);
   }
-
   openSnackBar(message: string) {
     this.snackBar.open(message, null, {
       duration: 2000,
