@@ -1,39 +1,48 @@
+// VARIABLES
+$color-primary: rgb(6, 170, 214);
+$color-dark: rgb(34, 45, 49);
 
+.ProjectTitle:hover{
+  cursor: pointer;
+}
+
+// TOOLBAR
 .menu-bar {
-    color: white;
-    height: 50px;
-    position: fixed;
-    z-index: 100;
-    background-color: rgb(6, 170, 214);
-    box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 
-                0 6px 10px 0 rgba(0,0,0,.14), 
-                0 1px 18px 0 rgba(0,0,0,.12);
-    
-    & .content-toolbar {
-      width: 100%;
+  color: white;
+  height: 50px;
+  position: fixed;
+  z-index: 100;
+  background-color: $color-primary;
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
+  & .content-toolbar {
+    width: 100%;
+    height: 100%;
+    & .content-btn-menu {
+      width: 184px;
       height: 100%;
-
-      & .content-btn-menu {
-        width: 200px;
-        height: 100%;
-        border-right: 1px solid rgba($color: #ffffff, $alpha: 0.3);
+      border-right: 1px solid rgba(255, 255, 255, 0.685);
+      transition: all 500ms;
+      @media screen and(max-width: 659px) {
+        width: 30px;
       }
-      & .content-title {
-        width: 100%;
-        padding: 0 10px;
-
-        & .user-name {
-          width: 80px;
-          & i {
-            color: rgb(89, 255, 56);
-          }
+      & button {
+        padding: 0;
+        text-align: left;
+      }
+    }
+    & .content-title {
+      width: 100%;
+      padding: 0 10px;
+      & .user-name {
+        width: 80px;
+        & i {
+          color: rgb(89, 255, 56);
         }
       }
     }
-    & h3 {
-      font-family: 'Shrikhand', cursive;
-      line-height: 50px;
-    }
   }
-
-  
+  & h3 {
+    font-weight: bold;
+    line-height: 50px;
+  }
+}

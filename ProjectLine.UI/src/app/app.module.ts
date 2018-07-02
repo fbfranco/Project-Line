@@ -10,6 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
 // Components
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './layout/layout.component';
+import { ToolbarComponent } from './layout/toolbar/toolbar.component';
+import { SidenavComponent } from './layout/sidenav/sidenav.component';
 import { MainContainerComponent } from './layout/main-container/main-container.component';
 import { ClientsComponent } from './components/clients/clients.component';
 import { ClientComponent } from './components/clients/client/client.component';
@@ -49,6 +51,8 @@ import { TimelineComponent } from './components/timeline/timeline/timeline.compo
     ClientComponent,
     ClientListComponent,
     LayoutComponent,
+    ToolbarComponent,
+    SidenavComponent,
     MainContainerComponent,
     ProjectsComponent,
     ProjectListComponent,
