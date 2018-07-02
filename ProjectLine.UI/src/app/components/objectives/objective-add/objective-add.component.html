@@ -6,12 +6,12 @@
     </mat-card-title>
   </mat-card-header>
 
-  <form class="width-form" novalidate (ngSubmit)="submitObjective()" [formGroup]="formGroup">
+  <form novalidate [formGroup]="objectiveFormGroup" (ngSubmit)="submitObjective()">
 
     <mat-card-content mat-dialog-content fxLayout="column">
 
       <mat-form-field>
-        <input matInput #Title maxlength="150" placeholder="Title" formControlName="title" required>
+        <input matInput #Title maxlength="150" placeholder="Title" formControlName="title" required pattern="^[a-zA-Z0-9].*">
         <mat-hint align="end">{{Title.value?.length || 0}}/150</mat-hint>
       </mat-form-field>
 
@@ -27,9 +27,9 @@
 
     <mat-card-actions fxLayoutAlign="center start">
 
-      <button mat-raised-button color="primary" type="submit" [disabled]="!formGroup.valid">Save</button>
+      <button mat-raised-button color="primary" [disabled]="!objectiveFormGroup.valid" type="submit">Save</button>
       <a mat-raised-button color="warn" (click)="onCancelClick()">Cancel</a>
-      
+
     </mat-card-actions>
 
   </form>
