@@ -148,7 +148,7 @@ export class ObjectivesListComponent implements OnInit {
         }
       });
     } else {
-      this.snackBar.open('The objective can`t be deleted, because is completed', 'Ok', {
+      this.snackBar.open('The objective cannot be deleted. The status is completed.', 'Ok', {
         horizontalPosition: 'right'
       });
     }

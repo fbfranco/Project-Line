@@ -1,33 +1,36 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Objective } from '../../../models/objective.model';
-import { ObjectiveService } from '../../../services/objective.service';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+
+// Services
+import { ObjectiveService } from '../../../services/objective.service';
 
 @Component({
   selector: 'app-objective-add',
   templateUrl: './objective-add.component.html',
+  styleUrls: ['./objective-add.component.scss']
 })
 export class ObjectiveAddComponent implements OnInit {
 
   constructor(
 
-    private fb: FormBuilder,
+    private objectiveFormBuilder: FormBuilder,
     private objectiveService: ObjectiveService,
-    private dialogRef: MatDialogRef<ObjectiveAddComponent>,
-    private snackBar: MatSnackBar,
-    @Inject(MAT_DIALOG_DATA) private data: number
+    private objectiveDialogRef: MatDialogRef<ObjectiveAddComponent>,
+    private objectiveSnackBar: MatSnackBar,
+    @Inject(MAT_DIALOG_DATA)
+    private objectiveRowNumber: number,
 
   ) { }
 
-  formGroup: FormGroup;
+  objectiveFormGroup: FormGroup;
 
   ngOnInit() {
     this.newForm();
   }
 
   newForm() {
-    if (this.data > 0) {
+    if (this.objectiveRowNumber > 0) {
       this.newFormAddObjective();
     } else {
       this.newFormEditObjective();
@@ -35,7 +38,7 @@ export class ObjectiveAddComponent implements OnInit {
   }
 
   newFormAddObjective() {
-    this.formGroup = this.fb.group({
+    this.objectiveFormGroup = this.objectiveFormBuilder.group({
       objectiveId: 0,
       title: '',
       description: '',
@@ -43,12 +46,12 @@ export class ObjectiveAddComponent implements OnInit {
       weight: 0,
       estimated: 0,
       effort: 0,
-      phaseId: this.data
+      phaseId: this.objectiveRowNumber
     });
   }
 
   newFormEditObjective() {
-    this.formGroup = this.fb.group({
+    this.objectiveFormGroup = this.objectiveFormBuilder.group({
       objectiveId: this.objectiveService.selectedObjective.ObjectiveID,
       title: this.objectiveService.selectedObjective.Title,
       description: this.objectiveService.selectedObjective.Description,
@@ -61,7 +64,7 @@ export class ObjectiveAddComponent implements OnInit {
   }
 
   submitObjective() {
-    if (this.formGroup.controls['objectiveId'].value) {
+    if (this.objectiveFormGroup.controls.objectiveId.value) {
       this.editObjective();
     } else {
       this.saveObjective();
@@ -69,27 +72,27 @@ export class ObjectiveAddComponent implements OnInit {
   }
 
   saveObjective() {
-    this.objectiveService.createObjective(this.formGroup.value)
-      .subscribe(data => this.onSaveSuccess(),
+    this.objectiveService.createObjective(this.objectiveFormGroup.value)
+      .subscribe(good => this.onSaveSuccess(),
         error => console.error(error));
   }
 
   editObjective() {
-    this.objectiveService.updateObjective(this.formGroup.value)
-      .subscribe(data => this.onSaveSuccess(),
+    this.objectiveService.updateObjective(this.objectiveFormGroup.value)
+      .subscribe(good => this.onSaveSuccess(),
         error => console.error(error));
   }
 
   onSaveSuccess() {
-    this.snackBar.open('Saved', null, {
+    this.objectiveSnackBar.open('Saved', null, {
       duration: 2000,
       horizontalPosition: 'right'
     });
-    this.dialogRef.close('save');
+    this.objectiveDialogRef.close('save');
   }
 
   onCancelClick(): void {
-    this.dialogRef.close('cancel');
+    this.objectiveDialogRef.close('cancel');
   }
 
 }
