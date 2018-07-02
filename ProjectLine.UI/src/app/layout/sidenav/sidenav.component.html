@@ -1,4 +1,30 @@
-<mat-sidenav-container class="example-container">
-    <mat-sidenav color="primary"  mode="side" opened>Sidenav content</mat-sidenav>
-    <mat-sidenav-content>Main content</mat-sidenav-content>
+<!-- Sidenav -->
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="side" opened class="content-sidenav">
+    <button class="user-name" mat-button [matMenuTriggerFor]="menu" *ngIf="media.isActive('xs')">
+      fbfranco29 <i class="fas fa-circle"></i>
+    </button>
+    <button mat-button routerLink="">
+      &nbsp;<i class="fas fa-home"></i>Home
+    </button>
+    <button mat-button>
+      &nbsp;<i class="fas fa-users"></i>Users
+    </button>
+    <mat-expansion-panel class="SubMenu-Styles" hideToggle="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title class="Sub-Title">
+          <i class="fas fa-briefcase"></i> &nbsp;&nbsp; Project<i class="fas fa-angle-down toggle-icon"></i>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <ul>
+        <li><a routerLink="/Project"> &nbsp;&#8226; Project Management</a></li>
+        <li><a routerLink="/Objective">&nbsp;&#8226; Objectives</a></li>
+      </ul>
+    </mat-expansion-panel>
+    <button mat-button routerLink="/TimeLine">
+      &nbsp;<i class="fas fa-chart-line"></i>Project Tracking
+    </button>
+  </mat-sidenav>
+  <mat-sidenav-content class="main-container" fxLayout="column">
+  </mat-sidenav-content>
 </mat-sidenav-container>
