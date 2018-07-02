@@ -1,0 +1,30 @@
+// VARIABLES
+$color-primary: rgb(6, 170, 214);
+$color-dark: rgb(34, 45, 49);
+
+.content-router-outlet {
+  min-height: calc(100vh - 80px - 2em);
+  max-height: calc(100vh - 80px - 2em);
+  padding-bottom: 1em;
+  overflow: auto;
+}
+.footer {
+  margin-top: 1em;
+  position: relative;
+  height: 30px;
+  & span {
+    position: absolute;
+    right: 1em;
+    line-height: 30px;
+    color: rgba(0, 0, 0, 0.623);
+    font-size: 0.8em;
+  }
+  &::before {
+    content: " ";
+    height: 1px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    border: 1px solid $color-dark;
+  }
+}

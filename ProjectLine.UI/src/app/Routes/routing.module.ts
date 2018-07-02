@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'Client', component: PhasesFormComponent },
   { path: 'Objective', component: ObjectivesComponent },
   { path: 'Objective/Add', component: ObjectiveAddComponent },
-  { path: 'TimeLine', component:TimelineComponent}
+  { path: 'TimeLine', component: TimelineComponent}
 ];
 
 @NgModule({

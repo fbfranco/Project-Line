@@ -12,10 +12,7 @@ import { AppComponent } from './app.component';
 import { LayoutComponent } from './layout/layout.component';
 import { ToolbarComponent } from './layout/toolbar/toolbar.component';
 import { SidenavComponent } from './layout/sidenav/sidenav.component';
-import { MainContainerComponent } from './layout/main-container/main-container.component';
-import { ClientsComponent } from './components/clients/clients.component';
-import { ClientComponent } from './components/clients/client/client.component';
-import { ClientListComponent } from './components/clients/client-list/client-list.component';
+import { MainContainerComponent } from './layout/sidenav/main-container/main-container.component';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { ProjectListComponent } from './components/projects/project-list/project-list.component';
 import { ProjectAddComponent } from './components/projects/project-add/project-add.component';
@@ -31,7 +28,6 @@ import { PhasesFormDeleteComponent } from './components/phases/phases-form-delet
 // Models
 import { ViewModelProject } from './models/viewmodelproject.model';
 // Services
-import { ClientService } from './services/client.service';
 import { ProjectService } from './services/project.service';
 import { HelperService } from './services/helper.service';
 import { ObjectiveService } from './services/objective.service';
@@ -47,9 +43,6 @@ import { TimelineComponent } from './components/timeline/timeline/timeline.compo
 @NgModule({
   declarations: [
     AppComponent,
-    ClientsComponent,
-    ClientComponent,
-    ClientListComponent,
     LayoutComponent,
     ToolbarComponent,
     SidenavComponent,
@@ -86,7 +79,6 @@ import { TimelineComponent } from './components/timeline/timeline/timeline.compo
     ObjectivesListComponent
   ],
   providers: [
-    ClientService,
     ProjectService,
     ObjectiveService,
     ViewModelProject,

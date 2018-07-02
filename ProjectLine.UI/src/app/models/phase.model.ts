@@ -1,4 +1,4 @@
-import { Objective } from "./objective.model";
+import { Objective } from './objective.model';
 
 export class Phase {
     PhaseID: Number;
