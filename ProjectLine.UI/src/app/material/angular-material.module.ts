@@ -19,10 +19,11 @@ import {
   MatNativeDateModule,
   MatCheckboxModule,
   MatAutocompleteModule,
-  MatTableModule
- } from '@angular/material';
+  MatTableModule,
+  MatTooltipModule,
+} from '@angular/material';
 
- import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   imports: [
@@ -45,7 +46,8 @@ import {
     MatCheckboxModule,
     MatAutocompleteModule,
     MatSnackBarModule,
-    MatTableModule
+    MatTableModule,
+    MatTooltipModule,
   ],
   exports: [
     CommonModule,
@@ -67,7 +69,8 @@ import {
     MatCheckboxModule,
     MatAutocompleteModule,
     MatSnackBarModule,
-    MatTableModule
+    MatTableModule,
+    MatTooltipModule,
   ]
 })
 
