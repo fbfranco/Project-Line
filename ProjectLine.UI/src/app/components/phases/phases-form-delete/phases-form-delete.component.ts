@@ -1,10 +1,6 @@
-import { Component, OnInit, Inject, ViewChild} from '@angular/core';
-import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-import { DISABLED } from '@angular/forms/src/model';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { MatDialog, MAT_DIALOG_DATA, MatTable,  MatDialogRef } from '@angular/material';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { PhaseService } from '../../../services/phase.service';
-import { Phase } from '../../../models/phase.model';
 
 @Component({
   selector: 'app-phases-form-delete',
@@ -23,7 +19,7 @@ export class PhasesFormDeleteComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  DelteRow(){ 
+  DelteRow() {
     this.dialogRef.close('confirm');
-  }//
+  }
 }

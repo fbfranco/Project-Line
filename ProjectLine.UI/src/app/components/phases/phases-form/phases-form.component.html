@@ -4,46 +4,48 @@
       <h1 mat-dialog-title>Edit Phase</h1>
     </mat-card-title>
   </mat-card-header>
-    <mat-card-content mat-dialog-content>
-      <!-- Phase Form -->
-      <form #phaseForm="ngForm" class="example-form" fxLayout="column">
-        <!-- Id-Phase -->
-        <input type="hidden" #PhaseID name="PhaseID">
-        <!-- Title -->
-        <mat-form-field>
-          <input matInput maxlength="150" placeholder="Title" name="Title" #Title="ngModel" [(ngModel)]="phaseService.selectedPhase.Title" required>
-          <mat-hint align="end">{{Title.value?.length || 0}}/150</mat-hint>
-          <mat-error *ngIf="Title.invalid && Title.touched">
-            The title of phase is required
-          </mat-error>
+  <mat-card-content mat-dialog-content>
+    <!-- Phase Form -->
+    <form #phaseForm="ngForm" class="example-form" fxLayout="column">
+      <!-- Id-Phase -->
+      <input type="hidden" #PhaseID name="PhaseID">
+      <!-- Title -->
+      <mat-form-field>
+        <input matInput maxlength="150" placeholder="Title" name="Title" #Title="ngModel" [(ngModel)]="phaseService.selectedPhase.Title"
+          required>
+        <mat-hint align="end">{{Title.value?.length || 0}}/150</mat-hint>
+        <mat-error *ngIf="Title.invalid && Title.touched">
+          The title of phase is required
+        </mat-error>
+      </mat-form-field>
+      <!-- Description -->
+      <mat-form-field class="example-full-width">
+        <textarea matInput maxlength="1000" placeholder="Description" name="Description" #Description="ngModel" [(ngModel)]="phaseService.selectedPhase.Description"
+          matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5"></textarea>
+        <mat-hint align="end">{{Description.value?.length || 0}}/1000</mat-hint>
+      </mat-form-field>
+      <div fxLayoutAlign="space-between start">
+        <!-- Start-Date -->
+        <mat-form-field fxFlex="40%">
+          <input matInput name="StartDate" #StartDate="ngModel" [(ngModel)]="phaseService.selectedPhase.StartDate" [matDatepicker]="dateStart"
+            placeholder="Start Date">
+          <mat-datepicker-toggle matSuffix [for]="dateStart"></mat-datepicker-toggle>
+          <mat-datepicker #dateStart disabled="false"></mat-datepicker>
         </mat-form-field>
-        <!-- Description -->
-        <mat-form-field class="example-full-width">
-          <textarea matInput maxlength="1000" placeholder="Description" name="Description" #Description="ngModel" [(ngModel)]="phaseService.selectedPhase.Description" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5"></textarea>
-          <mat-hint align="end">{{Description.value?.length || 0}}/1000</mat-hint>
+        <!-- End-Date -->
+        <mat-form-field fxFlex="40%">
+          <input matInput [min]="phaseService.selectedPhase.StartDate" name="EndDate" #EndDate="ngModel" [(ngModel)]="phaseService.selectedPhase.EndDate"
+            [matDatepicker]="dateEnd" placeholder="Estimated End Date" id="dateEnd">
+          <mat-datepicker-toggle matSuffix [for]="dateEnd"></mat-datepicker-toggle>
+          <mat-datepicker #dateEnd disabled="false"></mat-datepicker>
         </mat-form-field>
-        <div fxLayoutAlign="space-between start">
-          <!-- Start-Date -->
-          <mat-form-field fxFlex="40%">
-            <input matInput   name="StartDate" #StartDate="ngModel" [(ngModel)]="phaseService.selectedPhase.StartDate"  [matDatepicker]="dateStart" placeholder="Start Date">
-            <mat-datepicker-toggle matSuffix [for]="dateStart"></mat-datepicker-toggle>
-            <mat-datepicker #dateStart disabled="false"></mat-datepicker>
-          </mat-form-field>
-          <!-- End-Date -->
-          <!-- AQUI -->
-          <mat-form-field fxFlex="40%">
-            <input matInput [min]="phaseService.selectedPhase.StartDate" name="EndDate" #EndDate="ngModel" [(ngModel)]="phaseService.selectedPhase.EndDate" [matDatepicker]="dateEnd" placeholder="Estimated End Date" id="dateEnd">
-            <mat-datepicker-toggle matSuffix [for]="dateEnd"></mat-datepicker-toggle>
-            <mat-datepicker #dateEnd disabled="false"></mat-datepicker>
-          </mat-form-field>
-        </div>
-        <!-- Demo-Url -->
-        <mat-form-field>
-          <input matInput placeholder="Demo-Url" name="DemoUrl" #DemoUrl="ngModel" [(ngModel)]="phaseService.selectedPhase.DemoUrl">
-        </mat-form-field>
-      </form>
-    </mat-card-content>
-    <!-- AQUI -->
+      </div>
+      <!-- Demo-Url -->
+      <mat-form-field>
+        <input matInput placeholder="Demo-Url" name="DemoUrl" #DemoUrl="ngModel" [(ngModel)]="phaseService.selectedPhase.DemoUrl">
+      </mat-form-field>
+    </form>
+  </mat-card-content>
   <mat-card-actions fxLayoutAlign="center start">
     <button mat-raised-button color="primary" [disabled]="!phaseForm.valid" (click)="updatePhase()">Accept</button>
     <a mat-raised-button color="warn" (click)="onNoClick()">Cancel</a>
