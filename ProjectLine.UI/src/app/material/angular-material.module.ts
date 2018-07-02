@@ -21,7 +21,7 @@ import {
   MatAutocompleteModule,
   MatTableModule
  } from '@angular/material';
- 
+
  import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({

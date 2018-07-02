@@ -8,6 +8,7 @@ const moment =  _moment;
 })
 export class HelperService {
   formats: {};
+  SlideMenu: any;
 
   constructor() {
     this.formats = {

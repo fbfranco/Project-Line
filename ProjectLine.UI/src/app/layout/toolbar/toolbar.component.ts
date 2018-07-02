@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ObservableMedia } from '@angular/flex-layout';
+import { HelperService } from '../../services/helper.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(public media:  ObservableMedia, public helperService: HelperService) { }
 
   ngOnInit() {
   }
 
+  SideNavToggle() {
+    this.helperService.SlideMenu.toggle();
+  }
 }

@@ -77,7 +77,7 @@ namespace ProjectLine.Controllers
         }
 
         [HttpPut]
-        public IHttpActionResult Change(int id)
+        public IHttpActionResult InactiveProject(int id)
         {
 
             if (Repository.FindById(id) == null)
