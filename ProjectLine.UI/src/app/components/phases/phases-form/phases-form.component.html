@@ -6,9 +6,7 @@
   </mat-card-header>
   <mat-card-content mat-dialog-content>
     <!-- Phase Form -->
-    <form #phaseForm="ngForm" class="example-form" fxLayout="column">
-      <!-- Id-Phase -->
-      <input type="hidden" #PhaseID name="PhaseID">
+    <form #phaseForm="ngForm" fxLayout="column">
       <!-- Title -->
       <mat-form-field>
         <input matInput maxlength="150" placeholder="Title" name="Title" #Title="ngModel" [(ngModel)]="phaseService.selectedPhase.Title"
