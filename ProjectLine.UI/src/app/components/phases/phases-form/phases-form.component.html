@@ -12,7 +12,7 @@
       <!-- Title -->
       <mat-form-field>
         <input matInput maxlength="150" placeholder="Title" name="Title" #Title="ngModel" [(ngModel)]="phaseService.selectedPhase.Title"
-          required>
+          required pattern="^[a-zA-Z0-9].*">
         <mat-hint align="end">{{Title.value?.length || 0}}/150</mat-hint>
         <mat-error *ngIf="Title.invalid && Title.touched">
           The title of phase is required
