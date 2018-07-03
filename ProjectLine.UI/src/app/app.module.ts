@@ -20,10 +20,9 @@ import { PhasesComponent } from './components/phases/phases.component';
 import { PhasesFormComponent } from './components/phases/phases-form/phases-form.component';
 import { ObjectivesComponent } from './components/objectives/objectives.component';
 import { ObjectiveAddComponent } from './components/objectives/objective-add/objective-add.component';
-import { MessageComponent } from './components/dialog/message/message.component';
-import { MessageObjectiveComponent } from './components/dialog/message-objective/message-objective.component';
 import { ObjectivesListComponent } from './components/objectives/objectives-list/objectives-list.component';
-import { PhasesFormDeleteComponent } from './components/phases/phases-form-delete/phases-form-delete.component';
+import { TimelineComponent } from './components/timeline/timeline/timeline.component';
+import { DialogDeleteComponent } from './components/dialog/dialog-delete/dialog-delete.component';
 
 // Models
 import { ViewModelProject } from './models/viewmodelproject.model';
@@ -36,8 +35,6 @@ import { AngularMaterialModule } from './material/angular-material.module';
 import { MatTableModule } from '@angular/material';
 // Routes
 import { RoutingModule } from './routes/routing.module';
-import { TimelineComponent } from './components/timeline/timeline/timeline.component';
-
 
 
 @NgModule({
@@ -55,10 +52,8 @@ import { TimelineComponent } from './components/timeline/timeline/timeline.compo
     ObjectivesComponent,
     ObjectiveAddComponent,
     ObjectivesListComponent,
-    MessageComponent,
-    PhasesFormDeleteComponent,
     TimelineComponent,
-    MessageObjectiveComponent
+    DialogDeleteComponent
   ],
   imports: [
     BrowserModule,
@@ -73,10 +68,8 @@ import { TimelineComponent } from './components/timeline/timeline/timeline.compo
     MatTableModule,
   ],
   entryComponents: [
-    MessageComponent,
-    PhasesFormDeleteComponent,
-    MessageObjectiveComponent,
-    ObjectivesListComponent
+    ObjectivesListComponent,
+    DialogDeleteComponent
   ],
   providers: [
     ProjectService,

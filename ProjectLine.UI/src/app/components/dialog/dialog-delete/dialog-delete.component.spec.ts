@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MessageObjectiveComponent } from './message-objective.component';
+import { DialogDeleteComponent } from './dialog-delete.component';
 
-describe('MessageObjectiveComponent', () => {
-  let component: MessageObjectiveComponent;
-  let fixture: ComponentFixture<MessageObjectiveComponent>;
+describe('DialogDeleteComponent', () => {
+  let component: DialogDeleteComponent;
+  let fixture: ComponentFixture<DialogDeleteComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MessageObjectiveComponent ]
+      declarations: [ DialogDeleteComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MessageObjectiveComponent);
+    fixture = TestBed.createComponent(DialogDeleteComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

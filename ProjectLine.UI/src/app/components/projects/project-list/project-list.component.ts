@@ -6,7 +6,8 @@ import { PhaseService } from '../../../services/phase.service';
 // Models
 import { Project } from '../../../models/project.model';
 import { MatDialog } from '@angular/material';
-import { MessageComponent } from '../../../components/dialog/message/message.component';
+// Components
+import { DialogDeleteComponent } from '../../../components/dialog/dialog-delete/dialog-delete.component';
 
 @Component({
   selector: 'app-project-list',
@@ -59,7 +60,7 @@ export class ProjectListComponent implements OnInit {
   }
 
   openDialog(ids): void {
-    let dialogRef = this.dialog.open(MessageComponent, {
+    const dialogRef = this.dialog.open(DialogDeleteComponent, {
     });
     dialogRef.afterClosed().subscribe(result => {
       this.VariableSet = result;

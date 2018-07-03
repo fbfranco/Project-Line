@@ -15,9 +15,9 @@ import { Phase } from '../../../models/phase.model';
 import { ViewModelProject } from '../../../models/viewmodelproject.model';
 // Components
 import { PhasesFormComponent } from '../../phases/phases-form/phases-form.component';
-import { PhasesFormDeleteComponent } from '../../phases/phases-form-delete/phases-form-delete.component';
+import { DialogDeleteComponent } from '../../../components/dialog/dialog-delete/dialog-delete.component';
 // import { RoutingModule } from '../../../Routes/routing.module';
-import { Route, RouterModule, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
 
@@ -73,7 +73,7 @@ export class ProjectAddComponent implements OnInit {
   }
 
   DeleteRow(dataPhases) {
-    const dialogRef = this.dialog.open(PhasesFormDeleteComponent, {
+    const dialogRef = this.dialog.open(DialogDeleteComponent, {
       // data: indexPhase
     });
 
