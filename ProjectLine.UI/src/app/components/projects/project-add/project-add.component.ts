@@ -102,25 +102,25 @@ export class ProjectAddComponent implements OnInit {
   }
 
 
-    onSubmit(form: NgForm) {
-      this.viewmodel.Project = form.value;
-      this.viewmodel.Phases = this.phaseService.phaseList;
+  onSubmit(form: NgForm) {
+    this.viewmodel.Project = form.value;
+    this.viewmodel.Phases = this.phaseService.phaseList;
 
-      if (typeof form.value.ProjectID === 'undefined') {
-        this.projectService.postProject(this.viewmodel).subscribe(data => {
-          this.openSnackBar('Saved');
-          this.navigate_to_project_home_page();
-          this.resetForm();
-        });
-      } else {
-        this.projectService.putProject(this.viewmodel).subscribe(data => {
-          this.openSnackBar('Saved');
-          this.navigate_to_project_home_page();
-          this.resetForm();
-        });
+    if (typeof form.value.ProjectID === 'undefined') {
+      this.projectService.postProject(this.viewmodel).subscribe(data => {
+        this.openSnackBar('Saved');
+        this.navigate_to_project_home_page();
+        this.resetForm();
+      });
+    } else {
+      this.projectService.putProject(this.viewmodel).subscribe(data => {
+        this.openSnackBar('Saved');
+        this.navigate_to_project_home_page();
+        this.resetForm();
+      });
 
-      }
     }
+  }
 
 
   navigate_to_project_home_page() {
@@ -129,6 +129,7 @@ export class ProjectAddComponent implements OnInit {
   openSnackBar(message: string) {
     this.snackBar.open(message, null, {
       duration: 2000,
+      horizontalPosition: 'right'
     });
   }
   resetForm() {
