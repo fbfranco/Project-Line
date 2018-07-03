@@ -13,6 +13,7 @@
       <mat-form-field>
         <input matInput #Title maxlength="150" placeholder="Title" formControlName="title" required pattern="^[a-zA-Z0-9].*">
         <mat-hint align="end">{{Title.value?.length || 0}}/150</mat-hint>
+        <mat-error *ngIf="!objectiveFormGroup.valid" #Error>The field should start with letter or number.</mat-error>
       </mat-form-field>
 
       <mat-form-field>

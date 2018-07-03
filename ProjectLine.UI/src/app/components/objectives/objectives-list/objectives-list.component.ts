@@ -29,8 +29,6 @@ export class ObjectivesListComponent implements OnInit {
   formGroup: FormGroup;
   projectIdNumber: number;
   phaseIdNumber: number;
-  projectPlaceholder: string;
-  phasePlaceholder: string;
 
   // List Objectives
   ListObjectives: Objective[];
@@ -71,7 +69,6 @@ export class ObjectivesListComponent implements OnInit {
   // Event Get ProjectID
   projectChanged(event): void {
     this.projectIdNumber = event.option.value.ProjectID;
-    this.projectPlaceholder = event.option.value.Title;
     this.getPhaseList();
     this.newGroup('', '');
     this.ListObjectives = null;
@@ -80,7 +77,6 @@ export class ObjectivesListComponent implements OnInit {
   // Event Get PhaseID
   phaseChanged(event): void {
     this.phaseIdNumber = event.option.value.PhaseID;
-    this.phasePlaceholder = event.option.value.Title;
     const title = this.formGroup.controls['PhaseTitle'].value;
     this.newGroup(this.phaseIdNumber, title);
     this.getObjectiveList();

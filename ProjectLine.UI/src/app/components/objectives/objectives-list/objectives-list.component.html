@@ -4,7 +4,7 @@
   <input type="hidden" #phaseID formControlName="id" required/>
 
   <mat-form-field class="AutocompleteProject">
-    <input type="text" placeholder="Project {{projectPlaceholder}}" aria-label="Number" matInput [matAutocomplete]="ProjectList">
+    <input type="text" placeholder="Project" aria-label="Number" matInput [matAutocomplete]="ProjectList">
     <mat-autocomplete #ProjectList="matAutocomplete" (optionSelected)="projectChanged($event)" [displayWith]="displayProjectFn">
       <mat-option *ngFor="let Project of ListProjects" [value]="Project">
         {{ Project.Title }}
@@ -13,7 +13,7 @@
   </mat-form-field>
 
   <mat-form-field class="AutocompletePhases">
-    <input type="text" placeholder="Phase {{phasePlaceholder}}" aria-label="Number" matInput [matAutocomplete]="PhasesList" formControlName="PhaseTitle">
+    <input type="text" placeholder="Phase" aria-label="Number" matInput [matAutocomplete]="PhasesList" formControlName="PhaseTitle">
     <mat-autocomplete #PhasesList="matAutocomplete" (optionSelected)="phaseChanged($event)" [displayWith]="displayPhaseFn">
       <mat-option *ngFor="let Phase of ListPhases" [value]="Phase ">
         {{ Phase.Title }}
