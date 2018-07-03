@@ -7,18 +7,17 @@
     <input type="hidden" name="ProjectID" #ProjectID="ngModel" [(ngModel)]="projectService.selectedProject.ProjectID">
     <!-- Title -->
     <mat-form-field>
-      <input matInput maxlength="150" placeholder="Title" name="Title" #Title="ngModel" [(ngModel)]="projectService.selectedProject.Title" required>
+      <input matInput maxlength="150" placeholder="Title" name="Title" #Title="ngModel" [(ngModel)]="projectService.selectedProject.Title"
+        required pattern="^[a-zA-Z0-9].*">
       <mat-hint align="end">{{Title.value?.length || 0}}/150</mat-hint>
       <mat-error *ngIf="Title.invalid && Title.touched">This Field is Required.</mat-error>
     </mat-form-field>
-
     <!-- Description -->
     <mat-form-field>
       <textarea matInput maxlength="1000" placeholder="Description" matTextareaAutosize matAutosizeMinRows="4" matAutosizeMaxRows="5"
         name="Description" #Description="ngModel" [(ngModel)]="projectService.selectedProject.Description"></textarea>
       <mat-hint align="end">{{Description.value?.length || 0}}/1000</mat-hint>
     </mat-form-field>
-
     <div class="date-content" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign.gt-xs="space-between start"
       fxLayoutAlign.md="space-between start">
       <!-- Start Date -->
@@ -36,38 +35,28 @@
         <mat-datepicker #endDate disabled="false"></mat-datepicker>
       </mat-form-field>
     </div>
-
     <div fxLayout="row" fxLayoutGap="1em" class="form-options">
       <a mat-raised-button color="primary" *ngIf="projectForm.valid" (click)="AddRows()">Add Phase</a>
     </div>
-
     <div class="table-phases" *ngIf="dataSource.data.length > 0">
       <h4 class="title">Phases</h4>
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <!--Nro Column -->
-        <!-- <ng-container matColumnDef="state">
-          <th mat-header-cell *matHeaderCellDef> State </th>
-          <td mat-cell *matCellDef="let element"> {{element.state}} </td>
-        </ng-container> -->
-
         <!--Phase Column -->
         <ng-container matColumnDef="Title">
           <th mat-header-cell *matHeaderCellDef> Title</th>
           <td mat-cell *matCellDef="let element"> {{element.Title}} </td>
         </ng-container>
-
         <!-- Description Column -->
         <ng-container matColumnDef="Description">
           <th mat-header-cell *matHeaderCellDef> Description </th>
           <td mat-cell *matCellDef="let element"> {{element.Description}} </td>
         </ng-container>
-
         <!-- start Date Column -->
         <ng-container matColumnDef="StartDate">
           <th mat-header-cell *matHeaderCellDef> Start Date </th>
           <td mat-cell *matCellDef="let element"> {{helperService.DateFormat(element.StartDate)}} </td>
         </ng-container>
-
         <!-- End date Column -->
         <ng-container matColumnDef="EndDate">
           <th mat-header-cell *matHeaderCellDef> Estimated End Date </th>

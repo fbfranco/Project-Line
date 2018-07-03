@@ -9,7 +9,7 @@
     "lintt": "ng lint",
     "e2e": "ng e2e",
     "lint": "eslint ./",
-	  "lint:fix": "eslint ./ --fix"
+    "lint:fix": "eslint ./ --fix"
   },
   "private": true,
   "dependencies": {

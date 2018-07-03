@@ -40,7 +40,6 @@ export class ProjectAddComponent implements OnInit {
   dataSource = new MatTableDataSource(this.phaseService.phaseList);
   VarSet: string;
 
-
   constructor(public dialog: MatDialog,
     public route: ActivatedRoute,
     public router: Router,
@@ -61,7 +60,6 @@ export class ProjectAddComponent implements OnInit {
     this.phaseService.phaseList.push({
       PhaseID: 0,
       Title: `Phase ${nroPhase}`,
-      // Description: 'Descriptionnn',
       Description: '',
       StartDate: this.projectService.selectedProject.StartDate,
       EndDate: new Date(),
@@ -74,10 +72,7 @@ export class ProjectAddComponent implements OnInit {
 
   DeleteRow(dataPhases) {
     const dialogRef = this.dialog.open(PhasesFormDeleteComponent, {
-      // data: indexPhase
     });
-
-
     dialogRef.afterClosed().subscribe(result => {
       this.VarSet = result;
       if (this.VarSet === 'confirm') {
@@ -88,49 +83,45 @@ export class ProjectAddComponent implements OnInit {
         console.log(this.phaseService.phaseList);
       }
     });
-
   }
 
   openDialog(dataPhases) {
     this.phaseService.indexPhase = this.phaseService.phaseList.indexOf(dataPhases);
     this.getSelectedPhase(dataPhases);
     const dialogRef = this.dialog.open(PhasesFormComponent);
-
     dialogRef.afterClosed().subscribe(result => {
       this.dataSource = new MatTableDataSource(this.phaseService.phaseList);
     });
   }
 
-
-    onSubmit(form: NgForm) {
-      this.viewmodel.Project = form.value;
-      this.viewmodel.Phases = this.phaseService.phaseList;
-
-      if (typeof form.value.ProjectID === 'undefined') {
-        this.projectService.postProject(this.viewmodel).subscribe(data => {
-          this.openSnackBar('Saved');
-          this.navigate_to_project_home_page();
-          this.resetForm();
-        });
-      } else {
-        this.projectService.putProject(this.viewmodel).subscribe(data => {
-          this.openSnackBar('Saved');
-          this.navigate_to_project_home_page();
-          this.resetForm();
-        });
-
-      }
+  onSubmit(form: NgForm) {
+    this.viewmodel.Project = form.value;
+    this.viewmodel.Phases = this.phaseService.phaseList;
+    if (typeof form.value.ProjectID === 'undefined') {
+      this.projectService.postProject(this.viewmodel).subscribe(data => {
+        this.openSnackBar('Saved');
+        this.navigate_to_project_home_page();
+        this.resetForm();
+      });
+    } else {
+      this.projectService.putProject(this.viewmodel).subscribe(data => {
+        this.openSnackBar('Saved');
+        this.navigate_to_project_home_page();
+        this.resetForm();
+      });
     }
-
+  }
 
   navigate_to_project_home_page() {
     this.router.navigate(['/Project']);
   }
+
   openSnackBar(message: string) {
     this.snackBar.open(message, null, {
       duration: 2000,
     });
   }
+
   resetForm() {
     this.phaseService.phaseList = [];
     this.dataSource = new MatTableDataSource(this.phaseService.phaseList);
@@ -138,6 +129,7 @@ export class ProjectAddComponent implements OnInit {
     this.projectService.selectedProject.StartDate = new Date();
     this.projectService.selectedProject.EndDate = new Date();
   }
+
   getSelectedPhase(phase: Phase) {
     this.phaseService.selectedPhase = Object.assign({}, phase);
   }
