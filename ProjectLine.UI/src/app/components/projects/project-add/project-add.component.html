@@ -1,9 +1,7 @@
-<form #projectForm="ngForm" (ngSubmit)="onSubmit(projectForm)">
-  <mat-card-header fxLayout="column">
-    <h1>{{titleForm}}</h1>
-  </mat-card-header>
-  <hr>
-  <mat-card-content fxLayout="column">
+<div class="Form-Container">
+  <h1>{{titleForm}}</h1>
+  <br>
+  <form #projectForm="ngForm" (ngSubmit)="onSubmit(projectForm)" fxLayout="column">
     <input type="hidden" name="ProjectID" #ProjectID="ngModel" [(ngModel)]="projectService.selectedProject.ProjectID">
     <!-- Title -->
     <mat-form-field>
@@ -35,11 +33,11 @@
         <mat-datepicker #endDate disabled="false"></mat-datepicker>
       </mat-form-field>
     </div>
-    <div fxLayout="row" fxLayoutGap="1em" class="form-options">
+    <div fxLayout="row">
       <a mat-raised-button color="primary" [disabled]="!projectForm.valid" (click)="projectForm.valid ? AddRows() : false">Add Phase</a>
     </div>
-    <div class="table-phases" *ngIf="dataSource.data.length > 0">
-      <h2 >Phases</h2>
+    <div class="table-content" *ngIf="dataSource.data.length > 0">
+      <h2>Phases</h2>
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <!--Phase Column -->
         <ng-container matColumnDef="Title">
@@ -49,7 +47,9 @@
         <!-- Description Column -->
         <ng-container matColumnDef="Description">
           <th mat-header-cell *matHeaderCellDef> Description </th>
-          <td mat-cell *matCellDef="let element"> {{element.Description}} </td>
+          <td mat-cell *matCellDef="let element">
+            <div class="long-cell"> {{element.Description}} </div>
+          </td>
         </ng-container>
         <!-- start Date Column -->
         <ng-container matColumnDef="StartDate">
@@ -83,9 +83,9 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
     </div>
-  </mat-card-content>
-  <div fxLayout="row" fxLayoutGap="1em" class="form-options">
-    <button mat-raised-button color="primary" [disabled]="!projectForm.valid" type="submit">Save</button>
-    <a mat-raised-button color="warn" routerLink="/Project">Cancel</a>
-  </div>
-</form>
+    <div fxLayout="row" fxLayoutGap="1em" class="form-options">
+      <button mat-raised-button color="primary" [disabled]="!projectForm.valid" type="submit">Save</button>
+      <a mat-raised-button color="warn" routerLink="/Project">Cancel</a>
+    </div>
+  </form>
+</div>
