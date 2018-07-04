@@ -28,10 +28,12 @@ export class TimelineComponent implements OnInit, DoCheck {
 
   Hide: boolean;
   InitTimeline: boolean;
+  //filter autocomplete
   myControl = new FormControl();
   options: string[];
   filteredOptions: Observable<string[]>;
   DataProject:Project;
+
   constructor(public projectService: ProjectService, public helperService: HelperService) { }
 
   getProjectList() {
@@ -50,7 +52,6 @@ export class TimelineComponent implements OnInit, DoCheck {
   ngOnInit() {
     this.options = [];
     this.getProjectList();
-    //map(warehouse => warehouse ? this.filterProjects(warehouse) : this.getProjectList())
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith(''),
@@ -61,18 +62,14 @@ export class TimelineComponent implements OnInit, DoCheck {
   }
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
-
   ngDoCheck() {
     if (this.InitTimeline) {
       $('.VivaTimeline').vivaTimeline();
       this.InitTimeline = false;
     }
   }
-
-
   // Get the dates of the selected project
   projectChanged(event): void {
     this.ListProjects.forEach(element => {
@@ -80,14 +77,12 @@ export class TimelineComponent implements OnInit, DoCheck {
         this.DataProject=this.projectService.selectedProject = element;
       }
     });
-    console.log(this.projectService.selectedProject);
     this.StartDate = this.helperService.DateFormat(event.option.value.StartDate);
     this.EndDate = this.helperService.DateFormat(event.option.value.EndDate);
     this.ProjectTitle = event.option.value.Title;
-    this.PhaseModel = event.option.value.Phases;
+    this.PhaseModel = this.DataProject.Phases;
     this.Hide = true;
     this.InitTimeline = true;
-    console.log(event.option.value);
   }
   inputEmpty(event: any) {
     if (event !== '') {

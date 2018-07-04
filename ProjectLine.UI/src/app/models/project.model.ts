@@ -1,7 +1,7 @@
 import { Phase } from './phase.model';
 
 export class Project {
-  ProjectID: Number;
+  ProjectID: number;
   Title: string;
   Description: string;
   StartDate: Date;

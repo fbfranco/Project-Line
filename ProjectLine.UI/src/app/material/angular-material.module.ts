@@ -23,6 +23,7 @@ import {
  } from '@angular/material';
  
  import { MatSnackBarModule } from '@angular/material/snack-bar';
+ import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   imports: [
@@ -45,7 +46,8 @@ import {
     MatCheckboxModule,
     MatAutocompleteModule,
     MatSnackBarModule,
-    MatTableModule
+    MatTableModule,
+    MatTooltipModule
   ],
   exports: [
     CommonModule,
@@ -67,7 +69,8 @@ import {
     MatCheckboxModule,
     MatAutocompleteModule,
     MatSnackBarModule,
-    MatTableModule
+    MatTableModule,
+    MatTooltipModule
   ]
 })
 

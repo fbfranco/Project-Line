@@ -2,28 +2,13 @@
 <mat-form-field id="AutocompleteProject">
   <input  type="text" (change)="inputEmpty($event)" placeholder="Project" aria-label="Number" [formControl]="myControl" matInput [matAutocomplete]="ProjectList">
   <mat-autocomplete #ProjectList="matAutocomplete" (optionSelected)="projectChanged($event)"  autoActiveFirstOption>
-    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+    <mat-option matTooltip={{option}} *ngFor="let option of filteredOptions | async" [value]="option">
       {{ option }}
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>
-
-<!-- <form class="example-form">
-  <mat-form-field class="example-full-width">
-    <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
-    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-        {{option}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-</form> -->
-
 </div>
-
-
-
-  <h1 fxLayoutAlign="center center" *ngIf="Hide">{{ DataProject.Title }}</h1>
+ <h1 fxLayoutAlign="center center" *ngIf="Hide">{{ DataProject.Title }}</h1>
   <div class="VivaTimeline" *ngIf="Hide"  >
 
        <dl>
