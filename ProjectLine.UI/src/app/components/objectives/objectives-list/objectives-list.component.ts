@@ -121,7 +121,6 @@ export class ObjectivesListComponent implements OnInit {
       }
     });
     this.projectIdNumber = this.DataProject.ProjectID;
-    this.newGroup('', '');
     this.ListObjectives = null;
     this.getPhaseList();
     this.filteredOptionsPhase = this.myControlPhase.valueChanges
@@ -129,6 +128,10 @@ export class ObjectivesListComponent implements OnInit {
         startWith(''),
         map(value => value ? this._filterPhase(value) : this.optionsPhase)
       );
+      //reset values autocomplete
+    this.newGroup('', '');
+    this.myControlPhase.patchValue('');
+      
   }
 
   // Event Get PhaseID
