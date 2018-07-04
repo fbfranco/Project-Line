@@ -1,6 +1,6 @@
 <form #projectForm="ngForm" (ngSubmit)="onSubmit(projectForm)">
   <mat-card-header fxLayout="column">
-    <span class="title">{{titleForm}}</span>
+    <h1>{{titleForm}}</h1>
   </mat-card-header>
   <hr>
   <mat-card-content fxLayout="column">
@@ -36,12 +36,11 @@
       </mat-form-field>
     </div>
     <div fxLayout="row" fxLayoutGap="1em" class="form-options">
-      <a mat-raised-button color="primary" *ngIf="projectForm.valid" (click)="AddRows()">Add Phase</a>
+      <a mat-raised-button color="primary" [disabled]="!projectForm.valid" (click)="projectForm.valid ? AddRows() : false">Add Phase</a>
     </div>
     <div class="table-phases" *ngIf="dataSource.data.length > 0">
-      <h4 class="title">Phases</h4>
+      <h2 >Phases</h2>
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-        <!--Nro Column -->
         <!--Phase Column -->
         <ng-container matColumnDef="Title">
           <th mat-header-cell *matHeaderCellDef> Title</th>

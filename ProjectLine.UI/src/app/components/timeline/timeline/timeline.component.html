@@ -1,15 +1,16 @@
 <h1 style="text-align: left">Project Tracking</h1>
 
 <div class="div-Container">
-<mat-form-field id="AutocompleteProject">
-  <input  type="text" (change)="inputEmpty($event)" placeholder="Project" aria-label="Number" matInput [matAutocomplete]="ProjectList">
-  <mat-autocomplete #ProjectList="matAutocomplete" (optionSelected)="projectChanged($event)"  [displayWith]="displayProjectFn">
-    <mat-option *ngFor="let Project of ListProjects" [value]="Project">
-      {{ Project.Title }}
-    </mat-option>
-  </mat-autocomplete>
-</mat-form-field>
+  <mat-form-field id="AutocompleteProject">
+    <input type="text" (change)="inputEmpty($event)" placeholder="Project" aria-label="Number" matInput [matAutocomplete]="ProjectList">
+    <mat-autocomplete #ProjectList="matAutocomplete" (optionSelected)="projectChanged($event)" [displayWith]="displayProjectFn">
+      <mat-option *ngFor="let Project of ListProjects" [value]="Project">
+        {{ Project.Title }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
 </div>
+<<<<<<< HEAD
   <h1 fxLayoutAlign="center center" *ngIf="Hide">{{ ProjectTitle }}</h1>
   <div class="VivaTimeline" *ngIf="Hide"  >
 
@@ -30,10 +31,31 @@
               </div>
             </div>
             <div class="events-footer">
+=======
+<h1 fxLayoutAlign="center center" *ngIf="Hide">{{ ProjectTitle }}</h1>
+<div class="VivaTimeline" *ngIf="Hide">
+  <dl>
+    <dt>Start Date<br>{{ StartDate }}</dt>
+    <dd *ngFor="let Phase of PhaseModel; let i = index" [ngClass]="{'pos-right': i%2 != 0,'pos-left': i%2 == 0}" class="clearfix">
+      <div class="circ"></div>
+      <div class="time">{{Phase.StartDate | date: 'MM/dd/yyyy'}}
+        <br>{{Phase.EndDate | date: 'MM/dd/yyyy'}}</div>
+      <div class="events">
+        <div class="events-header">{{Phase.Title}}</div>
+        <div class="events-body">
+          <div class="row">
+            <div class="events-desc">
+              <ul>
+                <li *ngFor="let obj of Phase.Objectives">{{obj.Title}}</li>
+              </ul>
+>>>>>>> Clean_Code-Phases_Component
             </div>
           </div>
-        </dd>
-        <dt>{{ EndDate }}</dt>
-
-      </dl>
-    </div>
+        </div>
+        <div class="events-footer">
+        </div>
+      </div>
+    </dd>
+    <dt>Estimated End Date<br>{{ EndDate }}</dt>
+  </dl>
+</div>
