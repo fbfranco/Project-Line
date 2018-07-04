@@ -19,11 +19,11 @@ import {
   MatNativeDateModule,
   MatCheckboxModule,
   MatAutocompleteModule,
-  MatTableModule,
-  MatTooltipModule,
-} from '@angular/material';
-
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+  MatTableModule
+ } from '@angular/material';
+ 
+ import { MatSnackBarModule } from '@angular/material/snack-bar';
+ import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   imports: [

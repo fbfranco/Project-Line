@@ -1,22 +1,19 @@
 <h1>Objectives</h1>
 <form novalidate (ngSubmit)="openDialog()" [formGroup]="formGroup">
-
   <input type="hidden" #phaseID formControlName="id" required/>
-
   <mat-form-field class="AutocompleteProject">
-    <input type="text" placeholder="Project" aria-label="Number" matInput [matAutocomplete]="ProjectList">
-    <mat-autocomplete #ProjectList="matAutocomplete" (optionSelected)="projectChanged($event)" [displayWith]="displayProjectFn">
-      <mat-option *ngFor="let Project of ListProjects" [value]="Project">
-        {{ Project.Title }}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-
+      <input  type="text" (change)="inputEmpty($event)" placeholder="Project" aria-label="Number" [formControl]="myControl" matInput [matAutocomplete]="ProjectList">
+      <mat-autocomplete #ProjectList="matAutocomplete" (optionSelected)="projectChanged($event)"  autoActiveFirstOption>
+        <mat-option  matTooltip={{option}} *ngFor="let option of filteredOptions | async" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
   <mat-form-field class="AutocompletePhases">
-    <input type="text" placeholder="Phase" aria-label="Number" matInput [matAutocomplete]="PhasesList" formControlName="PhaseTitle">
-    <mat-autocomplete #PhasesList="matAutocomplete" (optionSelected)="phaseChanged($event)" [displayWith]="displayPhaseFn">
-      <mat-option *ngFor="let Phase of ListPhases" [value]="Phase ">
-        {{ Phase.Title }}
+    <input type="text" placeholder="Phase" aria-label="Number" matInput [matAutocomplete]="PhasesList"  [formControl]="myControlPhase">
+    <mat-autocomplete #PhasesList="matAutocomplete" (optionSelected)="phaseChanged($event)" autoActiveFirstOption>
+      <mat-option matTooltip={{optionPhase}} *ngFor="let optionPhase of filteredOptionsPhase | async" [value]="optionPhase">
+        {{ optionPhase }}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>

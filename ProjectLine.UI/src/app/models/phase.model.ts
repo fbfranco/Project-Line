@@ -1,7 +1,7 @@
 import { Objective } from './objective.model';
 
 export class Phase {
-    PhaseID: Number;
+    PhaseID: number;
     Title: string;
     Description: string;
     StartDate: Date;

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialog, MatSnackBar } from '@angular/material';
-
+import { Observable } from 'rxjs';
+import { FormControl } from '@angular/forms';
 // Services
 import { ProjectService } from '../../../services/project.service';
 import { PhaseService } from '../../../services/phase.service';
@@ -15,6 +16,7 @@ import { Objective } from '../../../models/objective.model';
 // Components
 import { ObjectiveAddComponent } from '../objective-add/objective-add.component';
 import { DialogConfirmationComponent } from '../../../components/dialog/dialog-confirmation/dialog-confirmation.component';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-objectives-list',
@@ -31,6 +33,17 @@ export class ObjectivesListComponent implements OnInit {
   projectIdNumber: number;
   phaseIdNumber: number;
 
+  //filter AutocompleteProjects
+  myControl = new FormControl();
+  options: string[];
+  filteredOptions: Observable<string[]>;
+  DataProject:Project;
+  //filter AutocompletePhases
+  myControlPhase = new FormControl();
+  optionsPhase: string[];
+  filteredOptionsPhase: Observable<string[]>;
+  DataPhase:Phase;
+
   // List Objectives
   ListObjectives: Objective[];
   HeaderColumns = ['Title', 'Description', 'Edit', 'Delete'];
@@ -44,9 +57,41 @@ export class ObjectivesListComponent implements OnInit {
     public objectiveServices: ObjectiveService
   ) { }
 
-  ngOnInit() {
-    this.getProjectList();
+  ngOnInit() {    
     this.newGroup('', '');
+    this.options = [];
+    this.optionsPhase = [];
+    this.getProjectList();
+    this.DataProject=new Project;
+    this.DataPhase=new Phase;
+    this.filteredOptions = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => value ? this._filter(value) : this.options)
+      ); 
+  }
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  }
+  private _filterPhase(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.optionsPhase.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
+  setOptionsProject() {
+    for (let index = 0; index < this.ListProjects.length; index++) {
+      const element = this.ListProjects[index];
+      this.options.push(element.Title);
+    }
+  }
+  setOptionsPhase() {
+    for (let index = 0; index < this.ListPhases.length; index++) {
+      const element = this.ListPhases[index];
+      this.optionsPhase.push(element.Title);
+    }
   }
 
   newGroup(val, title): void {
@@ -69,40 +114,55 @@ export class ObjectivesListComponent implements OnInit {
 
   // Event Get ProjectID
   projectChanged(event): void {
-    this.projectIdNumber = event.option.value.ProjectID;
-    this.getPhaseList();
+    this.optionsPhase = [];    
+    this.ListProjects.forEach(element => {
+      if (element.Title === event.option.value) {
+        this.DataProject=this.projectService.selectedProject = element;
+      }
+    });
+    this.projectIdNumber = this.DataProject.ProjectID;
     this.newGroup('', '');
     this.ListObjectives = null;
+    this.getPhaseList();
+    this.filteredOptionsPhase = this.myControlPhase.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => value ? this._filterPhase(value) : this.optionsPhase)
+      );
   }
 
   // Event Get PhaseID
   phaseChanged(event): void {
-    this.phaseIdNumber = event.option.value.PhaseID;
+    this.ListPhases.forEach(element => {
+      if (element.Title === event.option.value) {
+        this.DataPhase=this.phasesServices.selectedPhase = element;
+      }
+    });
+    this.phaseIdNumber = this.DataPhase.PhaseID;
     const title = this.formGroup.controls['PhaseTitle'].value;
     this.newGroup(this.phaseIdNumber, title);
     this.getObjectiveList();
   }
 
   getProjectList() {
-    // getting service data Projects List
     this.projectService.getProjectsList().subscribe((datalist: Project[]) => {
       this.ListProjects = datalist;
+      this.setOptionsProject();
     }, error => {
       console.log('Error getting the list of projects');
     });
   }
 
   getPhaseList() {
-    // getting service data Phases List
     this.phasesServices.getPhasesList(this.projectIdNumber).subscribe((datalistPhase: Phase[]) => {
       this.ListPhases = datalistPhase;
+      this.setOptionsPhase();
     }, error => {
       console.log('Error getting the list of Phases');
     });
   }
 
   getObjectiveList() {
-    // getting service data Objectives List
     this.objectiveServices.getObjectivesList(this.phaseIdNumber).subscribe((datalistPhase: Objective[]) => {
       this.ListObjectives = datalistPhase;
     }, error => {
