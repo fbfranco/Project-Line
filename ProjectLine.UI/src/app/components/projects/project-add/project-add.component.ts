@@ -74,7 +74,7 @@ export class ProjectAddComponent implements OnInit {
 
   DeleteRow(dataPhases) {
     const dialogRef = this.dialog.open(DialogDeleteComponent, {
-      // data: indexPhase
+      data: {title: 'Please confirm', description: 'Are you sure you want to remove this item?'}
     });
 
 
@@ -100,7 +100,6 @@ export class ProjectAddComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.phaseService.phaseList);
     });
   }
-
 
   onSubmit(form: NgForm) {
     this.viewmodel.Project = form.value;
