@@ -74,11 +74,7 @@ export class ProjectAddComponent implements OnInit {
 
   DeleteRow(dataPhases) {
     const dialogRef = this.dialog.open(DialogConfirmationComponent, {
-<<<<<<< HEAD
       data: {title: 'Please confirm...', description: 'Are you sure you want to remove this item?'}
-=======
-      data: { title: 'Please confirm', description: 'Are you sure you want to remove this item?' }
->>>>>>> 308494360440e8746fd5464760ad5285b1c11941
     });
 
 
@@ -132,9 +128,7 @@ export class ProjectAddComponent implements OnInit {
   openSnackBar(message: string) {
     this.snackBar.open(message, null, {
       duration: 2000,
-      horizontalPosition: 'right'
       horizontalPosition: 'right',
-      duration: 2000
     });
   }
   resetForm() {
