@@ -15,7 +15,7 @@ import { Phase } from '../../../models/phase.model';
 import { ViewModelProject } from '../../../models/viewmodelproject.model';
 // Components
 import { PhasesFormComponent } from '../../phases/phases-form/phases-form.component';
-import { DialogDeleteComponent } from '../../../components/dialog/dialog-delete/dialog-delete.component';
+import { DialogConfirmationComponent } from '../../../components/dialog/dialog-confirmation/dialog-confirmation.component';
 // import { RoutingModule } from '../../../Routes/routing.module';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -73,7 +73,7 @@ export class ProjectAddComponent implements OnInit {
   }
 
   DeleteRow(dataPhases) {
-    const dialogRef = this.dialog.open(DialogDeleteComponent, {
+    const dialogRef = this.dialog.open(DialogConfirmationComponent, {
       data: {title: 'Please confirm', description: 'Are you sure you want to remove this item?'}
     });
 

@@ -11,8 +11,10 @@ import { ObjectiveService } from '../../../services/objective.service';
 import { Project } from '../../../models/project.model';
 import { Phase } from '../../../models/phase.model';
 import { Objective } from '../../../models/objective.model';
+
+// Components
 import { ObjectiveAddComponent } from '../objective-add/objective-add.component';
-import { DialogDeleteComponent } from '../../../components/dialog/dialog-delete/dialog-delete.component';
+import { DialogConfirmationComponent } from '../../../components/dialog/dialog-confirmation/dialog-confirmation.component';
 
 @Component({
   selector: 'app-objectives-list',
@@ -133,7 +135,7 @@ export class ObjectivesListComponent implements OnInit {
 
   openDialogDelete(objective: Objective) {
     if (objective.Completed === false) {
-      const dialogRef = this.dialog.open(DialogDeleteComponent, {
+      const dialogRef = this.dialog.open(DialogConfirmationComponent, {
         data: {title: 'Please confirm', description: 'Are you sure you want to remove this item?'}
       });
       dialogRef.afterClosed().subscribe(result => {

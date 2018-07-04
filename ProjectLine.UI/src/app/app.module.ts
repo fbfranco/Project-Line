@@ -22,8 +22,7 @@ import { ObjectivesComponent } from './components/objectives/objectives.componen
 import { ObjectiveAddComponent } from './components/objectives/objective-add/objective-add.component';
 import { ObjectivesListComponent } from './components/objectives/objectives-list/objectives-list.component';
 import { TimelineComponent } from './components/timeline/timeline/timeline.component';
-import { DialogDeleteComponent } from './components/dialog/dialog-delete/dialog-delete.component';
-
+import { DialogConfirmationComponent } from './components/dialog/dialog-confirmation/dialog-confirmation.component';
 // Models
 import { ViewModelProject } from './models/viewmodelproject.model';
 // Services
@@ -35,6 +34,7 @@ import { AngularMaterialModule } from './material/angular-material.module';
 import { MatTableModule } from '@angular/material';
 // Routes
 import { RoutingModule } from './routes/routing.module';
+
 
 
 @NgModule({
@@ -53,7 +53,7 @@ import { RoutingModule } from './routes/routing.module';
     ObjectiveAddComponent,
     ObjectivesListComponent,
     TimelineComponent,
-    DialogDeleteComponent
+    DialogConfirmationComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +69,7 @@ import { RoutingModule } from './routes/routing.module';
   ],
   entryComponents: [
     ObjectivesListComponent,
-    DialogDeleteComponent
+    DialogConfirmationComponent
   ],
   providers: [
     ProjectService,

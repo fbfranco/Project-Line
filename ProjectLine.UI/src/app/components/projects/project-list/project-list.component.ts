@@ -7,7 +7,7 @@ import { PhaseService } from '../../../services/phase.service';
 import { Project } from '../../../models/project.model';
 import { MatDialog } from '@angular/material';
 // Components
-import { DialogDeleteComponent } from '../../../components/dialog/dialog-delete/dialog-delete.component';
+import { DialogConfirmationComponent } from '../../../components/dialog/dialog-confirmation/dialog-confirmation.component';
 
 @Component({
   selector: 'app-project-list',
@@ -60,8 +60,8 @@ export class ProjectListComponent implements OnInit {
   }
 
   openDialog(ids): void {
-    const dialogRef = this.dialog.open(DialogDeleteComponent, {
-      data: {title: 'Please confirm', description: 'Are you sure you want to remove this item?'}
+    const dialogRef = this.dialog.open(DialogConfirmationComponent, {
+      data: { title: 'Please confirm', description: 'Are you sure you want to archive this item?' }
     });
     dialogRef.afterClosed().subscribe(result => {
       this.VariableSet = result;
