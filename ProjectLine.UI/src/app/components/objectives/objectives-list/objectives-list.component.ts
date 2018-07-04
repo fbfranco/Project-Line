@@ -136,7 +136,7 @@ export class ObjectivesListComponent implements OnInit {
   openDialogDelete(objective: Objective) {
     if (objective.Completed === false) {
       const dialogRef = this.dialog.open(DialogConfirmationComponent, {
-        data: {title: 'Please confirm', description: 'Are you sure you want to remove this item?'}
+        data: {title: 'Please confirm...', description: 'Are you sure you want to remove this item?'}
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result === 'confirm') {

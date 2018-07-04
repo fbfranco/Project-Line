@@ -74,7 +74,7 @@ export class ProjectAddComponent implements OnInit {
 
   DeleteRow(dataPhases) {
     const dialogRef = this.dialog.open(DialogConfirmationComponent, {
-      data: {title: 'Please confirm', description: 'Are you sure you want to remove this item?'}
+      data: {title: 'Please confirm...', description: 'Are you sure you want to remove this item?'}
     });
 
 

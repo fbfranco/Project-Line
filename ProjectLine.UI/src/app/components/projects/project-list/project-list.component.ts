@@ -61,7 +61,7 @@ export class ProjectListComponent implements OnInit {
 
   openDialog(ids): void {
     const dialogRef = this.dialog.open(DialogConfirmationComponent, {
-      data: { title: 'Please confirm', description: 'Are you sure you want to archive this item?' }
+      data: { title: 'Please confirm...', description: 'Are you sure you want to archive this item?' }
     });
     dialogRef.afterClosed().subscribe(result => {
       this.VariableSet = result;
