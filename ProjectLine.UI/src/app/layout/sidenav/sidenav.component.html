@@ -25,14 +25,14 @@
       </mat-expansion-panel-header>
       <ul>
         <li>
-          <a routerLink="/Project">  Project Management</a>
+          <a routerLink="/Project"> Project Management</a>
         </li>
         <li>
-          <a routerLink="/Objective">  Objectives</a>
+          <a (click)="goRouteLink('/Objective')"> Objectives</a>
         </li>
       </ul>
     </mat-expansion-panel>
-    <button mat-button routerLink="/TimeLine">
+    <button mat-button (click)="goRouteLink('/TimeLine')">
       &nbsp;
       <i class="fas fa-chart-line"></i>Project Tracking
     </button>
