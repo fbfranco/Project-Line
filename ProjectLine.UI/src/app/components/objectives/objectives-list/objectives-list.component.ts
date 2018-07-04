@@ -135,7 +135,7 @@ export class ObjectivesListComponent implements OnInit {
   phaseChanged(event): void {
     this.ListPhases.forEach(element => {
       if (element.Title === event.option.value) {
-        this.DataPhase=this.phasesServices.selectedPhase = element;
+        this.DataPhase = this.phasesServices.selectedPhase = element;
       }
     });
     this.phaseIdNumber = this.DataPhase.PhaseID;
