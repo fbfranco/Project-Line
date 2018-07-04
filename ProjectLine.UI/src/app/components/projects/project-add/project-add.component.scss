@@ -1,19 +1,18 @@
-.mat-card-content {
-  max-width: 700px;
-}
-.mat-table {
-  max-width: 700px;
-  min-width: 700px;
-}
-.table-phases {
-  max-height: 390px;
-  overflow: auto;
-}
-.form-options {
-  margin-bottom: 2em;
-  margin-top: 1em;
-  a{
-    text-decoration: none;
+.Form-Container{
+  padding-left: 1em;
+  padding-right: 5em;
+  form{
+    a{
+      text-decoration: none;
+    }
+  }
+
+  .form-options {
+    margin-bottom: 2em;
+    margin-top: 1em;
+  }
+  @media screen and(max-width: 1080px) {
+    padding: 0;
   }
 }
 .date-content {
@@ -22,5 +21,30 @@
     @media screen and(max-width: 960px) {
       width: 100%;
     }
+  }
+}
+//Data-Table
+.table-content{
+  position: relative;
+  max-height: 400px;
+  overflow: auto;
+  table{
+    width: 100%;
+    @media screen and (max-width: 900px) {
+        width: 100%;
+        display: block;
+        overflow-x: auto;
+    }
+  }
+  td{
+      margin: 0;
+      padding: 12px;
+  }
+  .long-cell{
+    width: 100%;
+    max-height:80px;
+    overflow-y: auto;
+    padding: 10px;
+    min-width: 250px;
   }
 }
