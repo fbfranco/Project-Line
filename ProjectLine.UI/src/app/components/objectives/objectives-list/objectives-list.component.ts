@@ -33,16 +33,16 @@ export class ObjectivesListComponent implements OnInit {
   projectIdNumber: number;
   phaseIdNumber: number;
 
-  //filter AutocompleteProjects
+  // filter AutocompleteProjects
   myControl = new FormControl();
   options: string[];
   filteredOptions: Observable<string[]>;
-  DataProject:Project;
-  //filter AutocompletePhases
+  DataProject: Project;
+  // filter AutocompletePhases
   myControlPhase = new FormControl();
   optionsPhase: string[];
   filteredOptionsPhase: Observable<string[]>;
-  DataPhase:Phase;
+  DataPhase: Phase;
 
   // List Objectives
   ListObjectives: Objective[];
@@ -57,18 +57,18 @@ export class ObjectivesListComponent implements OnInit {
     public objectiveServices: ObjectiveService
   ) { }
 
-  ngOnInit() {    
+  ngOnInit() {
     this.newGroup('', '');
     this.options = [];
     this.optionsPhase = [];
     this.getProjectList();
-    this.DataProject=new Project;
-    this.DataPhase=new Phase;
+    this.DataProject = new Project;
+    this.DataPhase = new Phase;
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith(''),
         map(value => value ? this._filter(value) : this.options)
-      ); 
+      );
   }
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
@@ -114,10 +114,10 @@ export class ObjectivesListComponent implements OnInit {
 
   // Event Get ProjectID
   projectChanged(event): void {
-    this.optionsPhase = [];    
+    this.optionsPhase = [];
     this.ListProjects.forEach(element => {
       if (element.Title === event.option.value) {
-        this.DataProject=this.projectService.selectedProject = element;
+        this.DataProject = this.projectService.selectedProject = element;
       }
     });
     this.projectIdNumber = this.DataProject.ProjectID;
