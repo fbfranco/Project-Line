@@ -24,7 +24,7 @@
               <div class="row">
                 <div class="events-desc">
                   <ul>
-                    <li *ngFor="let obj of Phase.Objectives">{{obj.Title}}</li>
+                    <li *ngFor="let obj of Phase.Objectives">{{obj.Title}}<i *ngIf="obj.Completed" class="fas fa-check-circle"></i></li>
                   </ul>
                 </div>
               </div>
