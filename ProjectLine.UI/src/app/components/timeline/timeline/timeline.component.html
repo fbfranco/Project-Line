@@ -10,10 +10,10 @@
   </mat-autocomplete>
 </mat-form-field>
 </div>
- <h1 fxLayoutAlign="center center" *ngIf="Hide">{{ DataProject.Title }}</h1>
+ <h1 class="project-title"LayoutAlign="center center" *ngIf="Hide">{{ DataProject.Title }}</h1>
   <div class="VivaTimeline" *ngIf="Hide"  >
 
-       <dl>
+       <dl class="vertical-line">
         <dt>Start Date<br>{{ helperService.DateFormat(DataProject.StartDate) }}</dt>
         <dd *ngFor="let Phase of PhaseModel; let i = index" [ngClass]="{'pos-right': i%2 != 0,'pos-left': i%2 == 0}" class="clearfix">
           <div class="circ"></div>
