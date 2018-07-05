@@ -28,11 +28,11 @@ export class TimelineComponent implements OnInit, DoCheck {
 
   Hide: boolean;
   InitTimeline: boolean;
-  //filter autocomplete
+  // filter autocomplete
   myControl = new FormControl();
   options: string[];
   filteredOptions: Observable<string[]>;
-  DataProject:Project;
+  DataProject: Project;
 
   constructor(public projectService: ProjectService, public helperService: HelperService) { }
 
@@ -57,7 +57,7 @@ export class TimelineComponent implements OnInit, DoCheck {
         startWith(''),
         map(value => value ? this._filter(value) : this.options)
       );
-    this.DataProject=new Project;
+    this.DataProject = new Project;
     this.Hide = false;
   }
   private _filter(value: string): string[] {
@@ -74,7 +74,7 @@ export class TimelineComponent implements OnInit, DoCheck {
   projectChanged(event): void {
     this.ListProjects.forEach(element => {
       if (element.Title === event.option.value) {
-        this.DataProject=this.projectService.selectedProject = element;
+        this.DataProject = this.projectService.selectedProject = element;
       }
     });
     this.StartDate = this.helperService.DateFormat(event.option.value.StartDate);

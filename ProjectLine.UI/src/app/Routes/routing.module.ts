@@ -7,6 +7,8 @@ import { PhasesFormComponent } from '../components/phases/phases-form/phases-for
 import { ObjectivesComponent } from '../components/objectives/objectives.component';
 import { ObjectiveAddComponent } from '../components/objectives/objective-add/objective-add.component';
 import { TimelineComponent } from '../components/timeline/timeline/timeline.component';
+import { UsersListComponent } from '../components/users/users-list/users-list.component';
+import { RolesListComponent  } from '../components/roles/roles-list/roles-list.component';
 
 const routes: Routes = [
   { path: 'Project', component: ProjectListComponent },
@@ -16,7 +18,9 @@ const routes: Routes = [
   { path: 'Client', component: PhasesFormComponent },
   { path: 'Objective', component: ObjectivesComponent },
   { path: 'Objective/Add', component: ObjectiveAddComponent },
-  { path: 'TimeLine', component: TimelineComponent}
+  { path: 'TimeLine', component: TimelineComponent},
+  { path: 'User', component: UsersListComponent},
+  { path: 'Rol', component: RolesListComponent}
 ];
 
 @NgModule({
