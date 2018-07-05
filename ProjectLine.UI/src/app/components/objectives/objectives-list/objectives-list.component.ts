@@ -33,16 +33,16 @@ export class ObjectivesListComponent implements OnInit {
   projectIdNumber: number;
   phaseIdNumber: number;
 
-  //filter AutocompleteProjects
+  // filter AutocompleteProjects
   myControl = new FormControl();
   options: string[];
   filteredOptions: Observable<string[]>;
-  DataProject:Project;
-  //filter AutocompletePhases
+  DataProject: Project;
+  // filter AutocompletePhases
   myControlPhase = new FormControl();
   optionsPhase: string[];
   filteredOptionsPhase: Observable<string[]>;
-  DataPhase:Phase;
+  DataPhase: Phase;
 
   // List Objectives
   ListObjectives: Objective[];
@@ -57,18 +57,18 @@ export class ObjectivesListComponent implements OnInit {
     public objectiveServices: ObjectiveService
   ) { }
 
-  ngOnInit() {    
+  ngOnInit() {
     this.newGroup('', '');
     this.options = [];
     this.optionsPhase = [];
     this.getProjectList();
-    this.DataProject=new Project;
-    this.DataPhase=new Phase;
+    this.DataProject = new Project;
+    this.DataPhase = new Phase;
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith(''),
         map(value => value ? this._filter(value) : this.options)
-      ); 
+      );
   }
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
@@ -114,10 +114,10 @@ export class ObjectivesListComponent implements OnInit {
 
   // Event Get ProjectID
   projectChanged(event): void {
-    this.optionsPhase = [];    
+    this.optionsPhase = [];
     this.ListProjects.forEach(element => {
       if (element.Title === event.option.value) {
-        this.DataProject=this.projectService.selectedProject = element;
+        this.DataProject = this.projectService.selectedProject = element;
       }
     });
     this.projectIdNumber = this.DataProject.ProjectID;
@@ -128,17 +128,17 @@ export class ObjectivesListComponent implements OnInit {
         startWith(''),
         map(value => value ? this._filterPhase(value) : this.optionsPhase)
       );
-      //reset values autocomplete
+    // reset values autocomplete
     this.newGroup('', '');
     this.myControlPhase.patchValue('');
-      
+
   }
 
   // Event Get PhaseID
   phaseChanged(event): void {
     this.ListPhases.forEach(element => {
       if (element.Title === event.option.value) {
-        this.DataPhase=this.phasesServices.selectedPhase = element;
+        this.DataPhase = this.phasesServices.selectedPhase = element;
       }
     });
     this.phaseIdNumber = this.DataPhase.PhaseID;
@@ -199,7 +199,7 @@ export class ObjectivesListComponent implements OnInit {
   openDialogDelete(objective: Objective) {
     if (objective.Completed === false) {
       const dialogRef = this.dialog.open(DialogConfirmationComponent, {
-        data: {title: 'Please confirm...', description: 'Are you sure you want to remove this item?'}
+        data: { title: 'Please confirm...', description: 'Are you sure you want to remove this item?' }
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result === 'confirm') {
@@ -209,9 +209,10 @@ export class ObjectivesListComponent implements OnInit {
         }
       });
     } else {
-      this.snackBar.open('The objective cannot be deleted. The status is completed.', 'Ok', {
-        horizontalPosition: 'right'
+      this.snackBar.open('The objective cannot be deleted. The status is completed.', 'OK', {
+        horizontalPosition: 'right',
       });
     }
   }
+
 }
