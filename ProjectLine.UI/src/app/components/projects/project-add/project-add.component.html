@@ -21,14 +21,14 @@
       <!-- Start Date -->
       <mat-form-field>
         <input matInput [max]="projectService.selectedProject.EndDate" [matDatepicker]="startdate" placeholder="Start Date*" name="StartDate"
-          #StartDate="ngModel" [(ngModel)]="projectService.selectedProject.StartDate" required maxlength="10">
+          #StartDate="ngModel" [(ngModel)]="projectService.selectedProject.StartDate" required>
         <mat-datepicker-toggle matSuffix [for]="startdate"></mat-datepicker-toggle>
         <mat-datepicker #startdate disabled="false"></mat-datepicker>
       </mat-form-field>
       <!-- End Date -->
       <mat-form-field>
         <input matInput [min]="projectService.selectedProject.StartDate" [matDatepicker]="endDate" placeholder="Estimated End Date*"
-          name="EndDate" #EndDate="ngModel" [(ngModel)]="projectService.selectedProject.EndDate" required maxlength="10">
+          name="EndDate" #EndDate="ngModel" [(ngModel)]="projectService.selectedProject.EndDate" required>
         <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
         <mat-datepicker #endDate disabled="false"></mat-datepicker>
       </mat-form-field>
