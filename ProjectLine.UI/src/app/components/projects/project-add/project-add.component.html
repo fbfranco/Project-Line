@@ -36,6 +36,7 @@
     <div fxLayout="row">
       <a mat-raised-button color="primary" [disabled]="!projectForm.valid" (click)="projectForm.valid ? AddRows() : false">Add Phase</a>
     </div>
+    <br>
     <div class="table-content" *ngIf="dataSource.data.length > 0">
       <h2>Phases</h2>
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
