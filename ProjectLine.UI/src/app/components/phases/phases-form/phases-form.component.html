@@ -26,14 +26,14 @@
         <!-- Start-Date -->
         <mat-form-field fxFlex="40%">
           <input matInput name="StartDate" #StartDate="ngModel" [(ngModel)]="phaseService.selectedPhase.StartDate" [matDatepicker]="dateStart"
-            placeholder="Start Date">
+            placeholder="Start Date" required>
           <mat-datepicker-toggle matSuffix [for]="dateStart"></mat-datepicker-toggle>
           <mat-datepicker #dateStart disabled="false"></mat-datepicker>
         </mat-form-field>
         <!-- End-Date -->
         <mat-form-field fxFlex="40%">
           <input matInput [min]="phaseService.selectedPhase.StartDate" name="EndDate" #EndDate="ngModel" [(ngModel)]="phaseService.selectedPhase.EndDate"
-            [matDatepicker]="dateEnd" placeholder="Estimated End Date" id="dateEnd">
+            [matDatepicker]="dateEnd" placeholder="Estimated End Date" id="dateEnd" required>
           <mat-datepicker-toggle matSuffix [for]="dateEnd"></mat-datepicker-toggle>
           <mat-datepicker #dateEnd disabled="false"></mat-datepicker>
         </mat-form-field>
