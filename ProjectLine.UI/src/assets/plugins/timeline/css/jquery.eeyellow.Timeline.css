@@ -60,7 +60,7 @@
     display: inline-block;
     width: 100px;
     padding-left: 10px;
-    color: #4fc1e9
+    color: #4fc1e9;
 }
 
 .VivaTimeline dl dd .events {
@@ -104,8 +104,6 @@
     background-color: #EEE;
     padding: 10px;
     max-height: 220px;
-    min-height: 50px;
-
 }
 .VivaTimeline dl dd .events .events-body .row{
     display:none;
@@ -138,7 +136,7 @@
 }
 
 .VivaTimeline dl dd.pos-right .time {
-    margin-left: -95px;
+    margin-left: -105px;
     text-align: left;
     padding: 0;
 }
