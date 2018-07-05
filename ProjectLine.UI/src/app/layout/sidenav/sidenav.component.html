@@ -12,20 +12,33 @@
       &nbsp;
       <i class="fas fa-home"></i>Home
     </button>
-    <button mat-button>
-      &nbsp;
-      <i class="fas fa-users"></i>Users
-    </button>
     <mat-expansion-panel class="SubMenu-Styles" hideToggle="true">
       <mat-expansion-panel-header>
         <mat-panel-title class="Sub-Title">
-          <i class="fas fa-briefcase"></i> &nbsp;&nbsp; Project
+          <i class="fas fa-users"></i> &nbsp;&nbsp; User Management
           <i class="fas fa-angle-down toggle-icon"></i>
         </mat-panel-title>
       </mat-expansion-panel-header>
       <ul>
         <li>
-          <a routerLink="/Project"> Project Management</a>
+          <a routerLink="/User"> Users</a>
+        </li>
+        <li>
+          <a routerLink="/Rol"> Roles</a>
+        </li>
+      </ul>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="SubMenu-Styles" hideToggle="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title class="Sub-Title">
+          <i class="fas fa-briefcase"></i> &nbsp;&nbsp; Project Management
+          <i class="fas fa-angle-down toggle-icon"></i>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <ul>
+        <li>
+          <a routerLink="/Project"> Projects</a>
         </li>
         <li>
           <a (click)="goRouteLink('/Objective')"> Objectives</a>
