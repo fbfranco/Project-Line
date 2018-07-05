@@ -4,7 +4,7 @@
     padding: 20px 0;
     margin: 0
 }
-
+ 
 .VivaTimeline dl:before {
     position: absolute;
     top: 0;
@@ -38,16 +38,17 @@
     z-index: 200
 }
 
+/* For the Phases dot */
 .VivaTimeline dl dd .circ {
     position: absolute;
-    top: 40px;
+    top: 30px;
     left: 50%;
     z-index: 200;
     width: 35px;
     height: 35px;
-    margin-left: -16px;
-    background-color: #4fc1e9;
-    border: 4px solid #f5f7fa;
+    margin-left: -18px;
+    background-color: #00313C;
+    border: 4px solid #009ABB;
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%
@@ -62,13 +63,13 @@
     padding-left: 10px;
     color: #4fc1e9
 }
-
+/* Change color Card */
 .VivaTimeline dl dd .events {
     position: relative;
     width: 47%;
     padding: 10px 0 0;
     margin-top: 31px;
-    background-color: #CCC;
+    background-color: #06aad6;
     border-radius: 4px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px
@@ -88,6 +89,7 @@
     margin: 0 auto;
 }
 
+/* Change color Letters */
 .VivaTimeline dl dd .events .events-header {
     min-height: 30px;
     line-height: 20px;
@@ -95,6 +97,7 @@
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
+    color: #fff;
 }
 
 .VivaTimeline dl dd .events .events-body {
@@ -137,8 +140,9 @@
     transform: scale(2);
 }
 
+/* For separe Date to Phases Point Left */
 .VivaTimeline dl dd.pos-right .time {
-    margin-left: -95px;
+    margin-left: -100px;
     text-align: left;
     padding: 0;
 }
@@ -147,13 +151,15 @@
     float: right
 }
 
+/* Color for border */
 .VivaTimeline dl dd.pos-right .events:before {
     left: -12px;
-    border-color: transparent #CCC transparent transparent
+    border-color: transparent #06aad6 transparent transparent
 }
 
+/* For separe Date to Phases Point Right */
 .VivaTimeline dl dd.pos-left .time {
-    margin-left: 15px;
+    margin-left: 20px;
     text-align: left
 }
 
@@ -163,7 +169,7 @@
 
 .VivaTimeline dl dd.pos-left .events:before {
     right: -12px;
-    border-color: transparent transparent transparent #CCC
+    border-color: transparent transparent transparent #06aad6
 }
 
 .VivaTimeline .carousel-indicators{
@@ -183,9 +189,10 @@
     .VivaTimeline dl dd .time {
         left: 0px;
     }
+    /* Time margin post */
     .VivaTimeline dl dd.pos-left .time {
         padding: 10px 0;
-        margin-left: 0;
+        margin-left: -10px;
         text-align: left
     }
     .VivaTimeline dl dd.pos-left .events {
@@ -193,15 +200,19 @@
         width: 73%;
         margin-right: 4%;
     }
+    /* change color */
     .VivaTimeline dl dd.pos-left .events:before {
         left: -12px;
-        border-color: transparent #CCC transparent transparent
+        border-color: transparent #06aad6 transparent transparent
     }
+    /* Time margin post */
     .VivaTimeline dl dd.pos-right .time {
         padding: 10px 0;
-        margin-left: -15px;
+        margin-left: -10px;
         text-align: left
     }
+    
+    /* Time margin post */
     .VivaTimeline dl dd.pos-right .events {
         float: right;
         width: 73%;
