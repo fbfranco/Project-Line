@@ -7,7 +7,6 @@ import { Phase } from '../../../models/phase.model';
 import { Project } from '../../../models/project.model';
 import { Observable } from 'rxjs';
 
-import { Title } from '@angular/platform-browser';
 import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 
@@ -22,12 +21,9 @@ export class TimelineComponent implements OnInit, DoCheck {
   ListProjects: Project[];
 
   // Variables when show the TimeLine
-  StartDate: any;
-  EndDate: any;
-  ProjectTitle: string;
-
   Hide: boolean;
   InitTimeline: boolean;
+
   // filter autocomplete
   myControl = new FormControl();
   options: string[];
@@ -72,17 +68,14 @@ export class TimelineComponent implements OnInit, DoCheck {
   }
   // Get the dates of the selected project
   projectChanged(event): void {
+    this.InitTimeline = event.option.value === this.DataProject.Title ? false : true;
     this.ListProjects.forEach(element => {
       if (element.Title === event.option.value) {
         this.DataProject = this.projectService.selectedProject = element;
       }
     });
-    this.StartDate = this.helperService.DateFormat(event.option.value.StartDate);
-    this.EndDate = this.helperService.DateFormat(event.option.value.EndDate);
-    this.ProjectTitle = event.option.value.Title;
     this.PhaseModel = this.DataProject.Phases;
     this.Hide = true;
-    this.InitTimeline = true;
   }
   inputEmpty(event: any) {
     if (event !== '') {
