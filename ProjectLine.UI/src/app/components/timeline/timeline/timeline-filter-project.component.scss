@@ -61,6 +61,16 @@ h1{
   background-color: $color-primary2;
 }
 
-.fa-check-circle {
+.fas, .far, .fa {
   color: green;
+  margin-right: 1em;
+  padding-top: 3px;
+}
+
+.objectives-list {
+  list-style: none;
+  padding: 0 1em;
+  text-indent: 0;
+  display: flex;
+  flex-direction: row;
 }
