@@ -2,6 +2,7 @@
 $color-primary2: rgb(6, 170, 214);
 $color-dark: rgb(34, 45, 49);
 $color-primary:#174056;
+$color-header: #00313C;
 
 .div-Container{
     width: 100%;
@@ -20,7 +21,7 @@ h1{
 }
 
 .VivaTimeline dl dt{
-    background: $color-primary2;
+    background: $color-header;
     font-size: 16px;
     width: 160px;
     height: 65px;
@@ -28,12 +29,12 @@ h1{
 }
 .VivaTimeline dl dd .time{
     color: $color-primary;
-    font-size: 17px;
+    font-size: 15px;
     font-weight: bold;
     margin-top: -5px;
 }
 .VivaTimeline dl dd.pos-right .time{
-    margin-left: -116px;
+    margin-left: -103px;
 }
 
 @media screen and (max-width: 767px) {
