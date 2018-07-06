@@ -23,9 +23,10 @@
             <div class="events-body">
               <div class="row">
                 <div class="events-desc">
-                  <ul>
-                    <li *ngFor="let obj of Phase.Objectives">{{obj.Title}}</li>
-                  </ul>
+                  <div class="objectives-list" *ngFor="let obj of Phase.Objectives">
+                    <i [ngClass]="{'fas fa-check-circle': obj.Completed == true, 'far fa-circle': obj.Completed == false}"></i>
+                    <p>{{obj.Title}}</p>
+                  </div>
                 </div>
               </div>
             </div>
