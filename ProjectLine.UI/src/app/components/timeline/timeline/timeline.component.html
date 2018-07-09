@@ -22,10 +22,33 @@
           <div class="events-body">
             <div class="row">
               <div class="events-desc">
+                <div class="slide-phase">
+                  <h5 class="title-slide-phase"><i class="far fa-calendar-alt"></i>StartDate: <span>{{helperService.DateFormat(Phase.StartDate)}}</span></h5>
+                  <h5 class="title-slide-phase"><i class="far fa-calendar-alt"></i>EndDate: <span>{{helperService.DateFormat(Phase.EndDate)}}</span></h5>
+                  <div class="cnt-description-slide-phase">
+                    <i class="fas fa-align-left"></i>
+                    <h5 class="title-slide-phase">Description:</h5>
+                    <p>{{Phase.Description}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="events-desc">
                 <div class="objectives-list" *ngFor="let obj of Phase.Objectives">
                   <i [ngClass]="{'fas fa-check-circle': obj.Completed == true, 'far fa-circle': obj.Completed == false}"></i>
                   <p>{{obj.Title}}</p>
                 </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="events-desc">
+                <video class="video-demo" src="https://drive.google.com/open?id=0B_18NjgnT9y5b3NhN1pidHJER0k" controls>
+                  Tu navegador no implementa el elemento <code>video</code>.
+                </video>
+                <!-- <div>
+                  <p>{{Phase.DemoUrl}}</p>
+                </div> -->
               </div>
             </div>
           </div>
