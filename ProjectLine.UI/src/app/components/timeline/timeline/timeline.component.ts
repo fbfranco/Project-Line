@@ -85,11 +85,23 @@ export class TimelineComponent implements OnInit, DoCheck {
   }
   progressCircle() {
     $('#test-circle').circliful({
+      animation: 1,
       animationStep: 5,
-      foregroundBorderWidth: 5,
+      foregroundBorderWidth: 15,
       backgroundBorderWidth: 15,
-      percent: 50
+      foregroundColor: 'rgb(6, 170, 214)',
+      percentageTextSize: 32,
+      percent: 50,
     });
-    console.log('Circle Test');
+    $('#test-circle2').circliful({
+      animation: 1,
+      animationStep: 6,
+      foregroundBorderWidth: 5,
+      foregroundColor: 'rgb(6, 170, 214)',
+      backgroundColor: 'none',
+      fillColor: '#eee',
+      percentageTextSize: 32,
+      percent: 60,
+    });
   }
 }
