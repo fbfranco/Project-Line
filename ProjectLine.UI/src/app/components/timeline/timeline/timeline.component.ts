@@ -55,7 +55,6 @@ export class TimelineComponent implements OnInit, DoCheck {
       );
     this.DataProject = new Project;
     this.Hide = false;
-    this.progressCircle();
   }
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
@@ -83,25 +82,5 @@ export class TimelineComponent implements OnInit, DoCheck {
       this.Hide = false;
     }
   }
-  progressCircle() {
-    $('#test-circle').circliful({
-      animation: 1,
-      animationStep: 5,
-      foregroundBorderWidth: 15,
-      backgroundBorderWidth: 15,
-      foregroundColor: 'rgb(6, 170, 214)',
-      percentageTextSize: 32,
-      percent: 50,
-    });
-    $('#test-circle2').circliful({
-      animation: 1,
-      animationStep: 6,
-      foregroundBorderWidth: 5,
-      foregroundColor: 'rgb(6, 170, 214)',
-      backgroundColor: 'none',
-      fillColor: '#eee',
-      percentageTextSize: 32,
-      percent: 60,
-    });
-  }
+
 }
