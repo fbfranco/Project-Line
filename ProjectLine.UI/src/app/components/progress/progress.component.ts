@@ -1,13 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-
-// Services
-import { PhaseService } from '../../services/phase.service';
-import { ObjectiveService } from '../../services/objective.service';
-
-// Models
-import { Project } from '../../models/project.model';
 import { Phase } from '../../models/phase.model';
-import { Objective } from '../../models/objective.model';
 
 declare var $: any;
 
@@ -20,16 +12,18 @@ export class ProgressComponent implements OnInit {
 
   @Input() phasesProject: Phase[];
 
-  private objective: Objective[];
+  private objectiveNumber: number;
+  private objectiveCompleted: number;
+  private progressPercentage: number;
 
-  constructor(
-    private phaseService: PhaseService,
-    private objectiveService: ObjectiveService
-  ) { }
+  constructor() {
+    this.objectiveNumber = 0;
+    this.objectiveCompleted = 0;
+    this.progressPercentage = 0;
+  }
 
   ngOnInit() {
-    this.showProgress();
-    console.log(this.phasesProject);
+    this.calculateProgress();
   }
 
   showProgress() {
@@ -38,11 +32,36 @@ export class ProgressComponent implements OnInit {
       animationStep: 5,
       foregroundBorderWidth: 114,
       backgroundBorderWidth: 114,
+      fontColor: 'rgb(255,255,255)',
+      percentageTextSize: 32,
       foregroundColor: 'rgb(6, 170, 214)',
       backgroundColor: 'rgb(80, 80, 80)',
-      replacePercentageByText: '',
-      percent: 9,
+      percent: this.progressPercentage,
     });
+  }
+
+  countObjectives(phasesProject) {
+    for (const obj in phasesProject) {
+      if (phasesProject !== undefined) {
+        const element = phasesProject[obj];
+        this.objectiveNumber += 1;
+        if (element.Completed === true) {
+          this.objectiveCompleted += 1;
+        }
+      }
+    }
+  }
+
+  calculateProgress() {
+    for (const phase in this.phasesProject) {
+      if (this.phasesProject.hasOwnProperty(phase)) {
+        this.countObjectives(this.phasesProject[phase].Objectives);
+      }
+    }
+    if (this.objectiveNumber > 0) {
+      this.progressPercentage = (this.objectiveCompleted * 100) / this.objectiveNumber;
+    }
+    this.showProgress();
   }
 
 }
