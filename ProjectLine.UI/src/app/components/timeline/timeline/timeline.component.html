@@ -1,5 +1,9 @@
 <h1 style="text-align: left">Project Tracking</h1>
 
+<div *ngIf="Hide">
+  <app-progress [phasesProject]="PhaseModel"></app-progress>
+</div>
+
 <div class="div-Container">
   <mat-form-field id="AutocompleteProject">
     <input type="text" (change)="inputEmpty($event)" placeholder="Project" aria-label="Number" [formControl]="myControl" matInput
@@ -11,9 +15,7 @@
     </mat-autocomplete>
   </mat-form-field>
 </div>
-<div *ngIf="Hide">
-  <app-progress [phasesProject]="PhaseModel"></app-progress>
-</div>
+
 <h1 class="project-title" LayoutAlign="center center" *ngIf="Hide">{{ DataProject.Title }}</h1>
 <div class="VivaTimeline" *ngIf="Hide">
   <dl class="vertical-line">

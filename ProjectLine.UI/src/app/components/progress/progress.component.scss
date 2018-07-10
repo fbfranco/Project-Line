@@ -3,6 +3,11 @@
     width: 200px;
 }
 
+.space{
+    width: 100px;
+    height: 10px;
+}
+
 .legend {
     background-color: rgb(222, 222, 222);
     padding: 20px;
@@ -18,5 +23,7 @@
     }
     p {
         font-weight: bolder;
+        font-size: 12px;
+        padding-top: 12px;
     }
 }
