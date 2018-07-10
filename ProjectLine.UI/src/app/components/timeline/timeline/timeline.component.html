@@ -11,6 +11,9 @@
     </mat-autocomplete>
   </mat-form-field>
 </div>
+<div *ngIf="Hide">
+  <app-progress [phasesProject]="PhaseModel"></app-progress>
+</div>
 <h1 class="project-title" LayoutAlign="center center" *ngIf="Hide">{{ DataProject.Title }}</h1>
 <div class="VivaTimeline" *ngIf="Hide">
   <dl class="vertical-line">

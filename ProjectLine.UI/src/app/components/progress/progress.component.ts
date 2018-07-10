@@ -5,6 +5,7 @@ import { PhaseService } from '../../services/phase.service';
 import { ObjectiveService } from '../../services/objective.service';
 
 // Models
+import { Project } from '../../models/project.model';
 import { Phase } from '../../models/phase.model';
 import { Objective } from '../../models/objective.model';
 
@@ -17,7 +18,9 @@ declare var $: any;
 })
 export class ProgressComponent implements OnInit {
 
-  @Input() projectIdNumber: number;
+  @Input() phasesProject: Phase[];
+
+  private objective: Objective[];
 
   constructor(
     private phaseService: PhaseService,
@@ -26,17 +29,19 @@ export class ProgressComponent implements OnInit {
 
   ngOnInit() {
     this.showProgress();
+    console.log(this.phasesProject);
   }
 
   showProgress() {
     $('#progress-circle').circliful({
       animation: 1,
       animationStep: 5,
-      foregroundBorderWidth: 15,
-      backgroundBorderWidth: 15,
+      foregroundBorderWidth: 114,
+      backgroundBorderWidth: 114,
       foregroundColor: 'rgb(6, 170, 214)',
-      percentageTextSize: 32,
-      percent: 50,
+      backgroundColor: 'rgb(80, 80, 80)',
+      replacePercentageByText: '',
+      percent: 9,
     });
   }
 

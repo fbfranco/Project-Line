@@ -1,10 +1,22 @@
-<div fxLayout="row wrap" fxLayoutAlign="space-between center">
-  <div fxFlex="40%">
-    <div id="test-circle"></div>
+<div fxLayout="row wrap" fxLayoutAlign="space-evenly center">
+
+  <div fxFlex="200px">
+    <div id="progress-circle" class="circle"></div>
   </div>
-  <div fxFlex="40%">
-    <mat-card>
-      <button mat-raised-button color="primary"></button>
+
+  <div fxFlex="200px">
+    <mat-card class="legend">
+
+      <mat-card-title fxLayoutAlign="space-evenly center">
+        <div class="completed"></div>
+        <div fxFlex="80%">Completed</div>
+      </mat-card-title>
+
+      <mat-card-title fxLayoutAlign="space-evenly center">
+        <div class="pending"></div>
+        <div fxFlex="80%">Pending</div>
+      </mat-card-title>
+
     </mat-card>
   </div>
 </div>
