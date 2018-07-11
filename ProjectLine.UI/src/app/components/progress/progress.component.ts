@@ -17,24 +17,26 @@ export class ProgressComponent implements OnInit {
   private progressPercentage: number;
 
   constructor() {
+  }
+
+  ngOnInit() { }
+
+  resetNumbers() {
     this.objectiveNumber = 0;
     this.objectiveCompleted = 0;
     this.progressPercentage = 0;
   }
 
-  ngOnInit() {
-    this.calculateProgress();
-  }
-
-  showProgress() {
-    $('#progress-circle,#test-circle').circliful({
+  showProgress(color) {
+    $('#progress-circle').empty();
+    $('#progress-circle').circliful({
       animation: 1,
       animationStep: 5,
-      foregroundBorderWidth: 114,
-      backgroundBorderWidth: 114,
-      fontColor: 'rgb(255,255,255)',
+      foregroundBorderWidth: 14,
+      backgroundBorderWidth: 14,
+      fontColor: color,
       percentageTextSize: 32,
-      foregroundColor: 'rgb(6, 170, 214)',
+      foregroundColor: color,
       backgroundColor: 'rgb(80, 80, 80)',
       percent: this.progressPercentage,
     });
@@ -52,7 +54,8 @@ export class ProgressComponent implements OnInit {
     }
   }
 
-  calculateProgress() {
+  calculateProgress(val) {
+    this.resetNumbers();
     for (const phase in this.phasesProject) {
       if (this.phasesProject.hasOwnProperty(phase)) {
         this.countObjectives(this.phasesProject[phase].Objectives);
@@ -61,7 +64,12 @@ export class ProgressComponent implements OnInit {
     if (this.objectiveNumber > 0) {
       this.progressPercentage = (this.objectiveCompleted * 100) / this.objectiveNumber;
     }
-    this.showProgress();
+    if (val === 1) {
+      this.showProgress('rgb(6, 170, 214)');
+    } else {
+      this.progressPercentage = 100 - this.progressPercentage;
+      this.showProgress('rgb(211, 131, 12)');
+    }
   }
 
 }
