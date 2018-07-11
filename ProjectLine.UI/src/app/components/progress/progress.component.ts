@@ -27,7 +27,7 @@ export class ProgressComponent implements OnInit {
   }
 
   showProgress() {
-    $('#progress-circle').circliful({
+    $('#progress-circle,#test-circle').circliful({
       animation: 1,
       animationStep: 5,
       foregroundBorderWidth: 114,
