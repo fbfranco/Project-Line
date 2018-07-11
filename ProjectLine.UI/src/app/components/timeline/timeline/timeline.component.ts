@@ -1,4 +1,5 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
+
 // Services
 import { ProjectService } from '../../../services/project.service';
 import { HelperService } from '../../../services/helper.service';
@@ -9,6 +10,7 @@ import { Observable } from 'rxjs';
 
 import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
+import { DomSanitizer } from '@angular/platform-browser';
 
 declare var $: any;
 @Component({
@@ -30,7 +32,7 @@ export class TimelineComponent implements OnInit, DoCheck {
   filteredOptions: Observable<string[]>;
   DataProject: Project;
 
-  constructor(public projectService: ProjectService, public helperService: HelperService) { }
+  constructor(public projectService: ProjectService, public helperService: HelperService, public sanitizer: DomSanitizer) { }
 
   getProjectList() {
     this.projectService.getProjectsList().subscribe((datalist: Project[]) => {
@@ -62,7 +64,7 @@ export class TimelineComponent implements OnInit, DoCheck {
   }
   ngDoCheck() {
     if (this.InitTimeline) {
-      $('.VivaTimeline').vivaTimeline();
+      $('.VivaTimeline').vivaTimeline({carousel: false});
       this.InitTimeline = false;
     }
   }
@@ -75,6 +77,10 @@ export class TimelineComponent implements OnInit, DoCheck {
       }
     });
     this.PhaseModel = this.DataProject.Phases;
+    this.PhaseModel.forEach(phase => {
+      phase.UrlValid = this.sanitizer.bypassSecurityTrustResourceUrl(phase.DemoUrl);
+    });
+    console.log(this.PhaseModel[0].UrlValid);
     this.Hide = true;
   }
   inputEmpty(event: any) {
@@ -82,4 +88,5 @@ export class TimelineComponent implements OnInit, DoCheck {
       this.Hide = false;
     }
   }
+
 }

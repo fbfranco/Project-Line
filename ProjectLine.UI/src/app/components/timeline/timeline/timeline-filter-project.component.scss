@@ -50,7 +50,7 @@ h1{
     .VivaTimeline dl dd.pos-left .time{
         margin-left: -10px;
     }
-    
+
 }
 
 /*Autor: Bismarck Franco*/
@@ -71,9 +71,35 @@ h1{
 }
 
 .objectives-list {
-  list-style: none;
   padding: 0 1em;
   text-indent: 0;
   display: flex;
   flex-direction: row;
+}
+
+.slide-phase {
+  text-indent: 0;
+  & .title-slide-phase {
+    font-weight: bold;
+  }
+  & .cnt-description-slide-phase {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+  }
+  & .fas, .far {
+    margin-left: 1em;
+  }
+  & span, p {
+    padding: 0 1em;
+    font-weight: 100;
+  }
+  & .video-demo {
+    height: 100%;
+    width: 100%;
+  }
+}
+.fas.fa-circle::before {
+  font-size: 0.7em;
+  margin-right: 4px;
 }
