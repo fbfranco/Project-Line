@@ -36,7 +36,7 @@
             <div class="row">
               <div class="events-desc">
                 <div class="objectives-list" *ngFor="let obj of Phase.Objectives">
-                  <i [ngClass]="{'fas fa-check-circle': obj.Completed == true, 'far fa-circle': obj.Completed == false}"></i>
+                  <i [ngClass]="{'fa fa-check': obj.Completed == true, 'fas fa-circle': obj.Completed == false}"></i>
                   <p>{{obj.Title}}</p>
                 </div>
               </div>
