@@ -7,6 +7,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
+import { VgCoreModule } from 'videogular2/core';
+import { VgControlsModule } from 'videogular2/controls';
+import { VgOverlayPlayModule } from 'videogular2/overlay-play';
+import { VgBufferingModule } from 'videogular2/buffering';
+
 // Components
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './layout/layout.component';
@@ -72,6 +77,10 @@ import { UsersAddComponent } from './components/users/users-add/users-add.compon
     FlexLayoutModule,
     RoutingModule,
     MatTableModule,
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule
   ],
   entryComponents: [
     ObjectivesListComponent,
