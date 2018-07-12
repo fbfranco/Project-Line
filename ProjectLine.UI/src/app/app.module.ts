@@ -41,8 +41,12 @@ import { MatTableModule } from '@angular/material';
 import { RoutingModule } from './routes/routing.module';
 import { UsersListComponent } from './components/users/users-list/users-list.component';
 import { RolesListComponent } from './components/roles/roles-list/roles-list.component';
+<<<<<<< HEAD
 import { UsersAddComponent } from './components/users/users-add/users-add.component';
 import { RolesAddComponent } from './components/roles/roles-add/roles-add.component';
+=======
+import { ProgressComponent } from './components/progress/progress.component';
+>>>>>>> UI'MT-Display-percentage
 
 
 
@@ -65,8 +69,12 @@ import { RolesAddComponent } from './components/roles/roles-add/roles-add.compon
     DialogConfirmationComponent,
     UsersListComponent,
     RolesListComponent,
+<<<<<<< HEAD
     UsersAddComponent,
     RolesAddComponent
+=======
+    ProgressComponent
+>>>>>>> UI'MT-Display-percentage
   ],
   imports: [
     BrowserModule,
