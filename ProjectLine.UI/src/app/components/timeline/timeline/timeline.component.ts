@@ -78,9 +78,8 @@ export class TimelineComponent implements OnInit, DoCheck {
     });
     this.PhaseModel = this.DataProject.Phases;
     this.PhaseModel.forEach(phase => {
-      phase.UrlValid = this.sanitizer.bypassSecurityTrustResourceUrl(phase.DemoUrl);
+      phase.UrlValid = this.ExistUrl(phase.DemoUrl);
     });
-    console.log(this.PhaseModel[0].UrlValid);
     this.Hide = true;
   }
   inputEmpty(event: any) {
@@ -89,4 +88,18 @@ export class TimelineComponent implements OnInit, DoCheck {
     }
   }
 
+  ExistUrl(url) {
+    if (!this.UrlValid(url)) {
+      return false;
+    } else {
+      const http = new XMLHttpRequest();
+      http.open('GET', url, true);
+      http.send();
+      return http.status !== 404;
+    }
+  }
+
+  UrlValid(url) {
+      return url.substr(0, 21) === 'http://localhost:4200' ? true : false;
+  }
 }
