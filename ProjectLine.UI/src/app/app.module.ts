@@ -65,7 +65,7 @@ import { RolesAddComponent } from './components/roles/roles-add/roles-add.compon
     DialogConfirmationComponent,
     UsersListComponent,
     RolesListComponent,
-    UsersAddComponent
+    UsersAddComponent,
     RolesAddComponent
   ],
   imports: [
