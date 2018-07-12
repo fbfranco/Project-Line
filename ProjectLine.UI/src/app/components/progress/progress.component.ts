@@ -19,7 +19,10 @@ export class ProgressComponent implements OnInit {
   constructor() {
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.resetNumbers();
+    this.showProgress('rgb(80, 80, 80)');
+  }
 
   resetNumbers() {
     this.objectiveNumber = 0;
