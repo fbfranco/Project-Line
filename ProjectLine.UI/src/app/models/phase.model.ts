@@ -10,6 +10,6 @@ export class Phase {
     DemoUrl: string;
     Edit?: string;
     Delete?: string;
-    UrlValid?: SafeResourceUrl;
+    UrlValid?: boolean;
     Objectives?: Objective[];
 }
