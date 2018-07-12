@@ -18,6 +18,7 @@ namespace ProjectLine.DATA.Config
         public DbSet<Phase> Phases { get; set; }
         public DbSet<Objective> Objectives { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Rol> Rols { get; set; }
 
         //Tables Model
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -61,6 +62,12 @@ namespace ProjectLine.DATA.Config
             modelBuilder.Entity<User>().Property(x => x.Email).HasMaxLength(150).IsRequired();
             modelBuilder.Entity<User>().Property(x => x.Status).IsRequired();
             //modelBuilder.Entity<User>().Property(x => x.RoleID);
+            #endregion
+
+            #region Roles
+            modelBuilder.Entity<Rol>().HasKey(x => x.RoleId);
+            modelBuilder.Entity<Rol>().Property(x => x.Title).HasMaxLength(150).IsRequired();
+            modelBuilder.Entity<Rol>().Property(x => x.Description).HasMaxLength(50).IsRequired();
             #endregion
         }
     }
