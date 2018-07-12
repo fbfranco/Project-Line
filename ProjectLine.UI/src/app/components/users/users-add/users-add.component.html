@@ -34,18 +34,17 @@
       fxLayoutAlign.md="space-between start">
 
       <!-- Email -->
-      <mat-form-field>
-        <input matInput placeholder="Email" name="Email" #Email [(ngModel)]="userService.selectedUser.Email" [formControl]="emailFormControl" required>
-        <mat-hint align="end">{{Email.value?.length || 0}}/150</mat-hint>
-        <mat-error *ngIf="Email.invalid && Email.touched">This Field is Required.</mat-error>
-        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-          Please enter a valid email address
-        </mat-error>
-      </mat-form-field>
+    <mat-form-field>
+      <input   type="email" matInput maxlength="150" placeholder="Email" name="Email" #Email="ngModel" [(ngModel)]="userService.selectedUser.Email" pattern="^[a-zA-Z0-9].*" [email]="true" required>
+      <mat-hint align="end">{{Email.value?.length || 0}}/150</mat-hint>
+      <mat-error *ngIf="Email.invalid">Please enter a valid email address.</mat-error>
+
+      
+    </mat-form-field>
 
       <!-- Role -->
       <mat-form-field>
-        <mat-select placeholder="Select Role" [(ngModel)]="selectedValue" name="RoleID">
+        <mat-select placeholder="Select Role" [(ngModel)]="selectedValue" name="RoleID" required>
           <mat-option *ngFor="let role of roles" [value]="role.value">
             {{role.viewValue}}
           </mat-option>

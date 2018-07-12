@@ -40,11 +40,6 @@ export class UsersAddComponent implements OnInit {
 
 
   titleForm = '';
-  // Email validation
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
 
   constructor(
     public route: ActivatedRoute,
