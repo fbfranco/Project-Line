@@ -52,6 +52,7 @@
     <Compile Include="Persistence\ObjectiveRepository.cs" />
     <Compile Include="Persistence\PhaseRepository.cs" />
     <Compile Include="Persistence\ProjectRepository.cs" />
+    <Compile Include="Persistence\RolRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
