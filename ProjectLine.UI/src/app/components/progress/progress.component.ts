@@ -31,18 +31,27 @@ export class ProgressComponent implements OnInit {
   }
 
   showProgress(color) {
-    $('#progress-circle').empty();
-    $('#progress-circle').circliful({
-      animation: 1,
-      animationStep: 5,
-      foregroundBorderWidth: 14,
-      backgroundBorderWidth: 14,
-      fontColor: color,
-      percentageTextSize: 32,
-      foregroundColor: color,
-      backgroundColor: 'rgb(80, 80, 80)',
-      percent: this.progressPercentage,
-    });
+    if (color === 'rgb(80, 80, 80)') {
+      $('#progress-circle').circliful({
+        backgroundBorderWidth: 14,
+        replacePercentageByText: '',
+        backgroundColor: 'rgb(80, 80, 80)',
+        percent: this.progressPercentage,
+      });
+    } else {
+      $('#progress-circle').empty();
+      $('#progress-circle').circliful({
+        animation: 1,
+        animationStep: 5,
+        foregroundBorderWidth: 14,
+        backgroundBorderWidth: 14,
+        fontColor: color,
+        percentageTextSize: 32,
+        foregroundColor: color,
+        backgroundColor: 'rgb(80, 80, 80)',
+        percent: this.progressPercentage,
+      });
+    }
   }
 
   countObjectives(phasesProject) {
