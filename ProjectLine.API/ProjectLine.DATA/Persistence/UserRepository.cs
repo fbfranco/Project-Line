@@ -21,7 +21,7 @@ namespace ProjectLine.DATA.Persistence
 
             using (Context = new ProjectLineContext())
             {
-                var result = await Context.Users.ToListAsync();
+                var result = await Context.Users.Include("Roles").ToListAsync();
                 return result;
             }
         }
@@ -58,11 +58,17 @@ namespace ProjectLine.DATA.Persistence
                 var update = FindById(User.UserID);
                 using (Context = new ProjectLineContext())
                 {
-                    update.Name = User.Name;
+                    update.FirstName = User.FirstName;
                     update.LastName = User.LastName;
-                    update.Enterprise = User.Enterprise;
+                    update.Email = User.Email;
+                    update.Company = User.Company;
                     update.Address = User.Address;
-                    update.Status = User.Status;
+                    update.Phone = User.Phone;
+                    update.Mobile = User.Mobile;
+                    update.Username = User.Username;
+                    update.Password = User.Password;
+                    update.Active = User.Active;
+                    update.RoleID = User.RoleID;
 
                     Context.Entry(update).State = EntityState.Modified;
                     Context.SaveChanges();

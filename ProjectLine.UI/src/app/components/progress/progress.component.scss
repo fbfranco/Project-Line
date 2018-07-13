@@ -1,0 +1,31 @@
+.circle {
+    width: 320px;
+}
+
+.legend {
+    background-color: rgb(222, 222, 222);
+    width: 140px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 14px;
+    padding-right: 14px;
+    .completed {
+        background-color: rgb(6, 170, 214);
+        width: 20px;
+        height: 20px;
+    }
+    .pending {
+        background-color: rgb(210, 130, 10);
+        width: 20px;
+        height: 20px;
+    }
+    p {
+        font-weight: bolder;
+        font-size: 12px;
+        padding-top: 12px;
+        &:hover {
+            cursor: pointer;
+            font-style: italic;
+        }
+    }
+}

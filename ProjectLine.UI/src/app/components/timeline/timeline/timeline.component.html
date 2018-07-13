@@ -11,6 +11,7 @@
     </mat-autocomplete>
   </mat-form-field>
 </div>
+<<<<<<< HEAD
 <h1 class="project-title" LayoutAlign="center center" *ngIf="Hide">{{ DataProject.Title }}</h1>
 <div class="VivaTimeline" *ngIf="Hide">
   <dl class="vertical-line">
@@ -20,6 +21,25 @@
       <dd [ngClass]="{'pos-right': i%2 != 0,'pos-left': i%2 == 0}" class="clearfix">
         <div class="circ"></div>
         <div class="time">{{Phase.EndDate | date: 'MMM d'}}</div>
+=======
+
+
+<div *ngIf="Hide" fxLayout="row wrap" fxLayoutAlign="center center">
+
+  <div>
+    <app-progress [phasesProject]="PhaseModel"></app-progress>
+  </div>
+
+  <div class="VivaTimeline">
+    <h1 class="project-title" LayoutAlign="center center">{{ DataProject.Title }}</h1>
+    <dl class="vertical-line">
+      <dt>Start Date
+        <br>{{ helperService.DateFormat(DataProject.StartDate) }}</dt>
+      <dd *ngFor="let Phase of PhaseModel; let i = index" [ngClass]="{'pos-right': i%2 != 0,'pos-left': i%2 == 0}" class="clearfix">
+        <div class="circ"></div>
+        <div class="time">{{Phase.StartDate | date: 'MM/dd/yyyy'}}
+          <br>{{Phase.EndDate | date: 'MM/dd/yyyy'}}</div>
+>>>>>>> UI_MT_ADDUserVersion02-fix
         <div class="events">
           <div class="events-header">{{Phase.Title}}</div>
           <div class="events-body">
@@ -98,6 +118,14 @@
           </div>
         </div>
       </dd>
+<<<<<<< HEAD
     </div>
   </dl>
+=======
+      <dt>Estimated End Date
+        <br>{{helperService.DateFormat(DataProject.EndDate) }}</dt>
+    </dl>
+  </div>
+
+>>>>>>> UI_MT_ADDUserVersion02-fix
 </div>
