@@ -50,7 +50,7 @@ namespace ProjectLine.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != rol.RoleId)
+            if (id != rol.RoleID)
             {
                 return BadRequest();
             }
@@ -125,7 +125,7 @@ namespace ProjectLine.Controllers
 
         private bool RolExists(int id)
         {
-            return db.Rols.Count(e => e.RoleId == id) > 0;
+            return db.Rols.Count(e => e.RoleID == id) > 0;
         }
     }
 }

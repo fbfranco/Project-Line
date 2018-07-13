@@ -8,6 +8,8 @@ export class User {
     Enterprise: string;
     Address: string;
     Status: boolean;
+    Mobile: number;
+    Phone: number;
 
   /*   RoleID?: string; */
     // Roles?: Role[];

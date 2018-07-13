@@ -8,7 +8,7 @@ namespace ProjectLine.CORE.Models
 {
     public class Rol
     {
-        public int RoleId { get; set; }
+        public int RoleID { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
     }

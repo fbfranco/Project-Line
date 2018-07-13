@@ -51,7 +51,7 @@ namespace ProjectLine.DATA.Persistence
         {
             using (Context = new ProjectLineContext())
             {
-                var result = Context.Rols.Where(s => s.RoleId == id).FirstOrDefaultAsync();
+                var result = Context.Rols.Where(s => s.RoleID == id).FirstOrDefaultAsync();
                 return result.Result;
             }
         }
@@ -69,7 +69,7 @@ namespace ProjectLine.DATA.Persistence
         {
             try
             {
-                var update = FindById(rol.RoleId);
+                var update = FindById(rol.RoleID);
                 using (Context = new ProjectLineContext())
                 {
                     update.Title = rol.Title;

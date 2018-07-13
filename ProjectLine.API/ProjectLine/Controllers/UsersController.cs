@@ -22,10 +22,10 @@ namespace ProjectLine.Controllers
         UserRepository Repository = new UserRepository();
 
         // GET: api/Objetives/1
-        public async Task<IEnumerable<User>> Get(int id)
+        public async Task<IEnumerable<User>> Get()
         {
 
-            var user = await Repository.GetUsers(id);
+            var user = await Repository.GetUsers();
 
             return user;
         }

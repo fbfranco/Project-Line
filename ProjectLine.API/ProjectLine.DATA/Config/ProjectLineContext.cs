@@ -55,17 +55,21 @@ namespace ProjectLine.DATA.Config
 
             #region Model Users
             modelBuilder.Entity<User>().HasKey(x => x.UserID);
-            modelBuilder.Entity<User>().Property(x => x.Name).HasMaxLength(150).IsRequired();
+            modelBuilder.Entity<User>().Property(x => x.FirstName).HasMaxLength(150).IsRequired();
             modelBuilder.Entity<User>().Property(x => x.LastName).HasMaxLength(150).IsRequired();
-            modelBuilder.Entity<User>().Property(x => x.Enterprise).HasMaxLength(150).IsRequired();
-            modelBuilder.Entity<User>().Property(x => x.Address).HasMaxLength(150).IsRequired();
             modelBuilder.Entity<User>().Property(x => x.Email).HasMaxLength(150).IsRequired();
-            modelBuilder.Entity<User>().Property(x => x.Status).IsRequired();
-            //modelBuilder.Entity<User>().Property(x => x.RoleID);
+            modelBuilder.Entity<User>().Property(x => x.Company).HasMaxLength(150).IsRequired();
+            modelBuilder.Entity<User>().Property(x => x.Address).HasMaxLength(150).IsRequired();
+            modelBuilder.Entity<User>().Property(x => x.Phone).HasMaxLength(20).IsRequired();
+            modelBuilder.Entity<User>().Property(x => x.Mobile).HasMaxLength(20).IsRequired();
+            modelBuilder.Entity<User>().Property(x => x.Username).HasMaxLength(25).IsRequired();
+            modelBuilder.Entity<User>().Property(x => x.Password).HasMaxLength(25).IsRequired();
+            modelBuilder.Entity<User>().Property(x => x.Active).IsRequired();
+            modelBuilder.Entity<User>().Property(x => x.RoleID);
             #endregion
 
             #region Roles
-            modelBuilder.Entity<Rol>().HasKey(x => x.RoleId);
+            modelBuilder.Entity<Rol>().HasKey(x => x.RoleID);
             modelBuilder.Entity<Rol>().Property(x => x.Title).HasMaxLength(150).IsRequired();
             modelBuilder.Entity<Rol>().Property(x => x.Description).HasMaxLength(50).IsRequired();
             #endregion
