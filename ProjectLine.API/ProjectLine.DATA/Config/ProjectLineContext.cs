@@ -60,6 +60,7 @@ namespace ProjectLine.DATA.Config
             modelBuilder.Entity<User>().Property(x => x.Address).HasMaxLength(150).IsRequired();
             modelBuilder.Entity<User>().Property(x => x.Email).HasMaxLength(150).IsRequired();
             modelBuilder.Entity<User>().Property(x => x.Status).IsRequired();
+            modelBuilder.Entity<User>().Property(x => x.RolID).IsRequired();
             //modelBuilder.Entity<User>().Property(x => x.RoleID);
             #endregion
         }

@@ -16,7 +16,7 @@ namespace ProjectLine.DATA.Persistence
         private ProjectLineContext Context;
 
 
-        public async Task<IEnumerable<User>> GetUsers(int id)
+        public async Task<IEnumerable<User>> GetUsers()
         {
 
             using (Context = new ProjectLineContext())
