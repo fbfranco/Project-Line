@@ -43,6 +43,31 @@ namespace ProjectLine.DATA.Config
                 PhaseID = 1
             });
             #endregion
+
+            #region Initialize Table Roles
+            context.Rols.AddOrUpdate(x => x.RoleID, new Rol
+            {
+                Title="Admin",
+                Description="Administrador"
+            });
+            #endregion
+
+            #region Initialize Table Users
+            context.Users.AddOrUpdate(x => x.UserID, new User
+            {
+                FirstName = "Danner",
+                LastName = "Galvarro Vaca",
+                Email = "dannergal@hotmail.com",
+                Company = "Apple",
+                Address = "Cupertino, CA",
+                Phone = "1-800-MY-APPLE",
+                Mobile = "+(123)123-456-7890",
+                Username = "dannergv",
+                Password = "danner",
+                Active = true,
+                RoleID = 1
+            });
+            #endregion
         }
     }
 }

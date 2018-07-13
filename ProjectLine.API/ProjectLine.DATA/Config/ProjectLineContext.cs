@@ -17,6 +17,8 @@ namespace ProjectLine.DATA.Config
         public DbSet<Project> Projects { get; set; }
         public DbSet<Phase> Phases { get; set; }
         public DbSet<Objective> Objectives { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Rol> Rols { get; set; }
 
         //Tables Model
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -49,6 +51,27 @@ namespace ProjectLine.DATA.Config
             modelBuilder.Entity<Objective>().Property(x => x.Estimated);
             modelBuilder.Entity<Objective>().Property(x => x.Effort);
             modelBuilder.Entity<Objective>().Property(x => x.PhaseID);
+            #endregion
+
+            #region Model Users
+            modelBuilder.Entity<User>().HasKey(x => x.UserID);
+            modelBuilder.Entity<User>().Property(x => x.FirstName).HasMaxLength(150).IsRequired();
+            modelBuilder.Entity<User>().Property(x => x.LastName).HasMaxLength(150).IsRequired();
+            modelBuilder.Entity<User>().Property(x => x.Email).HasMaxLength(150).IsRequired();
+            modelBuilder.Entity<User>().Property(x => x.Company).HasMaxLength(150);
+            modelBuilder.Entity<User>().Property(x => x.Address).HasMaxLength(150);
+            modelBuilder.Entity<User>().Property(x => x.Phone).HasMaxLength(20);
+            modelBuilder.Entity<User>().Property(x => x.Mobile).HasMaxLength(20);
+            modelBuilder.Entity<User>().Property(x => x.Username).HasMaxLength(25).IsRequired();
+            modelBuilder.Entity<User>().Property(x => x.Password).HasMaxLength(25).IsRequired();
+            modelBuilder.Entity<User>().Property(x => x.Active);
+            modelBuilder.Entity<User>().Property(x => x.RoleID).IsRequired();
+            #endregion
+
+            #region Roles
+            modelBuilder.Entity<Rol>().HasKey(x => x.RoleID);
+            modelBuilder.Entity<Rol>().Property(x => x.Title).HasMaxLength(150).IsRequired();
+            modelBuilder.Entity<Rol>().Property(x => x.Description).HasMaxLength(50).IsRequired();
             #endregion
         }
     }

@@ -41,6 +41,9 @@ import { MatTableModule } from '@angular/material';
 import { RoutingModule } from './routes/routing.module';
 import { UsersListComponent } from './components/users/users-list/users-list.component';
 import { RolesListComponent } from './components/roles/roles-list/roles-list.component';
+import { UsersAddComponent } from './components/users/users-add/users-add.component';
+import { RolesAddComponent } from './components/roles/roles-add/roles-add.component';
+import { ProgressComponent } from './components/progress/progress.component';
 
 
 
@@ -62,7 +65,10 @@ import { RolesListComponent } from './components/roles/roles-list/roles-list.com
     TimelineComponent,
     DialogConfirmationComponent,
     UsersListComponent,
-    RolesListComponent
+    RolesListComponent,
+    UsersAddComponent,
+    RolesAddComponent,
+    ProgressComponent
   ],
   imports: [
     BrowserModule,

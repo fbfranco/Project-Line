@@ -9,6 +9,7 @@ import { ObjectiveAddComponent } from '../components/objectives/objective-add/ob
 import { TimelineComponent } from '../components/timeline/timeline/timeline.component';
 import { UsersListComponent } from '../components/users/users-list/users-list.component';
 import { RolesListComponent  } from '../components/roles/roles-list/roles-list.component';
+import { UsersAddComponent } from '../components/users/users-add/users-add.component';
 
 const routes: Routes = [
   { path: 'Project', component: ProjectListComponent },
@@ -20,7 +21,8 @@ const routes: Routes = [
   { path: 'Objective/Add', component: ObjectiveAddComponent },
   { path: 'TimeLine', component: TimelineComponent},
   { path: 'User', component: UsersListComponent},
-  { path: 'Rol', component: RolesListComponent}
+  { path: 'Rol', component: RolesListComponent},
+  { path: 'User/Add', component: UsersAddComponent }
 ];
 
 @NgModule({

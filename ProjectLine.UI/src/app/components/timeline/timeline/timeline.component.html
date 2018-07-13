@@ -1,30 +1,39 @@
 <h1 style="text-align: left">Project Tracking</h1>
 
 <div class="div-Container">
-<mat-form-field id="AutocompleteProject">
-  <input  type="text" (change)="inputEmpty($event)" placeholder="Project" aria-label="Number" [formControl]="myControl" matInput [matAutocomplete]="ProjectList">
-  <mat-autocomplete #ProjectList="matAutocomplete" (optionSelected)="projectChanged($event)"  autoActiveFirstOption>
-    <mat-option matTooltip={{option}} *ngFor="let option of filteredOptions | async" [value]="option">
-      {{ option }}
-    </mat-option>
-  </mat-autocomplete>
-</mat-form-field>
+  <mat-form-field id="AutocompleteProject">
+    <input type="text" (change)="inputEmpty($event)" placeholder="Project" aria-label="Number" [formControl]="myControl" matInput
+      [matAutocomplete]="ProjectList">
+    <mat-autocomplete #ProjectList="matAutocomplete" (optionSelected)="projectChanged($event)" autoActiveFirstOption>
+      <mat-option matTooltip={{option}} *ngFor="let option of filteredOptions | async" [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
 </div>
-  <h1 class="project-title"LayoutAlign="center center" *ngIf="Hide">{{ DataProject.Title }}</h1>
-  <div class="VivaTimeline" *ngIf="Hide"  >
-    <dl class="vertical-line">
-      <dt>Start Date<br>{{ helperService.DateFormat(DataProject.StartDate) }}</dt>
-      <dd *ngFor="let Phase of PhaseModel; let i = index" [ngClass]="{'pos-right': i%2 != 0,'pos-left': i%2 == 0}" class="clearfix">
+<h1 class="project-title" LayoutAlign="center center" *ngIf="Hide">{{ DataProject.Title }}</h1>
+<div class="VivaTimeline" *ngIf="Hide">
+  <dl class="vertical-line">
+    <dt *ngIf="!dtHeader">{{DataProject.Phases[0].EndDate | date: 'MMM y'}}</dt>
+    <div *ngFor="let Phase of PhaseModel; let i = index">
+      <dt *ngIf="getDateHeader(Phase.EndDate)">{{Phase.EndDate | date: 'MMM y'}}</dt>
+      <dd [ngClass]="{'pos-right': i%2 != 0,'pos-left': i%2 == 0}" class="clearfix">
         <div class="circ"></div>
-        <div class="time">{{Phase.StartDate | date: 'MM/dd/yyyy'}}<br>{{Phase.EndDate | date: 'MM/dd/yyyy'}}</div>
+        <div class="time">{{Phase.EndDate | date: 'MMM d'}}</div>
         <div class="events">
           <div class="events-header">{{Phase.Title}}</div>
           <div class="events-body">
             <div class="row">
               <div class="events-desc">
                 <div class="slide-phase">
-                  <h5 class="title-slide-phase"><i class="far fa-calendar-alt"></i>StartDate: <span>{{helperService.DateFormat(Phase.StartDate)}}</span></h5>
-                  <h5 class="title-slide-phase"><i class="far fa-calendar-alt"></i>Estimated EndDate: <span>{{helperService.DateFormat(Phase.EndDate)}}</span></h5>
+                  <h5 class="title-slide-phase">
+                    <i class="far fa-calendar-alt"></i>StartDate:
+                    <span>{{helperService.DateFormat(Phase.StartDate)}}</span>
+                  </h5>
+                  <h5 class="title-slide-phase">
+                    <i class="far fa-calendar-alt"></i>EndDate:
+                    <span>{{helperService.DateFormat(Phase.EndDate)}}</span>
+                  </h5>
                   <div class="cnt-description-slide-phase">
                     <i class="fas fa-align-left"></i>
                     <h5 class="title-slide-phase">Description:</h5>
@@ -41,15 +50,47 @@
                 </div>
               </div>
             </div>
-            <div class="row" *ngIf="Phase.UrlValid">
+            <div class="row">
               <div class="events-desc">
-                <div class="content-video">
-                  <vg-player>
-                  <video class="video-demo" [vgMedia]="media" #media id="singleVideo" preload="auto"  preload="auto" controls crossorigin>
-                      <source [src]="sanitizer.bypassSecurityTrustResourceUrl(Phase.DemoUrl)" type="video/mp4">
+                <vg-player class="video-demo">
+                  <vg-overlay-play></vg-overlay-play>
+                  <vg-buffering></vg-buffering>
+
+                  <vg-scrub-bar>
+                    <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                    <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+                  </vg-scrub-bar>
+
+                  <vg-controls>
+                    <vg-play-pause></vg-play-pause>
+                    <vg-playback-button></vg-playback-button>
+
+                    <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+
+                    <vg-scrub-bar style="pointer-events: none;"></vg-scrub-bar>
+
+                    <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+                    <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+
+                    <vg-track-selector></vg-track-selector>
+                    <vg-mute></vg-mute>
+                    <vg-volume></vg-volume>
+
+                    <vg-fullscreen></vg-fullscreen>
+                  </vg-controls>
+
+                  <video [vgMedia]="media" #media id="singleVideo" preload="auto" crossorigin>
+                    <source src="https://drive.google.com/file/d/0B_18NjgnT9y5b3NhN1pidHJER0k/view?usp=sharing" type="video/mp4">
+                    <source src="http://static.videogular.com/assets/videos/videogular.ogg" type="video/ogg">
+                    <source src="http://static.videogular.com/assets/videos/videogular.webm" type="video/webm">
+
+                    <track kind="subtitles" label="English" src="http://static.videogular.com/assets/subs/pale-blue-dot.vtt" srclang="en" default>
+                    <track kind="subtitles" label="Español" src="http://static.videogular.com/assets/subs/pale-blue-dot-es.vtt" srclang="es">
                   </video>
                 </vg-player>
-                </div>
+                <!-- <div>
+                  <p>{{Phase.DemoUrl}}</p>
+                </div> -->
               </div>
             </div>
           </div>
@@ -57,6 +98,6 @@
           </div>
         </div>
       </dd>
-      <dt>Estimated End Date<br>{{helperService.DateFormat(DataProject.EndDate) }}</dt>
-    </dl>
-  </div>
+    </div>
+  </dl>
+</div>

@@ -1,0 +1,27 @@
+//Buttons and Controllers
+.div-controller{
+    width: 100%;
+    display: inline-block;
+    button{
+        float: right;
+        @media screen and (max-width: 1024px) {
+            float: left;
+        }
+    }
+}
+//Data-Table
+.table-content{
+    position: relative;
+    table{
+        width: 100%;
+        @media screen and (max-width: 1024px) {
+            width: 100%;
+            display: block;
+            overflow-x: auto;
+        }
+    }
+    td{
+        margin: 0;
+        padding: 12px;
+    }
+}

@@ -26,6 +26,8 @@ export class ObjectiveAddComponent implements OnInit {
   objectiveFormGroup: FormGroup;
 
   ngOnInit() {
+    console.log('this.userService.selectedUser');
+    console.log(this.objectiveService);
     this.newForm();
   }
 

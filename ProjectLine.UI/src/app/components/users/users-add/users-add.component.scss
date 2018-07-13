@@ -1,0 +1,25 @@
+.Form-Container{
+    padding-left: 1em;
+    padding-right: 5em;
+    form{
+      a{
+        text-decoration: none;
+      }
+    }
+  
+    .form-options {
+      margin-bottom: 2em;
+      margin-top: 1em;
+    }
+    @media screen and(max-width: 1080px) {
+      padding: 0;
+    }
+  }
+  .date-content {
+    & .mat-form-field {
+      width: 47%;
+      @media screen and(max-width: 960px) {
+        width: 100%;
+      }
+    }
+}
