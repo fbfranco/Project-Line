@@ -215,4 +215,10 @@ export class ObjectivesListComponent implements OnInit {
     }
   }
 
+  inputEmpty(event: any) {
+    if (event !== '') {
+      this.ListObjectives = null;
+    }
+  }
+
 }
