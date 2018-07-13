@@ -154,6 +154,15 @@ namespace ProjectLine.DATA.Persistence
                 Console.Write(ex);
             }
         }
+
+        public async Task<IEnumerable<User>> GetUsersByRol(int id)
+        {
+            using (Context = new ProjectLineContext())
+            {
+                var result = await Context.User.Include("Rol").Where(x => x.Rol.RolId == id).ToListAsync();
+                return result;
+            }
+        }
     }
 
 }

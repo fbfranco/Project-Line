@@ -1,20 +1,11 @@
-﻿using System;
+﻿using ProjectLine.CORE.Models;
+using ProjectLine.CORE.ViewModel;
+using ProjectLine.DATA.Persistence;
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using System.Web.Http.Description;
-using ProjectLine.CORE.Models;
-using ProjectLine.CORE.ViewModel;
-using ProjectLine.DATA.Config;
-using ProjectLine.DATA.Persistence;
 
 namespace ProjectLine.Controllers
 {
@@ -97,6 +88,14 @@ namespace ProjectLine.Controllers
                     return BadRequest(error.ToString());
                 }
             }
+        }
+
+
+        // GET: api/Projects
+        public async Task<IEnumerable<User>> GetUsersByRol(int id)
+        {
+            var user = await Repository.GetUsersByRol(id);
+            return user;
         }
 
     }
