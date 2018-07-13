@@ -1,6 +1,6 @@
 // Config
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 // Angular Material
 import { MatDialog, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
@@ -19,6 +19,9 @@ import { DialogConfirmationComponent } from '../../../components/dialog/dialog-c
 // import { RoutingModule } from '../../../Routes/routing.module';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { User } from '../../../models/user.model';
+import { Observable } from '../../../../../node_modules/rxjs';
+import { startWith, map } from '../../../../../node_modules/rxjs/operators';
 
 
 const helpers = new HelperService();
@@ -35,13 +38,17 @@ const helpers = new HelperService();
 export class ProjectAddComponent implements OnInit {
 
   titleForm = '';
+  listClient: User[];
+  filteredCliet: Observable<User[]>;
+  // UserId = new FormControl();
   viewmodel = new ViewModelProject();
   displayedColumns = ['Title', 'Description', 'StartDate', 'EndDate', 'Edit', 'Delete'];
   dataSource = new MatTableDataSource(this.phaseService.phaseList);
   VarSet: string;
-
+  projectFormGroup: FormGroup;
 
   constructor(public dialog: MatDialog,
+    private projectFormBuilder: FormBuilder,
     public route: ActivatedRoute,
     public router: Router,
     public phaseService: PhaseService,
@@ -53,7 +60,17 @@ export class ProjectAddComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.newFormAddProject();
     this.titleForm = this.projectService.selectedProject.Title === undefined ? `Add Project` : `Edit Project`;
+    this.projectService.getUsersByRol(3).subscribe((datalist: User[]) => {
+      this.listClient = datalist;
+      this.filteredCliet = this.projectFormGroup.controls.UserId.valueChanges.pipe(
+        startWith(''),
+        map(value => value ? this.filter(value) : this.listClient)
+      );
+    }, error => {
+      console.log('Error getting the list of projects');
+    });
   }
 
   AddRows() {
@@ -101,24 +118,26 @@ export class ProjectAddComponent implements OnInit {
     });
   }
 
-  onSubmit(form: NgForm) {
-    this.viewmodel.Project = form.value;
-    this.viewmodel.Phases = this.phaseService.phaseList;
+  onSubmit() {
+    console.log(this.projectFormGroup.value);
+    // this.viewmodel.Project = form.value;
+    // this.viewmodel.Phases = this.phaseService.phaseList;
+    // console.table(form.value);
 
-    if (typeof form.value.ProjectID === 'undefined') {
-      this.projectService.postProject(this.viewmodel).subscribe(data => {
-        this.openSnackBar('Saved');
-        this.navigate_to_project_home_page();
-        this.resetForm();
-      });
-    } else {
-      this.projectService.putProject(this.viewmodel).subscribe(data => {
-        this.openSnackBar('Saved');
-        this.navigate_to_project_home_page();
-        this.resetForm();
-      });
+    // if (typeof form.value.ProjectID === 'undefined') {
+    //   this.projectService.postProject(this.viewmodel).subscribe(data => {
+    //     this.openSnackBar('Saved');
+    //     this.navigate_to_project_home_page();
+    //     this.resetForm();
+    //   });
+    // } else {
+    //   this.projectService.putProject(this.viewmodel).subscribe(data => {
+    //     this.openSnackBar('Saved');
+    //     this.navigate_to_project_home_page();
+    //     this.resetForm();
+    //   });
 
-    }
+    // }
   }
 
 
@@ -140,5 +159,25 @@ export class ProjectAddComponent implements OnInit {
   }
   getSelectedPhase(phase: Phase) {
     this.phaseService.selectedPhase = Object.assign({}, phase);
+  }
+
+  filter(value: string): User[] {
+    const filterValue = value.toLowerCase();
+
+    return this.listClient.filter(option => option.UserName.toLowerCase().includes(filterValue));
+  }
+
+
+
+
+  newFormAddProject() {
+    this.projectFormGroup = this.projectFormBuilder.group({
+      ProjectID: '',
+      UserId: new FormControl({value: ''}),
+      Title: '',
+      Description: '',
+      StartDate: '',
+      EndDate: '',
+    });
   }
 }

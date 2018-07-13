@@ -4,6 +4,7 @@ import { Http, Response, Headers, RequestOptions, RequestMethod } from '@angular
 import { Observable } from 'rxjs';
 import { Project } from '../models/project.model';
 import { ViewModelProject } from '../models/viewmodelproject.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,9 +36,12 @@ export class ProjectService {
   }
 
   putProjectDeletePasive(id) {
-
     const headerOptions = new Headers({ 'Content-Type': 'application/json' });
     const requestOptions = new RequestOptions({ method: RequestMethod.Put, headers: headerOptions });
     return this.http.put(`${this.apiURL}InactiveProject/${id}`, requestOptions);
+  }
+
+  getUsersByRol(idRol): Observable<User[]> {
+    return this.http.get(`${this.apiURL}GetUsersByRol/${idRol}`).pipe(map((data: Response) => <User[]>data.json()));
   }
 }
