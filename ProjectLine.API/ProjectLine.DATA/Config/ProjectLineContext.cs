@@ -17,6 +17,7 @@ namespace ProjectLine.DATA.Config
         public DbSet<Project> Projects { get; set; }
         public DbSet<Phase> Phases { get; set; }
         public DbSet<Objective> Objectives { get; set; }
+        public DbSet<User> Users { get; set; }
 
         //Tables Model
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -49,6 +50,17 @@ namespace ProjectLine.DATA.Config
             modelBuilder.Entity<Objective>().Property(x => x.Estimated);
             modelBuilder.Entity<Objective>().Property(x => x.Effort);
             modelBuilder.Entity<Objective>().Property(x => x.PhaseID);
+            #endregion
+
+            #region Model Users
+            modelBuilder.Entity<User>().HasKey(x => x.UserID);
+            modelBuilder.Entity<User>().Property(x => x.Name).HasMaxLength(150).IsRequired();
+            modelBuilder.Entity<User>().Property(x => x.LastName).HasMaxLength(150).IsRequired();
+            modelBuilder.Entity<User>().Property(x => x.Enterprise).HasMaxLength(150).IsRequired();
+            modelBuilder.Entity<User>().Property(x => x.Address).HasMaxLength(150).IsRequired();
+            modelBuilder.Entity<User>().Property(x => x.Email).HasMaxLength(150).IsRequired();
+            modelBuilder.Entity<User>().Property(x => x.Status).IsRequired();
+            //modelBuilder.Entity<User>().Property(x => x.RoleID);
             #endregion
         }
     }

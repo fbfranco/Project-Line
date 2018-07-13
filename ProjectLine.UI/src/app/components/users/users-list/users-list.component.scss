@@ -1,0 +1,11 @@
+//Buttons and Controllers
+.div-controller{
+    width: 100%;
+    display: inline-block;
+    button{
+        float: right;
+        @media screen and (max-width: 1024px) {
+            float: left;
+        }
+    }
+}
