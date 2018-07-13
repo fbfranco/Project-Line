@@ -22,6 +22,7 @@ import { ActivatedRoute } from '@angular/router';
 import { User } from '../../../models/user.model';
 import { Observable } from '../../../../../node_modules/rxjs';
 import { startWith, map } from '../../../../../node_modules/rxjs/operators';
+import { UserService } from '../../../services/user.service';
 
 
 const helpers = new HelperService();
@@ -39,7 +40,7 @@ export class ProjectAddComponent implements OnInit {
 
   titleForm = '';
   listClient: User[];
-  filteredCliet: Observable<User[]>;
+  filteredClient: Observable<User[]>;
   // UserId = new FormControl();
   viewmodel = new ViewModelProject();
   displayedColumns = ['Title', 'Description', 'StartDate', 'EndDate', 'Edit', 'Delete'];
@@ -51,6 +52,7 @@ export class ProjectAddComponent implements OnInit {
     private projectFormBuilder: FormBuilder,
     public route: ActivatedRoute,
     public router: Router,
+    private userService: UserService,
     public phaseService: PhaseService,
     public projectService: ProjectService,
     public helperService: HelperService,
@@ -62,9 +64,9 @@ export class ProjectAddComponent implements OnInit {
   ngOnInit() {
     this.newFormAddProject();
     this.titleForm = this.projectService.selectedProject.Title === undefined ? `Add Project` : `Edit Project`;
-    this.projectService.getUsersByRol(3).subscribe((datalist: User[]) => {
+    this.userService.getUsersByRol(3).subscribe((datalist: User[]) => {
       this.listClient = datalist;
-      this.filteredCliet = this.projectFormGroup.controls.UserId.valueChanges.pipe(
+      this.filteredClient = this.projectFormGroup.controls.UserId.valueChanges.pipe(
         startWith(''),
         map(value => value ? this.filter(value) : this.listClient)
       );
@@ -120,26 +122,27 @@ export class ProjectAddComponent implements OnInit {
 
   onSubmit() {
     this.listClient.forEach(element => {
+      if (element.FirstName === this.projectFormGroup.value.UserId) {
+        this.projectFormGroup.value.UserId = element.RoleID;
+      }
     });
-    console.log(this.projectFormGroup.value);
-    // this.viewmodel.Project = form.value;
-    // this.viewmodel.Phases = this.phaseService.phaseList;
-    // console.table(form.value);
+    this.viewmodel.Project = this.projectFormGroup.value;
+    this.viewmodel.Phases = this.phaseService.phaseList;
 
-    // if (typeof form.value.ProjectID === 'undefined') {
-    //   this.projectService.postProject(this.viewmodel).subscribe(data => {
-    //     this.openSnackBar('Saved');
-    //     this.navigate_to_project_home_page();
-    //     this.resetForm();
-    //   });
-    // } else {
-    //   this.projectService.putProject(this.viewmodel).subscribe(data => {
-    //     this.openSnackBar('Saved');
-    //     this.navigate_to_project_home_page();
-    //     this.resetForm();
-    //   });
+    if (this.projectFormGroup.value.ProjectID === '') {
+      this.projectService.postProject(this.viewmodel).subscribe(data => {
+        this.openSnackBar('Saved');
+        this.navigate_to_project_home_page();
+        this.resetForm();
+      });
+    } else {
+      this.projectService.putProject(this.viewmodel).subscribe(data => {
+        this.openSnackBar('Saved');
+        this.navigate_to_project_home_page();
+        this.resetForm();
+      });
 
-    // }
+    }
   }
 
   navigate_to_project_home_page() {
@@ -165,7 +168,7 @@ export class ProjectAddComponent implements OnInit {
   filter(value: string): User[] {
     const filterValue = value.toLowerCase();
 
-    return this.listClient.filter(option => option.Name.toLowerCase().includes(filterValue));
+    return this.listClient.filter(option => option.FirstName.toLowerCase().includes(filterValue));
   }
 
 

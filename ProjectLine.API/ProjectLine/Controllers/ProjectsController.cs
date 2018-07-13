@@ -89,14 +89,5 @@ namespace ProjectLine.Controllers
                 }
             }
         }
-
-
-        // GET: api/Projects
-        public async Task<IEnumerable<User>> GetUsersByRol(int id)
-        {
-            var user = await Repository.GetUsersByRol(id);
-            return user;
-        }
-
     }
 }

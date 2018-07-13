@@ -26,6 +26,10 @@ export class TimelineComponent implements OnInit, DoCheck {
   Hide: boolean;
   InitTimeline: boolean;
 
+  // Variables for show month range
+  dateHeader: string;
+  dtHeader: boolean;
+
   // filter autocomplete
   myControl = new FormControl();
   options: string[];
@@ -64,7 +68,7 @@ export class TimelineComponent implements OnInit, DoCheck {
   }
   ngDoCheck() {
     if (this.InitTimeline) {
-      $('.VivaTimeline').vivaTimeline({carousel: false});
+      $('.VivaTimeline').vivaTimeline({ carousel: false });
       this.InitTimeline = false;
     }
   }
@@ -77,6 +81,9 @@ export class TimelineComponent implements OnInit, DoCheck {
       }
     });
     this.PhaseModel = this.DataProject.Phases;
+    this.sortPhaseDates(this.PhaseModel);
+    this.dateHeader = '';
+    this.dtHeader = true;
     this.PhaseModel.forEach(phase => {
       phase.UrlValid = this.ExistUrl(phase.DemoUrl);
     });
@@ -102,4 +109,23 @@ export class TimelineComponent implements OnInit, DoCheck {
   UrlValid(url) {
       return url.substr(0, 21) === 'http://localhost:4200' ? true : false;
   }
+  private sortPhaseDates(Phases: Phase[]): void {
+    Phases.sort((a, b) => {
+      const dateA: any = new Date(a.EndDate);
+      const dateB: any = new Date(b.EndDate);
+      return dateA - dateB; // Ascending format
+    });
+  }
+
+  getDateHeader(date: Date): boolean {
+    let validDate = false;
+    const strDate = this.helperService.MonthYearFormat(date);
+    if (strDate !== this.dateHeader) {
+      this.dateHeader = strDate;
+      validDate = true;
+    }
+    this.dtHeader = validDate;
+    return validDate;
+  }
+
 }

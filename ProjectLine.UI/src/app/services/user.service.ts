@@ -32,7 +32,11 @@ export class UserService {
     return this.http.delete(`${this.apiURL}DeleteUser/${user.UserID}`);
   }
 
-  getUsersList(RoleID: number): Observable<User[]> {
-    return this.http.get(`${this.apiURL}Get/${RoleID}`).pipe(map((data: Response) => <User[]>data.json()));
+  getUsersList(): Observable<User[]> {
+    return this.http.get(`${this.apiURL}Get/`).pipe(map((data: Response) => <User[]>data.json()));
+  }
+
+  getUsersByRol(idRol): Observable<User[]> {
+    return this.http.get(`${this.apiURL}GetUsersByRol/${idRol}`).pipe(map((data: Response) => <User[]>data.json()));
   }
 }
