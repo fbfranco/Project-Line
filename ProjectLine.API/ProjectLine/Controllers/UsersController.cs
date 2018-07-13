@@ -24,13 +24,9 @@ namespace ProjectLine.Controllers
         // GET: api/Objetives/1
         public async Task<IEnumerable<User>> Get()
         {
-<<<<<<< HEAD
-            var user = await Repository.GetUsers();
-=======
 
             var user = await Repository.GetUsers();
 
->>>>>>> UI_MT_ADDUserVersion02-fix
             return user;
         }
 

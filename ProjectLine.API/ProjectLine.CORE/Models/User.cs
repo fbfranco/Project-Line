@@ -14,16 +14,11 @@ namespace ProjectLine.CORE.Models
         public string Email { get; set; }
         public string Company { get; set; }
         public string Address { get; set; }
-<<<<<<< HEAD
-        public bool Status { get; set; }
-        public int RolID { get; set; }
-=======
         public string Phone { get; set; }
         public string Mobile { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public bool Active { get; set; }
->>>>>>> UI_MT_ADDUserVersion02-fix
 
         public int RoleID { get; set; }
 

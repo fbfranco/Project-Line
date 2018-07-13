@@ -11,17 +11,6 @@
     </mat-autocomplete>
   </mat-form-field>
 </div>
-<<<<<<< HEAD
-<h1 class="project-title" LayoutAlign="center center" *ngIf="Hide">{{ DataProject.Title }}</h1>
-<div class="VivaTimeline" *ngIf="Hide">
-  <dl class="vertical-line">
-    <dt *ngIf="!dtHeader">{{DataProject.Phases[0].EndDate | date: 'MMM y'}}</dt>
-    <div *ngFor="let Phase of PhaseModel; let i = index">
-      <dt *ngIf="getDateHeader(Phase.EndDate)">{{Phase.EndDate | date: 'MMM y'}}</dt>
-      <dd [ngClass]="{'pos-right': i%2 != 0,'pos-left': i%2 == 0}" class="clearfix">
-        <div class="circ"></div>
-        <div class="time">{{Phase.EndDate | date: 'MMM d'}}</div>
-=======
 
 
 <div *ngIf="Hide" fxLayout="row wrap" fxLayoutAlign="center center">
@@ -39,7 +28,6 @@
         <div class="circ"></div>
         <div class="time">{{Phase.StartDate | date: 'MM/dd/yyyy'}}
           <br>{{Phase.EndDate | date: 'MM/dd/yyyy'}}</div>
->>>>>>> UI_MT_ADDUserVersion02-fix
         <div class="events">
           <div class="events-header">{{Phase.Title}}</div>
           <div class="events-body">

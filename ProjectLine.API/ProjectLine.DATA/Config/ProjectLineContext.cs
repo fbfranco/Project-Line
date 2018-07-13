@@ -58,11 +58,6 @@ namespace ProjectLine.DATA.Config
             modelBuilder.Entity<User>().Property(x => x.FirstName).HasMaxLength(150).IsRequired();
             modelBuilder.Entity<User>().Property(x => x.LastName).HasMaxLength(150).IsRequired();
             modelBuilder.Entity<User>().Property(x => x.Email).HasMaxLength(150).IsRequired();
-<<<<<<< HEAD
-            modelBuilder.Entity<User>().Property(x => x.Status).IsRequired();
-            modelBuilder.Entity<User>().Property(x => x.RolID).IsRequired();
-            //modelBuilder.Entity<User>().Property(x => x.RoleID);
-=======
             modelBuilder.Entity<User>().Property(x => x.Company).HasMaxLength(150).IsRequired();
             modelBuilder.Entity<User>().Property(x => x.Address).HasMaxLength(150).IsRequired();
             modelBuilder.Entity<User>().Property(x => x.Phone).HasMaxLength(20).IsRequired();
@@ -77,7 +72,6 @@ namespace ProjectLine.DATA.Config
             modelBuilder.Entity<Rol>().HasKey(x => x.RoleID);
             modelBuilder.Entity<Rol>().Property(x => x.Title).HasMaxLength(150).IsRequired();
             modelBuilder.Entity<Rol>().Property(x => x.Description).HasMaxLength(50).IsRequired();
->>>>>>> UI_MT_ADDUserVersion02-fix
             #endregion
         }
     }
