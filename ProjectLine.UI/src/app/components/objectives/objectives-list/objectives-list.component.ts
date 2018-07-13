@@ -185,7 +185,6 @@ export class ObjectivesListComponent implements OnInit {
       });
     }
   }
-
   openDialogEdit(objective: Objective) {
     this.objectiveServices.selectedObjective = Object.assign({}, objective);
     const dialogRef = this.dialog.open(ObjectiveAddComponent);

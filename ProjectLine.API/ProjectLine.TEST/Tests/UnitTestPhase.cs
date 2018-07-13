@@ -92,5 +92,17 @@ namespace ProjectLine.TEST.Tests
             };
             obj.Create(o);
         }
+
+        RolRepository objrol = new RolRepository();
+        [TestMethod]
+        public void AddRol()
+        {
+            Rol r = new Rol()
+            {
+                Title = "Cliente",
+                Description="Cerabol"
+            };
+            objrol.Create(r);
+        }
     }
 }

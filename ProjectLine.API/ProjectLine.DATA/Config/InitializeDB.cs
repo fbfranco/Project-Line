@@ -43,6 +43,14 @@ namespace ProjectLine.DATA.Config
                 PhaseID = 1
             });
             #endregion
+
+            #region Initialize Table Roles
+            context.Rols.AddOrUpdate(x => x.RoleId, new Rol
+            {
+                Title="Admin",
+                Description="Administrador"
+            });
+            #endregion
         }
     }
 }
