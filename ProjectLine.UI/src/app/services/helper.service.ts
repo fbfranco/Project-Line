@@ -27,4 +27,8 @@ export class HelperService {
   DateFormat(myDate: Date) {
     return moment(myDate).format('MM/DD/YYYY');
   }
+
+  MonthYearFormat(myDate: Date) {
+    return moment(myDate).format('MMM YYYY');
+  }
 }
