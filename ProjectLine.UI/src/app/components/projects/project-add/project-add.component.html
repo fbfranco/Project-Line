@@ -14,8 +14,8 @@
       <mat-form-field class="AutocompletePhases">
         <input required type="text" placeholder="Client" aria-label="Number" matInput [matAutocomplete]="UserId"  formControlName="UserId">
         <mat-autocomplete #UserId="matAutocomplete" autoActiveFirstOption>
-          <mat-option *ngFor="let optionPhase of filteredCliet | async" [value]="optionPhase.UserName">
-            {{ optionPhase.UserName }}
+          <mat-option *ngFor="let client of filteredCliet | async" [value]="client.Name">
+            {{ client.Name }}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>

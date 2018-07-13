@@ -8,7 +8,7 @@ export class User {
     Enterprise: string;
     Address: string;
     Status: boolean;
-
+    RolId: number;
   /*   RoleID?: string; */
     // Roles?: Role[];
   }

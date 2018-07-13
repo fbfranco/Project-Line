@@ -159,7 +159,7 @@ namespace ProjectLine.DATA.Persistence
         {
             using (Context = new ProjectLineContext())
             {
-                var result = await Context.User.Include("Rol").Where(x => x.Rol.RolId == id).ToListAsync();
+                var result = await Context.Users.Include("Rol").Where(x => x.RoleId == id).ToListAsync();
                 return result;
             }
         }

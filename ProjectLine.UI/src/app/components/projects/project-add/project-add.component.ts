@@ -119,6 +119,8 @@ export class ProjectAddComponent implements OnInit {
   }
 
   onSubmit() {
+    this.listClient.forEach(element => {
+    });
     console.log(this.projectFormGroup.value);
     // this.viewmodel.Project = form.value;
     // this.viewmodel.Phases = this.phaseService.phaseList;
@@ -139,7 +141,6 @@ export class ProjectAddComponent implements OnInit {
 
     // }
   }
-
 
   navigate_to_project_home_page() {
     this.router.navigate(['/Project']);
@@ -164,7 +165,7 @@ export class ProjectAddComponent implements OnInit {
   filter(value: string): User[] {
     const filterValue = value.toLowerCase();
 
-    return this.listClient.filter(option => option.UserName.toLowerCase().includes(filterValue));
+    return this.listClient.filter(option => option.Name.toLowerCase().includes(filterValue));
   }
 
 
@@ -173,11 +174,11 @@ export class ProjectAddComponent implements OnInit {
   newFormAddProject() {
     this.projectFormGroup = this.projectFormBuilder.group({
       ProjectID: '',
-      UserId: new FormControl({value: ''}),
+      UserId: new FormControl(),
       Title: '',
       Description: '',
-      StartDate: '',
-      EndDate: '',
+      StartDate: new Date(),
+      EndDate: new Date(),
     });
   }
 }

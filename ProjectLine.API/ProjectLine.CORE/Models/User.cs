@@ -15,8 +15,9 @@ namespace ProjectLine.CORE.Models
         public string Enterprise { get; set; }
         public string Address { get; set; }
         public bool Status { get; set; }
+        public int RoleId { get; set; }
 
-        //public ICollection<Role> Phases { get; set; }
+        public Rol Rol { get; set; }
 
     }
 }
