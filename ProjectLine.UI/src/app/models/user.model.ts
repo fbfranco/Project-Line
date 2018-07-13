@@ -1,16 +1,18 @@
-// import { Role } from './role.model';
+import { Rol } from './rol';
 
 export class User {
     UserID: number;
-    Name: string;
+    FirstName: string;
     LastName: string;
     Email: string;
-    Enterprise: string;
-    Address: string;
-    Status: boolean;
-    Mobile: number;
-    Phone: number;
+    Company?: string;
+    Address?: string;
+    Phone?: string;
+    Mobile?: string;
+    Username: string;
+    Password: string;
+    Active?: boolean;
+    RoleID: number;
 
-  /*   RoleID?: string; */
-    // Roles?: Role[];
+    Roles?: Rol[];
   }

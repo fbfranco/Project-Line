@@ -1,14 +1,14 @@
 
 import { Component, OnInit } from '@angular/core';
-import { NgForm, FormControl, Validators } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
 // Services
 import { UserService } from '../../../services/user.service';
-// import { RoleService } from '../../../services/role.service';
+import { RolService } from '../../../services/rol.service';
 
 // Models
 import { User } from '../../../models/user.model';
-// import { Role } from '../../../models/Role.model';
+import { Rol } from '../../../models/rol';
 
 // Material
 import { MatSnackBar } from '@angular/material';
@@ -30,24 +30,20 @@ export interface Role {
 
 export class UsersAddComponent implements OnInit {
 
-  selectedValue: string;
-
-  roles: Role[] = [
-    {value: '0', viewValue: 'Admin'},
-    {value: '1', viewValue: 'PO'},
-    {value: '2', viewValue: 'Owner'}
-  ];
-
-
   titleForm = '';
 
   constructor(
     public route: ActivatedRoute,
     public router: Router,
     public userService: UserService,
+    public roleService: RolService,
     public snackBar: MatSnackBar
   ) {
    }
+
+  selectedValue: string;
+
+  roles: Rol;
 
   ngOnInit() {
     this.titleForm = this.userService.selectedUser.UserID === undefined ? `Add User` : `Edit User`;
