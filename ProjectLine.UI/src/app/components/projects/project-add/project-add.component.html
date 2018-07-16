@@ -1,40 +1,50 @@
 <div class="Form-Container">
   <h1>{{titleForm}}</h1>
   <br>
-  <form #projectForm="ngForm" (ngSubmit)="onSubmit(projectForm)" fxLayout="column">
-    <input type="hidden" name="ProjectID" #ProjectID="ngModel" [(ngModel)]="projectService.selectedProject.ProjectID">
-    <!-- Title -->
-    <mat-form-field>
-      <input matInput maxlength="150" placeholder="Title" name="Title" #Title="ngModel" [(ngModel)]="projectService.selectedProject.Title"
-        required pattern="^[a-zA-Z0-9].*">
-      <mat-hint align="end">{{Title.value?.length || 0}}/150</mat-hint>
-      <mat-error *ngIf="Title.invalid && Title.touched">This Field is Required.</mat-error>
-    </mat-form-field>
+  <form novalidate [formGroup]="projectFormGroup" (ngSubmit)="onSubmit()" fxLayout="column">
+    <input type="hidden" formControlName="ProjectID">
+    <div class="date-content" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign.gt-xs="space-between start"
+    fxLayoutAlign.md="space-between start">
+      <!-- Title -->
+      <mat-form-field>
+        <input matInput maxlength="150" placeholder="Title" formControlName="Title" #Title required pattern="^[a-zA-Z0-9].*">
+        <mat-hint align="end">{{Title.value?.length || 0}}/150</mat-hint>
+        <mat-error *ngIf="projectFormGroup.get('Title').errors" #Error>This Field is Required.</mat-error>
+      </mat-form-field>
+      <mat-form-field class="AutocompletePhases">
+        <input required type="text" placeholder="Client" aria-label="Number" matInput [matAutocomplete]="UserId"  formControlName="UserId" pattern="^[a-zA-Z0-9].*">
+        <mat-error *ngIf="!projectFormGroup.valid">This Field is Required.</mat-error>
+        <mat-autocomplete #UserId="matAutocomplete" autoActiveFirstOption>
+          <mat-option *ngFor="let client of filteredCliet | async" [value]="client.FirstName">
+            {{ client.FirstName }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
     <!-- Description -->
     <mat-form-field>
-      <textarea matInput maxlength="1000" placeholder="Description" matTextareaAutosize matAutosizeMinRows="4" matAutosizeMaxRows="5"
-        name="Description" #Description="ngModel" [(ngModel)]="projectService.selectedProject.Description"></textarea>
+      <textarea matInput maxlength="1000" placeholder="Description" matTextareaAutosize matAutosizeMinRows="4" matAutosizeMaxRows="5" #Description formControlName="Description"></textarea>
       <mat-hint align="end">{{Description.value?.length || 0}}/1000</mat-hint>
     </mat-form-field>
     <div class="date-content" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign.gt-xs="space-between start"
       fxLayoutAlign.md="space-between start">
       <!-- Start Date -->
       <mat-form-field>
-        <input matInput [max]="projectService.selectedProject.EndDate" [matDatepicker]="startdate" placeholder="Start Date" name="StartDate"
-          #StartDate="ngModel" [(ngModel)]="projectService.selectedProject.StartDate" required>
+        <input matInput [max]="projectFormGroup.value.EndDate" [matDatepicker]="startdate" placeholder="Start Date"
+        formControlName="StartDate" required>
         <mat-datepicker-toggle matSuffix [for]="startdate"></mat-datepicker-toggle>
         <mat-datepicker #startdate disabled="false"></mat-datepicker>
       </mat-form-field>
       <!-- End Date -->
       <mat-form-field>
-        <input matInput [min]="projectService.selectedProject.StartDate" [matDatepicker]="endDate" placeholder="Estimated End Date"
-          name="EndDate" #EndDate="ngModel" [(ngModel)]="projectService.selectedProject.EndDate" required>
+        <input matInput [min]="projectFormGroup.value.StartDate" [matDatepicker]="endDate" placeholder="Estimated End Date"
+        formControlName="EndDate" required>
         <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
         <mat-datepicker #endDate disabled="false"></mat-datepicker>
       </mat-form-field>
     </div>
     <div fxLayout="row">
-      <a mat-raised-button color="primary" [disabled]="!projectForm.valid" (click)="projectForm.valid ? AddRows() : false">Add Phase</a>
+      <a mat-raised-button color="primary" [disabled]="!projectFormGroup.valid" (click)="projectFormGroup.valid ? AddRows() : false">Add Phase</a>
     </div>
     <br>
     <div class="table-content" *ngIf="dataSource.data.length > 0">
@@ -85,7 +95,7 @@
       </table>
     </div>
     <div fxLayout="row" fxLayoutGap="1em" class="form-options">
-      <button mat-raised-button color="primary" [disabled]="!projectForm.valid" type="submit">Save</button>
+      <button mat-raised-button color="primary"  type="submit" [disabled]="!projectFormGroup.valid">Save</button>
       <a mat-raised-button color="warn" routerLink="/Project">Cancel</a>
     </div>
   </form>

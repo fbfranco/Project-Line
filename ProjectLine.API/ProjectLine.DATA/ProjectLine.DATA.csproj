@@ -53,10 +53,9 @@
     <Compile Include="Persistence\PhaseRepository.cs" />
     <Compile Include="Persistence\ProjectRepository.cs" />
     <Compile Include="Persistence\UserRepository.cs" />
-    <Compile Include="Persistence\RolRepository.cs" />
+    <Compile Include="Persistence\RoleRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />

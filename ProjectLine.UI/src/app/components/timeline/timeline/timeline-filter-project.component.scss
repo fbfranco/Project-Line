@@ -89,17 +89,23 @@ h1{
   }
   & .fas, .far {
     margin-left: 1em;
+    color: $color-header;
+
   }
   & span, p {
     padding: 0 1em;
     font-weight: 100;
   }
-  & .video-demo {
-    height: 100%;
-    width: 100%;
-  }
 }
 .fas.fa-circle::before {
   font-size: 0.7em;
   margin-right: 4px;
+}
+.video-demo {
+  width: 100%;
+}
+.content-video {
+    text-indent: 0;
+    height: 200px;
+    width: 100%;
 }

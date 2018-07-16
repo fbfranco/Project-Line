@@ -45,7 +45,7 @@ namespace ProjectLine.DATA.Config
             #endregion
 
             #region Initialize Table Roles
-            context.Rols.AddOrUpdate(x => x.RoleID, new Rol
+            context.Roles.AddOrUpdate(x => x.RoleID, new Role
             {
                 Title="Admin",
                 Description="Administrador"

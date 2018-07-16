@@ -18,13 +18,14 @@ namespace ProjectLine.DATA.Config
         public DbSet<Phase> Phases { get; set; }
         public DbSet<Objective> Objectives { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Rol> Rols { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         //Tables Model
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             #region Model Project
             modelBuilder.Entity<Project>().HasKey(x => x.ProjectID);
+            modelBuilder.Entity<Project>().Property(x => x.UserID).IsRequired();
             modelBuilder.Entity<Project>().Property(x => x.Title).HasMaxLength(150).IsRequired();
             modelBuilder.Entity<Project>().Property(x => x.Description).HasMaxLength(1000);
             modelBuilder.Entity<Project>().Property(x => x.StartDate).IsRequired();
@@ -69,9 +70,9 @@ namespace ProjectLine.DATA.Config
             #endregion
 
             #region Roles
-            modelBuilder.Entity<Rol>().HasKey(x => x.RoleID);
-            modelBuilder.Entity<Rol>().Property(x => x.Title).HasMaxLength(150).IsRequired();
-            modelBuilder.Entity<Rol>().Property(x => x.Description).HasMaxLength(50).IsRequired();
+            modelBuilder.Entity<Role>().HasKey(x => x.RoleID);
+            modelBuilder.Entity<Role>().Property(x => x.Title).HasMaxLength(150).IsRequired();
+            modelBuilder.Entity<Role>().Property(x => x.Description).HasMaxLength(50).IsRequired();
             #endregion
         }
     }
