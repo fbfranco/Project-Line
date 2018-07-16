@@ -65,7 +65,7 @@ export class ProjectAddComponent implements OnInit {
     this.newForm();
     this.userService.getUsersByRol(3).subscribe((datalist: User[]) => {
       this.listClient = datalist;
-      this.filteredClient = this.projectFormGroup.controls.UserId.valueChanges.pipe(
+      this.filteredCliet = this.projectFormGroup.controls.UserId.valueChanges.pipe(
         startWith(''),
         map(value => value ? this.filter(value) : this.listClient)
       );

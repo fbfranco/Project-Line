@@ -102,6 +102,7 @@ namespace ProjectLine.DATA.Persistence
                         update.Description = project.Project.Description;
                         update.StartDate = project.Project.StartDate;
                         update.EndDate = project.Project.EndDate;
+                        update.UserID = project.Project.UserID;
 
                         context.Entry(update).State = EntityState.Modified;
                         context.SaveChanges();

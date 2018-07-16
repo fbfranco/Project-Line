@@ -111,10 +111,7 @@ export class TimelineComponent implements OnInit, DoCheck {
   UrlValid(url) {
     return url.substr(0, 21) === 'http://localhost:4200' ? true : false;
   }
-<<<<<<< HEAD
-=======
 
->>>>>>> 25d02d64c77cee59bec3912d886fc2d263e07a5e
   private sortPhaseDates(Phases: Phase[]): void {
     Phases.sort((a, b) => {
       const dateA: any = new Date(a.EndDate);
@@ -133,8 +130,4 @@ export class TimelineComponent implements OnInit, DoCheck {
     this.dtHeader = validDate;
     return validDate;
   }
-<<<<<<< HEAD
-
-=======
->>>>>>> 25d02d64c77cee59bec3912d886fc2d263e07a5e
 }
