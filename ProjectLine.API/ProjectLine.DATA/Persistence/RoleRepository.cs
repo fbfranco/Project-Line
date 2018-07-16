@@ -10,16 +10,16 @@ using System.Data.Entity;
 
 namespace ProjectLine.DATA.Persistence
 {
-    public class RolRepository : IRolRepository
+    public class RoleRepository : IRoleRepository
     {
         private ProjectLineContext Context;
-        public void Create(Rol rol)
+        public void Create(Role rol)
         {
             try
             {
                 using (Context = new ProjectLineContext())
                 {
-                    Context.Rols.Add(rol);
+                    Context.Roles.Add(rol);
                     Context.SaveChanges();
                 }
             }
@@ -36,8 +36,8 @@ namespace ProjectLine.DATA.Persistence
                 var delete = FindById(id);
                 using (Context = new ProjectLineContext())
                 {
-                    Context.Rols.Attach(delete);
-                    Context.Rols.Remove(delete);
+                    Context.Roles.Attach(delete);
+                    Context.Roles.Remove(delete);
                     Context.SaveChanges();
                 }
             }
@@ -47,25 +47,25 @@ namespace ProjectLine.DATA.Persistence
             }
         }
 
-        public Rol FindById(int id)
+        public Role FindById(int id)
         {
             using (Context = new ProjectLineContext())
             {
-                var result = Context.Rols.Where(s => s.RoleID == id).FirstOrDefaultAsync();
+                var result = Context.Roles.Where(s => s.RoleID == id).FirstOrDefaultAsync();
                 return result.Result;
             }
         }
 
-        public async Task<IEnumerable<Rol>> GetRoles()
+        public async Task<IEnumerable<Role>> GetRoles()
         {           
             using (Context = new ProjectLineContext())
             {
-                var result = await Context.Rols.Take(100).ToListAsync();
+                var result = await Context.Roles.Take(100).ToListAsync();
                 return result;
             }
         }
 
-        public void Update(Rol rol)
+        public void Update(Role rol)
         {
             try
             {

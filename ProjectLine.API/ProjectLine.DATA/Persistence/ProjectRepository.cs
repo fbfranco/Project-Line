@@ -21,7 +21,7 @@ namespace ProjectLine.DATA.Persistence
         {
             using (Context = new ProjectLineContext())
             {
-                var result = await Context.Projects.Include("Phases").Include("Phases.Objectives").Where(x => x.Active == true).ToListAsync();
+                var result = await Context.Projects.Include("User").Include("Phases").Include("Phases.Objectives").Where(x => x.Active == true).ToListAsync();
                 return result;
             }
         }
@@ -152,15 +152,6 @@ namespace ProjectLine.DATA.Persistence
             catch (Exception ex)
             {
                 Console.Write(ex);
-            }
-        }
-
-        public async Task<IEnumerable<User>> GetUsersByRol(int id)
-        {
-            using (Context = new ProjectLineContext())
-            {
-                var result = await Context.User.Include("Rol").Where(x => x.Rol.RolId == id).ToListAsync();
-                return result;
             }
         }
     }

@@ -1,12 +1,10 @@
 ﻿using ProjectLine.CORE.Interface;
 using ProjectLine.CORE.Models;
-using ProjectLine.CORE.ViewModel;
 using ProjectLine.DATA.Config;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ProjectLine.DATA.Persistence
@@ -21,7 +19,16 @@ namespace ProjectLine.DATA.Persistence
 
             using (Context = new ProjectLineContext())
             {
-                var result = await Context.Users.Include("Roles").ToListAsync();
+                var result = await Context.Users.Include("Role").ToListAsync();
+                return result;
+            }
+        }
+
+        public async Task<IEnumerable<User>> GetUsersByRol(int id)
+        {
+            using (Context = new ProjectLineContext())
+            {
+                var result = await Context.Users.Include("Role").Where(x => x.Role.RoleID == id).ToListAsync();
                 return result;
             }
         }

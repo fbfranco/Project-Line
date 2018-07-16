@@ -85,15 +85,31 @@ export class TimelineComponent implements OnInit, DoCheck {
     this.dateHeader = '';
     this.dtHeader = true;
     this.PhaseModel.forEach(phase => {
-      phase.UrlValid = this.sanitizer.bypassSecurityTrustResourceUrl(phase.DemoUrl);
+      phase.UrlValid = this.ExistUrl(phase.DemoUrl);
     });
     console.log(this.PhaseModel[0].UrlValid);
     this.Hide = true;
   }
+
   inputEmpty(event: any) {
     if (event !== '') {
       this.Hide = false;
     }
+  }
+
+  ExistUrl(url) {
+    if (!this.UrlValid(url)) {
+      return false;
+    } else {
+      const http = new XMLHttpRequest();
+      http.open('GET', url, true);
+      http.send();
+      return http.status !== 404;
+    }
+  }
+
+  UrlValid(url) {
+    return url.substr(0, 21) === 'http://localhost:4200' ? true : false;
   }
 
   private sortPhaseDates(Phases: Phase[]): void {
@@ -114,5 +130,4 @@ export class TimelineComponent implements OnInit, DoCheck {
     this.dtHeader = validDate;
     return validDate;
   }
-
 }

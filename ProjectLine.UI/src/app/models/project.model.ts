@@ -1,4 +1,5 @@
 import { Phase } from './phase.model';
+import { User } from './user.model';
 
 export class Project {
   ProjectID: number;
@@ -10,4 +11,5 @@ export class Project {
   StatusID: Number;
   Phases: Phase[];
   Active: boolean;
+  User?: User;
 }

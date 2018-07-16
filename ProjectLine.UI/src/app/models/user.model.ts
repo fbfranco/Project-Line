@@ -1,4 +1,4 @@
-// import { Role } from './role.model';
+import { Rol } from '../models/rol';
 
 export class User {
   UserID: number;
@@ -10,7 +10,5 @@ export class User {
   Active: boolean;
 
   RoleID: number;
-
-  /*   RoleID?: string; */
-  // Roles?: Role[];
+  Role?: Rol;
 }

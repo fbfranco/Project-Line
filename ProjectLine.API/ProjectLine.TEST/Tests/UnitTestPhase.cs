@@ -93,11 +93,11 @@ namespace ProjectLine.TEST.Tests
             obj.Create(o);
         }
 
-        RolRepository objrol = new RolRepository();
+        RoleRepository objrol = new RoleRepository();
         [TestMethod]
         public void AddRol()
         {
-            Rol r = new Rol()
+            Role r = new Role()
             {
                 Title = "Cliente",
                 Description="Cerabol"

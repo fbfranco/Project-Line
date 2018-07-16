@@ -16,12 +16,12 @@ import { ViewModelProject } from '../../../models/viewmodelproject.model';
 // Components
 import { PhasesFormComponent } from '../../phases/phases-form/phases-form.component';
 import { DialogConfirmationComponent } from '../../../components/dialog/dialog-confirmation/dialog-confirmation.component';
-// import { RoutingModule } from '../../../Routes/routing.module';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../../../models/user.model';
 import { Observable } from '../../../../../node_modules/rxjs';
 import { startWith, map } from '../../../../../node_modules/rxjs/operators';
+import { UserService } from '../../../services/user.service';
 
 
 const helpers = new HelperService();
@@ -40,18 +40,20 @@ export class ProjectAddComponent implements OnInit {
   titleForm = '';
   listClient: User[];
   filteredCliet: Observable<User[]>;
-  // UserId = new FormControl();
   viewmodel = new ViewModelProject();
   displayedColumns = ['Title', 'Description', 'StartDate', 'EndDate', 'Edit', 'Delete'];
   dataSource = new MatTableDataSource(this.phaseService.phaseList);
   VarSet: string;
   projectFormGroup: FormGroup;
+  EditMode: boolean;
 
   constructor(public dialog: MatDialog,
+    private activateRoute: ActivatedRoute,
     private projectFormBuilder: FormBuilder,
     public route: ActivatedRoute,
     public router: Router,
     public phaseService: PhaseService,
+    public userService: UserService,
     public projectService: ProjectService,
     public helperService: HelperService,
     public viewmodelProject: ViewModelProject,
@@ -60,9 +62,8 @@ export class ProjectAddComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.newFormAddProject();
-    this.titleForm = this.projectService.selectedProject.Title === undefined ? `Add Project` : `Edit Project`;
-    this.projectService.getUsersByRol(3).subscribe((datalist: User[]) => {
+    this.newForm();
+    this.userService.getUsersByRol(3).subscribe((datalist: User[]) => {
       this.listClient = datalist;
       this.filteredCliet = this.projectFormGroup.controls.UserId.valueChanges.pipe(
         startWith(''),
@@ -78,13 +79,10 @@ export class ProjectAddComponent implements OnInit {
     this.phaseService.phaseList.push({
       PhaseID: 0,
       Title: `Phase ${nroPhase}`,
-      // Description: 'Descriptionnn',
       Description: '',
       StartDate: this.projectService.selectedProject.StartDate,
       EndDate: new Date(),
-      DemoUrl: 'demo',
-      Edit: 'Edit',
-      Delete: 'Delete'
+      DemoUrl: 'demo'
     });
     this.dataSource = new MatTableDataSource(this.phaseService.phaseList);
   }
@@ -102,7 +100,6 @@ export class ProjectAddComponent implements OnInit {
         const indexPhase = this.phaseService.phaseList.indexOf(dataPhases);
         this.phaseService.phaseList.splice(indexPhase, 1);
         this.dataSource.filter = '';
-        console.log(this.phaseService.phaseList);
       }
     });
 
@@ -119,25 +116,28 @@ export class ProjectAddComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.projectFormGroup.value);
-    // this.viewmodel.Project = form.value;
-    // this.viewmodel.Phases = this.phaseService.phaseList;
-    // console.table(form.value);
+    this.listClient.forEach(element => {
+      if (element.FirstName === this.projectFormGroup.value.UserId) {
+        this.projectFormGroup.value.UserId = element.UserID;
+      }
+    });
+    this.viewmodel.Project = this.projectFormGroup.value;
+    this.viewmodel.Phases = this.phaseService.phaseList;
 
-    // if (typeof form.value.ProjectID === 'undefined') {
-    //   this.projectService.postProject(this.viewmodel).subscribe(data => {
-    //     this.openSnackBar('Saved');
-    //     this.navigate_to_project_home_page();
-    //     this.resetForm();
-    //   });
-    // } else {
-    //   this.projectService.putProject(this.viewmodel).subscribe(data => {
-    //     this.openSnackBar('Saved');
-    //     this.navigate_to_project_home_page();
-    //     this.resetForm();
-    //   });
-
-    // }
+    if (this.projectFormGroup.value.ProjectID === '') {
+      this.projectFormGroup.value.ProjectID = 0;
+      this.projectService.postProject(this.viewmodel).subscribe(data => {
+        this.openSnackBar('Saved');
+        this.navigate_to_project_home_page();
+        this.resetForm();
+      });
+    } else {
+      this.projectService.putProject(this.viewmodel).subscribe(data => {
+        this.openSnackBar('Saved');
+        this.navigate_to_project_home_page();
+        this.resetForm();
+      });
+    }
   }
 
 
@@ -154,8 +154,6 @@ export class ProjectAddComponent implements OnInit {
     this.phaseService.phaseList = [];
     this.dataSource = new MatTableDataSource(this.phaseService.phaseList);
     this.projectService.selectedProject = new Project();
-    this.projectService.selectedProject.StartDate = new Date();
-    this.projectService.selectedProject.EndDate = new Date();
   }
   getSelectedPhase(phase: Phase) {
     this.phaseService.selectedPhase = Object.assign({}, phase);
@@ -164,20 +162,41 @@ export class ProjectAddComponent implements OnInit {
   filter(value: string): User[] {
     const filterValue = value.toLowerCase();
 
-    return this.listClient.filter(option => option.UserName.toLowerCase().includes(filterValue));
+    return this.listClient.filter(option => option.FirstName.toLowerCase().includes(filterValue));
   }
-
-
-
 
   newFormAddProject() {
     this.projectFormGroup = this.projectFormBuilder.group({
       ProjectID: '',
-      UserId: new FormControl({value: ''}),
+      UserId: new FormControl(),
       Title: '',
       Description: '',
-      StartDate: '',
-      EndDate: '',
+      StartDate: new Date(),
+      EndDate: new Date(),
+    });
+  }
+
+  newFormEditProject() {
+    this.projectFormGroup = this.projectFormBuilder.group({
+      ProjectID: this.projectService.selectedProject.ProjectID,
+      UserId: this.projectService.selectedProject.User.FirstName,
+      Title: this.projectService.selectedProject.Title,
+      Description: this.projectService.selectedProject.Description,
+      StartDate: this.projectService.selectedProject.StartDate,
+      EndDate: this.projectService.selectedProject.EndDate,
+    });
+    console.log(this.projectFormGroup.value);
+  }
+
+  newForm() {
+    this.activateRoute.params.subscribe(param => {
+      if (param['id'] === undefined) {
+        this.newFormAddProject();
+        this.titleForm = 'Add Project';
+      } else {
+        this.newFormEditProject();
+        this.titleForm = 'Edit Project';
+      }
     });
   }
 }

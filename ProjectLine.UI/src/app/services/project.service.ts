@@ -40,8 +40,4 @@ export class ProjectService {
     const requestOptions = new RequestOptions({ method: RequestMethod.Put, headers: headerOptions });
     return this.http.put(`${this.apiURL}InactiveProject/${id}`, requestOptions);
   }
-
-  getUsersByRol(idRol): Observable<User[]> {
-    return this.http.get(`${this.apiURL}GetUsersByRol/${idRol}`).pipe(map((data: Response) => <User[]>data.json()));
-  }
 }

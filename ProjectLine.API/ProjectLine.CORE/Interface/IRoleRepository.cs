@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace ProjectLine.CORE.Interface
 {
-   public interface IRolRepository
+   public interface IRoleRepository
     {
-        Task<IEnumerable<Rol>> GetRoles();
-        Rol FindById(int id);
-        void Create(Rol rol);
-        void Update(Rol rol);
+        Task<IEnumerable<Role>> GetRoles();
+        Role FindById(int id);
+        void Create(Role rol);
+        void Update(Role rol);
         void Delete(int id);
     }
 }
