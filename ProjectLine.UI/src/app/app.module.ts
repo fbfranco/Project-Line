@@ -43,6 +43,8 @@ import { UsersListComponent } from './components/users/users-list/users-list.com
 import { RolesListComponent } from './components/roles/roles-list/roles-list.component';
 import { UsersAddComponent } from './components/users/users-add/users-add.component';
 import { RolesAddComponent } from './components/roles/roles-add/roles-add.component';
+import { ProgressComponent } from './components/progress/progress.component';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -66,7 +68,9 @@ import { RolesAddComponent } from './components/roles/roles-add/roles-add.compon
     UsersListComponent,
     RolesListComponent,
     UsersAddComponent,
-    RolesAddComponent
+    RolesAddComponent,
+    ProgressComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

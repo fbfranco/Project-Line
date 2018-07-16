@@ -10,11 +10,12 @@ import { HelperService } from '../../services/helper.service';
 export class ToolbarComponent implements OnInit {
 
   constructor(public media:  ObservableMedia, public helperService: HelperService) { }
-
   ngOnInit() {
   }
-
   SideNavToggle() {
     this.helperService.SlideMenu.toggle();
+  }
+  GoStart() {
+    this.helperService.Ocultar = false;
   }
 }

@@ -4,9 +4,17 @@ $color-primary: rgb(6, 170, 214);
 $color-dark: rgb(34, 45, 49);
 
 body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  background-image: url("src/assets/plugins/00002.jpg");
+
+  background-position: center center;
+
+  background-repeat: no-repeat;
+
+  background-attachment: fixed;
+
+  background-size: cover;
+
+  background-color:#464646;
 }
 
 ::-webkit-scrollbar-track {
