@@ -27,6 +27,13 @@ namespace ProjectLine.Controllers
             return user;
         }
 
+        // GET: api/Projects
+        public async Task<IEnumerable<User>> GetUsersByRol(int id)
+        {
+            var user = await Repository.GetUsersByRol(id);
+            return user;
+        }
+
         // POST: api/Users/Create
         public IHttpActionResult PostUser([FromBody]User user)
         {

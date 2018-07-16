@@ -16,23 +16,23 @@ using ProjectLine.DATA.Persistence;
 namespace ProjectLine.Controllers
 {
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
-    public class RolsController : ApiController
+    public class RolesController : ApiController
     {
         private ProjectLineContext db = new ProjectLineContext();
 
-        RolRepository Repository = new RolRepository();
+        RoleRepository Repository = new RoleRepository();
 
         // GET: api/Rols
-        public IQueryable<Rol> GetRols()
+        public IQueryable<Role> GetRols()
         {
-            return db.Rols;
+            return db.Roles;
         }
 
         // GET: api/Rols/5
-        [ResponseType(typeof(Rol))]
+        [ResponseType(typeof(Role))]
         public IHttpActionResult GetRol(int id)
         {
-            Rol rol = db.Rols.Find(id);
+            Role rol = db.Roles.Find(id);
             if (rol == null)
             {
                 return NotFound();
@@ -43,7 +43,7 @@ namespace ProjectLine.Controllers
 
         // PUT: api/Rols/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutRol(int id, Rol rol)
+        public IHttpActionResult PutRol(int id, Role rol)
         {
             if (!ModelState.IsValid)
             {
@@ -77,8 +77,8 @@ namespace ProjectLine.Controllers
         }
 
         // POST: api/Rols
-        [ResponseType(typeof(Rol))]
-        public IHttpActionResult SaveRol([FromBody]Rol rol)
+        [ResponseType(typeof(Role))]
+        public IHttpActionResult SaveRol([FromBody]Role rol)
         {
             if (!ModelState.IsValid)
             {
@@ -99,16 +99,16 @@ namespace ProjectLine.Controllers
         }
 
         // DELETE: api/Rols/5
-        [ResponseType(typeof(Rol))]
+        [ResponseType(typeof(Role))]
         public IHttpActionResult DeleteRol(int id)
         {
-            Rol rol = db.Rols.Find(id);
+            Role rol = db.Roles.Find(id);
             if (rol == null)
             {
                 return NotFound();
             }
 
-            db.Rols.Remove(rol);
+            db.Roles.Remove(rol);
             db.SaveChanges();
 
             return Ok(rol);
@@ -125,7 +125,7 @@ namespace ProjectLine.Controllers
 
         private bool RolExists(int id)
         {
-            return db.Rols.Count(e => e.RoleID == id) > 0;
+            return db.Roles.Count(e => e.RoleID == id) > 0;
         }
     }
 }

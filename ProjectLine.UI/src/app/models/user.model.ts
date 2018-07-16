@@ -1,6 +1,5 @@
 import { Rol } from '../models/rol';
 
-
 export class User {
   UserID: number;
   FirstName: string;

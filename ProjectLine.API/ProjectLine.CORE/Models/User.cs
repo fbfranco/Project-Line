@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ProjectLine.CORE.Models
+﻿namespace ProjectLine.CORE.Models
 {
     public class User
     {
@@ -23,7 +17,7 @@ namespace ProjectLine.CORE.Models
         public int RoleID { get; set; }
 
         // A User Contain a Role
-        public Rol Rol { get; set; }
+        public Role Role { get; set; }
 
     }
 }

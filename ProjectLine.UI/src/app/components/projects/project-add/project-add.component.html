@@ -9,12 +9,13 @@
       <mat-form-field>
         <input matInput maxlength="150" placeholder="Title" formControlName="Title" #Title required pattern="^[a-zA-Z0-9].*">
         <mat-hint align="end">{{Title.value?.length || 0}}/150</mat-hint>
-        <mat-error *ngIf="Title.invalid && Title.touched">This Field is Required.</mat-error>
+        <mat-error *ngIf="projectFormGroup.get('Title').errors" #Error>This Field is Required.</mat-error>
       </mat-form-field>
       <mat-form-field class="AutocompletePhases">
-        <input required type="text" placeholder="Client" aria-label="Number" matInput [matAutocomplete]="UserId"  formControlName="UserId">
+        <input required type="text" placeholder="Client" aria-label="Number" matInput [matAutocomplete]="UserId"  formControlName="UserId" pattern="^[a-zA-Z0-9].*">
+        <mat-error *ngIf="!projectFormGroup.valid">This Field is Required.</mat-error>
         <mat-autocomplete #UserId="matAutocomplete" autoActiveFirstOption>
-          <mat-option *ngFor="let client of filteredClient | async" [value]="client.FirstName">
+          <mat-option *ngFor="let client of filteredCliet | async" [value]="client.FirstName">
             {{ client.FirstName }}
           </mat-option>
         </mat-autocomplete>
@@ -29,14 +30,14 @@
       fxLayoutAlign.md="space-between start">
       <!-- Start Date -->
       <mat-form-field>
-        <input matInput [max]="projectService.selectedProject.EndDate" [matDatepicker]="startdate" placeholder="Start Date"
+        <input matInput [max]="projectFormGroup.value.EndDate" [matDatepicker]="startdate" placeholder="Start Date"
         formControlName="StartDate" required>
         <mat-datepicker-toggle matSuffix [for]="startdate"></mat-datepicker-toggle>
         <mat-datepicker #startdate disabled="false"></mat-datepicker>
       </mat-form-field>
       <!-- End Date -->
       <mat-form-field>
-        <input matInput [min]="projectService.selectedProject.StartDate" [matDatepicker]="endDate" placeholder="Estimated End Date"
+        <input matInput [min]="projectFormGroup.value.StartDate" [matDatepicker]="endDate" placeholder="Estimated End Date"
         formControlName="EndDate" required>
         <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
         <mat-datepicker #endDate disabled="false"></mat-datepicker>
@@ -94,7 +95,7 @@
       </table>
     </div>
     <div fxLayout="row" fxLayoutGap="1em" class="form-options">
-      <button mat-raised-button color="primary"  type="submit">Save</button>
+      <button mat-raised-button color="primary"  type="submit" [disabled]="!projectFormGroup.valid">Save</button>
       <a mat-raised-button color="warn" routerLink="/Project">Cancel</a>
     </div>
   </form>

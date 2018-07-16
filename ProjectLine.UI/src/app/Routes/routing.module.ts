@@ -14,7 +14,7 @@ import { UsersAddComponent } from '../components/users/users-add/users-add.compo
 const routes: Routes = [
   { path: 'Project', component: ProjectListComponent },
   { path: 'Project/Add', component: ProjectAddComponent },
-  { path: 'Project/Edit', component: ProjectAddComponent },
+  { path: 'Project/Edit/:id', component: ProjectAddComponent },
   { path: 'Project/Add/Phase', component: PhasesFormComponent },
   { path: 'Client', component: PhasesFormComponent },
   { path: 'Objective', component: ObjectivesComponent },

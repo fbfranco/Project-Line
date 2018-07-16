@@ -21,7 +21,7 @@ namespace ProjectLine.DATA.Persistence
         {
             using (Context = new ProjectLineContext())
             {
-                var result = await Context.Projects.Include("Phases").Include("Phases.Objectives").Where(x => x.Active == true).ToListAsync();
+                var result = await Context.Projects.Include("User").Include("Phases").Include("Phases.Objectives").Where(x => x.Active == true).ToListAsync();
                 return result;
             }
         }
