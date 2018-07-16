@@ -1,0 +1,39 @@
+body{
+    /* background-color: cornflowerblue; */
+    background-image: url(../../assets/plugins/00002.jpg);
+
+  background-position: center center;
+
+  background-repeat: no-repeat;
+
+  background-attachment: fixed;
+
+  background-size: cover;
+
+  background-color:#464646;
+   
+}
+.dialogdemoBasicUsage #popupContainer {
+    position: relative;
+  }
+  
+  #login-dialog {
+    max-width: 90%;
+    width: 500px;
+  }
+
+  mat-card{
+    width: 350px;
+    height: 285px;
+    margin: auto; 
+    margin-top: 25%;
+    vertical-align: middle;
+    justify-content: center;
+  }
+  .form-row{
+    display: flex;
+  }
+  .form-row input{
+    flex: 1;
+  }
+  
