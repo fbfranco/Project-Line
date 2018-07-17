@@ -4,31 +4,23 @@ $color-primary: rgb(6, 170, 214);
 $color-dark: rgb(34, 45, 49);
 
 body {
-  background-image: url("src/assets/plugins/00002.jpg");
-
-  background-position: center center;
-
-  background-repeat: no-repeat;
-
-  background-attachment: fixed;
-
-  background-size: cover;
-
-  background-color:#464646;
+   background-image: url("src/assets/00003.png");
+   background-position: center center;
+   background-repeat: no-repeat;
+   background-attachment: fixed;
+   background-size: cover;
+   background-color:#464646;
 }
-
 ::-webkit-scrollbar-track {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	background-color: #F5F5F5;
 	border-radius: 10px;
 }
-
 ::-webkit-scrollbar {
 	width: 7px;
 	height: 7px;
 	background-color: #F5F5F5;
 }
-
 ::-webkit-scrollbar-thumb {
 	border-radius: 7px;
 	background-color: $color-primary;

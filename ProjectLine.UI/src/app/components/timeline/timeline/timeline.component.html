@@ -22,7 +22,7 @@
         <div class="time">{{Phase.EndDate | date: 'MMM d'}}</div>
         <div class="events">
           <div class="events-header">{{Phase.Title}}</div>
-          <div class="events-body">
+          <div class="events-body" ng-style="setStyles()">
             <div class="row">
               <div class="events-desc">
                 <div class="slide-phase">
