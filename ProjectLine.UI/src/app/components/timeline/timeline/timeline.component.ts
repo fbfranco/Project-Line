@@ -27,10 +27,6 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
   InitTimeline: boolean;
   DisplayCard: boolean;
 
-  // Variables for show month range
-  dtHeader: string;
-  dtValid: boolean;
-
   // filter autocomplete
   myControl = new FormControl();
   options: string[];
@@ -87,9 +83,7 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
     this.PhaseModel.forEach(phase => {
       phase.UrlValid = this.ExistUrl(phase.DemoUrl);
     });
-    // console.log(this.PhaseModel[0].UrlValid);
     this.Hide = true;
-    this.dtHeader = '';
     document.execCommand($('.events-body').slideUp());
   }
 
@@ -121,36 +115,20 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
       return dateA - dateB; // Ascending format
     });
   }
+
   ngAfterContentInit() {
     $('.events-body').slideUp();
     $('.events-footer').slideUp();
   }
 
-  getDateHeader(date: string): boolean {
-    let dateValid = false;
-    if (date !== this.dtHeader) {
-      this.dtHeader = date;
-      dateValid = true;
-    }
-    this.dtValid = !dateValid;
-    return dateValid;
-  }
-
-  uniqueDate(phases: Phase[]): boolean {
+  getValidate(phaseDate: Date, strDate: string): boolean {
+    const date  = this.helperService.MonthYearFormat(phaseDate);
     let valid = false;
-    if (phases.length !== 0) {
-      let date = this.helperService.MonthYearFormat(phases[0].EndDate);
-      phases.forEach(phase => {
-        const strDate = this.helperService.MonthYearFormat(phase.EndDate);
-        if (strDate !== date) {
-          date = strDate;
+    if (date === strDate) {
           valid = true;
         }
-      });
-    }
     return valid;
   }
-
 
   setStyles() {
     const styles = {
