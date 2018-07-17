@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
+import { Component, OnInit, DoCheck, AfterContentInit } from '@angular/core';
 
 // Services
 import { ProjectService } from '../../../services/project.service';
@@ -18,13 +18,14 @@ declare var $: any;
   templateUrl: './timeline.component.html',
   styleUrls: ['./timeline-filter-project.component.scss']
 })
-export class TimelineComponent implements OnInit, DoCheck {
+export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
   PhaseModel: Phase[];
   ListProjects: Project[];
 
   // Variables when show the TimeLine
   Hide: boolean;
   InitTimeline: boolean;
+  DisplayCard: boolean;
 
   // Variables for show month range
   dtHeader: string;
@@ -52,6 +53,7 @@ export class TimelineComponent implements OnInit, DoCheck {
     }
   }
   ngOnInit() {
+    this.DisplayCard = false;
     this.options = [];
     this.getProjectList();
     this.filteredOptions = this.myControl.valueChanges
@@ -88,6 +90,7 @@ export class TimelineComponent implements OnInit, DoCheck {
     // console.log(this.PhaseModel[0].UrlValid);
     this.Hide = true;
     this.dtHeader = '';
+    document.execCommand($('.events-body').slideUp());
   }
 
   inputEmpty(event: any) {
@@ -118,6 +121,10 @@ export class TimelineComponent implements OnInit, DoCheck {
       return dateA - dateB; // Ascending format
     });
   }
+  ngAfterContentInit() {
+    $('.events-body').slideUp();
+    $('.events-footer').slideUp();
+  }
 
   getDateHeader(date: string): boolean {
     let dateValid = false;
@@ -142,5 +149,13 @@ export class TimelineComponent implements OnInit, DoCheck {
       });
     }
     return valid;
+  }
+
+
+  setStyles() {
+    const styles = {
+      background: 'red !important'
+    };
+    return styles;
   }
 }

@@ -1,18 +1,4 @@
-body{
-    /* background-color: cornflowerblue; */
-    background-image: url(../../assets/plugins/00002.jpg);
 
-  background-position: center center;
-
-  background-repeat: no-repeat;
-
-  background-attachment: fixed;
-
-  background-size: cover;
-
-  background-color:#464646;
-   
-}
 .dialogdemoBasicUsage #popupContainer {
     position: relative;
   }
