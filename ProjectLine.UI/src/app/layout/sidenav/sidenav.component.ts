@@ -36,6 +36,7 @@ export class SidenavComponent implements OnInit {
   goRouteLink(url: string) {
     this.router.navigateByUrl('', { skipLocationChange: true })
       .then(() => this.router.navigate([url]));
+    this.sideNav.close();
   }
 
 }
