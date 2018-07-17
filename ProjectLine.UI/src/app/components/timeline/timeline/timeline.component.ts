@@ -27,8 +27,8 @@ export class TimelineComponent implements OnInit, DoCheck {
   InitTimeline: boolean;
 
   // Variables for show month range
-  dateHeader: string;
-  dtHeader: boolean;
+  dtHeader: string;
+  dtValid: boolean;
 
   // filter autocomplete
   myControl = new FormControl();
@@ -82,13 +82,12 @@ export class TimelineComponent implements OnInit, DoCheck {
     });
     this.PhaseModel = this.DataProject.Phases;
     this.sortPhaseDates(this.PhaseModel);
-    this.dateHeader = '';
-    this.dtHeader = true;
     this.PhaseModel.forEach(phase => {
       phase.UrlValid = this.ExistUrl(phase.DemoUrl);
     });
-    console.log(this.PhaseModel[0].UrlValid);
+    // console.log(this.PhaseModel[0].UrlValid);
     this.Hide = true;
+    this.dtHeader = '';
   }
 
   inputEmpty(event: any) {
@@ -120,14 +119,28 @@ export class TimelineComponent implements OnInit, DoCheck {
     });
   }
 
-  getDateHeader(date: Date): boolean {
-    let validDate = false;
-    const strDate = this.helperService.MonthYearFormat(date);
-    if (strDate !== this.dateHeader) {
-      this.dateHeader = strDate;
-      validDate = true;
+  getDateHeader(date: string): boolean {
+    let dateValid = false;
+    if (date !== this.dtHeader) {
+      this.dtHeader = date;
+      dateValid = true;
     }
-    this.dtHeader = validDate;
-    return validDate;
+    this.dtValid = !dateValid;
+    return dateValid;
+  }
+
+  uniqueDate(phases: Phase[]): boolean {
+    let valid = false;
+    if (phases.length !== 0) {
+      let date = this.helperService.MonthYearFormat(phases[0].EndDate);
+      phases.forEach(phase => {
+        const strDate = this.helperService.MonthYearFormat(phase.EndDate);
+        if (strDate !== date) {
+          date = strDate;
+          valid = true;
+        }
+      });
+    }
+    return valid;
   }
 }
