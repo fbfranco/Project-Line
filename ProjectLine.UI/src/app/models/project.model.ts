@@ -3,7 +3,7 @@ import { User } from './user.model';
 
 export class Project {
   ProjectID: number;
-  UserId: number;
+  UserID: number;
   Title: string;
   Description: string;
   StartDate: Date;
