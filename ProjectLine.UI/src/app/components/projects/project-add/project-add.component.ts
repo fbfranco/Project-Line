@@ -40,6 +40,8 @@ export class ProjectAddComponent implements OnInit {
   titleForm = '';
   listClient: User[];
   filteredCliet: Observable<User[]>;
+  listOwner: User[];
+  filteredOwner: Observable<User[]>;
   viewmodel = new ViewModelProject();
   displayedColumns = ['Title', 'Description', 'StartDate', 'EndDate', 'Edit', 'Delete'];
   dataSource = new MatTableDataSource(this.phaseService.phaseList);
@@ -68,6 +70,15 @@ export class ProjectAddComponent implements OnInit {
       this.filteredCliet = this.projectFormGroup.controls.UserId.valueChanges.pipe(
         startWith(''),
         map(value => value ? this.filter(value) : this.listClient)
+      );
+    }, error => {
+      console.log('Error getting the list of projects');
+    });
+    this.userService.getUsersByRol(2).subscribe((datalist: User[]) => {
+      this.listOwner = datalist;
+      this.filteredOwner = this.projectFormGroup.controls.OwnerId.valueChanges.pipe(
+        startWith(''),
+        map(value => value ? this.filter(value) : this.listOwner)
       );
     }, error => {
       console.log('Error getting the list of projects');
@@ -121,6 +132,11 @@ export class ProjectAddComponent implements OnInit {
         this.projectFormGroup.value.UserId = element.UserID;
       }
     });
+    this.listOwner.forEach(element => {
+      if (element.FirstName === this.projectFormGroup.value.OwnerId) {
+        this.projectFormGroup.value.OwnerId = element.UserID;
+      }
+    });
     this.viewmodel.Project = this.projectFormGroup.value;
     this.viewmodel.Phases = this.phaseService.phaseList;
 
@@ -168,6 +184,7 @@ export class ProjectAddComponent implements OnInit {
     this.projectFormGroup = this.projectFormBuilder.group({
       ProjectID: '',
       UserId: new FormControl(),
+      OwnerId: new FormControl(),
       Title: '',
       Description: '',
       StartDate: new Date(),
@@ -179,12 +196,13 @@ export class ProjectAddComponent implements OnInit {
     this.projectFormGroup = this.projectFormBuilder.group({
       ProjectID: this.projectService.selectedProject.ProjectID,
       UserId: this.projectService.selectedProject.User.FirstName,
+      OwnerId: this.projectService.selectedProject.User.FirstName,
       Title: this.projectService.selectedProject.Title,
       Description: this.projectService.selectedProject.Description,
       StartDate: this.projectService.selectedProject.StartDate,
       EndDate: this.projectService.selectedProject.EndDate,
     });
-    console.log(this.projectFormGroup.value);
+    console.log(this.projectService.selectedProject);
   }
 
   newForm() {

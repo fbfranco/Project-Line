@@ -4,19 +4,28 @@
   <form novalidate [formGroup]="projectFormGroup" (ngSubmit)="onSubmit()" fxLayout="column">
     <input type="hidden" formControlName="ProjectID">
     <div class="date-content" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign.gt-xs="space-between start"
-    fxLayoutAlign.md="space-between start">
+    fxLayoutAlign.md="space-between start" fxLayoutGap="15px">
       <!-- Title -->
       <mat-form-field>
         <input matInput maxlength="150" placeholder="Title" formControlName="Title" #Title required pattern="^[a-zA-Z0-9].*">
         <mat-hint align="end">{{Title.value?.length || 0}}/150</mat-hint>
         <mat-error *ngIf="projectFormGroup.get('Title').errors" #Error>This Field is Required.</mat-error>
       </mat-form-field>
-      <mat-form-field class="AutocompletePhases">
+      <mat-form-field>
         <input required type="text" placeholder="Client" aria-label="Number" matInput [matAutocomplete]="UserId"  formControlName="UserId" pattern="^[a-zA-Z0-9].*">
         <mat-error *ngIf="!projectFormGroup.valid">This Field is Required.</mat-error>
         <mat-autocomplete #UserId="matAutocomplete" autoActiveFirstOption>
           <mat-option *ngFor="let client of filteredCliet | async" [value]="client.FirstName">
             {{ client.FirstName }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field>
+        <input required type="text" placeholder="Product Owner" aria-label="Number" matInput [matAutocomplete]="OwnerId"  formControlName="OwnerId" pattern="^[a-zA-Z0-9].*">
+        <mat-error *ngIf="!projectFormGroup.valid">This Field is Required.</mat-error>
+        <mat-autocomplete #OwnerId="matAutocomplete" autoActiveFirstOption>
+          <mat-option *ngFor="let owner of filteredOwner | async" [value]="owner.FirstName">
+            {{ owner.FirstName }}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>

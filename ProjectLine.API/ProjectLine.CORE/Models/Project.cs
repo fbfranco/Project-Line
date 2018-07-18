@@ -7,6 +7,7 @@ namespace ProjectLine.CORE.Models
     {
         public int ProjectID { get; set; }
         public int UserID { get; set; }
+        public int OwnerID { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime StartDate { get; set; }
