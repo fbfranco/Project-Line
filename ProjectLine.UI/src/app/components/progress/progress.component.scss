@@ -1,11 +1,16 @@
-.graph{
-    position: fixed;
-    top: 100px;
-    left: 0px;
+.percentage {
+    top: 200px;
+    left: 2px;
+    @media screen and (min-width: 1280px) {
+        position: fixed;
+    }
 }
 
 .circle {
     width: 320px;
+    @media screen and (min-width: 1280px) {
+        height: 320px;
+    }
 }
 
 .legend {
