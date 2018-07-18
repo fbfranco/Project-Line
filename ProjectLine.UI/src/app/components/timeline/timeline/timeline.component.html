@@ -18,58 +18,60 @@
   <div class="VivaTimeline" fxFlex.gt-md="60%" fxFlex.lt-lg="100%">
     <h1 class="project-title" LayoutAlign="center center">{{ DataProject.Title }}</h1>
     <dl class="vertical-line">
-      <dt *ngIf="!dtHeader">{{DataProject.Phases[0].EndDate | date: 'MMMM y'}}</dt>
-      <div *ngFor="let Phase of PhaseModel; let i = index">
-        <dt *ngIf="getDateHeader(Phase.EndDate)">{{Phase.EndDate | date: 'MMMM y'}}</dt>
-        <dd [ngClass]="{'pos-right': i%2 != 0,'pos-left': i%2 == 0}" class="clearfix">
-          <div class="circ"></div>
-          <div class="time">{{Phase.EndDate | date: 'MMM d'}}</div>
-          <div class="events">
-            <div class="events-header">{{Phase.Title}}</div>
-            <div class="events-body">
-              <div class="row">
-                <div class="events-desc">
-                  <div class="slide-phase">
-                    <h5 class="title-slide-phase">
-                      <i class="far fa-calendar-alt"></i>StartDate:
-                      <span>{{helperService.DateFormat(Phase.StartDate)}}</span>
-                    </h5>
-                    <h5 class="title-slide-phase">
-                      <i class="far fa-calendar-alt"></i>EndDate:
-                      <span>{{helperService.DateFormat(Phase.EndDate)}}</span>
-                    </h5>
-                    <div class="cnt-description-slide-phase">
-                      <i class="fas fa-align-left"></i>
-                      <h5 class="title-slide-phase">Description:</h5>
-                      <p>{{Phase.Description}}</p>
+      <div *ngFor="let date of this.helperService.getMonthsInRange(DataProject.StartDate,DataProject.EndDate)">
+        <dt>{{date}}</dt>
+        <div *ngFor="let Phase of PhaseModel; let i = index">
+          <dd *ngIf="getValidate(Phase.EndDate,date)" [ngClass]="{'pos-right': i%2 != 0,'pos-left': i%2 == 0}" class="clearfix">
+            <div class="circ"></div>
+            <div class="time">{{Phase.EndDate | date: 'MMM d'}}</div>
+            <div class="events">
+              <div class="events-header">{{Phase.Title}}</div>
+              <div class="events-body">
+                <div class="row">
+                  <div class="events-desc">
+                    <div class="slide-phase">
+                      <h5 class="title-slide-phase">
+                        <i class="far fa-calendar-alt"></i>StartDate:
+                        <span>{{helperService.DateFormat(Phase.StartDate)}}</span>
+                      </h5>
+                      <h5 class="title-slide-phase">
+                        <i class="far fa-calendar-alt"></i>EndDate:
+                        <span>{{helperService.DateFormat(Phase.EndDate)}}</span>
+                      </h5>
+                      <div class="cnt-description-slide-phase">
+                        <i class="fas fa-align-left"></i>
+                        <h5 class="title-slide-phase">Description:</h5>
+                        <p>{{Phase.Description}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="events-desc">
+                    <div class="objectives-list" *ngFor="let obj of Phase.Objectives">
+                      <i [ngClass]="{'fa fa-check': obj.Completed == true, 'fas fa-circle': obj.Completed == false}"></i>
+                      <p>{{obj.Title}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" *ngIf="Phase.UrlValid">
+                  <div class="events-desc">
+                    <div class="content-video">
+                      <vg-player class="video-demo">
+                        <video [vgMedia]="media" #media id="singleVideo" preload="auto" controls crossorigin>
+                          <source [src]="sanitizer.bypassSecurityTrustResourceUrl(Phase.DemoUrl)" type="video/mp4">
+                        </video>
+                      </vg-player>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="events-desc">
-                  <div class="objectives-list" *ngFor="let obj of Phase.Objectives">
-                    <i [ngClass]="{'fa fa-check': obj.Completed == true, 'fas fa-circle': obj.Completed == false}"></i>
-                    <p>{{obj.Title}}</p>
-                  </div>
-                </div>
-              </div>
-              <div class="row" *ngIf="Phase.UrlValid">
-                <div class="events-desc">
-                  <div class="content-video">
-                    <vg-player class="video-demo">
-                      <video [vgMedia]="media" #media id="singleVideo" preload="auto" controls crossorigin>
-                        <source [src]="sanitizer.bypassSecurityTrustResourceUrl(Phase.DemoUrl)" type="video/mp4">
-                      </video>
-                    </vg-player>
-                  </div>
-                </div>
+              <div class="events-footer">
               </div>
             </div>
-            <div class="events-footer">
-            </div>
-          </div>
-        </dd>
+          </dd>
+        </div>
       </div>
     </dl>
   </div>
+</div>

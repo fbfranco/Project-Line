@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as _moment from 'moment';
 
-const moment =  _moment;
+const moment = _moment;
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +18,8 @@ export class HelperService {
       },
       display: {
         dateInput: 'L',
-        monthYearLabel: 'MMM YYYY' ,
-        dateA11yLabel: 'LL' ,
+        monthYearLabel: 'MMM YYYY',
+        dateA11yLabel: 'LL',
         monthYearA11yLabel: 'MMMM YYYY'
       }
     };
@@ -30,6 +30,17 @@ export class HelperService {
   }
 
   MonthYearFormat(myDate: Date) {
-    return moment(myDate).format('MMM YYYY');
+    return moment(myDate).format('MMMM YYYY');
+  }
+
+  getMonthsInRange(dateInit: Date, dateFinish: Date) {
+    const dateStart = moment(dateInit);
+    const dateEnd = moment(dateFinish);
+    const monthsValues = [];
+    while (dateEnd > dateStart || dateStart.format('M') === dateEnd.format('M')) {
+      monthsValues.push(dateStart.format('MMMM YYYY'));
+      dateStart.add(1, 'month');
+    }
+    return monthsValues;
   }
 }
