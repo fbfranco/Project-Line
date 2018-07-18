@@ -4,6 +4,7 @@ import { User } from './user.model';
 export class Project {
   ProjectID: number;
   UserId: number;
+  OwnerId: number;
   Title: string;
   Description: string;
   StartDate: Date;
