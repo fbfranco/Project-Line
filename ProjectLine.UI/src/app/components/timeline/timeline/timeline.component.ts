@@ -83,6 +83,7 @@ export class TimelineComponent implements OnInit, DoCheck {
     console.log(this.PhaseModel[0].UrlValid);
     this.Hide = true;
   }
+
   inputEmpty(event: any) {
     if (event !== '') {
       this.Hide = false;

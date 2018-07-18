@@ -11,6 +11,7 @@ export class User {
     Mobile?: string;
     Username: string;
     Password: string;
+    ConfirmPassword: string;
     Active?: boolean;
     RoleID: number;
 
