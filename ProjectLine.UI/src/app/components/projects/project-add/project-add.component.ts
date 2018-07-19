@@ -1,6 +1,6 @@
 // Config
 import { Component, OnInit } from '@angular/core';
-import { NgForm, FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { NgForm, FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 // Angular Material
 import { MatDialog, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
@@ -22,6 +22,7 @@ import { User } from '../../../models/user.model';
 import { Observable } from '../../../../../node_modules/rxjs';
 import { startWith, map } from '../../../../../node_modules/rxjs/operators';
 import { UserService } from '../../../services/user.service';
+import { isSelectedValid } from '../../../validators/client-owner-autocomplete.validator';
 
 
 const helpers = new HelperService();
@@ -65,24 +66,6 @@ export class ProjectAddComponent implements OnInit {
 
   ngOnInit() {
     this.newForm();
-    this.userService.getUsersByRol(3).subscribe((datalist: User[]) => {
-      this.listClient = datalist;
-      this.filteredCliet = this.projectFormGroup.controls.UserId.valueChanges.pipe(
-        startWith(''),
-        map(value => value ? this.filter(value) : this.listClient)
-      );
-    }, error => {
-      console.log('Error getting the list of projects');
-    });
-    this.userService.getUsersByRol(2).subscribe((datalist: User[]) => {
-      this.listOwner = datalist;
-      this.filteredOwner = this.projectFormGroup.controls.OwnerId.valueChanges.pipe(
-        startWith(''),
-        map(value => value ? this.filter(value) : this.listOwner)
-      );
-    }, error => {
-      console.log('Error getting the list of projects');
-    });
   }
 
   AddRows() {
@@ -174,21 +157,66 @@ export class ProjectAddComponent implements OnInit {
     this.phaseService.selectedPhase = Object.assign({}, phase);
   }
 
-  filter(value: string): User[] {
-    const filterValue = value.toLowerCase();
+  filter(value: string, type: number): User[] {
+    const filterValue = value.toString().toLowerCase();
+    return type === 0 ?
+            this.listClient.filter(option => option.FirstName.toLowerCase().includes(filterValue)) :
+            this.listOwner.filter(option => option.FirstName.toLowerCase().includes(filterValue));
+  }
 
-    return this.listClient.filter(option => option.FirstName.toLowerCase().includes(filterValue));
+  displayNameClient(UserID) {
+    if (!UserID) { return ''; }
+    const index = this.listClient.findIndex(client => client.UserID === UserID);
+    return this.listClient[index].FirstName;
+  }
+  displayNameOwner(OwnerID) {
+    if (!OwnerID) { return ''; }
+    const index = this.listOwner.findIndex(owner => owner.UserID === OwnerID);
+    return this.listOwner[index].FirstName;
   }
 
   newFormAddProject() {
-    this.projectFormGroup = this.projectFormBuilder.group({
-      ProjectID: '',
-      UserId: new FormControl(),
-      OwnerId: new FormControl(),
-      Title: '',
-      Description: '',
-      StartDate: new Date(),
-      EndDate: new Date(),
+    this.userService.getUsersByRol(3).subscribe((datalist: User[]) => {
+      this.listClient = datalist;
+      this.projectFormGroup = this.projectFormBuilder.group({
+        ProjectID: '',
+        UserId: new FormControl('', [Validators.required, isSelectedValid(this.listClient)]),
+        OwnerId: new FormControl('', [Validators.required, isSelectedValid(this.listOwner)]),
+        Title: '',
+        Description: '',
+        StartDate: new Date(),
+        EndDate: new Date(),
+      });
+      this.filteredCliet = this.projectFormGroup.controls.UserId.valueChanges.pipe(
+        startWith(''),
+        map(value => value ? this.filter(value, 0) : this.listClient)
+      );
+      this.filteredCliet.forEach(element => {
+        console.log(element);
+      });
+    }, error => {
+      console.log('Error getting the list of projects');
+    });
+    this.userService.getUsersByRol(2).subscribe((datalist: User[]) => {
+      this.listOwner = datalist;
+      this.projectFormGroup = this.projectFormBuilder.group({
+        ProjectID: '',
+        UserId: new FormControl('', [Validators.required, isSelectedValid(this.listClient)]),
+        OwnerId: new FormControl('', [Validators.required, isSelectedValid(this.listOwner)]),
+        Title: '',
+        Description: '',
+        StartDate: new Date(),
+        EndDate: new Date(),
+      });
+      this.filteredOwner = this.projectFormGroup.controls.OwnerId.valueChanges.pipe(
+        startWith(''),
+        map(value => value ? this.filter(value, 1) : this.listOwner)
+      );
+      this.filteredOwner.forEach(element => {
+        console.log(element);
+      });
+    }, error => {
+      console.log('Error getting the list of projects');
     });
   }
 
@@ -202,7 +230,6 @@ export class ProjectAddComponent implements OnInit {
       StartDate: this.projectService.selectedProject.StartDate,
       EndDate: this.projectService.selectedProject.EndDate,
     });
-    console.log(this.projectService.selectedProject);
   }
 
   newForm() {

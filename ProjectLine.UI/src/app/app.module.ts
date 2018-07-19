@@ -43,6 +43,7 @@ import { UsersListComponent } from './components/users/users-list/users-list.com
 import { RolesListComponent } from './components/roles/roles-list/roles-list.component';
 import { UsersAddComponent } from './components/users/users-add/users-add.component';
 import { RolesAddComponent } from './components/roles/roles-add/roles-add.component';
+import { SelectedValidator } from './Directives/client-owner-autocomplete.directive';
 
 
 
@@ -66,7 +67,8 @@ import { RolesAddComponent } from './components/roles/roles-add/roles-add.compon
     UsersListComponent,
     RolesListComponent,
     UsersAddComponent,
-    RolesAddComponent
+    RolesAddComponent,
+    SelectedValidator
   ],
   imports: [
     BrowserModule,
