@@ -123,7 +123,7 @@ export class ProjectAddComponent implements OnInit {
 
 
   navigate_to_project_home_page() {
-    this.router.navigate(['/Project']);
+    this.router.navigate(['/Projects']);
   }
   openSnackBar(message: string) {
     this.snackBar.open(message, null, {

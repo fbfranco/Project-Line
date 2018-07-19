@@ -19,7 +19,7 @@ import { map, startWith } from 'rxjs/operators';
 })
 export class RolesListComponent implements OnInit {
 
-  // List Projects
+  // List Roles
   ListRoles: Rol[];
   HeaderColumns = ['Title', 'Description', 'Edit'];
   RoleId: number;
@@ -27,17 +27,13 @@ export class RolesListComponent implements OnInit {
   constructor(public rolService: RolService, private dialog: MatDialog) { }
 
   ngOnInit() {
+    this.getRoleList();
+  }
+  getRoleList() {
     this.rolService.getRolesList().subscribe((datalist: Rol[]) => {
       this.ListRoles = datalist;
     }, error => {
       console.log('Error getting the list of projects');
-    });
-  }
-  getRoleList() {
-    this.rolService.getRolList(this.RoleId).subscribe((datalistRol: Rol[]) => {
-      this.ListRoles = datalistRol;
-    }, error => {
-      console.log('Error getting the list of Phases');
     });
   }
   openDialogEdit(rol: Rol) {

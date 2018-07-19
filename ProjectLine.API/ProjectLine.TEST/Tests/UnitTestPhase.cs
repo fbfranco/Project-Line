@@ -99,8 +99,8 @@ namespace ProjectLine.TEST.Tests
         {
             Rol r = new Rol()
             {
-                Title = "Cliente",
-                Description="Cerabol"
+                Title = "Administrator",
+                Description="Administrador"
             };
             objrol.Create(r);
         }

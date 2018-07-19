@@ -72,7 +72,7 @@ namespace ProjectLine.DATA.Persistence
                 var update = FindById(rol.RoleId);
                 using (Context = new ProjectLineContext())
                 {
-                    update.Title = rol.Title;
+                    //update.Title = rol.Title;
                     update.Description = rol.Description;
 
 
@@ -84,6 +84,7 @@ namespace ProjectLine.DATA.Persistence
             {
                 Console.Write(ex);
             }
+
         }
     }
 }
