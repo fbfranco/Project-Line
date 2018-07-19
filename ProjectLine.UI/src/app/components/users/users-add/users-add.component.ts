@@ -17,8 +17,7 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
 // Others
-import { RegistrationValidator } from '../../shared/register.validator';
-import { MatchPassword } from '../../shared/Validators';
+import { MatchPasswordDirective  } from '../../shared/Directive';
 
 export interface Role {
   value: string;
@@ -34,15 +33,12 @@ export interface Role {
 
 export class UsersAddComponent implements OnInit {
 
-
-
   titleForm = '';
   ListRole: Rol[];
   optionsRole: string[] = [];
   Match: boolean;
 
   registrationFormGroup: FormGroup;
-  passwordFormGroup: FormGroup;
 
   constructor(
     public route: ActivatedRoute,
@@ -52,25 +48,22 @@ export class UsersAddComponent implements OnInit {
     public snackBar: MatSnackBar,
     private formBuilder: FormBuilder
   ) {
-    // this.passwordFormGroup = this.formBuilder.group({
-    //   password: ['', Validators.required],
-    //   repeatPassword: ['', [Validators.required ]])
     this.registrationFormGroup = this.formBuilder.group({
-      UserID: ['', Validators.required],
+      UserID: [0],
       FirstName: ['', Validators.required],
       LastName: ['', Validators.required],
-      Email: ['', Validators.required],
+      Email: ['', [Validators.required, Validators.email]],
       RoleID: ['', Validators.required],
-      Company: ['', Validators.required],
-      Address: ['', Validators.required],
-      Phone: ['', Validators.required],
-      Mobile: ['', Validators.required],
+      Company: [''],
+      Address: [''],
+      Phone: ['', Validators.pattern('[-0-9()+ ]+')],
+      Mobile: ['', Validators.pattern('[-0-9()+ ]+')],
       Username: ['', Validators.required],
-      password: ['', Validators.required],
-      repeatPassword: ['', [Validators.required, MatchPassword('123456') ]]
-      // passwordFormGroup: this.passwordFormGroup
+      Status: [false],
+      Password: ['', Validators.required],
+      ConfirmPassword: ['', [Validators.required, ]],
     });
-   }
+  }
 
   selectedValue: string;
 
@@ -78,25 +71,6 @@ export class UsersAddComponent implements OnInit {
     this.titleForm = this.userService.selectedUser.UserID === undefined ? `Add User` : `Edit User`;
     this.getRolesList();
     this.Match = true;
-  }
-
-  onSubmit(form: NgForm) {
-    console.log(form.value);
-
-    if (typeof form.value.ProjectID === 'undefined') {
-      this.userService.createUser(form.value).subscribe(data => {
-        this.openSnackBar('Saved');
-        this.navigate_to_user_home_page();
-        this.resetForm();
-      });
-    } else {
-      this.userService.updateUser(form.value).subscribe(data => {
-        this.openSnackBar('Saved');
-        this.navigate_to_user_home_page();
-        this.resetForm();
-      });
-
-    }
   }
 
   navigate_to_user_home_page() {
@@ -129,17 +103,26 @@ export class UsersAddComponent implements OnInit {
       console.log('Error getting the list of Phases');
     });
 
-
   }
 
-  inputMatch(event: any) {
-    console.log(event.target.value);
-    console.log(this.userService.selectedUser.Password);
-    if (event.target.value === this.userService.selectedUser.Password ) {
-      this.Match = false;
-      console.log(this.Match);
+  // For save users
+  submitUsers() {
+    console.log(this.registrationFormGroup.controls);
+    if (this.registrationFormGroup.controls.UserID.value) {
+      this.editUsers();
+    } else {
+      this.saveUsers();
     }
   }
 
+  saveUsers() {
+    this.userService.createUser(this.registrationFormGroup.value)
+      .subscribe(error => console.error(error));
+  }
+
+  editUsers() {
+    this.userService.updateUser(this.registrationFormGroup.value)
+      .subscribe(error => console.error(error));
+  }
 
 }

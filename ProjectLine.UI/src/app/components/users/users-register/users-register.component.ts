@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { RegistrationValidator } from '../../shared/register.validator';
@@ -17,7 +16,7 @@ export class UsersRegisterComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) {
     this.passwordFormGroup = this.formBuilder.group({
       password: ['', Validators.required],
-      repeatPassword: ['', Validators.required, RegistrationValidator]
+      repeatPassword: ['', Validators.required]
     }, {
       validator: RegistrationValidator.validate.bind(this)
     });

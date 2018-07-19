@@ -16,6 +16,6 @@ export class RegistrationValidator {
         }
 
         return null;
-    }
 
+    }
 }
