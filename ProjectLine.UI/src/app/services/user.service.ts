@@ -28,8 +28,8 @@ export class UserService {
     return this.http.put(`${this.apiURL}UpdateUser/`, body, requestOptions);
   }
 
-  deleteUser(user: User) {
-    return this.http.delete(`${this.apiURL}DeleteUser/${user.UserID}`);
+  deleteUser(id: number) {
+    return this.http.delete(`${this.apiURL}DeleteUser/${id}`);
   }
 
   getUsersList(): Observable<User[]> {

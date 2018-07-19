@@ -3,8 +3,8 @@ import { User } from './user.model';
 
 export class Project {
   ProjectID: number;
-  UserId: number;
-  OwnerId: number;
+  OwnerID: number;
+  UserID: number;
   Title: string;
   Description: string;
   StartDate: Date;
