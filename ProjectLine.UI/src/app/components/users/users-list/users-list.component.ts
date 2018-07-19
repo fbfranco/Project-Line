@@ -16,6 +16,7 @@ import { Project } from '../../../models/project.model';
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.scss']
 })
+
 export class UsersListComponent implements OnInit {
 
   HeaderColumns = ['Name', 'LastName', 'Email', 'Role', 'Active', 'Edit', 'Delete'];
