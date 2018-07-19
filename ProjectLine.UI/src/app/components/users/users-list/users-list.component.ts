@@ -64,7 +64,7 @@ export class UsersListComponent implements OnInit {
     let roleName = 'undefined';
     this.RolesList.forEach(Role => {
       if (Role.RoleID === id) {
-        roleName = Role.Title;
+        roleName = Role.Description;
       }
     });
     return roleName;
