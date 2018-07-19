@@ -16,6 +16,6 @@ export class ToolbarComponent implements OnInit {
     this.helperService.SlideMenu.toggle();
   }
   GoStart() {
-    this.helperService.Ocultar = false;
+    this.helperService.HideLayout = false;
   }
 }

@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { DomSanitizer } from '@angular/platform-browser';
+import { NavigationEnd, Router } from '@angular/router';
 
 declare var $: any;
 @Component({
@@ -26,6 +27,7 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
   Hide: boolean;
   InitTimeline: boolean;
   DisplayCard: boolean;
+  isPhaseActual: boolean;
 
   // Variables for show month range
   dateHeader: string;
@@ -37,8 +39,9 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
   filteredOptions: Observable<string[]>;
   DataProject: Project;
 
-  constructor(public projectService: ProjectService, public helperService: HelperService, public sanitizer: DomSanitizer) { }
-
+  constructor(private router: Router, public projectService: ProjectService, public helperService: HelperService,
+    public sanitizer: DomSanitizer) {
+  }
   getProjectList() {
     this.projectService.getProjectsList().subscribe((datalist: Project[]) => {
       this.ListProjects = datalist;
@@ -92,7 +95,14 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
     console.log(this.PhaseModel[0].UrlValid);
     this.Hide = true;
 
-    document.execCommand($('.events-body').slideUp());
+    this.PhaseModel.forEach(element => {
+      if (new Date().getTime() >= new Date(element.StartDate).getTime() && new Date().getTime() <= new Date(element.EndDate).getTime()) {
+        element.StatePhase = true;
+        console.log(element.StatePhase);
+      } else {
+        element.StatePhase = false;
+      }
+    });
   }
 
   inputEmpty(event: any) {
@@ -136,13 +146,5 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
     }
     this.dtHeader = validDate;
     return validDate;
-  }
-
-
-  setStyles() {
-    const styles = {
-      background: 'red !important'
-    };
-    return styles;
   }
 }

@@ -45,7 +45,7 @@ import { UsersAddComponent } from './components/users/users-add/users-add.compon
 import { RolesAddComponent } from './components/roles/roles-add/roles-add.component';
 import { ProgressComponent } from './components/progress/progress.component';
 import { LoginComponent } from './login/login.component';
-
+import {NgxAutoScrollModule} from 'ngx-auto-scroll';
 
 
 @NgModule({
@@ -86,7 +86,8 @@ import { LoginComponent } from './login/login.component';
     VgCoreModule,
     VgControlsModule,
     VgOverlayPlayModule,
-    VgBufferingModule
+    VgBufferingModule,
+    NgxAutoScrollModule
   ],
   entryComponents: [
     ObjectivesListComponent,
