@@ -73,10 +73,6 @@ export class UsersAddComponent implements OnInit {
     this.Match = true;
   }
 
-  navigate_to_user_home_page() {
-    this.router.navigate(['/User']);
-  }
-
   openSnackBar(message: string) {
     this.snackBar.open(message, null, {
       duration: 2000,
@@ -117,12 +113,18 @@ export class UsersAddComponent implements OnInit {
 
   saveUsers() {
     this.userService.createUser(this.registrationFormGroup.value)
-      .subscribe(error => console.error(error));
+      .subscribe(good => this.navigate_to_user_home_page(),
+      error => console.error(error));
   }
 
   editUsers() {
     this.userService.updateUser(this.registrationFormGroup.value)
-      .subscribe(error => console.error(error));
+      .subscribe(good => this.navigate_to_user_home_page(),
+      error => console.error(error));
+  }
+
+  navigate_to_user_home_page() {
+    this.router.navigate(['/User']);
   }
 
 }
