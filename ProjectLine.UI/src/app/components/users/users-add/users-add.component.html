@@ -62,7 +62,7 @@
         <!-- +(123)123-456-7890  -->
         <mat-hint align="end">{{Phone.value?.length || 0}}/20</mat-hint>
         <mat-error *ngIf="registrationFormGroup.controls.Phone.errors?.required && registrationFormGroup.controls.Phone.touched">This Field is Required.</mat-error>
-        <mat-error *ngIf="registrationFormGroup.controls.Mobile.Phone?.pattern && registrationFormGroup.controls.Mobile.touched">Please enter a valid Phone number.</mat-error>
+        <mat-error *ngIf="registrationFormGroup.controls.Phone.errors?.pattern && registrationFormGroup.controls.Phone.touched">Please enter a valid Phone number.</mat-error>
       </mat-form-field>
 
 
