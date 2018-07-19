@@ -1,20 +1,23 @@
 
 import { Component, OnInit } from '@angular/core';
-import { NgForm, FormControl, Validators } from '@angular/forms';
+import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 
 // Services
 import { UserService } from '../../../services/user.service';
-// import { RoleService } from '../../../services/role.service';
+import { RolService } from '../../../services/rol.service';
 
 // Models
 import { User } from '../../../models/user.model';
-// import { Role } from '../../../models/Role.model';
+import { Rol } from '../../../models/rol';
 
 // Material
 import { MatSnackBar } from '@angular/material';
 
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+
+// Others
+import { MatchPasswordDirective  } from '../../shared/Directive';
 
 export interface Role {
   value: string;
@@ -30,46 +33,44 @@ export interface Role {
 
 export class UsersAddComponent implements OnInit {
 
-  selectedValue: string;
-
-  roles: Role[] = [
-    {value: '0', viewValue: 'Admin'},
-    {value: '1', viewValue: 'PO'},
-    {value: '2', viewValue: 'Owner'}
-  ];
-
-
   titleForm = '';
+  ListRole: Rol[];
+  optionsRole: string[] = [];
+  Match: boolean;
+
+  registrationFormGroup: FormGroup;
 
   constructor(
     public route: ActivatedRoute,
     public router: Router,
     public userService: UserService,
-    public snackBar: MatSnackBar
+    public roleService: RolService,
+    public snackBar: MatSnackBar,
+    private formBuilder: FormBuilder
   ) {
-   }
+    this.registrationFormGroup = this.formBuilder.group({
+      UserID: [0],
+      FirstName: ['', Validators.required],
+      LastName: ['', Validators.required],
+      Email: ['', [Validators.required, Validators.email]],
+      RoleID: ['', Validators.required],
+      Company: [''],
+      Address: [''],
+      Phone: ['', Validators.pattern('[-0-9()+ ]+')],
+      Mobile: ['', Validators.pattern('[-0-9()+ ]+')],
+      Username: ['', Validators.required],
+      Status: [false],
+      Password: ['', Validators.required],
+      ConfirmPassword: ['', [Validators.required]],
+    });
+  }
+
+  selectedValue: string;
 
   ngOnInit() {
     this.titleForm = this.userService.selectedUser.UserID === undefined ? `Add User` : `Edit User`;
-  }
-
-  onSubmit(form: NgForm) {
-    console.log(form.value);
-
-    if (typeof form.value.ProjectID === 'undefined') {
-      this.userService.createUser(form.value).subscribe(data => {
-        this.openSnackBar('Saved');
-        this.navigate_to_user_home_page();
-        this.resetForm();
-      });
-    } else {
-      this.userService.updateUser(form.value).subscribe(data => {
-        this.openSnackBar('Saved');
-        this.navigate_to_user_home_page();
-        this.resetForm();
-      });
-
-    }
+    this.getRolesList();
+    this.Match = true;
   }
 
   navigate_to_user_home_page() {
@@ -87,6 +88,41 @@ export class UsersAddComponent implements OnInit {
     this.userService.selectedUser = new User();
   }
 
+  setOptionsRole() {
+    for (let index = 0; index < this.ListRole.length; index++) {
+      const element = this.ListRole[index];
+      this.optionsRole.push(element.Description);
+    }
+  }
 
+  getRolesList() {
+    this.roleService.getRolesList().subscribe((datalistRole: Rol[]) => {
+      this.ListRole = datalistRole;
+      this.setOptionsRole();
+    }, error => {
+      console.log('Error getting the list of Phases');
+    });
+
+  }
+
+  // For save users
+  submitUsers() {
+    console.log(this.registrationFormGroup.controls);
+    if (this.registrationFormGroup.controls.UserID.value) {
+      this.editUsers();
+    } else {
+      this.saveUsers();
+    }
+  }
+
+  saveUsers() {
+    this.userService.createUser(this.registrationFormGroup.value)
+      .subscribe(error => console.error(error));
+  }
+
+  editUsers() {
+    this.userService.updateUser(this.registrationFormGroup.value)
+      .subscribe(error => console.error(error));
+  }
 
 }

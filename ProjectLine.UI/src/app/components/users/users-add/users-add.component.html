@@ -1,94 +1,115 @@
 <div class="Form-Container">
   <h1>{{titleForm}}</h1>
   <br>
-  <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)" fxLayout="column">
-    <input type="hidden" name="UserID" #UserID="ngModel" [(ngModel)]="userService.selectedUser.UserID">
+  <form  [formGroup]="registrationFormGroup" (ngSubmit)="submitUsers()"  fxLayout="column">
+
+    <!-- UserID -->
+    <div class="form-group">
+      <input type="hidden" name="UserID" #UserID formControlName="UserID">
+    </div>
+
     <!-- First Name -->
-    <mat-form-field>
-      <input matInput maxlength="150" placeholder="Name" name="Name" #Name="ngModel" [(ngModel)]="userService.selectedUser.Name"
-        pattern="^[a-zA-Z0-9].*" required>
-      <mat-hint align="end">{{Name.value?.length || 0}}/150</mat-hint>
-      <mat-error *ngIf="Name.invalid && Name.touched">This Field is Required.</mat-error>
+    <mat-form-field class="form-group">
+      <input matInput maxlength="150" placeholder="First Name" name="FirstName" #FirstName formControlName="FirstName"
+      required>
+      <mat-hint align="end">{{FirstName.value?.length || 0}}/150</mat-hint>
+      <mat-error *ngIf="registrationFormGroup.controls.FirstName.errors?.required && registrationFormGroup.controls.FirstName.touched">This Field is Required.</mat-error>
     </mat-form-field>
+
     <!-- Last Name -->
-    <mat-form-field>
-      <input matInput maxlength="1000" placeholder="Last Name" name="LastName" #LastName="ngModel" [(ngModel)]="userService.selectedUser.LastName"
-        required>
+    <mat-form-field class="form-group">
+      <input matInput maxlength="150" placeholder="Last Name" name="LastName" #LastName formControlName="LastName" required>
       <mat-hint align="end">{{LastName.value?.length || 0}}/150</mat-hint>
-      <mat-error *ngIf="LastName.invalid && LastName.touched">This Field is Required.</mat-error>
-    </mat-form-field>
-
-    <!-- Enterprise -->
-    <mat-form-field>
-      <input matInput maxlength="150" placeholder="Enterprise" name="Enterprise" #Enterprise="ngModel" [(ngModel)]="userService.selectedUser.Enterprise"
-        pattern="^[a-zA-Z0-9].*">
-      <mat-hint align="end">{{Enterprise.value?.length || 0}}/150</mat-hint>
-      <mat-error *ngIf="Enterprise.invalid && Enterprise.touched">This Field is Required.</mat-error>
-    </mat-form-field>
-
-    <!-- Address -->
-    <mat-form-field>
-      <input matInput maxlength="150" placeholder="Address" name="Address" #Address="ngModel" [(ngModel)]="userService.selectedUser.Address"
-        pattern="^[a-zA-Z0-9].*">
-      <mat-hint align="end">{{Address.value?.length || 0}}/150</mat-hint>
-      <mat-error *ngIf="Address.invalid && Address.touched">This Field is Required.</mat-error>
+      <mat-error *ngIf="registrationFormGroup.controls.LastName.errors?.required && registrationFormGroup.controls.LastName.touched">This Field is Required.</mat-error>
     </mat-form-field>
 
     <div class="date-content" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign.gt-xs="space-between start"
       fxLayoutAlign.md="space-between start">
 
       <!-- Email -->
-      <mat-form-field>
-        <input type="email" matInput maxlength="150" placeholder="Email" name="Email" #Email="ngModel" [(ngModel)]="userService.selectedUser.Email"
-          pattern="^[a-zA-Z0-9].*" [email]="true" required>
+      <mat-form-field class="form-group">
+        <input type="email" matInput maxlength="150" placeholder="Email" name="Email" #Email formControlName="Email" required>
         <mat-hint align="end">{{Email.value?.length || 0}}/150</mat-hint>
-        <mat-error *ngIf="Email.invalid">Please enter a valid email address.</mat-error>
-
-
+        <mat-error *ngIf="registrationFormGroup.controls.Email.errors?.required && registrationFormGroup.controls.Email.touched">This Field is Required.</mat-error>
+        <mat-error *ngIf="registrationFormGroup.controls.Email.errors?.email && registrationFormGroup.controls.Email.touched">Please enter a valid email address.</mat-error>
       </mat-form-field>
 
       <!-- Role -->
-      <mat-form-field>
-        <mat-select placeholder="Select Role" [(ngModel)]="selectedValue" name="RoleID" #RoleID="ngModel" required>
-          <mat-option *ngFor="let role of roles" [value]="role.value">
-            {{role.viewValue}}
+      <mat-form-field class="form-group">
+        <mat-select placeholder="Select Role" name="RoleID" #RoleID formControlName="RoleID" required>
+          <mat-option *ngFor="let role of ListRole" [value]="role.RoleID">
+            {{role.Description}}
           </mat-option>
         </mat-select>
-        <mat-error *ngIf="RoleID.invalid">Please select a Role.</mat-error>
+        <mat-error *ngIf="registrationFormGroup.controls.RoleID.errors?.required && registrationFormGroup.controls.RoleID.touched">Please select a Role.</mat-error>
       </mat-form-field>
 
     </div>
+
+    <!-- Company -->
+    <mat-form-field class="form-group">
+      <input matInput maxlength="150" placeholder="Company" name="Company" #Company formControlName="Company">
+      <mat-hint align="end">{{Company.value?.length || 0}}/150</mat-hint>
+      <mat-error *ngIf="registrationFormGroup.controls.Company.errors?.required && registrationFormGroup.controls.Company.touched">This Field is Required.</mat-error>
+    </mat-form-field>
 
     <div class="date-content" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign.gt-xs="space-between start"
       fxLayoutAlign.md="space-between start">
 
       <!-- Phone -->
-      <mat-form-field>
-        <input type="tel" matInput maxlength="150" placeholder="Phone" name="Phone" #Phone="ngModel" [(ngModel)]="userService.selectedUser.Phone"
-        pattern="[-0-9()+]+">
+      <mat-form-field class="form-group">
+        <input type="tel" matInput maxlength="20" placeholder="Phone" name="Phone" #Phone formControlName="Phone">
         <!-- +(123)123-456-7890  -->
-        <mat-hint align="end">{{Phone.value?.length || 0}}/150</mat-hint>
-        <mat-error *ngIf="Phone.invalid && Phone.touched">Please enter a valid Phone.</mat-error>
+        <mat-hint align="end">{{Phone.value?.length || 0}}/20</mat-hint>
+        <mat-error *ngIf="registrationFormGroup.controls.Phone.errors?.required && registrationFormGroup.controls.Phone.touched">This Field is Required.</mat-error>
+        <mat-error *ngIf="registrationFormGroup.controls.Mobile.Phone?.required && registrationFormGroup.controls.Mobile.touched">Please enter a valid Phone number.</mat-error>
       </mat-form-field>
 
 
       <!-- Mobile -->
-      <mat-form-field>
-        <input matInput maxlength="150" placeholder="Mobile" name="Mobile" #Mobile="ngModel" [(ngModel)]="userService.selectedUser.Mobile" pattern="[-0-9()+]+">
-        <mat-hint align="end">{{Mobile.value?.length || 0}}/150</mat-hint>
-        <mat-error *ngIf="Mobile.invalid && Mobile.touched">This Field is Required.</mat-error>
+      <mat-form-field class="form-group">
+        <input matInput maxlength="20" placeholder="Mobile" name="Mobile" #Mobile formControlName="Mobile">
+        <mat-hint align="end">{{Mobile.value?.length || 0}}/20</mat-hint>
+        <mat-error *ngIf="registrationFormGroup.controls.Mobile.errors?.required && registrationFormGroup.controls.Mobile.touched">This Field is Required.</mat-error>
+        <mat-error *ngIf="registrationFormGroup.controls.Mobile.errors?.pattern && registrationFormGroup.controls.Mobile.touched">Please enter a valid Mobile number.</mat-error>
       </mat-form-field>
-
     </div>
 
+    <!-- Username -->
+    <mat-form-field class="form-group">
+      <input matInput maxlength="25" placeholder="Username" name="Username" #Username formControlName="Username" required>
+      <mat-hint align="end">{{Username.value?.length || 0}}/25</mat-hint>
+      <mat-error *ngIf="registrationFormGroup.controls.Username.errors?.required && registrationFormGroup.controls.Username.touched">This Field is Required.</mat-error>
+    </mat-form-field>
+
+    <!-- Password -->
+    <mat-form-field class="form-group">
+      <input matInput type="password" matInput maxlength="25" placeholder="Password" name="Password" #Password formControlName="Password"
+        required>
+      <mat-hint align="end">{{Password.value?.length || 0}}/25</mat-hint>
+      <mat-error *ngIf="registrationFormGroup.controls.Password.errors?.required && registrationFormGroup.controls.Password.touched">Password is required</mat-error>
+    </mat-form-field>
+
+    <!-- ConfirmPassword -->
+    <mat-form-field class="form-group">
+      <input matInput type="password" matInput maxlength="25" placeholder="ConfirmPassword" name="ConfirmPassword" #ConfirmPassword formControlName="ConfirmPassword">
+      <mat-hint align="end">{{ConfirmPassword.value?.length || 0}}/25</mat-hint>
+      <mat-error *ngIf="registrationFormGroup.controls.ConfirmPassword.errors?.required && registrationFormGroup.controls.ConfirmPassword.touched">Repeat password is required</mat-error>
+      <!-- <mat-error *ngIf="passwordFormGroup.errors?.doesMatchPassword">Password does not match</mat-error> -->
+    </mat-form-field>
 
     <br>
-    <mat-checkbox name="Status" #Status [(ngModel)]="userService.selectedUser.Status" color="primary">Active</mat-checkbox>
+
+    <mat-checkbox name="Status" #Status formControlName="Status" color="primary">Active</mat-checkbox>
 
     <br>
+
     <div fxLayout="row" fxLayoutGap="1em" class="form-options">
-      <button mat-raised-button color="primary" [disabled]="!userForm.valid" type="submit">Save</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!registrationFormGroup.valid"
+        type="submit">Save</button>
       <a mat-raised-button color="warn" routerLink="/User">Cancel</a>
     </div>
+
   </form>
+
 </div>

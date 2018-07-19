@@ -45,6 +45,8 @@ import { UsersAddComponent } from './components/users/users-add/users-add.compon
 import { RolesAddComponent } from './components/roles/roles-add/roles-add.component';
 import { ProgressComponent } from './components/progress/progress.component';
 import { LoginComponent } from './login/login.component';
+import { UsersRegisterComponent } from './components/users/users-register/users-register.component';
+import { MatchPasswordDirective } from './components/shared/Directive';
 
 
 
@@ -70,7 +72,9 @@ import { LoginComponent } from './login/login.component';
     UsersAddComponent,
     RolesAddComponent,
     ProgressComponent,
-    LoginComponent
+    LoginComponent,
+    UsersRegisterComponent,
+    MatchPasswordDirective
   ],
   imports: [
     BrowserModule,
