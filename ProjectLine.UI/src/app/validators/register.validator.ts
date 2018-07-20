@@ -2,19 +2,18 @@ import { FormGroup } from '@angular/forms';
 
 export class RegistrationValidator {
     static validate(registrationFormGroup: FormGroup) {
-        const password = registrationFormGroup.controls.password.value;
-        const repeatPassword = registrationFormGroup.controls.repeatPassword.value;
+        const Password = registrationFormGroup.controls.Password.value;
+        const ConfirmPassword = registrationFormGroup.controls.ConfirmPassword.value;
 
-        if (repeatPassword.length <= 0) {
+        if (ConfirmPassword.length <= 0) {
             return null;
         }
 
-        if (repeatPassword !== password) {
+        if (ConfirmPassword !== Password) {
             return {
                 doesMatchPassword: true
             };
         }
-
         return null;
 
     }

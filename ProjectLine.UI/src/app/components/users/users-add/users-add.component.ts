@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { Validators, FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
 
 // Services
 import { UserService } from '../../../services/user.service';
@@ -39,7 +39,8 @@ export class UsersAddComponent implements OnInit {
   ListRole: Rol[];
   optionsRole: string[] = [];
   Match: boolean;
-
+  x = '';
+  y = '';
   registrationFormGroup: FormGroup;
   passwordFormGroup: FormGroup;
 
@@ -51,19 +52,23 @@ export class UsersAddComponent implements OnInit {
     public snackBar: MatSnackBar,
     private formBuilder: FormBuilder
   ) {
+
   }
+
+  passwordConfirming(c: AbstractControl): { invalid: boolean } {
+    if (c.get('Password').value !== c.get('ConfirmPassword').value) {
+      console.log(c.get('ConfirmPassword').value === c.get('Password').value);
+        return {invalid: true};
+    } else {
+      this.Match = true;
+    }
+}
 
   ngOnInit() {
     this.titleForm = this.userService.selectedUser.UserID === undefined ? `Add User` : `Edit User`;
     this.getRolesList();
     this.Match = true;
 
-    this.passwordFormGroup = this.formBuilder.group({
-      password: ['', Validators.required],
-      repeatPassword: ['', Validators.required, RegistrationValidator]
-    }, {
-      validator: RegistrationValidator.validate.bind(this)
-    });
     this.registrationFormGroup = this.formBuilder.group({
       UserID: [0],
       FirstName: ['', Validators.required],
@@ -76,9 +81,13 @@ export class UsersAddComponent implements OnInit {
       Mobile: ['', Validators.pattern('[-0-9()+ ]+')],
       Username: ['', Validators.required],
       Status: [false],
-      passwordFormGroup: this.passwordFormGroup
+      Password: ['', Validators.required],
+      ConfirmPassword: ['', Validators.required]
+    },
+    {
+      validator: this.passwordConfirming
     });
-
+    this.Match = true;
   }
 
   openSnackBar(message: string) {

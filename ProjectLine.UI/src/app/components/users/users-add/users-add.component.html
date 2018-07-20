@@ -83,22 +83,22 @@
     </mat-form-field>
 
     <!-- Password -->
-    <div [formGroup]="passwordFormGroup">
       <mat-form-field class="form-group">
         <input matInput type="password" matInput maxlength="25" placeholder="Password" name="Password" #Password formControlName="Password"
           required>
         <mat-hint align="end">{{Password.value?.length || 0}}/25</mat-hint>
-        <mat-error *ngIf="passwordFormGroup.controls.Password.errors?.required && passwordFormGroup.controls.Password.touched">Password is required</mat-error>
+        <mat-error *ngIf="registrationFormGroup.controls.Password.errors?.required && registrationFormGroup.controls.Password.touched">Password is required</mat-error>
       </mat-form-field>
 
       <!-- ConfirmPassword -->
       <mat-form-field class="form-group">
-        <input matInput type="password" matInput maxlength="25" placeholder="ConfirmPassword" name="ConfirmPassword" #ConfirmPassword formControlName="ConfirmPassword">
-        <mat-hint align="end">{{ConfirmPassword.value?.length || 0}}/25</mat-hint>
-        <mat-error *ngIf="passwordFormGroup.get('ConfirmPassword').hasError('required')">Repeat password is required</mat-error>
-        <mat-error *ngIf="passwordFormGroup.get('ConfirmPassword').hasError('MatchPassword')">Password does not match</mat-error>
-      </mat-form-field>
-    </div>
+        <input matInput type="password" matInput maxlength="25" placeholder="ConfirmPassword" #ConfirmPasswords formControlName="ConfirmPassword">
+        <mat-hint align="end">{{ConfirmPasswords.value?.length || 0}}/25</mat-hint>
+        <!-- <mat-error *ngIf="registrationFormGroup.get('ConfirmPassword').hasError('required')">Repeat password is required</mat-error>
+          <mat-error *ngIf="registrationFormGroup.get('Password').value !== registrationFormGroup.get('ConfirmPassword').value">Password does not match</mat-error> -->
+          <mat-error *ngIf="Match">hola mundo</mat-error>
+        <span>{{registrationFormGroup.get('ConfirmPassword').value}} // {{registrationFormGroup.get('Password').value}}</span>
+        </mat-form-field>
     <br>
 
     <mat-checkbox name="Status" #Status formControlName="Status" color="primary">Active</mat-checkbox>
