@@ -20,10 +20,10 @@ import {
   MatCheckboxModule,
   MatAutocompleteModule,
   MatTableModule
- } from '@angular/material';
- 
- import { MatSnackBarModule } from '@angular/material/snack-bar';
- import {MatTooltipModule} from '@angular/material/tooltip';
+} from '@angular/material';
+
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   imports: [
