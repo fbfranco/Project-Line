@@ -40,7 +40,7 @@ export class ProjectAddComponent implements OnInit {
 
   titleForm = '';
   listClient: User[];
-  filteredCliet: Observable<User[]>;
+  filteredClient: Observable<User[]>;
   listOwner: User[];
   filteredOwner: Observable<User[]>;
   viewmodel = new ViewModelProject();
@@ -175,48 +175,40 @@ export class ProjectAddComponent implements OnInit {
     return this.listOwner[index].FirstName;
   }
 
-  newFormAddProject() {
+  test() {
+    return new Promise(resolve => {
+      this.buildForm();
+      this.userService.getUsersByRol(3).subscribe((datalist: User[]) => {
+        this.listClient = datalist;
+        this.filteredClient = this.projectFormGroup.controls.UserId.valueChanges.pipe(
+          startWith(''), map(value => value ? this.filter(value, 0) : this.listClient));
+      }, error => { console.log(error); });
+    });
+  }
+
+  async InitAutocomplete_Client_Owner() {
+
+    await this.test().then(x => {
+      alert('hola bismarck');
+    });
+
+  }
+
+  buildForm() {
     this.userService.getUsersByRol(3).subscribe((datalist: User[]) => {
       this.listClient = datalist;
-      this.projectFormGroup = this.projectFormBuilder.group({
-        ProjectID: '',
-        UserId: new FormControl('', [Validators.required, isSelectedValid(this.listClient)]),
-        OwnerId: new FormControl('', [Validators.required, isSelectedValid(this.listOwner)]),
-        Title: '',
-        Description: '',
-        StartDate: new Date(),
-        EndDate: new Date(),
-      });
-      this.filteredCliet = this.projectFormGroup.controls.UserId.valueChanges.pipe(
-        startWith(''),
-        map(value => value ? this.filter(value, 0) : this.listClient)
-      );
-      this.filteredCliet.forEach(element => {
-        console.log(element);
-      });
-    }, error => {
-      console.log('Error getting the list of projects');
-    });
-    this.userService.getUsersByRol(2).subscribe((datalist: User[]) => {
-      this.listOwner = datalist;
-      this.projectFormGroup = this.projectFormBuilder.group({
-        ProjectID: '',
-        UserId: new FormControl('', [Validators.required, isSelectedValid(this.listClient)]),
-        OwnerId: new FormControl('', [Validators.required, isSelectedValid(this.listOwner)]),
-        Title: '',
-        Description: '',
-        StartDate: new Date(),
-        EndDate: new Date(),
-      });
-      this.filteredOwner = this.projectFormGroup.controls.OwnerId.valueChanges.pipe(
-        startWith(''),
-        map(value => value ? this.filter(value, 1) : this.listOwner)
-      );
-      this.filteredOwner.forEach(element => {
-        console.log(element);
-      });
-    }, error => {
-      console.log('Error getting the list of projects');
+      this.filteredClient = this.projectFormGroup.controls.UserId.valueChanges.pipe(
+        startWith(''), map(value => value ? this.filter(value, 0) : this.listClient));
+    }, error => { console.log(error); });
+
+    this.projectFormGroup = this.projectFormBuilder.group({
+      ProjectID: '',
+      UserId: ['', [Validators.required, isSelectedValid(this.listClient)]],
+      OwnerId: new FormControl('', [Validators.required]),
+    Title: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z0-9].*/)]),
+      Description: '',
+      StartDate: new Date(),
+      EndDate: new Date(),
     });
   }
 
@@ -235,7 +227,7 @@ export class ProjectAddComponent implements OnInit {
   newForm() {
     this.activateRoute.params.subscribe(param => {
       if (param['id'] === undefined) {
-        this.newFormAddProject();
+        this.InitAutocomplete_Client_Owner();
         this.titleForm = 'Add Project';
       } else {
         this.newFormEditProject();
