@@ -48,7 +48,6 @@ import { LoginComponent } from './login/login.component';
 import { UsersRegisterComponent } from './components/users/users-register/users-register.component';
 import { MatchPasswordDirective } from './components/shared/Directive';
 
-import {NgxAutoScrollModule} from 'ngx-auto-scroll';
 
 
 @NgModule({
@@ -91,8 +90,7 @@ import {NgxAutoScrollModule} from 'ngx-auto-scroll';
     VgCoreModule,
     VgControlsModule,
     VgOverlayPlayModule,
-    VgBufferingModule,
-    NgxAutoScrollModule
+    VgBufferingModule
   ],
   entryComponents: [
     ObjectivesListComponent,
