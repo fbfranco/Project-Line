@@ -83,21 +83,22 @@
     </mat-form-field>
 
     <!-- Password -->
-    <mat-form-field class="form-group">
-      <input matInput type="password" matInput maxlength="25" placeholder="Password" name="Password" #Password formControlName="Password"
-        required>
-      <mat-hint align="end">{{Password.value?.length || 0}}/25</mat-hint>
-      <mat-error *ngIf="registrationFormGroup.controls.Password.errors?.required && registrationFormGroup.controls.Password.touched">Password is required</mat-error>
-    </mat-form-field>
+    <div [formGroup]="passwordFormGroup">
+      <mat-form-field class="form-group">
+        <input matInput type="password" matInput maxlength="25" placeholder="Password" name="Password" #Password formControlName="Password"
+          required>
+        <mat-hint align="end">{{Password.value?.length || 0}}/25</mat-hint>
+        <mat-error *ngIf="passwordFormGroup.controls.Password.errors?.required && passwordFormGroup.controls.Password.touched">Password is required</mat-error>
+      </mat-form-field>
 
-    <!-- ConfirmPassword -->
-    <mat-form-field class="form-group">
-      <input matInput type="password" matInput maxlength="25" placeholder="ConfirmPassword" name="ConfirmPassword" #ConfirmPassword formControlName="ConfirmPassword">
-      <mat-hint align="end">{{ConfirmPassword.value?.length || 0}}/25</mat-hint>
-      <mat-error *ngIf="registrationFormGroup.controls.ConfirmPassword.errors?.required && registrationFormGroup.controls.ConfirmPassword.touched">Repeat password is required</mat-error>
-      <!-- <mat-error *ngIf="passwordFormGroup.errors?.doesMatchPassword">Password does not match</mat-error> -->
-    </mat-form-field>
-
+      <!-- ConfirmPassword -->
+      <mat-form-field class="form-group">
+        <input matInput type="password" matInput maxlength="25" placeholder="ConfirmPassword" name="ConfirmPassword" #ConfirmPassword formControlName="ConfirmPassword">
+        <mat-hint align="end">{{ConfirmPassword.value?.length || 0}}/25</mat-hint>
+        <mat-error *ngIf="passwordFormGroup.get('ConfirmPassword').hasError('required')">Repeat password is required</mat-error>
+        <mat-error *ngIf="passwordFormGroup.get('ConfirmPassword').hasError('MatchPassword')">Password does not match</mat-error>
+      </mat-form-field>
+    </div>
     <br>
 
     <mat-checkbox name="Status" #Status formControlName="Status" color="primary">Active</mat-checkbox>

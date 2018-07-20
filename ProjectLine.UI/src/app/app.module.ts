@@ -46,7 +46,7 @@ import { RolesAddComponent } from './components/roles/roles-add/roles-add.compon
 import { ProgressComponent } from './components/progress/progress.component';
 import { LoginComponent } from './login/login.component';
 import { UsersRegisterComponent } from './components/users/users-register/users-register.component';
-import { MatchPasswordDirective } from './components/shared/Directive';
+import { MatchPasswordDirective } from './Directives/match-password.directive';
 import { SelectedValidator } from './Directives/client-owner-autocomplete.directive';
 
 

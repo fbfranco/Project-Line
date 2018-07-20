@@ -15,12 +15,12 @@ import { Phase } from '../../../models/phase.model';
 import { ViewModelProject } from '../../../models/viewmodelproject.model';
 // Components
 import { PhasesFormComponent } from '../../phases/phases-form/phases-form.component';
-import { DialogConfirmationComponent } from '../../../components/dialog/dialog-confirmation/dialog-confirmation.component';
+import { DialogConfirmationComponent } from '../../dialog/dialog-confirmation/dialog-confirmation.component';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../../../models/user.model';
-import { Observable } from '../../../../../node_modules/rxjs';
-import { startWith, map } from '../../../../../node_modules/rxjs/operators';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 import { UserService } from '../../../services/user.service';
 import { isSelectedValid } from '../../../validators/client-owner-autocomplete.validator';
 

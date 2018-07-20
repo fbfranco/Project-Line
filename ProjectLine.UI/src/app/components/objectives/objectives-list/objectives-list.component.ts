@@ -15,7 +15,7 @@ import { Objective } from '../../../models/objective.model';
 
 // Components
 import { ObjectiveAddComponent } from '../objective-add/objective-add.component';
-import { DialogConfirmationComponent } from '../../../components/dialog/dialog-confirmation/dialog-confirmation.component';
+import { DialogConfirmationComponent } from '../../dialog/dialog-confirmation/dialog-confirmation.component';
 import { map, startWith } from 'rxjs/operators';
 
 @Component({

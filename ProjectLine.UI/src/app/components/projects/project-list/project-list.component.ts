@@ -7,7 +7,7 @@ import { PhaseService } from '../../../services/phase.service';
 import { Project } from '../../../models/project.model';
 import { MatDialog } from '@angular/material';
 // Components
-import { DialogConfirmationComponent } from '../../../components/dialog/dialog-confirmation/dialog-confirmation.component';
+import { DialogConfirmationComponent } from '../../dialog/dialog-confirmation/dialog-confirmation.component';
 
 @Component({
   selector: 'app-project-list',

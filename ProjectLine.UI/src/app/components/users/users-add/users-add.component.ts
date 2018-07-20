@@ -17,7 +17,9 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
 // Others
-import { MatchPasswordDirective  } from '../../shared/Directive';
+import { MatchPasswordDirective  } from '../../../Directives/match-password.directive';
+import { MatchPassword } from '../../../validators/match-password.validator';
+import { RegistrationValidator } from '../../../validators/register.validator';
 
 export interface Role {
   value: string;
@@ -39,6 +41,7 @@ export class UsersAddComponent implements OnInit {
   Match: boolean;
 
   registrationFormGroup: FormGroup;
+  passwordFormGroup: FormGroup;
 
   constructor(
     public route: ActivatedRoute,
@@ -48,6 +51,19 @@ export class UsersAddComponent implements OnInit {
     public snackBar: MatSnackBar,
     private formBuilder: FormBuilder
   ) {
+  }
+
+  ngOnInit() {
+    this.titleForm = this.userService.selectedUser.UserID === undefined ? `Add User` : `Edit User`;
+    this.getRolesList();
+    this.Match = true;
+
+    this.passwordFormGroup = this.formBuilder.group({
+      password: ['', Validators.required],
+      repeatPassword: ['', Validators.required, RegistrationValidator]
+    }, {
+      validator: RegistrationValidator.validate.bind(this)
+    });
     this.registrationFormGroup = this.formBuilder.group({
       UserID: [0],
       FirstName: ['', Validators.required],
@@ -60,17 +76,9 @@ export class UsersAddComponent implements OnInit {
       Mobile: ['', Validators.pattern('[-0-9()+ ]+')],
       Username: ['', Validators.required],
       Status: [false],
-      Password: ['', Validators.required],
-      ConfirmPassword: ['', [Validators.required]],
+      passwordFormGroup: this.passwordFormGroup
     });
-  }
 
-  selectedValue: string;
-
-  ngOnInit() {
-    this.titleForm = this.userService.selectedUser.UserID === undefined ? `Add User` : `Edit User`;
-    this.getRolesList();
-    this.Match = true;
   }
 
   openSnackBar(message: string) {

@@ -1,5 +1,5 @@
 import { User } from '../models/user.model';
-import { ValidatorFn, AbstractControl, AsyncValidatorFn } from '@angular/forms';
+import { ValidatorFn, AbstractControl } from '@angular/forms';
 
 export function isSelectedValid(ListFiltered: User[]): ValidatorFn {
   if (ListFiltered === undefined) {

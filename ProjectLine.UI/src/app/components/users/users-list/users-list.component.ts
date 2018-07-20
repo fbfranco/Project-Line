@@ -8,7 +8,7 @@ import { ProjectService } from '../../../services/project.service';
 import { User } from '../../../models/user.model';
 import { Rol } from '../../../models/rol';
 // Components
-import { DialogConfirmationComponent } from '../../../components/dialog/dialog-confirmation/dialog-confirmation.component';
+import { DialogConfirmationComponent } from '../../dialog/dialog-confirmation/dialog-confirmation.component';
 import { Project } from '../../../models/project.model';
 
 @Component({

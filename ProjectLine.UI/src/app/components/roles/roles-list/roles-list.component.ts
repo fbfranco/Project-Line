@@ -8,7 +8,7 @@ import { RolService } from '../../../services/rol.service';
 // Models
 import { Rol } from '../../../models/rol';
 // Components
-import { DialogConfirmationComponent } from '../../../components/dialog/dialog-confirmation/dialog-confirmation.component';
+import { DialogConfirmationComponent } from '../../dialog/dialog-confirmation/dialog-confirmation.component';
 import { RolesAddComponent } from '../roles-add/roles-add.component';
 import { map, startWith } from 'rxjs/operators';
 
