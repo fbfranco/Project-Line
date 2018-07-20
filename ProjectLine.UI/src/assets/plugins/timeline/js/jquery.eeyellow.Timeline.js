@@ -54,7 +54,7 @@
                          $(this).addClass('CurrentPhase')
                         $('.content-router-outlet').animate({
                             scrollTop: $(".CurrentPhase").offset().top - 120
-                        }, 3000);
+                        }, 2500);
                     }
                 });
             self.target
