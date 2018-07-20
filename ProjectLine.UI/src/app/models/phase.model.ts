@@ -11,5 +11,6 @@ export class Phase {
     Edit?: string;
     Delete?: string;
     UrlValid?: boolean;
+    StatePhase?: boolean;
     Objectives?: Objective[];
 }

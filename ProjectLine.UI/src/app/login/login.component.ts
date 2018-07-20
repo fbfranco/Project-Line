@@ -21,8 +21,8 @@ export class LoginComponent implements OnInit {
       Password: ''
     });
   }
-  submitUser() {
-    this.helper.Ocultar = true;
+  submitLogin() {
+    this.helper.HideLayout = true;
   }
 
 }
