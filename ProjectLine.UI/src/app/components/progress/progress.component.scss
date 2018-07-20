@@ -1,5 +1,8 @@
 .circle {
     width: 320px;
+    @media screen and (min-width: 1280px) {
+        height: 320px;
+    }
 }
 
 .legend {

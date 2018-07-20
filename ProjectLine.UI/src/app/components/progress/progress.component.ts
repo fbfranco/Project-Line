@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Phase } from '../../models/phase.model';
+import { HelperService } from '../../services/helper.service';
 
 declare var $: any;
 
@@ -16,12 +17,28 @@ export class ProgressComponent implements OnInit {
   private objectiveCompleted: number;
   private progressPercentage: number;
 
-  constructor() {
-  }
+  constructor(
+    private helperService: HelperService
+  ) { }
 
   ngOnInit() {
     this.resetNumbers();
     this.showProgress('rgb(80, 80, 80)');
+    this.sidenavState();
+  }
+
+  sidenavState() {
+    const percentage = document.getElementsByClassName('percentage') as HTMLCollectionOf<HTMLElement>;
+    const legend = document.getElementsByClassName('legend') as HTMLCollectionOf<HTMLElement>;
+    if (percentage.length !== 0) {
+      if (this.helperService.SlideMenu.opened) {
+        percentage[0].setAttribute('style', 'position: fixed; top:200px; left:240px;');
+        legend[0].setAttribute('style', 'position: fixed; top:520px; left:332px;');
+      } else {
+        percentage[0].setAttribute('style', 'position: fixed; top:200px; left:2px;');
+        legend[0].setAttribute('style', 'position: fixed; top:520px; left:92px;');
+      }
+    }
   }
 
   resetNumbers() {
