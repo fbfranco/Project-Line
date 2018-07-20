@@ -47,6 +47,7 @@ import { ProgressComponent } from './components/progress/progress.component';
 import { LoginComponent } from './login/login.component';
 import { UsersRegisterComponent } from './components/users/users-register/users-register.component';
 import { MatchPasswordDirective } from './components/shared/Directive';
+import { SelectedValidator } from './Directives/client-owner-autocomplete.directive';
 
 
 
@@ -74,7 +75,8 @@ import { MatchPasswordDirective } from './components/shared/Directive';
     ProgressComponent,
     LoginComponent,
     UsersRegisterComponent,
-    MatchPasswordDirective
+    MatchPasswordDirective,
+    SelectedValidator
   ],
   imports: [
     BrowserModule,
