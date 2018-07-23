@@ -10,7 +10,6 @@ import { TimelineComponent } from '../components/timeline/timeline/timeline.comp
 import { UsersListComponent } from '../components/users/users-list/users-list.component';
 import { RolesListComponent  } from '../components/roles/roles-list/roles-list.component';
 import { UsersAddComponent } from '../components/users/users-add/users-add.component';
-import { UsersRegisterComponent } from '../components/users/users-register/users-register.component';
 
 
 const routes: Routes = [
@@ -24,8 +23,7 @@ const routes: Routes = [
   { path: 'TimeLine', component: TimelineComponent},
   { path: 'User', component: UsersListComponent},
   { path: 'Rol', component: RolesListComponent},
-  { path: 'User/Add', component: UsersAddComponent },
-  { path: 'test', component: UsersRegisterComponent }
+  { path: 'User/Add', component: UsersAddComponent }
 
 ];
 

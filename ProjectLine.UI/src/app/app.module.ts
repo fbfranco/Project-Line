@@ -45,8 +45,6 @@ import { UsersAddComponent } from './components/users/users-add/users-add.compon
 import { RolesAddComponent } from './components/roles/roles-add/roles-add.component';
 import { ProgressComponent } from './components/progress/progress.component';
 import { LoginComponent } from './login/login.component';
-import { UsersRegisterComponent } from './components/users/users-register/users-register.component';
-import { MatchPasswordDirective } from './Directives/match-password.directive';
 import { SelectedValidator } from './Directives/client-owner-autocomplete.directive';
 
 
@@ -74,8 +72,6 @@ import { SelectedValidator } from './Directives/client-owner-autocomplete.direct
     RolesAddComponent,
     ProgressComponent,
     LoginComponent,
-    UsersRegisterComponent,
-    MatchPasswordDirective,
     SelectedValidator
   ],
   imports: [

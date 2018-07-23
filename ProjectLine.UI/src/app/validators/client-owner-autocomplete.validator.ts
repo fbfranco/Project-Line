@@ -4,8 +4,7 @@ import { ValidatorFn, AbstractControl } from '@angular/forms';
 export function isSelectedValid(ListFiltered: User[]): ValidatorFn {
   if (ListFiltered === undefined) {
     alert('hola mundo');
-  }
-  if (ListFiltered !== undefined) {
+  } else if (ListFiltered !== undefined) {
     alert('hola mundo 22');
     const ListID = [];
     ListFiltered.forEach(element => {
