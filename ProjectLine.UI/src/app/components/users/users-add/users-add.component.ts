@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
+import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 
 // Services
 import { UserService } from '../../../services/user.service';
@@ -11,21 +11,14 @@ import { User } from '../../../models/user.model';
 import { Rol } from '../../../models/rol';
 
 // Material
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, ErrorStateMatcher } from '@angular/material';
 
-import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
 
 // Others
-import { MatchPasswordDirective  } from '../../../Directives/match-password.directive';
-import { MatchPassword } from '../../../validators/match-password.validator';
-import { RegistrationValidator } from '../../../validators/register.validator';
-
-export interface Role {
-  value: string;
-  viewValue: string;
-}
-
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { passwordConfirming } from '../../../validators/match-password.validator';
+import { ParentErrorStateMatcher } from '../../../validators/error-matcher.validator';
 
 @Component({
   selector: 'app-users-add',
@@ -38,11 +31,9 @@ export class UsersAddComponent implements OnInit {
   titleForm = '';
   ListRole: Rol[];
   optionsRole: string[] = [];
-  Match: boolean;
-  x = '';
-  y = '';
   registrationFormGroup: FormGroup;
-  passwordFormGroup: FormGroup;
+  PasswordFormGroup: FormGroup;
+  parentErrorStateMatcher = new ParentErrorStateMatcher();
 
   constructor(
     public route: ActivatedRoute,
@@ -51,23 +42,16 @@ export class UsersAddComponent implements OnInit {
     public roleService: RolService,
     public snackBar: MatSnackBar,
     private formBuilder: FormBuilder
-  ) {
-
-  }
-
-  passwordConfirming(c: AbstractControl): { invalid: boolean } {
-    if (c.get('Password').value !== c.get('ConfirmPassword').value) {
-      console.log(c.get('ConfirmPassword').value === c.get('Password').value);
-        return {invalid: true};
-    } else {
-      this.Match = true;
-    }
-}
+  ) { }
 
   ngOnInit() {
     this.titleForm = this.userService.selectedUser.UserID === undefined ? `Add User` : `Edit User`;
     this.getRolesList();
-    this.Match = true;
+
+    this.PasswordFormGroup = this.formBuilder.group({
+      Password: ['', Validators.required],
+      ConfirmPassword: ['', Validators.required]
+    }, { validator: passwordConfirming });
 
     this.registrationFormGroup = this.formBuilder.group({
       UserID: [0],
@@ -77,17 +61,12 @@ export class UsersAddComponent implements OnInit {
       RoleID: ['', Validators.required],
       Company: [''],
       Address: [''],
-      Phone: ['', Validators.pattern('[-0-9()+ ]+')],
-      Mobile: ['', Validators.pattern('[-0-9()+ ]+')],
+      Phone: ['', [Validators.required, Validators.pattern('[-0-9()+ ]+')]],
+      Mobile: ['', [Validators.required, Validators.pattern('[-0-9()+ ]+')]],
       Username: ['', Validators.required],
-      Status: [false],
-      Password: ['', Validators.required],
-      ConfirmPassword: ['', Validators.required]
-    },
-    {
-      validator: this.passwordConfirming
+      Status: [true],
+      PasswordFormGroup: this.PasswordFormGroup
     });
-    this.Match = true;
   }
 
   openSnackBar(message: string) {
@@ -120,7 +99,6 @@ export class UsersAddComponent implements OnInit {
 
   // For save users
   submitUsers() {
-    console.log(this.registrationFormGroup.controls);
     if (this.registrationFormGroup.controls.UserID.value) {
       this.editUsers();
     } else {

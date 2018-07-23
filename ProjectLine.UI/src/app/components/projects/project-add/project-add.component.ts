@@ -1,6 +1,10 @@
 // Config
 import { Component, OnInit } from '@angular/core';
-import { NgForm, FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 // Angular Material
 import { MatDialog, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
@@ -9,19 +13,16 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { PhaseService } from '../../../services/phase.service';
 import { ProjectService } from '../../../services/project.service';
 import { HelperService } from '../../../services/helper.service';
+import { UserService } from '../../../services/user.service';
 // Models
 import { Project } from '../../../models/project.model';
 import { Phase } from '../../../models/phase.model';
+import { User } from '../../../models/user.model';
 import { ViewModelProject } from '../../../models/viewmodelproject.model';
 // Components
 import { PhasesFormComponent } from '../../phases/phases-form/phases-form.component';
 import { DialogConfirmationComponent } from '../../dialog/dialog-confirmation/dialog-confirmation.component';
-import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
-import { User } from '../../../models/user.model';
-import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
-import { UserService } from '../../../services/user.service';
+// Validators
 import { isSelectedValid } from '../../../validators/client-owner-autocomplete.validator';
 
 
@@ -53,14 +54,13 @@ export class ProjectAddComponent implements OnInit {
   constructor(public dialog: MatDialog,
     private activateRoute: ActivatedRoute,
     private projectFormBuilder: FormBuilder,
-    public route: ActivatedRoute,
-    public router: Router,
+    private router: Router,
     private userService: UserService,
-    public phaseService: PhaseService,
-    public projectService: ProjectService,
-    public helperService: HelperService,
-    public viewmodelProject: ViewModelProject,
-    public snackBar: MatSnackBar) {
+    private phaseService: PhaseService,
+    private projectService: ProjectService,
+    private helperService: HelperService,
+    private viewmodelProject: ViewModelProject,
+    private snackBar: MatSnackBar) {
     helperService = new HelperService();
   }
 
@@ -140,7 +140,7 @@ export class ProjectAddComponent implements OnInit {
   }
 
   navigate_to_project_home_page() {
-    this.router.navigate(['/Project']);
+    this.router.navigate(['/Projects']);
   }
   openSnackBar(message: string) {
     this.snackBar.open(message, null, {
@@ -176,40 +176,34 @@ export class ProjectAddComponent implements OnInit {
   }
 
   test() {
-    return new Promise(resolve => {
-      this.buildForm();
+    return new Promise((done, reject) => {
       this.userService.getUsersByRol(3).subscribe((datalist: User[]) => {
         this.listClient = datalist;
-        this.filteredClient = this.projectFormGroup.controls.UserId.valueChanges.pipe(
-          startWith(''), map(value => value ? this.filter(value, 0) : this.listClient));
+        alert('Asignado');
       }, error => { console.log(error); });
     });
   }
 
-  async InitAutocomplete_Client_Owner() {
-
-    await this.test().then(x => {
-      alert('hola bismarck');
+  InitAutocomplete_Client_Owner() {
+    this.test().then(() => {
+      this.buildForm();
+      this.filteredClient = this.projectFormGroup.controls.UserId.valueChanges.pipe(
+        startWith(''), map(value => value ? this.filter(value, 0) : this.listClient));
+      alert('filter');
     });
-
   }
 
   buildForm() {
-    this.userService.getUsersByRol(3).subscribe((datalist: User[]) => {
-      this.listClient = datalist;
-      this.filteredClient = this.projectFormGroup.controls.UserId.valueChanges.pipe(
-        startWith(''), map(value => value ? this.filter(value, 0) : this.listClient));
-    }, error => { console.log(error); });
-
     this.projectFormGroup = this.projectFormBuilder.group({
       ProjectID: '',
       UserId: ['', [Validators.required, isSelectedValid(this.listClient)]],
       OwnerId: new FormControl('', [Validators.required]),
-    Title: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z0-9].*/)]),
+      Title: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z0-9].*/)]),
       Description: '',
       StartDate: new Date(),
       EndDate: new Date(),
     });
+    alert('formulario');
   }
 
   newFormEditProject() {
