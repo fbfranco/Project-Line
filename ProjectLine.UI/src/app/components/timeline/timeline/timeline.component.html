@@ -11,11 +11,11 @@
     </mat-autocomplete>
   </mat-form-field>
 </div>
-<div *ngIf="Hide" fxLayout="row wrap" fxLayoutAlign="center center">
+<div *ngIf="Hide" fxLayout="row wrap" fxLayoutAlign="center start">
   <div>
     <app-progress [phasesProject]="PhaseModel"></app-progress>
   </div>
-  <div class="VivaTimeline" fxFlex.gt-md="60%" fxFlex.lt-lg="100%">
+  <div class="VivaTimeline">
     <h1 class="project-title" LayoutAlign="center center">{{ DataProject.Title }}</h1>
     <dl class="vertical-line">
       <div *ngFor="let date of this.helperService.getMonthsInRange(DataProject.StartDate,DataProject.EndDate)">
