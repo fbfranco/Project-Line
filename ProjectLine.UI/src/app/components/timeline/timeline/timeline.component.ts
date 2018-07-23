@@ -134,11 +134,11 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
   }
 
   getValidate(phaseDate: Date, strDate: string): boolean {
-    const date  = this.helperService.MonthYearFormat(phaseDate);
+    const date = this.helperService.MonthYearFormat(phaseDate);
     let valid = false;
     if (date === strDate) {
-          valid = true;
-        }
+      valid = true;
+    }
     return valid;
   }
 
