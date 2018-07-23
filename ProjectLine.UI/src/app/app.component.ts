@@ -12,5 +12,6 @@ export class AppComponent {
     public helper: HelperService
   ) {
     helper.Ocultar = false;
+    helper.HideLayout = false;
   }
 }

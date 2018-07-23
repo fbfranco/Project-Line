@@ -47,8 +47,16 @@
                             .first()
                             .addClass('active');
                     }
+                    if ($(this).hasClass('PhasePassed')) {
+                        $(this).toggle()
+                        $(this).siblings('.events-footer').toggle()
+                    }else {
+                         $(this).addClass('CurrentPhase')
+                        $('.content-router-outlet').animate({
+                            scrollTop: $(".CurrentPhase").offset().top - 120
+                        }, 2500);
+                    }
                 });
-            
             self.target
                 .find('.events-body')
                 .each(function(){

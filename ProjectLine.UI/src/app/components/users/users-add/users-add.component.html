@@ -27,6 +27,7 @@
       fxLayoutAlign.md="space-between start">
 
       <!-- Email -->
+      
       <mat-form-field class="form-group">
         <input type="email" matInput maxlength="150" placeholder="Email" name="Email" #Email formControlName="Email" required>
         <mat-hint align="end">{{Email.value?.length || 0}}/150</mat-hint>

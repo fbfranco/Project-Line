@@ -35,14 +35,12 @@ export class ProjectListComponent implements OnInit {
       console.log('Error getting the list of projects');
     });
   }
-
   newProject() {
     this.phasesService.phaseList = [];
     this.projectService.selectedProject = new Project();
     this.projectService.selectedProject.StartDate = new Date();
     this.projectService.selectedProject.EndDate = new Date();
   }
-
   getSelectedProject(project: Project) {
     this.projectService.selectedProject = Object.assign({}, project);
     this.phasesService.phaseList = this.projectService.selectedProject.Phases;

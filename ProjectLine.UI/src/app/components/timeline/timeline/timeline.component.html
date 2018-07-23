@@ -24,9 +24,11 @@
           <dd *ngIf="getValidate(Phase.EndDate,date)" [ngClass]="{'pos-right': i%2 != 0,'pos-left': i%2 == 0}" class="clearfix">
             <div class="circ"></div>
             <div class="time">{{Phase.EndDate | date: 'MMM d'}}</div>
-            <div class="events">
+            <div class="events" [ngStyle]="{'background-color':Phase.StatePhase == true ? '#CCDB38' : '#06AAD6'}">
+            <!-- <div class="events"> -->
               <div class="events-header">{{Phase.Title}}</div>
-              <div class="events-body">
+              <div class="events-body" [ngClass]="{'PhasePassed': Phase.StatePhase == false}" ng-style="setStyles()">
+              <!-- <div class="events-body"> -->
                 <div class="row">
                   <div class="events-desc">
                     <div class="slide-phase">

@@ -10,6 +10,7 @@ export class HelperService {
   formats: {};
   SlideMenu: any;
   Ocultar: Boolean;
+  HideLayout: Boolean;
 
   constructor() {
     this.formats = {
