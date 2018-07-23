@@ -11,7 +11,7 @@ import { User } from '../../../models/user.model';
 import { Rol } from '../../../models/rol';
 
 // Material
-import { MatSnackBar, ErrorStateMatcher } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 
 
 // Others
@@ -34,6 +34,7 @@ export class UsersAddComponent implements OnInit {
   registrationFormGroup: FormGroup;
   PasswordFormGroup: FormGroup;
   parentErrorStateMatcher = new ParentErrorStateMatcher();
+  passwordPattern = '(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}';
 
   constructor(
     public route: ActivatedRoute,
@@ -49,7 +50,7 @@ export class UsersAddComponent implements OnInit {
     this.getRolesList();
 
     this.PasswordFormGroup = this.formBuilder.group({
-      Password: ['', Validators.required],
+      Password: ['', [Validators.required, Validators.pattern(this.passwordPattern)]],
       ConfirmPassword: ['', Validators.required]
     }, { validator: passwordConfirming });
 
@@ -61,10 +62,11 @@ export class UsersAddComponent implements OnInit {
       RoleID: ['', Validators.required],
       Company: [''],
       Address: [''],
-      Phone: ['', [Validators.required, Validators.pattern('[-0-9()+ ]+')]],
-      Mobile: ['', [Validators.required, Validators.pattern('[-0-9()+ ]+')]],
+      Phone: ['', [Validators.pattern('[-0-9()+ ]+')]],
+      Mobile: ['', [Validators.pattern('[-0-9()+ ]+')]],
       Username: ['', Validators.required],
-      Status: [true],
+      Password: [''],
+      Status: [{ value: true, disabled: true }],
       PasswordFormGroup: this.PasswordFormGroup
     });
   }
@@ -99,6 +101,7 @@ export class UsersAddComponent implements OnInit {
 
   // For save users
   submitUsers() {
+
     if (this.registrationFormGroup.controls.UserID.value) {
       this.editUsers();
     } else {
@@ -107,15 +110,17 @@ export class UsersAddComponent implements OnInit {
   }
 
   saveUsers() {
+    this.registrationFormGroup.value.Password = this.PasswordFormGroup.value.Password;
+
     this.userService.createUser(this.registrationFormGroup.value)
       .subscribe(good => this.navigate_to_user_home_page(),
-      error => console.error(error));
+        error => console.error(error));
   }
 
   editUsers() {
     this.userService.updateUser(this.registrationFormGroup.value)
       .subscribe(good => this.navigate_to_user_home_page(),
-      error => console.error(error));
+        error => console.error(error));
   }
 
   navigate_to_user_home_page() {

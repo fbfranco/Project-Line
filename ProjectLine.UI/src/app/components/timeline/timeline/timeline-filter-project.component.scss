@@ -3,6 +3,7 @@ $color-primary2: rgb(6, 170, 214);
 $color-dark: rgb(34, 45, 49);
 $color-primary:#174056;
 $color-header: #00313C;
+$color-ActivePhase: rgb(205, 220, 57);
 
 .div-Container{
     width: 100%;
@@ -48,6 +49,19 @@ h1{
         margin-left: 20px;
     }
     
+}
+
+//------Active Phase Styles--------
+.VivaTimeline dl dd .ActivePhase{
+  background: $color-ActivePhase;
+}
+
+.VivaTimeline dl dd.pos-right .ActivePhase:before{
+  border-color: transparent $color-ActivePhase transparent transparent;
+}
+
+.VivaTimeline dl dd .ActivePhase:before{
+  border-color: transparent transparent transparent $color-ActivePhase;
 }
 
 /*Autor: Bismarck Franco*/
