@@ -1,7 +1,13 @@
 .percentage {
     @media screen and (min-width: 1280px) {
         position: absolute;
-        min-width: 20%;
+        flex-flow: column;
+        @if screen and (min-height: 720px) {
+            min-width: 20%;
+        }
+    }
+    @if screen and (max-height: 719px) {
+        flex-flow: row;
     }
 }
 
@@ -12,10 +18,8 @@
 .legend {
     background-color: rgb(222, 222, 222);
     min-width: 140px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    padding-left: 14px;
-    padding-right: 14px;
+    padding: 14px;
+    padding-bottom: 10px;
     .completed {
         background-color: rgb(6, 170, 214);
         width: 20px;
@@ -29,7 +33,6 @@
     p {
         font-weight: bolder;
         font-size: 12px;
-        padding-top: 12px;
         &:hover {
             cursor: pointer;
             font-style: italic;

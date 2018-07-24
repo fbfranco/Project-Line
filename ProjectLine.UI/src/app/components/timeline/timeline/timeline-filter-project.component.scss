@@ -22,9 +22,9 @@ h1{
 
 .VivaTimeline{  
     width:100%;
-    @media screen and (min-width: 1280px) and (max-width: 1440px) {
-      min-height: calc(77vh - 160px);  
-      max-height: calc(77vh - 160px);  
+    @media screen and (min-width: 1280px) and (min-height: 720px) {
+      min-height: calc(100vh - 340px); 
+      max-height: calc(100vh - 340px); 
       padding-left: 20%;
       padding-right: 20%;
       overflow: auto;    
