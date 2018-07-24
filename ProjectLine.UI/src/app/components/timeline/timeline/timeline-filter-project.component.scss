@@ -47,7 +47,7 @@ h1{
     .VivaTimeline dl dd.pos-left .time{
         margin-left: 20px;
     }
-    
+
 }
 
 /*Autor: Bismarck Franco*/
@@ -92,6 +92,12 @@ h1{
   & span, p {
     padding: 0 1em;
     font-weight: 100;
+  }
+  & .start-date {
+    margin-left: 12px;
+  }
+  & .end-date {
+    margin-left: 17px;
   }
 }
 .fas.fa-circle::before {
