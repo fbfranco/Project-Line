@@ -113,8 +113,10 @@ export class UsersAddComponent implements OnInit {
     this.registrationFormGroup.value.Password = this.PasswordFormGroup.value.Password;
 
     this.userService.createUser(this.registrationFormGroup.value)
-      .subscribe(good => this.navigate_to_user_home_page(),
-        error => console.error(error));
+      .subscribe(good => {
+        this.openSnackBar('Saved');
+        this.navigate_to_user_home_page();
+      });
   }
 
   editUsers() {
