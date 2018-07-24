@@ -13,6 +13,7 @@
       <input matInput maxlength="150" placeholder="First Name" formControlName="FirstName" required>
       <mat-hint align="end">{{registrationFormGroup.get('FirstName').value?.length || 0}}/150</mat-hint>
       <mat-error *ngIf="registrationFormGroup.get('FirstName').hasError('required')">This Field is Required.</mat-error>
+      <mat-error *ngIf="registrationFormGroup.get('FirstName').hasError('pattern')">Insert a valid First Name.</mat-error>
     </mat-form-field>
 
     <!-- Last Name -->
@@ -20,6 +21,7 @@
       <input matInput maxlength="150" placeholder="Last Name" formControlName="LastName" required>
       <mat-hint align="end">{{registrationFormGroup.get('LastName').value?.length || 0}}/150</mat-hint>
       <mat-error *ngIf="registrationFormGroup.get('LastName').hasError('required')">This Field is Required.</mat-error>
+      <mat-error *ngIf="registrationFormGroup.get('LastName').hasError('pattern')">Insert a valid Last Name.</mat-error>
     </mat-form-field>
 
     <div class="date-content" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign.gt-xs="space-between start"
@@ -50,6 +52,7 @@
       <input matInput maxlength="150" placeholder="Company" formControlName="Company">
       <mat-hint align="end">{{registrationFormGroup.get('Company').value?.length || 0}}/150</mat-hint>
       <mat-error *ngIf="registrationFormGroup.get('Company').hasError('required')">This Field is Required.</mat-error>
+      <mat-error *ngIf="registrationFormGroup.get('Company').hasError('pattern')">Insert a valid Company Name.</mat-error>
     </mat-form-field>
 
     <!-- Address -->
@@ -57,6 +60,7 @@
       <input matInput maxlength="150" placeholder="Address" formControlName="Address">
       <mat-hint align="end">{{registrationFormGroup.get('Address').value?.length || 0}}/150</mat-hint>
       <mat-error *ngIf="registrationFormGroup.get('Address').hasError('required')">This Field is Required.</mat-error>
+      <mat-error *ngIf="registrationFormGroup.get('Address').hasError('pattern')">Insert a valid Address Name.</mat-error>
     </mat-form-field>
 
     <div class="date-content" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign.gt-xs="space-between start"
@@ -86,6 +90,7 @@
       <input matInput maxlength="25" placeholder="Username" formControlName="Username" required>
       <mat-hint align="end">{{registrationFormGroup.get('Username').value?.length || 0}}/25</mat-hint>
       <mat-error *ngIf="registrationFormGroup.get('Username').hasError('required')">This Field is Required.</mat-error>
+      <mat-error *ngIf="registrationFormGroup.get('Username').hasError('pattern')">Insert a valid Username Name.</mat-error>
     </mat-form-field>
 
     <!-- Password -->

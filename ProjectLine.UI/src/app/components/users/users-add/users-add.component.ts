@@ -56,15 +56,15 @@ export class UsersAddComponent implements OnInit {
 
     this.registrationFormGroup = this.formBuilder.group({
       UserID: [0],
-      FirstName: ['', Validators.required],
-      LastName: ['', Validators.required],
+      FirstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9].*')]],
+      LastName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9].*')]],
       Email: ['', [Validators.required, Validators.email]],
       RoleID: ['', Validators.required],
-      Company: [''],
-      Address: [''],
-      Phone: ['', [Validators.pattern('[-0-9()+ ]+')]],
-      Mobile: ['', [Validators.pattern('[-0-9()+ ]+')]],
-      Username: ['', Validators.required],
+      Company: ['', Validators.pattern('^[a-zA-Z0-9].*')],
+      Address: ['', Validators.pattern('^[a-zA-Z0-9].*')],
+      Phone: ['', [Validators.pattern('^[-0-9()+].*')]],
+      Mobile: ['', [Validators.pattern('^[-0-9()+].*')]],
+      Username: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9].*')]],
       Password: [''],
       Status: [{ value: true, disabled: true }],
       PasswordFormGroup: this.PasswordFormGroup
