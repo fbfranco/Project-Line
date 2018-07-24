@@ -24,8 +24,6 @@ import { PhasesFormComponent } from '../../phases/phases-form/phases-form.compon
 import { DialogConfirmationComponent } from '../../dialog/dialog-confirmation/dialog-confirmation.component';
 // Validators
 import { isSelectedValid } from '../../../validators/client-owner-autocomplete.validator';
-import { SelectedValidator } from '../../../Directives/client-owner-autocomplete.directive';
-
 
 const helpers = new HelperService();
 
@@ -44,22 +42,22 @@ export class ProjectAddComponent implements OnInit {
   titleForm = '';
   listClient: User[];
   filteredClient: Observable<User[]>;
-  // listOwner: User[];
-  // filteredOwner: Observable<User[]>;
+  listOwner: User[];
+  filteredOwner: Observable<User[]>;
   viewmodel = new ViewModelProject();
   displayedColumns = ['Title', 'Description', 'StartDate', 'EndDate', 'Edit', 'Delete'];
   dataSource = new MatTableDataSource(this.phaseService.phaseList);
-  VarSet: string;
-  EditMode: boolean;
+  varSet: string;
+  projectFG: FormGroup;
 
   constructor(public dialog: MatDialog,
     private activateRoute: ActivatedRoute,
-    private projectFormBuilder: FormBuilder,
+    private projectFB: FormBuilder,
     private router: Router,
     private userService: UserService,
     private phaseService: PhaseService,
     private projectService: ProjectService,
-    private helperService: HelperService,
+    public helperService: HelperService,
     private viewmodelProject: ViewModelProject,
     private snackBar: MatSnackBar) {
     helperService = new HelperService();
@@ -67,28 +65,17 @@ export class ProjectAddComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    this.userService.getUsersByRol(3).subscribe((datalist: User[]) => {
-      this.listClient = datalist;
-      console.log(this.listClient);
-      this.filteredClient = this.projectFormGroup.controls.UserId.valueChanges.pipe(
-        startWith(''), map(value => value ? this.filter(value, 0) : this.listClient));
-
-      // setTimeout(() => {
-      //   this.buildForm();
-      //   this.filteredClient = this.projectFormGroup.controls.UserId.valueChanges.pipe(
-      //     startWith(''), map(value => value ? this.filter(value, 0) : this.listClient));
-      //     console.log('cuatro');
-      // }, 1000);
-    }, error => { console.log(error); });
+    this.loadClient();
+    this.loadOwner();
+    this.addOrEditForm();
   }
 
   AddRows() {
-    const nroPhase = this.phaseService.phaseList.length + 1;
     this.phaseService.phaseList.push({
       PhaseID: 0,
-      Title: `Phase ${nroPhase}`,
+      Title: `New Phase`,
       Description: '',
-      StartDate: this.projectService.selectedProject.StartDate,
+      StartDate: this.projectFG.get('StartDate').value,
       EndDate: new Date(),
       DemoUrl: 'demo'
     });
@@ -100,17 +87,15 @@ export class ProjectAddComponent implements OnInit {
       data: {title: 'Please confirm...', description: 'Are you sure you want to remove this item?'}
     });
 
-
     dialogRef.afterClosed().subscribe(result => {
-      this.VarSet = result;
-      if (this.VarSet === 'confirm') {
+      this.varSet = result;
+      if (this.varSet === 'confirm') {
 
         const indexPhase = this.phaseService.phaseList.indexOf(dataPhases);
         this.phaseService.phaseList.splice(indexPhase, 1);
         this.dataSource.filter = '';
       }
     });
-
   }
 
   openDialog(dataPhases) {
@@ -125,20 +110,20 @@ export class ProjectAddComponent implements OnInit {
 
   onSubmit() {
     this.listClient.forEach(element => {
-      if (element.FirstName === this.projectFormGroup.value.UserId) {
-        this.projectFormGroup.value.UserId = element.UserID;
+      if (element.FirstName === this.projectFG.value.UserId) {
+        this.projectFG.value.UserId = element.UserID;
       }
     });
-    // this.listOwner.forEach(element => {
-    //   if (element.FirstName === this.projectFormGroup.value.OwnerId) {
-    //     this.projectFormGroup.value.OwnerId = element.UserID;
-    //   }
-    // });
-    this.viewmodel.Project = this.projectFormGroup.value;
+    this.listOwner.forEach(element => {
+      if (element.FirstName === this.projectFG.value.OwnerId) {
+        this.projectFG.value.OwnerId = element.UserID;
+      }
+    });
+    this.viewmodel.Project = this.projectFG.value;
     this.viewmodel.Phases = this.phaseService.phaseList;
 
-    if (this.projectFormGroup.value.ProjectID === '') {
-      this.projectFormGroup.value.ProjectID = 0;
+    if (this.projectFG.value.ProjectID === '') {
+      this.projectFG.value.ProjectID = 0;
       this.projectService.postProject(this.viewmodel).subscribe(data => {
         this.openSnackBar('Saved');
         this.navigate_to_project_home_page();
@@ -154,7 +139,7 @@ export class ProjectAddComponent implements OnInit {
   }
 
   navigate_to_project_home_page() {
-    this.router.navigate(['/Projects']);
+    this.router.navigate(['/Project']);
   }
   openSnackBar(message: string) {
     this.snackBar.open(message, null, {
@@ -167,6 +152,7 @@ export class ProjectAddComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.phaseService.phaseList);
     this.projectService.selectedProject = new Project();
   }
+
   getSelectedPhase(phase: Phase) {
     this.phaseService.selectedPhase = Object.assign({}, phase);
   }
@@ -180,61 +166,53 @@ export class ProjectAddComponent implements OnInit {
 
   displayNameClient(UserID) {
     if (!UserID) { return ''; }
+    console.log(this.listClient);
     const index = this.listClient.findIndex(client => client.UserID === UserID);
+    console.log(index);
     return this.listClient[index].FirstName;
   }
-  // displayNameOwner(OwnerID) {
-  //   if (!OwnerID) { return ''; }
-  //   const index = this.listOwner.findIndex(owner => owner.UserID === OwnerID);
-  //   return this.listOwner[index].FirstName;
-  // }
+
+  displayNameOwner(OwnerID) {
+    if (!OwnerID) { return ''; }
+    const index = this.listOwner.findIndex(owner => owner.UserID === OwnerID);
+    return this.listOwner[index].FirstName;
+  }
 
   loadClient() {
-    return new Promise ( (done) => {
-      done(() => {
-        this.userService.getUsersByRol(3).subscribe((datalist: User[]) => {
-          this.listClient = datalist;
-          setTimeout(() => {
-            this.buildForm();
-          }, 1000);
-          console.log(this.listClient);
-        }, error => { console.log(error); });
-      });
-    });
+    this.userService.getUsersByRol(3).subscribe((datalist: User[]) => {
+      this.listClient = datalist;
+      this.filteredClient = this.projectFG.controls.UserId.valueChanges.pipe(
+        startWith(''), map(value => value ? this.filter(value, 0) : this.listClient));
+      this.projectFG.controls['UserId'].setValidators([isSelectedValid(this.listClient)]);
+    }, error => { console.log(error); });
   }
-  InitAutocomplete_Client_Owner() {
-    this.loadClient().then(() => {
 
-      console.log('dos');
-      // console.log(this.listClient);
-    });
-    // this.userService.getUsersByRol(3).subscribe((datalist: User[]) => {
-    //   this.listClient = datalist;
-    //   console.log('dos');
-    //   this.buildForm();
-    //   this.filteredClient = this.projectFormGroup.controls.UserId.valueChanges.pipe(
-    //     startWith(''), map(value => value ? this.filter(value, 0) : this.listClient));
-    //     console.log('cuatro');
-    // }, error => { console.log(error); });
+  loadOwner() {
+    this.userService.getUsersByRol(2).subscribe((datalist: User[]) => {
+      this.listOwner = datalist;
+      this.filteredOwner = this.projectFG.controls.OwnerId.valueChanges.pipe(
+        startWith(''), map(value => value ? this.filter(value, 1) : this.listOwner));
+      this.projectFG.controls['OwnerId'].setValidators([isSelectedValid(this.listOwner)]);
+    }, error => { console.log(error); });
   }
 
   buildForm() {
-    this.projectFormGroup = this.projectFormBuilder.group({
+    this.projectFG = this.projectFB.group({
       ProjectID: [''],
-      UserId: ['', [Validators.required, isSelectedValid(this.listClient)]],
-      // OwnerId: new FormControl('', [Validators.required]),
+      UserId: [''],
+      OwnerId: [''],
       Title: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9].*/)]],
       Description: [''],
-      StartDate: [new Date()],
-      EndDate: [new Date()]
-    }); console.log('uno');
+      StartDate: [new Date(), [Validators.required]],
+      EndDate: [new Date(), [Validators.required]],
+    });
   }
 
   newFormEditProject() {
-    this.projectFormGroup = this.projectFormBuilder.group({
+    this.projectFG.patchValue({
       ProjectID: this.projectService.selectedProject.ProjectID,
-      UserId: this.projectService.selectedProject.User.FirstName,
-      OwnerId: this.projectService.selectedProject.User.FirstName,
+      UserId: this.projectService.selectedProject.UserID,
+      OwnerId: this.projectService.selectedProject.OwnerID,
       Title: this.projectService.selectedProject.Title,
       Description: this.projectService.selectedProject.Description,
       StartDate: this.projectService.selectedProject.StartDate,
@@ -242,13 +220,14 @@ export class ProjectAddComponent implements OnInit {
     });
   }
 
-  newForm() {
+  addOrEditForm() {
     this.activateRoute.params.subscribe(param => {
       if (param['id'] === undefined) {
-        this.InitAutocomplete_Client_Owner();
         this.titleForm = 'Add Project';
       } else {
-        this.newFormEditProject();
+        setTimeout(() => {
+          this.newFormEditProject();
+        }, 500);
         this.titleForm = 'Edit Project';
       }
     });

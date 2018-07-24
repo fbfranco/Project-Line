@@ -1,71 +1,82 @@
 <div class="Form-Container">
   <h1>{{titleForm}}</h1>
   <br>
-  <form novalidate [formGroup]="projectFormGroup" (ngSubmit)="onSubmit()" fxLayout="column">
+  <form novalidate [formGroup]="projectFG" (ngSubmit)="onSubmit()" fxLayout="column">
     <input type="hidden" formControlName="ProjectID">
+
     <div class="date-content" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign.gt-xs="space-between start"
     fxLayoutAlign.md="space-between start" fxLayoutGap="15px">
       <!-- Title -->
       <mat-form-field>
         <input matInput maxlength="150" placeholder="Title" formControlName="Title">
-        <mat-hint align="end">{{projectFormGroup.get('Title').value?.length || 0}}/150</mat-hint>
-        <mat-error *ngIf="projectFormGroup.get('Title').hasError('required')">This Field is Required.</mat-error>
+        <mat-hint align="end">{{projectFG.get('Title').value?.length || 0}}/150</mat-hint>
+        <mat-error *ngIf="projectFG.get('Title').hasError('required')">This Field is Required.</mat-error>
+        <mat-error *ngIf="projectFG.get('Title').hasError('pattern')">Title Invalid.</mat-error>
       </mat-form-field>
+
+      <!-- UserId -->
       <mat-form-field>
-        <input type="text" placeholder="Client" aria-label="Number" matInput [matAutocomplete]="UserId"  formControlName="UserId">
-        <mat-error *ngIf="projectFormGroup.get('UserId').hasError('required')">This Field is Required.</mat-error>
-        <!-- <mat-error *ngIf="projectFormGroup.get('UserId').hasError('isSelectedValid')">Select a client form the list.</mat-error> -->
+        <input type="text" placeholder="Client" matInput [matAutocomplete]="UserId"  formControlName="UserId">
+        <mat-error *ngIf="projectFG.get('UserId').hasError('isSelectedValid')">Select a client form the list.</mat-error>
         <mat-autocomplete #UserId="matAutocomplete" autoActiveFirstOption [displayWith]="displayNameClient.bind(this)">
           <mat-option *ngFor="let client of filteredClient | async" [value]="client.UserID">
             {{ client.FirstName }}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-      <!-- <mat-form-field>
-        <input type="text" placeholder="Product Owner" aria-label="Number" matInput [matAutocomplete]="OwnerId"  formControlName="OwnerId">
-        <mat-error *ngIf="projectFormGroup.get('OwnerId').hasError('required')">This Field is Required.</mat-error>
-        <mat-error *ngIf="projectFormGroup.get('OwnerId').hasError('isSelectedValid')">Select a client form the list.</mat-error>
+
+      <!-- OwnerId -->
+      <mat-form-field>
+        <input type="text" placeholder="Product Owner" matInput [matAutocomplete]="OwnerId"  formControlName="OwnerId">
+        <mat-error *ngIf="projectFG.get('OwnerId').hasError('isSelectedValid')">Select a client form the list.</mat-error>
         <mat-autocomplete #OwnerId="matAutocomplete" autoActiveFirstOption [displayWith]="displayNameOwner.bind(this)">
           <mat-option *ngFor="let owner of filteredOwner | async" [value]="owner.UserID">
             {{ owner.FirstName }}
           </mat-option>
         </mat-autocomplete>
-      </mat-form-field> -->
+      </mat-form-field>
     </div>
+
     <!-- Description -->
     <mat-form-field>
       <textarea matInput maxlength="1000" placeholder="Description" matTextareaAutosize matAutosizeMinRows="4" matAutosizeMaxRows="5" formControlName="Description"></textarea>
-      <mat-hint align="end">{{projectFormGroup.get('Description').value?.length || 0}}/1000</mat-hint>
+      <mat-hint align="end">{{projectFG.get('Description').value?.length || 0}}/1000</mat-hint>
     </mat-form-field>
-    <div class="date-content" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign.gt-xs="space-between start"
-      fxLayoutAlign.md="space-between start">
+
+    <div class="date-content" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign.gt-xs="space-between start" fxLayoutAlign.md="space-between start">
       <!-- Start Date -->
       <mat-form-field>
-        <input matInput [max]="projectFormGroup.value.EndDate" [matDatepicker]="startdate" placeholder="Start Date"
-        formControlName="StartDate" required>
+        <input matInput [max]="projectFG.value.EndDate" [matDatepicker]="startdate" placeholder="Start Date" formControlName="StartDate">
+        <mat-error *ngIf="projectFG.get('StartDate').hasError('required')">This Field is Required.</mat-error>
         <mat-datepicker-toggle matSuffix [for]="startdate"></mat-datepicker-toggle>
         <mat-datepicker #startdate></mat-datepicker>
       </mat-form-field>
+
       <!-- End Date -->
       <mat-form-field>
-        <input matInput [min]="projectFormGroup.value.StartDate" [matDatepicker]="endDate" placeholder="Estimated End Date"
-        formControlName="EndDate" required>
+        <input matInput [min]="projectFG.value.StartDate" [matDatepicker]="endDate" placeholder="Estimated End Date" formControlName="EndDate">
+        <mat-error *ngIf="projectFG.get('EndDate').hasError('required')">This Field is Required.</mat-error>
         <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
         <mat-datepicker #endDate></mat-datepicker>
       </mat-form-field>
     </div>
+
     <div fxLayout="row">
-      <a mat-raised-button color="primary" [disabled]="projectFormGroup.invalid" (click)="projectFormGroup.valid ? AddRows() : false">Add Phase</a>
+      <a mat-raised-button color="primary" [disabled]="projectFG.invalid" (click)="projectFG.valid ? AddRows() : false">Add Phase</a>
     </div>
     <br>
+
+    <!-- Table Phases -->
     <div class="table-content" *ngIf="dataSource.data.length > 0">
       <h2>Phases</h2>
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
         <!--Phase Column -->
         <ng-container matColumnDef="Title">
           <th mat-header-cell *matHeaderCellDef> Title</th>
           <td mat-cell *matCellDef="let element"> {{element.Title}} </td>
         </ng-container>
+
         <!-- Description Column -->
         <ng-container matColumnDef="Description">
           <th mat-header-cell *matHeaderCellDef> Description </th>
@@ -73,16 +84,19 @@
             <div class="long-cell"> {{element.Description}} </div>
           </td>
         </ng-container>
+
         <!-- start Date Column -->
         <ng-container matColumnDef="StartDate">
           <th mat-header-cell *matHeaderCellDef> Start Date </th>
           <td mat-cell *matCellDef="let element"> {{helperService.DateFormat(element.StartDate)}} </td>
         </ng-container>
+
         <!-- End date Column -->
         <ng-container matColumnDef="EndDate">
           <th mat-header-cell *matHeaderCellDef> Estimated End Date </th>
           <td mat-cell *matCellDef="let element"> {{helperService.DateFormat(element.EndDate)}} </td>
         </ng-container>
+
         <!-- Edit Column -->
         <ng-container matColumnDef="Edit">
           <th mat-header-cell *matHeaderCellDef> Edit </th>
@@ -92,6 +106,7 @@
             </a>
           </td>
         </ng-container>
+
         <!-- Delete Column -->
         <ng-container matColumnDef="Delete">
           <th mat-header-cell *matHeaderCellDef> Delete </th>
@@ -101,12 +116,14 @@
             </a>
           </td>
         </ng-container>
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
     </div>
+
     <div fxLayout="row" fxLayoutGap="1em" class="form-options">
-      <button mat-raised-button color="primary"  type="submit" [disabled]="projectFormGroup.invalid">Save</button>
+      <button mat-raised-button color="primary"  type="submit" [disabled]="!projectFG.valid">Save</button>
       <a mat-raised-button color="warn" routerLink="/Project">Cancel</a>
     </div>
   </form>
