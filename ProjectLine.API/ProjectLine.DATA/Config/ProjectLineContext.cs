@@ -25,7 +25,6 @@ namespace ProjectLine.DATA.Config
         {
             #region Model Project
             modelBuilder.Entity<Project>().HasKey(x => x.ProjectID);
-            modelBuilder.Entity<Project>().Property(x => x.UserID).IsRequired();
             modelBuilder.Entity<Project>().Property(x => x.Title).HasMaxLength(150).IsRequired();
             modelBuilder.Entity<Project>().Property(x => x.Description).HasMaxLength(1000);
             modelBuilder.Entity<Project>().Property(x => x.StartDate).IsRequired();

@@ -17,6 +17,6 @@ export class SelectedValidator implements Validator {
   @Input() ListFiltered: any[];
 
   validate (control: AbstractControl): {[Key: string]: any} {
-    return isSelectedValid(this.ListFiltered)(control);
+    return this.ListFiltered !== undefined ? null : isSelectedValid(this.ListFiltered)(control);
   }
 }
