@@ -66,7 +66,7 @@ export class UsersAddComponent implements OnInit {
       Mobile: ['', [Validators.pattern('^[-0-9()+].*')]],
       Username: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9].*')]],
       Password: [''],
-      Status: [{ value: true, disabled: true }],
+      Active: [{ value: true, disabled: true }],
       PasswordFormGroup: this.PasswordFormGroup
     });
   }
@@ -111,6 +111,7 @@ export class UsersAddComponent implements OnInit {
 
   saveUsers() {
     this.registrationFormGroup.value.Password = this.PasswordFormGroup.value.Password;
+    this.registrationFormGroup.value.Active = true;
 
     this.userService.createUser(this.registrationFormGroup.value)
       .subscribe(good => {
