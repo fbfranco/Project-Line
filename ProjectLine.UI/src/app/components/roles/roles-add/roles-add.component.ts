@@ -22,7 +22,7 @@ export class RolesAddComponent implements OnInit {
   }
   EditRolForm() {
     this.RoleFormGroup = this.rolFormBuilder.group({
-      RoleId: this.rolService.selectedRol.RoleId,
+      RoleId: this.rolService.selectedRol.RoleID,
       Title: new FormControl({ value: this.rolService.selectedRol.Title, disabled: true }),
       Description: this.rolService.selectedRol.Description
     });
