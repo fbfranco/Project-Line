@@ -97,12 +97,26 @@ namespace ProjectLine.TEST.Tests
         [TestMethod]
         public void AddRol()
         {
-            Role r = new Role()
+            Role r1 = new Role()
             {
-                Title = "Cliente",
-                Description="Cerabol"
+               Title = "Administrator",
+               Description="Administrador"
             };
-            objrol.Create(r);
+            objrol.Create(r1);
+
+            Role r2 = new Role()
+            {
+               Title = "Product Owner",
+               Description = "PO"
+            };
+            objrol.Create(r2);
+
+            Role r3 = new Role()
+            {
+               Title = "Client",
+               Description = "Cliente"
+            };
+            objrol.Create(r3);
         }
 
     }

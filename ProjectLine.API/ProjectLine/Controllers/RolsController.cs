@@ -19,11 +19,10 @@ namespace ProjectLine.Controllers
     public class RolsController : ApiController
     {
         private ProjectLineContext db = new ProjectLineContext();
-
         RoleRepository Repository = new RoleRepository();
 
         // GET: api/Rols
-        public IQueryable<Role> GetRols()
+        public IEnumerable<Role> GetRols()
         {
             return db.Roles;
         }
@@ -42,38 +41,24 @@ namespace ProjectLine.Controllers
         }
 
         // PUT: api/Rols/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutRol(int id, Role rol)
+        public IHttpActionResult UpdateRol([FromBody]Role rol)
         {
-            if (!ModelState.IsValid)
+            if (Repository.FindById(rol.RoleID) == null)
             {
-                return BadRequest(ModelState);
+                return NotFound();
             }
-
-            if (id != rol.RoleID)
+            else
             {
-                return BadRequest();
-            }
-
-            db.Entry(rol).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RolExists(id))
+                try
                 {
-                    return NotFound();
+                    Repository.Update(rol);
+                    return Ok();
                 }
-                else
+                catch (Exception ex)
                 {
-                    throw;
+                    return BadRequest(ex.ToString());
                 }
             }
-
-            return StatusCode(HttpStatusCode.NoContent);
         }
 
         // POST: api/Rols

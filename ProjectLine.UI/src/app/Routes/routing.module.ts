@@ -10,21 +10,22 @@ import { TimelineComponent } from '../components/timeline/timeline/timeline.comp
 import { UsersListComponent } from '../components/users/users-list/users-list.component';
 import { RolesListComponent  } from '../components/roles/roles-list/roles-list.component';
 import { UsersAddComponent } from '../components/users/users-add/users-add.component';
+import { RolesAddComponent } from '../components/roles/roles-add/roles-add.component';
 
 
 const routes: Routes = [
-  { path: 'Project', component: ProjectListComponent },
-  { path: 'Project/Add', component: ProjectAddComponent },
-  { path: 'Project/Edit/:id', component: ProjectAddComponent },
-  { path: 'Project/Add/Phase', component: PhasesFormComponent },
-  { path: 'Client', component: PhasesFormComponent },
-  { path: 'Objective', component: ObjectivesComponent },
-  { path: 'Objective/Add', component: ObjectiveAddComponent },
-  { path: 'TimeLine', component: TimelineComponent},
-  { path: 'User', component: UsersListComponent},
-  { path: 'Rol', component: RolesListComponent},
-  { path: 'User/Add', component: UsersAddComponent }
-
+  { path: 'Projects', component: ProjectListComponent },
+  { path: 'Projects/Add', component: ProjectAddComponent },
+  { path: 'Projects/Edit/:id', component: ProjectAddComponent },
+  { path: 'Projects/Add/Phase', component: PhasesFormComponent },
+  { path: 'Clients', component: PhasesFormComponent },
+  { path: 'Objectives', component: ObjectivesComponent },
+  { path: 'Objectives/Add', component: ObjectiveAddComponent },
+  { path: 'ProjectTracking', component: TimelineComponent},
+  { path: 'Users', component: UsersListComponent},
+  { path: 'Roles', component: RolesListComponent},
+  { path: 'Users/Add', component: UsersAddComponent },
+  { path: 'Roles/Add', component: RolesAddComponent }
 ];
 
 @NgModule({

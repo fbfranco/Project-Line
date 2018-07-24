@@ -1,29 +1,23 @@
 <mat-card fxFlex.gt-xs="400px">
   <mat-card-header fxLayoutAlign="center start">
     <mat-card-title>
-      <h1 mat-dialog-title>Edit Rol</h1>
+      <h1 mat-dialog-title>Edit Role</h1>
     </mat-card-title>
   </mat-card-header>
-
-  <form novalidate [formGroup]="objectiveFormGroup" (ngSubmit)="submitObjective()">
+  <form novalidate [formGroup]="RoleFormGroup" (ngSubmit)="editRol()">
     <mat-card-content mat-dialog-content fxLayout="column">
       <mat-form-field>
-        <input matInput #Title maxlength="150" placeholder="Title" formControlName="title" required pattern="^[a-zA-Z0-9].*">
-        <mat-hint align="end">{{Title.value?.length || 0}}/150</mat-hint>
-        <mat-error *ngIf="!objectiveFormGroup.valid" #Error>The field should start with letter or number.</mat-error>
+        <input matInput #Title maxlength="50" placeholder="System Name" formControlName="Title">
       </mat-form-field>
-
       <mat-form-field>
-        <textarea matInput #Description maxlength="1000" placeholder="Description" matTextareaAutosize matAutosizeMinRows="4" matAutosizeMaxRows="5"
-          formControlName="description"></textarea>
-        <mat-hint align="end">{{Description.value?.length || 0}}/1000</mat-hint>
+        <textarea matInput #Description maxlength="50" placeholder="Name" matTextareaAutosize matAutosizeMinRows="4" matAutosizeMaxRows="5"
+          formControlName="Description" required pattern="^[a-zA-Z0-9].*"></textarea>
+        <mat-hint align="end">{{Description.value?.length || 0}}/50</mat-hint>
       </mat-form-field>
     </mat-card-content>
-
     <mat-card-actions fxLayoutAlign="center start">
-      <button mat-raised-button color="primary" [disabled]="!objectiveFormGroup.valid" type="submit">Save</button>
+      <button mat-raised-button color="primary" [disabled]="!RoleFormGroup.valid" type="submit">Save</button>
       <a mat-raised-button color="warn" (click)="onCancelClick()">Cancel</a>
-
     </mat-card-actions>
   </form>
 

@@ -126,7 +126,7 @@ export class UsersAddComponent implements OnInit {
   }
 
   navigate_to_user_home_page() {
-    this.router.navigate(['/User']);
+    this.router.navigate(['/Users']);
   }
 
 }

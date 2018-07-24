@@ -19,4 +19,10 @@ export class RolService {
   getRolList(RoleId: number): Observable<Rol[]> {
     return this.http.get(`${this.apiURL}GetRol/${RoleId}`).pipe(map((data: Response) => <Rol[]>data.json()));
   }
+  updateRol(rol: Rol) {
+    const body = JSON.stringify(rol);
+    const headerOptions = new Headers({ 'Content-Type': 'application/json' });
+    const requestOptions = new RequestOptions({ method: RequestMethod.Post, headers: headerOptions });
+    return this.http.put(`${this.apiURL}UpdateRol/`, body, requestOptions);
+  }
 }
