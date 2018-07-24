@@ -1,15 +1,12 @@
 .percentage {
-    width: 320px;
     @media screen and (min-width: 1280px) {
         position: absolute;
+        min-width: 20%;
     }
 }
 
 .circle {
     min-width: 180px;
-    @media screen and (min-width: 1280px) {
-        width: 320px;
-    }
 }
 
 .legend {
