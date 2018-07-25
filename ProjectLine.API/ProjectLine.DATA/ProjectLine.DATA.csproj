@@ -53,6 +53,10 @@
     <Compile Include="Migrations\201807241235085_init.Designer.cs">
       <DependentUpon>201807241235085_init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807251239385_Init-Bck-01.cs" />
+    <Compile Include="Migrations\201807251239385_Init-Bck-01.Designer.cs">
+      <DependentUpon>201807251239385_Init-Bck-01.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\ObjectiveRepository.cs" />
     <Compile Include="Persistence\PhaseRepository.cs" />
@@ -74,6 +78,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201807241235085_init.resx">
       <DependentUpon>201807241235085_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807251239385_Init-Bck-01.resx">
+      <DependentUpon>201807251239385_Init-Bck-01.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
