@@ -9,7 +9,6 @@ export class User {
     Address?: string;
     Phone?: string;
     Mobile?: string;
-    Username: string;
     Password: string;
     ConfirmPassword: string;
     Active?: boolean;

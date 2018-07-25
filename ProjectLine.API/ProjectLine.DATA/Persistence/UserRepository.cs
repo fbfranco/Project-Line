@@ -72,7 +72,6 @@ namespace ProjectLine.DATA.Persistence
                     update.Address = User.Address;
                     update.Phone = User.Phone;
                     update.Mobile = User.Mobile;
-                    update.Username = User.Username;
                     update.Password = User.Password;
                     update.Active = User.Active;
                     update.RoleID = User.RoleID;
