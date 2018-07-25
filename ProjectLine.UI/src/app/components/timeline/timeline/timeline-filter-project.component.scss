@@ -21,6 +21,18 @@ h1{
 
 }
 
+.VivaTimeline{  
+    width:100%;
+    @media screen and (min-width: 1280px) and (min-height: 720px) {
+      min-height: calc(100vh - 340px); 
+      max-height: calc(100vh - 340px); 
+      padding-left: 20%;
+      padding-right: 20%;
+      overflow: auto;    
+  }
+}
+
+
 .VivaTimeline dl dt{
     background: $color-header;
     font-size: 16px;

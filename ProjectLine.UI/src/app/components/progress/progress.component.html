@@ -1,23 +1,19 @@
-<div class="percentage" fxLayoutAlign="center center" fxLayout="column">
-  <!--  fxLayout.lt-lg="row"  -->
-  <div id="progress-circle" class="circle" fxFlex.gt-md="320px"></div>
-  <!--  fxFlex.lt-lg="180px" -->
-  <mat-card class="legend" fxFlex.lt-lg="140px">
+<div class="percentage">
 
-    <mat-card-title fxLayoutAlign="space-around center">
+  <div id="progress-circle" class="circle"></div>
+
+  <div class="legend">    
+
+    <div fxFlex="100%" fxLayoutAlign="space-between space-between">
       <div class="completed"></div>
-      <div fxFlex="60px">
-        <p (click)="calculateProgress(1)">Completed</p>
-      </div>
-    </mat-card-title>
+      <p (click)="calculateProgress(1)">Completed</p>
+    </div>
 
-    <mat-card-title fxLayoutAlign="space-around center">
+    <div fxFlex="100%" fxLayoutAlign="space-between space-between">
       <div class="pending"></div>
-      <div fxFlex="60px">
-        <p (click)="calculateProgress(2)">Pending</p>
-      </div>
-    </mat-card-title>
+      <p (click)="calculateProgress(2)">Pending</p>
+    </div>
 
-  </mat-card>
+  </div>
 
 </div>
