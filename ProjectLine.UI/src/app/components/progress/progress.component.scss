@@ -1,25 +1,30 @@
 .percentage {
-    @media screen and (min-width: 1280px) {
+    display: flex;
+    min-width: 20%;
+    @media screen and (min-width: 1280px) and (min-height: 720px) {
         position: absolute;
-        flex-flow: column;
-        @if screen and (min-height: 720px) {
-            min-width: 20%;
-        }
+        flex-direction: column;
     }
     @if screen and (max-height: 719px) {
-        flex-flow: row;
+        flex-direction: row;
     }
 }
 
 .circle {
     min-width: 180px;
+    max-width: 100%;
 }
 
 .legend {
-    background-color: rgb(222, 222, 222);
+    display: flex;
+    flex-flow: row wrap;
+    align-self: center;
     min-width: 140px;
+    min-height: 74px;
+    width: 140px;
+    height: 74px;
     padding: 14px;
-    padding-bottom: 10px;
+    background-color: rgb(200, 200, 200);
     .completed {
         background-color: rgb(6, 170, 214);
         width: 20px;

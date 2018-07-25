@@ -1,15 +1,15 @@
-<div class="percentage" fxLayoutAlign="center center">
+<div class="percentage">
 
   <div id="progress-circle" class="circle"></div>
 
-  <div class="legend">
+  <div class="legend">    
 
-    <div fxLayoutAlign="space-between space-between">
+    <div fxFlex="100%" fxLayoutAlign="space-between space-between">
       <div class="completed"></div>
       <p (click)="calculateProgress(1)">Completed</p>
     </div>
 
-    <div fxLayoutAlign="space-between space-between">
+    <div fxFlex="100%" fxLayoutAlign="space-between space-between">
       <div class="pending"></div>
       <p (click)="calculateProgress(2)">Pending</p>
     </div>
