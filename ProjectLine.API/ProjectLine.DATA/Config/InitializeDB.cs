@@ -68,6 +68,15 @@ namespace ProjectLine.DATA.Config
                 RoleID = 1
             });
             #endregion
+
+            #region Initialize Table Permission
+            context.Permissions.AddOrUpdate(x => x.PermissionID, new Permission
+            {
+                Name = "User_View",
+                Description = "This is the user View",
+                RoleID = 1
+            });
+            #endregion
         }
     }
 }

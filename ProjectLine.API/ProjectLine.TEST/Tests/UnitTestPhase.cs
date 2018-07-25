@@ -119,5 +119,34 @@ namespace ProjectLine.TEST.Tests
             objrol.Create(r3);
         }
 
+        PermissionsRepository objPermission = new PermissionsRepository();
+        [TestMethod]
+        public void AddPermissions()
+        {
+            Permission p1 = new Permission()
+            {
+                Name = "User_View",
+                Description = "Allows access to the User View",
+                RoleID = 1
+            };
+            objPermission.Create(p1);
+
+            Permission p2 = new Permission()
+            {
+                Name = "Add_User",
+                Description = "Allows access to the Add_User",
+                RoleID = 1
+            };
+            objPermission.Create(p2);
+
+            Permission p3 = new Permission()
+            {
+                Name = "Edit_User",
+                Description = "Allows access to the Edit_User",
+                RoleID = 1
+            };
+            objPermission.Create(p3);
+        }
+
     }
 }
