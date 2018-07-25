@@ -14,7 +14,6 @@ export class ToolbarComponent implements OnInit {
   }
   SideNavToggle() {
     this.helperService.SlideMenu.toggle();
-    setTimeout(() => { this.sidenavState(); }, 120);
   }
   sidenavState() {
     const percentage = document.getElementsByClassName('percentage') as HTMLCollectionOf<HTMLElement>;

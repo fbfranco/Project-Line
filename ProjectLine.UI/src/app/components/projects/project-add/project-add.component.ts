@@ -161,14 +161,12 @@ export class ProjectAddComponent implements OnInit {
     const filterValue = value.toString().toLowerCase();
     return type === 0 ?
             this.listClient.filter(option => option.FirstName.toLowerCase().includes(filterValue)) :
-            this.listClient.filter(option => option.FirstName.toLowerCase().includes(filterValue));
+            this.listOwner.filter(option => option.FirstName.toLowerCase().includes(filterValue));
   }
 
   displayNameClient(UserID) {
     if (!UserID) { return ''; }
-    console.log(this.listClient);
     const index = this.listClient.findIndex(client => client.UserID === UserID);
-    console.log(index);
     return this.listClient[index].FirstName;
   }
 

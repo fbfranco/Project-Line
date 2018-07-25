@@ -24,7 +24,6 @@ export class ProgressComponent implements OnInit {
   ngOnInit() {
     this.resetNumbers();
     this.showProgress('rgb(80, 80, 80)');
-    this.sidenavState();
   }
 
   sidenavState() {
