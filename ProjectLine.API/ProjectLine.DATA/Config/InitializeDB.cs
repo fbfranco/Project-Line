@@ -62,7 +62,6 @@ namespace ProjectLine.DATA.Config
                 Address = "Cupertino, CA",
                 Phone = "1-800-MY-APPLE",
                 Mobile = "+(123)123-456-7890",
-                Username = "dannergv",
                 Password = "danner",
                 Active = true,
                 RoleID = 1
