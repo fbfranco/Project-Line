@@ -48,6 +48,29 @@
       <mat-form-field>
         <input matInput placeholder="Demo-Url" name="DemoUrl" #DemoUrl="ngModel" [(ngModel)]="phaseService.selectedPhase.DemoUrl">
       </mat-form-field>
+
+        <div draggable="true" ngClass="{{dragAreaClass}}">
+          <div class="row">
+            <div class="col-md-12 text-center" >
+              <a href="javascript:void(0)" (click)="file.click()" >
+                Click to browse
+              </a>
+              Or Drag & Drop to upload your files
+              <input type="file"
+                     #file
+                     [multiple]="(maxFiles > 1)"
+                     (change) = "onFileChange($event)"
+                      />
+            </div>
+          </div>
+
+        </div>
+        <div class="row error" *ngIf="errors.length > 0">
+          <ul>
+            <li *ngFor="let err of errors">{{err}}</li>
+          </ul>
+        </div>
+
     </form>
   </mat-card-content>
   <mat-card-actions fxLayoutAlign="center start">
