@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MatChipInputEvent } from '@angular/material';
 import { PhaseService } from '../../../services/phase.service';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { HelperService } from '../../../services/helper.service';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
 const helpers = new HelperService();
 
@@ -19,6 +20,17 @@ const helpers = new HelperService();
 
 export class PhasesFormComponent implements OnInit {
 
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  fruits: any[] = [
+    {name: 'Lemon'},
+    {name: 'Lime'},
+    {name: 'Apple'},
+  ];
+
   errors: Array<string> = [];
   dragAreaClass = 'dragarea';
   @Input() projectId = 0;
@@ -28,13 +40,15 @@ export class PhasesFormComponent implements OnInit {
   @Input() maxSize = 5; // 5MB
   @Output() uploadStatus = new EventEmitter();
 
-
+  fileName = '';
   phaseSelected = this.phaseService.phaseList;
 
   constructor(public dialogRef: MatDialogRef<PhasesFormComponent>, public phaseService: PhaseService) { }
 
   onFileChange(event) {
     const files = event.target.files;
+    this.fileName = files[0].name;
+    console.log(files);
     this.saveFiles(files);
   }
 
@@ -63,6 +77,8 @@ export class PhasesFormComponent implements OnInit {
     event.preventDefault();
     event.stopPropagation();
     const files = event.dataTransfer.files;
+    console.log(files);
+    this.fileName = files[0].name;
     this.saveFiles(files);
   }
 
@@ -140,5 +156,34 @@ export class PhasesFormComponent implements OnInit {
     const indexPhase = this.phaseService.indexPhase;
     this.phaseService.phaseList.splice(indexPhase, 1, this.phaseService.selectedPhase);
     this.dialogRef.close();
+  }
+
+
+
+
+
+
+
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    // Add our fruit
+    if ((value || '').trim()) {
+      this.fruits.push({name: value.trim()});
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  remove(fruit: any): void {
+    const index = this.fruits.indexOf(fruit);
+
+    if (index >= 0) {
+      this.fruits.splice(index, 1);
+    }
   }
 }

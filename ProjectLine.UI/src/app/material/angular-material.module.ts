@@ -19,7 +19,8 @@ import {
   MatNativeDateModule,
   MatCheckboxModule,
   MatAutocompleteModule,
-  MatTableModule
+  MatTableModule,
+  MatChipsModule
 } from '@angular/material';
 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -48,6 +49,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatSnackBarModule,
     MatTableModule,
     MatTooltipModule,
+    MatChipsModule
   ],
   exports: [
     CommonModule,
@@ -71,6 +73,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatSnackBarModule,
     MatTableModule,
     MatTooltipModule,
+    MatChipsModule
   ]
 })
 
