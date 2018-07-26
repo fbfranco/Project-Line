@@ -23,7 +23,7 @@
         <div *ngFor="let Phase of PhaseModel; let i = index">
           <dd *ngIf="getValidate(Phase.EndDate,date)" [ngClass]="{'pos-right': i%2 != 0,'pos-left': i%2 == 0}" class="clearfix">
             <div class="circ"></div>
-            <div class="time">{{Phase.EndDate | date: 'MMM d'}}</div>
+            <div class="time">{{Phase.EndDate | date: 'MMMM d'}}</div>
             <div class="events" [ngClass]="{'ActivePhase':Phase.StatePhase == true}">
               <div class="events-header">{{Phase.Title}}</div>
               <div class="events-body" [ngClass]="{'PhasePassed': Phase.StatePhase == false}" ng-style="setStyles()">
