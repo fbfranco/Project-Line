@@ -33,7 +33,7 @@ export class ObjectiveAddComponent implements OnInit {
 
   newForm() {
     this.newFormObjective();
-    if (this.objectiveService.selectedObjective.ObjectiveID > 0) {
+    if (!this.phaseIdNumber) {
       this.newFormEditObjective();
     }
   }
