@@ -20,7 +20,13 @@ namespace ProjectLine.Controllers
             var project = await Repository.GetProjects();
             return project;
         }
-        
+        // GET: api/ProjectsArchiveds
+        public async Task<IEnumerable<Project>> GetArchivedProjects()
+        {
+            var project = await Repository.GetArchivedProjects();
+            return project;
+        }
+
         //POST api/<controller>
         public IHttpActionResult SaveProject([FromBody]ProjectViewModel model)
         {

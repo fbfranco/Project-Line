@@ -12,6 +12,7 @@ namespace ProjectLine.CORE.Interface
     public interface IProjectRepository
     {
         Task<IEnumerable<Project>> GetProjects();
+        Task<IEnumerable<Project>> GetArchivedProjects();
         Project FindById(int id);
 
         void Create(ProjectViewModel project);

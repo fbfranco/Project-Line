@@ -11,6 +11,7 @@ import { UsersListComponent } from '../components/users/users-list/users-list.co
 import { RolesListComponent  } from '../components/roles/roles-list/roles-list.component';
 import { UsersAddComponent } from '../components/users/users-add/users-add.component';
 import { RolesAddComponent } from '../components/roles/roles-add/roles-add.component';
+import {AdminHomeComponent} from '../components/homes/admin-home/admin-home.component';
 
 
 const routes: Routes = [
@@ -25,7 +26,8 @@ const routes: Routes = [
   { path: 'Users', component: UsersListComponent},
   { path: 'Roles', component: RolesListComponent},
   { path: 'Users/Add', component: UsersAddComponent },
-  { path: 'Roles/Add', component: RolesAddComponent }
+  { path: 'Roles/Add', component: RolesAddComponent },
+  {path: 'AdminHome', component: AdminHomeComponent}
 ];
 
 @NgModule({

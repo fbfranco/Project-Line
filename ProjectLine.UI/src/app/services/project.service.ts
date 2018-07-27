@@ -34,6 +34,9 @@ export class ProjectService {
   getProjectsList(): Observable<Project[]> {
     return this.http.get(`${this.apiURL}GetProjects/`).pipe(map((data: Response) => <Project[]>data.json()));
   }
+  getArchivedProjectsList(): Observable<Project[]> {
+    return this.http.get(`${this.apiURL}GetArchivedProjects/`).pipe(map((data: Response) => <Project[]>data.json()));
+  }
 
   putProjectDeletePasive(id) {
     const headerOptions = new Headers({ 'Content-Type': 'application/json' });
