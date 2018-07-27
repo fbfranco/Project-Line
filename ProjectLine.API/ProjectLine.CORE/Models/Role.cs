@@ -8,6 +8,7 @@ namespace ProjectLine.CORE.Models
         public string Title { get; set; }
         public string Description { get; set; }
 
-        public ICollection<Permission> Objectives { get; set; }
+        public ICollection<PermissionRole> PermissionRoles { get; set; }
+
     }
 }

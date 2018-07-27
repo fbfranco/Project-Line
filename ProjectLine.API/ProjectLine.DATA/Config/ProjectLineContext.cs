@@ -20,6 +20,7 @@ namespace ProjectLine.DATA.Config
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Permission> Permissions { get; set; }
+        public DbSet<PermissionRole> PermissionsRoles { get; set; }
 
         //Tables Model
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -79,7 +80,10 @@ namespace ProjectLine.DATA.Config
             modelBuilder.Entity<Permission>().HasKey(x => x.PermissionID);
             modelBuilder.Entity<Permission>().Property(x => x.Name).HasMaxLength(50).IsRequired();
             modelBuilder.Entity<Permission>().Property(x => x.Description).HasMaxLength(150);
-            modelBuilder.Entity<Permission>().Property(x => x.RoleID).IsRequired();
+            #endregion
+
+            #region Model PermissionsRoles
+            modelBuilder.Entity<PermissionRole>().HasKey(x => new { x.RoleID, x.PermissionID });
             #endregion
         }
     }

@@ -11,7 +11,8 @@ import { UsersListComponent } from '../components/users/users-list/users-list.co
 import { RolesListComponent  } from '../components/roles/roles-list/roles-list.component';
 import { UsersAddComponent } from '../components/users/users-add/users-add.component';
 import { RolesAddComponent } from '../components/roles/roles-add/roles-add.component';
-
+import { HomeTestComponent } from '../components/home-test/home-test.component';
+import { AuthGuardService } from '../services/auth-guard.service';
 
 const routes: Routes = [
   { path: 'Projects', component: ProjectListComponent },
@@ -23,9 +24,11 @@ const routes: Routes = [
   { path: 'Objectives/Add', component: ObjectiveAddComponent },
   { path: 'ProjectTracking', component: TimelineComponent},
   { path: 'Users', component: UsersListComponent},
+  // { path: 'Roles', component: RolesListComponent, canActivate: [AuthGuardService]},
   { path: 'Roles', component: RolesListComponent},
   { path: 'Users/Add', component: UsersAddComponent },
-  { path: 'Roles/Add', component: RolesAddComponent }
+  { path: 'Roles/Add', component: RolesAddComponent },
+  { path: 'Home', component: HomeTestComponent }
 ];
 
 @NgModule({

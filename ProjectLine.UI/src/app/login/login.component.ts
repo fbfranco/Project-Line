@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+// Service
 import { HelperService } from '../services/helper.service';
+import { PermissionsService } from '../services/permissions.service';
+import { RolService } from '../services/rol.service';
+// Models
+import { Permissions } from '../models/Permissions.model';
 
 @Component({
   selector: 'app-login',
@@ -9,11 +15,14 @@ import { HelperService } from '../services/helper.service';
 })
 export class LoginComponent implements OnInit {
   Oculto: boolean;
+  userFormGroup: FormGroup;
+
   constructor(
     public helper: HelperService,
     private userFormBuilder: FormBuilder,
+    private route: Router,
+    private permissionService: PermissionsService,
   ) { }
-  userFormGroup: FormGroup;
 
   ngOnInit() {
     this.userFormGroup = this.userFormBuilder.group({
@@ -21,8 +30,12 @@ export class LoginComponent implements OnInit {
       Password: ''
     });
   }
+
   submitLogin() {
     this.helper.HideLayout = true;
+    this.permissionService.getUserPermissions(1);
+    console.log(this.permissionService.UserPermissions);
+    this.route.navigate(['/Home']);
   }
 
 }

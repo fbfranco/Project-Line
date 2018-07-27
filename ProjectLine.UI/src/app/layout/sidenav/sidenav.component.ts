@@ -2,8 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { ObservableMedia, MediaChange } from '@angular/flex-layout';
 import { filter } from 'rxjs/operators';
-import { HelperService } from '../../services/helper.service';
 import { Router } from '@angular/router';
+// Services
+import { HelperService } from '../../services/helper.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -37,5 +38,7 @@ export class SidenavComponent implements OnInit {
     this.router.navigateByUrl('', { skipLocationChange: true })
       .then(() => this.router.navigate([url]));
   }
+
+  // Roles and Permissions
 
 }

@@ -11,8 +11,7 @@ namespace ProjectLine.CORE.Models
         public int PermissionID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-
-        public int RoleID { get; set; }
-
+  
+        public ICollection<PermissionRole> PermissionRoles { get; set; }
     }
 }

@@ -74,7 +74,6 @@ namespace ProjectLine.DATA.Config
             {
                 Name = "User_View",
                 Description = "This is the user View",
-                RoleID = 1
             });
             #endregion
         }
