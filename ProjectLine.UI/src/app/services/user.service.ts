@@ -39,4 +39,9 @@ export class UserService {
   getUsersByRol(idRol): Observable<User[]> {
     return this.http.get(`${this.apiURL}GetUsersByRol/${idRol}`).pipe(map((data: Response) => <User[]>data.json()));
   }
+
+
+  validateMatchEmail(email: any) {
+    return true;
+  }
 }

@@ -40,6 +40,7 @@ namespace ProjectLine.DATA.Config
             modelBuilder.Entity<Phase>().Property(x => x.StartDate);
             modelBuilder.Entity<Phase>().Property(x => x.EndDate);
             modelBuilder.Entity<Phase>().Property(x => x.DemoUrl).HasMaxLength(255);
+            modelBuilder.Entity<Phase>().Ignore(x => x.DemoVideo);
             #endregion
 
             #region Model Objective

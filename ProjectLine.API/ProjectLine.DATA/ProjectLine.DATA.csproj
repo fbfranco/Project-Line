@@ -49,6 +49,11 @@
   <ItemGroup>
     <Compile Include="Config\InitializeDB.cs" />
     <Compile Include="Config\ProjectLineContext.cs" />
+    <Compile Include="Migrations\201807271709499_Init.cs" />
+    <Compile Include="Migrations\201807271709499_Init.Designer.cs">
+      <DependentUpon>201807271709499_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\ObjectiveRepository.cs" />
     <Compile Include="Persistence\PhaseRepository.cs" />
     <Compile Include="Persistence\ProjectRepository.cs" />
@@ -65,6 +70,11 @@
       <Project>{7b699e0f-775d-4082-b523-ec4371d55a9c}</Project>
       <Name>ProjectLine.CORE</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201807271709499_Init.resx">
+      <DependentUpon>201807271709499_Init.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

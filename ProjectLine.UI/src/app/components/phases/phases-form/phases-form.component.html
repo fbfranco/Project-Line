@@ -44,16 +44,15 @@
           </mat-error>
         </mat-form-field>
       </div>
+
       <!-- Demo-Url -->
-      <mat-form-field class="example-chip-list">
-        <mat-chip-list #chipList>
-          <mat-chip [selectable]="selectable" [removable]="removable" *ngIf="fileName.length > 0">
-            {{fileName}}
-            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-          </mat-chip>
-        </mat-chip-list>
-        <input placeholder="Demo Video" [matChipInputFor]="chipList">
-      </mat-form-field>
+      <mat-label>Demo Video</mat-label>
+      <mat-chip-list #chipList class="chips">
+        <mat-chip *ngIf="fileName.length > 0" (removed)="removeChipVideo()">
+          {{fileName}}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
       <div draggable="true" ngClass="{{dragAreaClass}}">
           <div class="row">
             <div class="col-md-12 text-center" >
@@ -71,9 +70,7 @@
         </div>
         <mat-label>The file size is limited to 10 MB. Only .mp4, .ogg, .mov</mat-label>
         <div class="row error" *ngIf="errors.length > 0">
-          <ul>
-            <li *ngFor="let err of errors">{{err}}</li>
-          </ul>
+          <mat-error *ngFor="let err of errors">{{err}}</mat-error>
         </div>
     </form>
   </mat-card-content>

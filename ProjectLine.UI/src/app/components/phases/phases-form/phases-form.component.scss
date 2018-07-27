@@ -11,6 +11,15 @@
 .droparea{
   font-size: 1.3em;
   border: 3px dashed #bbb; padding: 20px ;
-  background-color: #eff;
+  background-color: rgb(212, 245, 245);
   color: #aaa;
+}
+
+.mat-card {
+  box-shadow: none;
+  padding: 5px;
+}
+.chips {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }

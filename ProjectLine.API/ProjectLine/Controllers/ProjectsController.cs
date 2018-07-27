@@ -3,7 +3,9 @@ using ProjectLine.CORE.ViewModel;
 using ProjectLine.DATA.Persistence;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -32,6 +34,19 @@ namespace ProjectLine.Controllers
             {
                 try
                 {
+                    var url = "";
+                    var httpRequest = HttpContext.Current.Request;
+                    if (httpRequest.Files.Count > 0)
+                    {
+                        foreach (string file in httpRequest.Files)
+                        {
+                            var postedFile = httpRequest.Files[file];
+                            url = "~/UploadFile/" + postedFile.FileName;
+                            var filePath = HttpContext.Current.Server.MapPath(url);
+                            postedFile.SaveAs(filePath);
+                        }
+                    }
+                    model.Phases[0].DemoUrl = url;
                     Repository.Create(model);
                     return Ok();
                 }

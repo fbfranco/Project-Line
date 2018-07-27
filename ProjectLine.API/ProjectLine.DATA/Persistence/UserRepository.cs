@@ -28,7 +28,12 @@ namespace ProjectLine.DATA.Persistence
         {
             using (Context = new ProjectLineContext())
             {
-                var result = await Context.Users.Include("Role").Where(x => x.Role.RoleID == id).ToListAsync();
+                var listusers = await Context.Users.Include("Role").Where(x => x.Role.RoleID == id).ToListAsync();
+                var result = listusers.Select(u => new User()
+                {
+                    UserID = u.UserID,
+                    FirstName = u.FirstName
+                });
                 return result;
             }
         }

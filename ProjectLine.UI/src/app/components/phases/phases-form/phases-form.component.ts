@@ -1,10 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
-import { MatDialogRef, MatChipInputEvent } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 import { PhaseService } from '../../../services/phase.service';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { HelperService } from '../../../services/helper.service';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
 const helpers = new HelperService();
 
@@ -20,36 +19,23 @@ const helpers = new HelperService();
 
 export class PhasesFormComponent implements OnInit {
 
-  visible = true;
-  selectable = true;
-  removable = true;
-  addOnBlur = true;
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  fruits: any[] = [
-    {name: 'Lemon'},
-    {name: 'Lime'},
-    {name: 'Apple'},
-  ];
-
-  errors: Array<string> = [];
-  dragAreaClass = 'dragarea';
-  @Input() projectId = 0;
-  @Input() sectionId = 0;
-  @Input() fileExt = 'JPG, GIF, PNG';
-  @Input() maxFiles = 5;
-  @Input() maxSize = 5; // 5MB
-  @Output() uploadStatus = new EventEmitter();
-
+  demoVideo: any;
   fileName = '';
+  dragAreaClass = 'dragarea';
+  fileExt = 'mp4, ogg, mov';
+  maxFiles = 1;
+  maxSize = 10; // MB
+  files: any;
+  errors: Array<string> = [];
+
   phaseSelected = this.phaseService.phaseList;
 
   constructor(public dialogRef: MatDialogRef<PhasesFormComponent>, public phaseService: PhaseService) { }
 
   onFileChange(event) {
-    const files = event.target.files;
-    this.fileName = files[0].name;
-    console.log(files);
-    this.saveFiles(files);
+    this.files = event.target.files;
+    this.fileName = this.files[0].name;
+    this.saveFiles(this.files);
   }
 
   @HostListener('dragover', ['$event']) onDragOver(event) {
@@ -86,7 +72,6 @@ export class PhasesFormComponent implements OnInit {
     this.errors = []; // Clear error
     // Validate file size and allowed extensions
     if (files.length > 0 && (!this.isValidFiles(files))) {
-        this.uploadStatus.emit(false);
         return;
     }
     if (files.length > 0) {
@@ -94,10 +79,7 @@ export class PhasesFormComponent implements OnInit {
       for (let j = 0; j < files.length; j++) {
           formData.append('file[]', files[j], files[j].name);
       }
-      const parameters = {
-          projectId: this.projectId,
-          sectionId: this.sectionId
-      };
+      this.phaseService.selectedPhase.DemoVideo = formData;
       // this.fileService.upload(formData, parameters)
       // .subscribe(
       // success => {
@@ -141,7 +123,7 @@ export class PhasesFormComponent implements OnInit {
     const fileSizeinMB = file.size / (1024 * 1000);
     const size = Math.round(fileSizeinMB * 100) / 100; // convert upto 2 decimal place
     if (size > this.maxSize) {
-      this.errors.push('Error (File Size): ' + file.name + ': exceed file size limit of ' + this.maxSize + 'MB ( ' + size + 'MB )');
+      this.errors.push('File capacity exceeds 10 MB');
     }
   }
 
@@ -156,34 +138,13 @@ export class PhasesFormComponent implements OnInit {
     const indexPhase = this.phaseService.indexPhase;
     this.phaseService.phaseList.splice(indexPhase, 1, this.phaseService.selectedPhase);
     this.dialogRef.close();
+    console.log(this.phaseService.selectedPhase);
   }
 
 
-
-
-
-
-
-  add(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value;
-
-    // Add our fruit
-    if ((value || '').trim()) {
-      this.fruits.push({name: value.trim()});
-    }
-
-    // Reset the input value
-    if (input) {
-      input.value = '';
-    }
-  }
-
-  remove(fruit: any): void {
-    const index = this.fruits.indexOf(fruit);
-
-    if (index >= 0) {
-      this.fruits.splice(index, 1);
-    }
+  removeChipVideo(): void {
+    this.fileName = '';
+    this.files = [];
+    this.errors = [];
   }
 }
