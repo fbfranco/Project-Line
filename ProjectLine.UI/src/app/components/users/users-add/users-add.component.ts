@@ -64,7 +64,6 @@ export class UsersAddComponent implements OnInit {
       Address: ['', Validators.pattern('^[a-zA-Z0-9].*')],
       Phone: ['', [Validators.pattern('^[-0-9()+].*')]],
       Mobile: ['', [Validators.pattern('^[-0-9()+].*')]],
-      Username: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9].*')]],
       Password: [''],
       Active: [{ value: true, disabled: true }],
       PasswordFormGroup: this.PasswordFormGroup

@@ -119,5 +119,26 @@ namespace ProjectLine.TEST.Tests
             objrol.Create(r3);
         }
 
+        UserRepository objuser = new UserRepository();
+        [TestMethod]
+        public void AddUser()
+        {
+            User user1 = new User()
+            {
+                FirstName = "Danner",
+                LastName = "Galvarro Vaca",
+                Email = "dannergal@hotmail.com",
+                Company = "Apple",
+                Address = "Cupertino, CA",
+                Phone = "1-800-345-12345",
+                Mobile = "+(123)123-456-7890",
+                Password = "Danner12",
+                Active = true,
+                RoleID = 1
+            };
+            objuser.Create(user1);
+
+        }
+
     }
 }
