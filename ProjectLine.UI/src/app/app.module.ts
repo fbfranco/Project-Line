@@ -47,8 +47,7 @@ import { ProgressComponent } from './components/progress/progress.component';
 import { LoginComponent } from './login/login.component';
 import { SelectedValidator } from './Directives/client-owner-autocomplete.directive';
 import { AdminHomeComponent } from './components/homes/admin-home/admin-home.component';
-import { PoHomeComponent } from './components/homes/po-home/po-home.component';
-import { ClientHomeComponent } from './components/homes/client-home/client-home.component';
+
 
 
 
@@ -77,8 +76,6 @@ import { ClientHomeComponent } from './components/homes/client-home/client-home.
     LoginComponent,
     SelectedValidator,
     AdminHomeComponent,
-    PoHomeComponent,
-    ClientHomeComponent
   ],
   imports: [
     BrowserModule,
