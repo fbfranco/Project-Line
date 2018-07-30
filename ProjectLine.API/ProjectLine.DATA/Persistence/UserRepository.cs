@@ -103,5 +103,11 @@ namespace ProjectLine.DATA.Persistence
                 Console.Write(ex);
             }
         }
+
+        public bool MatchEmail(string id)
+        {
+            var result = true;
+            return result;
+        }
     }
 }
