@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace ProjectLine.DATA.Persistence
@@ -53,7 +54,22 @@ namespace ProjectLine.DATA.Persistence
             {
                 using (Context = new ProjectLineContext())
                 {
-                    Context.Users.Add(User);
+
+                    User New = new User
+                    {
+                        FirstName = User.FirstName,
+                        LastName = User.LastName,
+                        Email = User.Email,
+                        Company = User.Company,
+                        Address = User.Address,
+                        Phone = User.Phone,
+                        Mobile = User.Mobile,
+                        Password = HashPassword(User.Password),
+                        Active = User.Active,
+                        RoleID = User.RoleID,
+                    };
+
+                    Context.Users.Add(New);
                     Context.SaveChanges();
                 }
             }
@@ -77,7 +93,7 @@ namespace ProjectLine.DATA.Persistence
                     update.Address = User.Address;
                     update.Phone = User.Phone;
                     update.Mobile = User.Mobile;
-                    update.Password = User.Password;
+                    update.Password = HashPassword(User.Password);
                     update.Active = User.Active;
                     update.RoleID = User.RoleID;
 
@@ -109,10 +125,22 @@ namespace ProjectLine.DATA.Persistence
             }
         }
 
-        public bool MatchEmail(string id)
+        public string HashPassword(string password)
         {
-            var result = true;
-            return result;
+            // Create the salt value with a cryptographic PRNG
+            byte[] salt;
+            new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
+            // Create the Rfc2898DeriveBytes and get the hash value
+            var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
+            byte[] hash = pbkdf2.GetBytes(20);
+            // Combine the salt and password bytes for later use
+            byte[] hashBytes = new byte[36];
+            Array.Copy(salt, 0, hashBytes, 0, 16);
+            Array.Copy(hash, 0, hashBytes, 16, 20);
+            // Turn the combined salt+hash into a string for storage
+            string savedPasswordHash = Convert.ToBase64String(hashBytes);
+
+            return savedPasswordHash;
         }
     }
 }

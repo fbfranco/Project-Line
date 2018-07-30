@@ -42,6 +42,7 @@ export class UsersAddComponent implements OnInit {
   ) { }
   ngOnInit() {
     this.getRolesList();
+    this.buildForm();
     this.addOrEditForm();
   }
 
@@ -70,9 +71,6 @@ export class UsersAddComponent implements OnInit {
   addOrEditForm() {
     this.route.params.subscribe(param => {
       if (param['id'] === undefined) {
-        setTimeout(() => {
-          this.buildForm();
-        }, 200);
         this.titleForm = 'Add User';
       } else {
         setTimeout(() => {
@@ -84,6 +82,8 @@ export class UsersAddComponent implements OnInit {
   }
 
   newFormEditUser() {
+    this.registrationFormGroup.get('Active').enable();
+
     this.PasswordFormGroup = this.formBuilder.group({
       Password: ['', [Validators.required, Validators.pattern(this.passwordPattern)]],
       ConfirmPassword: ['', Validators.required]
@@ -100,7 +100,7 @@ export class UsersAddComponent implements OnInit {
       Phone: [this.userService.selectedUser.Phone, [Validators.pattern('^[-0-9()+].*')]],
       Mobile: [this.userService.selectedUser.Mobile, [Validators.pattern('^[-0-9()+].*')]],
       Password: [''],
-      Active: [{ value: this.userService.selectedUser.Active, disabled: false }],
+      Active: [{ value: this.userService.selectedUser.Active }],
       PasswordFormGroup: this.PasswordFormGroup
     });
   }
