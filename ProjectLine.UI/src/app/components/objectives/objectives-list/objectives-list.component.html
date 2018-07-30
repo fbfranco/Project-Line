@@ -4,16 +4,16 @@
   <mat-form-field class="AutocompleteProject">
       <input  type="text"  placeholder="Project" aria-label="Number" [formControl]="myControl" matInput [matAutocomplete]="ProjectList">
       <mat-autocomplete #ProjectList="matAutocomplete" (optionSelected)="projectChanged($event)"  autoActiveFirstOption>
-        <mat-option  matTooltip={{option}} *ngFor="let option of filteredOptions | async" [value]="option">
-          {{ option }}
+        <mat-option  matTooltip={{project}} *ngFor="let project of filteredProyects | async" [value]="project">
+          {{ project.Title }}
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
   <mat-form-field class="AutocompletePhases">
     <input type="text" placeholder="Phase" aria-label="Number" matInput [matAutocomplete]="PhasesList"  [formControl]="myControlPhase">
     <mat-autocomplete #PhasesList="matAutocomplete" (optionSelected)="phaseChanged($event)" autoActiveFirstOption>
-      <mat-option matTooltip={{optionPhase}} *ngFor="let optionPhase of filteredOptionsPhase | async" [value]="optionPhase">
-        {{ optionPhase }}
+      <mat-option matTooltip={{phase}} *ngFor="let phase of filteredPhases | async" [value]="phase">
+        {{ phase.Title }}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>

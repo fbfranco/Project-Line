@@ -35,13 +35,13 @@ export class ObjectivesListComponent implements OnInit {
 
   // filter AutocompleteProjects
   myControl = new FormControl();
-  options: string[];
-  filteredOptions: Observable<string[]>;
+  listProjects: Project[];
+  filteredProyects: Observable<Project[]>;
   DataProject: Project;
   // filter AutocompletePhases
   myControlPhase = new FormControl();
-  optionsPhase: string[];
-  filteredOptionsPhase: Observable<string[]>;
+  listPhases: Phase[];
+  filteredPhases: Observable<Phase[]>;
   DataPhase: Phase;
 
   // List Objectives
@@ -59,40 +59,40 @@ export class ObjectivesListComponent implements OnInit {
 
   ngOnInit() {
     this.newGroup('', '');
-    this.options = [];
-    this.optionsPhase = [];
+    this.listProjects = [];
+    this.listPhases = [];
     this.getProjectList();
     this.DataProject = new Project;
     this.DataPhase = new Phase;
-    this.filteredOptions = this.myControl.valueChanges
+    this.filteredProyects = this.myControl.valueChanges
       .pipe(
         startWith(''),
-        map(value => value ? this._filter(value) : this.options)
+        map(value => value ? this._filterProject(value) : this.listProjects)
       );
   }
-  private _filter(value: string): string[] {
+  private _filterProject(value: string): Project[] {
     const filterValue = value.toLowerCase();
 
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+    return this.listProjects.filter(option => option.Title.toLowerCase().includes(filterValue));
   }
-  private _filterPhase(value: string): string[] {
+  private _filterPhase(value: string): Phase[] {
     const filterValue = value.toLowerCase();
 
-    return this.optionsPhase.filter(option => option.toLowerCase().includes(filterValue));
+    return this.listPhases.filter(option => option.Title.toLowerCase().includes(filterValue));
   }
 
-  setOptionsProject() {
-    for (let index = 0; index < this.ListProjects.length; index++) {
-      const element = this.ListProjects[index];
-      this.options.push(element.Title);
-    }
-  }
-  setOptionsPhase() {
-    for (let index = 0; index < this.ListPhases.length; index++) {
-      const element = this.ListPhases[index];
-      this.optionsPhase.push(element.Title);
-    }
-  }
+  // setOptionsProject() {
+  //   for (let index = 0; index < this.ListProjects.length; index++) {
+  //     const element = this.ListProjects[index];
+  //     this.listProjects.push(element.Title);
+  //   }
+  // }
+  // setOptionsPhase() {
+  //   for (let index = 0; index < this.ListPhases.length; index++) {
+  //     const element = this.ListPhases[index];
+  //     this.listPhases.push(element.Title);
+  //   }
+  // }
 
   newGroup(val, title): void {
     this.formGroup = this.fb.group({
@@ -114,7 +114,7 @@ export class ObjectivesListComponent implements OnInit {
 
   // Event Get ProjectID
   projectChanged(event): void {
-    this.optionsPhase = [];
+    this.listPhases = [];
     this.ListProjects.forEach(element => {
       if (element.Title === event.option.value) {
         this.DataProject = this.projectService.selectedProject = element;
@@ -123,10 +123,10 @@ export class ObjectivesListComponent implements OnInit {
     this.projectIdNumber = this.DataProject.ProjectID;
     this.ListObjectives = null;
     this.getPhaseList();
-    this.filteredOptionsPhase = this.myControlPhase.valueChanges
+    this.filteredPhases = this.myControlPhase.valueChanges
       .pipe(
         startWith(''),
-        map(value => value ? this._filterPhase(value) : this.optionsPhase)
+        map(value => value ? this._filterPhase(value) : this.listPhases)
       );
     // reset values autocomplete
     this.newGroup('', '');
