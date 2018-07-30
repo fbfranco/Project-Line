@@ -27,6 +27,13 @@ namespace ProjectLine.Controllers
             return user;
         }
 
+        // GET: api/email
+        [HttpGet]
+        public Boolean ValidateEmailUnique(string email)
+        {
+            return Repository.ValidateEmailUnique(email);
+        }
+
         // POST: api/Users/Create
         public IHttpActionResult PostUser([FromBody]User user)
         {

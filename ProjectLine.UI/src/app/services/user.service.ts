@@ -40,8 +40,7 @@ export class UserService {
     return this.http.get(`${this.apiURL}GetUsersByRol/${idRol}`).pipe(map((data: Response) => <User[]>data.json()));
   }
 
-
-  validateMatchEmail(email: any) {
-    return true;
+  validateEmailUnique(email: string): Observable<boolean> {
+    return this.http.get(`${this.apiURL}ValidateEmailUnique?email=${email}`).pipe(map((data: Response) => <boolean>data.json()));
   }
 }
