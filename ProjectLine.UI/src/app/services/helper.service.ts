@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as _moment from 'moment';
+import { FormGroup } from '@angular/forms';
 
 const moment = _moment;
 
@@ -44,4 +45,46 @@ export class HelperService {
     }
     return monthsValues;
   }
+
+  notAllowStartWithSpace(formGroup: FormGroup) {
+    const controls = formGroup.controls;
+    for (const key in controls) {
+      if (controls.hasOwnProperty(key)) {
+        if (typeof controls[key].value === 'string') {
+          controls[key].valueChanges.subscribe(
+            data => {
+              if (data.length === 1 && data === ' ') {
+                controls[key].patchValue('');
+              }
+            }
+          );
+        }
+      }
+    }
+  }
+
+  replaceWhiteSpaces(formGroup: FormGroup, ) {
+    const controls = formGroup.controls;
+    for (const key in controls) {
+      if (controls.hasOwnProperty(key)) {
+        if (typeof controls[key].value === 'string') {
+          controls[key].patchValue(controls[key].value.replace(/\s\s+/g, ' '));
+          const maxLength = controls[key].value.length;
+          if (controls[key].value.substring(maxLength - 1, maxLength) === ' ') {
+            controls[key].patchValue(controls[key].value.substring(0, maxLength - 1));
+          }
+        }
+      }
+    }
+  }
+
+  replaceWhiteSpacesControl(formGroup: FormGroup, controlName: string) {
+    const control = formGroup.controls[controlName];
+    control.patchValue(control.value.replace(/\s\s+/g, ' '));
+    const maxLength = control.value.length;
+    if (control.value.substring(maxLength - 1, maxLength) === ' ') {
+      control.patchValue(control.value.substring(0, maxLength - 1));
+    }
+  }
+
 }
