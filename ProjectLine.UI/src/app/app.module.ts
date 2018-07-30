@@ -48,6 +48,8 @@ import { ProgressComponent } from './components/progress/progress.component';
 import { LoginComponent } from './login/login.component';
 import { SelectedValidator } from './Directives/client-owner-autocomplete.directive';
 import { HomeTestComponent } from './components/home-test/home-test.component';
+import { UserGuard } from './services/user.guard.service';
+import { ClientGuard } from './services/client.guard.service';
 
 @NgModule({
   declarations: [
@@ -100,7 +102,9 @@ import { HomeTestComponent } from './components/home-test/home-test.component';
     ObjectiveService,
     ViewModelProject,
     HelperService,
-    AuthGuardService
+    AuthGuardService,
+    UserGuard,
+    ClientGuard
   ],
   bootstrap: [AppComponent]
 })

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ObservableMedia } from '@angular/flex-layout';
+// Service
+import { PermissionsService } from '../../services/permissions.service';
 import { HelperService } from '../../services/helper.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-toolbar',
@@ -9,7 +12,12 @@ import { HelperService } from '../../services/helper.service';
 })
 export class ToolbarComponent implements OnInit {
 
-  constructor(public media: ObservableMedia, public helperService: HelperService) { }
+  constructor(public media: ObservableMedia,
+    public helperService: HelperService,
+    private permissionsService: PermissionsService,
+    private router: Router
+  ) { }
+
   ngOnInit() {
   }
   SideNavToggle() {
@@ -29,6 +37,9 @@ export class ToolbarComponent implements OnInit {
     }
   }
   GoStart() {
-    this.helperService.HideLayout = false;
+    // this.helperService.HideLayout = false;
+    localStorage.clear();
+    // this.permissionsService.UserPermissions = [];
+    this.router.navigate(['/']);
   }
 }

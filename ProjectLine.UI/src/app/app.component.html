@@ -1,2 +1,5 @@
-<app-layout *ngIf="helper.HideLayout"></app-layout>
-<app-login *ngIf="!helper.HideLayout"></app-login>
+<!-- <app-layout *ngIf="helper.HideLayout"></app-layout>
+<app-login *ngIf="!helper.HideLayout"></app-login> -->
+
+<app-layout *ngIf="Logueado()"></app-layout>
+<app-login *ngIf="!Logueado()"></app-login>

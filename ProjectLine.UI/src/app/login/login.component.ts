@@ -21,7 +21,8 @@ export class LoginComponent implements OnInit {
     public helper: HelperService,
     private userFormBuilder: FormBuilder,
     private route: Router,
-    private permissionService: PermissionsService,
+    // private permissionService: PermissionsService,
+    private roleService: RolService
   ) { }
 
   ngOnInit() {
@@ -32,10 +33,24 @@ export class LoginComponent implements OnInit {
   }
 
   submitLogin() {
-    this.helper.HideLayout = true;
-    this.permissionService.getUserPermissions(1);
-    console.log(this.permissionService.UserPermissions);
-    this.route.navigate(['/Home']);
+    const RolID = 2; // User Role Id
+    const permissions: string[] = [];
+    this.roleService.getPermissionsByRole(RolID).subscribe((List: Permissions[]) => {
+      if (List !== null) {
+        List.forEach(p => {
+          permissions.push(p.Name);
+        });
+        // this.helper.HideLayout = true;
+        localStorage.setItem('Active', 'true');
+        localStorage.setItem('Permissions', JSON.stringify(permissions));
+        console.log(JSON.parse(localStorage.getItem('Permissions')));
+        this.route.navigate(['/Home']);
+      } else {
+        console.error('No exist roles for this user');
+      }
+    });
   }
+
+
 
 }

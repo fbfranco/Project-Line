@@ -18,7 +18,7 @@ export class SidenavComponent implements OnInit {
   constructor(
     public media: ObservableMedia,
     public helperService: HelperService,
-    private router: Router
+    private router: Router,
   ) {
     media.asObservable()
       .pipe(
@@ -41,4 +41,8 @@ export class SidenavComponent implements OnInit {
 
   // Roles and Permissions
 
+  verifyPermission(permit: string): boolean {
+    const permissions: string[] = JSON.parse(localStorage.getItem('Permissions'));
+    return permissions.includes(permit);
+  }
 }
