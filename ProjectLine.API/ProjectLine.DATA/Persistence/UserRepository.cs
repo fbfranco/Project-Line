@@ -38,6 +38,15 @@ namespace ProjectLine.DATA.Persistence
             }
         }
 
+        public bool ValidateEmailUnique(string email)
+        {
+            using (Context = new ProjectLineContext())
+            {
+                var existEmail = Context.Users.Where(x => x.Email == email).Count();
+                return existEmail > 0;
+            }
+        }
+
         public User FindById(int id)
         {
             using (Context = new ProjectLineContext())

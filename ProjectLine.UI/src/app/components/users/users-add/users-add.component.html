@@ -33,6 +33,7 @@
         <mat-hint align="end">{{registrationFormGroup.get('Email').value?.length || 0}}/150</mat-hint>
         <mat-error *ngIf="registrationFormGroup.get('Email').hasError('required')">This Field is Required.</mat-error>
         <mat-error *ngIf="registrationFormGroup.get('Email').hasError('email')">Please enter a valid email address.</mat-error>
+        <mat-error *ngIf="registrationFormGroup.get('Email').hasError('emailUnique')">The email already exists.</mat-error>
       </mat-form-field>
 
       <!-- Role -->
@@ -111,7 +112,7 @@
     <br>
 
     <mat-checkbox formControlName="Active" color="primary">Active</mat-checkbox>
-    
+
     <br>
     <div fxLayout="row" fxLayoutGap="1em" class="form-options">
       <button mat-raised-button color="primary" type="submit" [disabled]="!registrationFormGroup.valid"

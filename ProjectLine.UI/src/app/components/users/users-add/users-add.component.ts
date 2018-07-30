@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { passwordConfirming } from '../../../validators/match-password.validator';
 import { ParentErrorStateMatcher } from '../../../validators/error-matcher.validator';
+import { ValidateEmailUnique } from '../../../validators/unique-email.validator';
 
 @Component({
   selector: 'app-users-add',
@@ -58,7 +59,7 @@ export class UsersAddComponent implements OnInit {
       UserID: [0],
       FirstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9].*')]],
       LastName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9].*')]],
-      Email: ['', [Validators.required, Validators.email]],
+      Email: ['', [Validators.required, Validators.email], ValidateEmailUnique.Validate(this.userService)],
       RoleID: ['', Validators.required],
       Company: ['', Validators.pattern('^[a-zA-Z0-9].*')],
       Address: ['', Validators.pattern('^[a-zA-Z0-9].*')],
