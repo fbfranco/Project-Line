@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as _moment from 'moment';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 
 const moment = _moment;
 
@@ -53,11 +53,34 @@ export class HelperService {
         if (typeof controls[key].value === 'string') {
           controls[key].valueChanges.subscribe(
             data => {
-              if (data.length === 1 && data === ' ') {
-                controls[key].patchValue('');
+              if (data.charAt(0) === ' ') {
+                controls[key].patchValue(controls[key].value.trim());
               }
             }
           );
+        }
+      }
+    }
+  }
+
+  notAllowStartWithSpaceSpecific(formGroup: FormGroup, controlName: string) {
+    formGroup.controls[controlName].valueChanges.subscribe(
+      data => {
+        if (data.charAt(0) === ' ') {
+          formGroup.controls[controlName].patchValue(
+            formGroup.controls[controlName].value.trim()
+          );
+        }
+      }
+    );
+  }
+
+  removeWhiteSpaces(formGroup: FormGroup, ) {
+    const controls = formGroup.controls;
+    for (const key in controls) {
+      if (controls.hasOwnProperty(key)) {
+        if (typeof controls[key].value === 'string') {
+          controls[key].patchValue(controls[key].value.trim());
         }
       }
     }
@@ -69,22 +92,20 @@ export class HelperService {
       if (controls.hasOwnProperty(key)) {
         if (typeof controls[key].value === 'string') {
           controls[key].patchValue(controls[key].value.replace(/\s\s+/g, ' '));
-          const maxLength = controls[key].value.length;
-          if (controls[key].value.substring(maxLength - 1, maxLength) === ' ') {
-            controls[key].patchValue(controls[key].value.substring(0, maxLength - 1));
-          }
+          controls[key].patchValue(controls[key].value.trim());
         }
       }
     }
   }
 
-  replaceWhiteSpacesControl(formGroup: FormGroup, controlName: string) {
-    const control = formGroup.controls[controlName];
-    control.patchValue(control.value.replace(/\s\s+/g, ' '));
-    const maxLength = control.value.length;
-    if (control.value.substring(maxLength - 1, maxLength) === ' ') {
-      control.patchValue(control.value.substring(0, maxLength - 1));
-    }
+  notAllowStartWithSpaceControl(formControl: FormControl) {
+    formControl.valueChanges.subscribe(
+      data => {
+        if (data.charAt(0) === ' ') {
+          formControl.patchValue('');
+        }
+      }
+    );
   }
 
 }
