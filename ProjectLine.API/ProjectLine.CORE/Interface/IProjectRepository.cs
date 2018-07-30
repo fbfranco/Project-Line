@@ -1,10 +1,5 @@
 ﻿using ProjectLine.CORE.Models;
-using ProjectLine.CORE.ViewModel;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ProjectLine.CORE.Interface
@@ -14,7 +9,7 @@ namespace ProjectLine.CORE.Interface
         Task<IEnumerable<Project>> GetProjects();
         Project FindById(int id);
 
-        void Create(ProjectViewModel project);
-        void Update(ProjectViewModel project);
+        void Create(Project project);
+        void Update(Project project);
     }
 }

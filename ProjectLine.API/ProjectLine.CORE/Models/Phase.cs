@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjectLine.CORE.Models
 {
@@ -15,6 +12,8 @@ namespace ProjectLine.CORE.Models
         public DateTime EndDate { get; set; }
         public string DemoUrl { get; set; }
         public int ProjectID { get; set; }
+        public string DemoVideo { get; set; }
+        public string DemoName { get; set; }
         public ICollection<Objective> Objectives { get; set; }
     }
 }

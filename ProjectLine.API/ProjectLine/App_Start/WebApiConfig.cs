@@ -11,7 +11,7 @@ namespace ProjectLine
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-            config.EnableCors(new EnableCorsAttribute("http://localhost:4200", headers: "*", methods: "*"));
+            // config.EnableCors(new EnableCorsAttribute("http://localhost:4200", headers: "*", methods: "*"));
             // Web API routes
             config.MapHttpAttributeRoutes();
 

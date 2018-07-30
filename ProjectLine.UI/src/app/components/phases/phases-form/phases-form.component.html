@@ -44,10 +44,34 @@
           </mat-error>
         </mat-form-field>
       </div>
+
       <!-- Demo-Url -->
-      <mat-form-field>
-        <input matInput placeholder="Demo-Url" name="DemoUrl" #DemoUrl="ngModel" [(ngModel)]="phaseService.selectedPhase.DemoUrl">
-      </mat-form-field>
+      <mat-label>Demo Video</mat-label>
+      <mat-chip-list #chipList class="chips">
+        <mat-chip *ngIf="fileName.length > 0" (removed)="removeChipVideo()">
+          {{fileName}}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+      <div draggable="true" ngClass="{{dragAreaClass}}">
+          <div class="row">
+            <div class="col-md-12 text-center" >
+              <a href="javascript:void(0)" (click)="file.click()" >
+                Click to browse
+              </a>
+              Or Drag & Drop to upload your files
+              <input type="file"
+                     #file
+                     [multiple]="(maxFiles > 1)"
+                     (change) = "onFileChange($event)"
+                      style="display: none"/>
+            </div>
+          </div>
+        </div>
+        <mat-label>The file size is limited to 10 MB. Only .mp4, .ogg, .mov</mat-label>
+        <div class="row error" *ngIf="errors.length > 0">
+          <mat-error class="video-error" *ngFor="let err of errors">{{err}}</mat-error>
+        </div>
     </form>
   </mat-card-content>
   <mat-card-actions fxLayoutAlign="center start">
