@@ -82,7 +82,7 @@ export class PhasesFormComponent implements OnInit {
       this.fileName = files[0].name;
       this.getBase64(files[0]);
     } else {
-      this.demoVideo = '';
+      this.demoVideo = this.phaseService.selectedPhase.DemoVideo;
     }
   }
 
@@ -114,8 +114,11 @@ export class PhasesFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.fileName = this.phaseService.selectedPhase.DemoName === undefined ? '' : this.phaseService.selectedPhase.DemoName;
-  }P
+    this.fileName = this.phaseService.selectedPhase.DemoName === undefined || this.phaseService.selectedPhase.DemoName === null
+    ? '' : this.phaseService.selectedPhase.DemoName;
+    this.demoVideo = this.phaseService.selectedPhase.DemoVideo === undefined || this.phaseService.selectedPhase.DemoVideo === null
+    ? '' : this.phaseService.selectedPhase.DemoVideo;
+  }
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -123,7 +126,8 @@ export class PhasesFormComponent implements OnInit {
 
   updatePhase() {
     const indexPhase = this.phaseService.indexPhase;
-    this.phaseService.selectedPhase.DemoVideo = this.demoVideo.split(',').pop();
+    this.phaseService.selectedPhase.DemoVideo = this.demoVideo === null ? this.phaseService.selectedPhase.DemoVideo :
+                                                                          this.demoVideo.split(',').pop();
     this.phaseService.selectedPhase.DemoName = this.fileName;
     this.phaseService.phaseList.splice(indexPhase, 1, this.phaseService.selectedPhase);
     this.dialogRef.close();

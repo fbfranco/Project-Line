@@ -70,7 +70,7 @@
         </div>
         <mat-label>The file size is limited to 10 MB. Only .mp4, .ogg, .mov</mat-label>
         <div class="row error" *ngIf="errors.length > 0">
-          <mat-error *ngFor="let err of errors">{{err}}</mat-error>
+          <mat-error class="video-error" *ngFor="let err of errors">{{err}}</mat-error>
         </div>
     </form>
   </mat-card-content>

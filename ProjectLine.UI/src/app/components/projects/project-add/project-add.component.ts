@@ -100,7 +100,6 @@ export class ProjectAddComponent implements OnInit {
     this.phaseService.indexPhase = this.phaseService.phaseList.indexOf(dataPhases);
     this.getSelectedPhase(dataPhases);
     const dialogRef = this.dialog.open(PhasesFormComponent);
-
     dialogRef.afterClosed().subscribe(result => {
       this.dataSource = new MatTableDataSource(this.phaseService.phaseList);
     });

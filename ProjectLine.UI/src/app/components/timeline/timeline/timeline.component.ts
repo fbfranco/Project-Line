@@ -81,7 +81,6 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
         this.DataProject = this.projectService.selectedProject = element;
       }
     });
-    console.log(this.DataProject);
     this.PhaseModel = this.DataProject.Phases;
     this.sortPhaseDates(this.PhaseModel);
     this.Hide = true;
