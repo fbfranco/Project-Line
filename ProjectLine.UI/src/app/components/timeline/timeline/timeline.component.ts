@@ -81,13 +81,10 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
         this.DataProject = this.projectService.selectedProject = element;
       }
     });
+    console.log(this.DataProject);
     this.PhaseModel = this.DataProject.Phases;
     this.sortPhaseDates(this.PhaseModel);
-    this.PhaseModel.forEach(phase => {
-      phase.UrlValid = this.ExistUrl(phase.DemoUrl);
-    });
     this.Hide = true;
-    document.execCommand($('.events-body').slideUp());
 
     this.PhaseModel.forEach(element => {
       if (new Date().getTime() >= new Date(element.StartDate).getTime() && new Date().getTime() <= new Date(element.EndDate).getTime()) {
@@ -103,21 +100,6 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
     if (event !== '') {
       this.Hide = false;
     }
-  }
-
-  ExistUrl(url) {
-    if (!this.UrlValid(url)) {
-      return false;
-    } else {
-      const http = new XMLHttpRequest();
-      http.open('GET', url, true);
-      http.send();
-      return http.status !== 404;
-    }
-  }
-
-  UrlValid(url) {
-    return url.substr(0, 21) === 'http://localhost:4200' ? true : false;
   }
 
   private sortPhaseDates(Phases: Phase[]): void {

@@ -6,9 +6,9 @@ export class Phase {
     Description: string;
     StartDate: Date;
     EndDate: Date;
-    DemoUrl: string;
-    DemoVideo?: any;
-    UrlValid?: boolean;
+    DemoUrl?: string;
+    DemoVideo?: string;
+    DemoName?: string;
     StatePhase?: boolean;
     Objectives?: Objective[];
 }

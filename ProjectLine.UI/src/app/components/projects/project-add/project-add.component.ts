@@ -44,7 +44,7 @@ export class ProjectAddComponent implements OnInit {
   filteredClient: Observable<User[]>;
   listOwner: User[];
   filteredOwner: Observable<User[]>;
-  viewmodel = new ViewModelProject();
+  project = new Project();
   displayedColumns = ['Title', 'Description', 'StartDate', 'EndDate', 'Edit', 'Delete'];
   dataSource = new MatTableDataSource(this.phaseService.phaseList);
   varSet: string;
@@ -58,7 +58,6 @@ export class ProjectAddComponent implements OnInit {
     private phaseService: PhaseService,
     private projectService: ProjectService,
     public helperService: HelperService,
-    private viewmodelProject: ViewModelProject,
     private snackBar: MatSnackBar) {
     helperService = new HelperService();
   }
@@ -76,8 +75,7 @@ export class ProjectAddComponent implements OnInit {
       Title: `New Phase`,
       Description: '',
       StartDate: this.projectFG.get('StartDate').value,
-      EndDate: new Date(),
-      DemoUrl: 'demo'
+      EndDate: new Date()
     });
     this.dataSource = new MatTableDataSource(this.phaseService.phaseList);
   }
@@ -107,30 +105,28 @@ export class ProjectAddComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.phaseService.phaseList);
     });
   }
-
+  getUserIdtoSaveProject(list, control) {
+    list.forEach(element => {
+      if (element.FirstName === control) {
+        control = element.UserID;
+      }
+    });
+  }
   onSubmit() {
-    this.listClient.forEach(element => {
-      if (element.FirstName === this.projectFG.value.UserId) {
-        this.projectFG.value.UserId = element.UserID;
-      }
-    });
-    this.listOwner.forEach(element => {
-      if (element.FirstName === this.projectFG.value.OwnerId) {
-        this.projectFG.value.OwnerId = element.UserID;
-      }
-    });
-    this.viewmodel.Project = this.projectFG.value;
-    this.viewmodel.Phases = this.phaseService.phaseList;
+    this.getUserIdtoSaveProject(this.listClient, this.projectFG.value.UserId);
+    this.getUserIdtoSaveProject(this.listOwner, this.projectFG.value.OwnerId);
+    this.project = this.projectFG.value;
+    this.project.Phases = this.phaseService.phaseList;
 
     if (this.projectFG.value.ProjectID === '') {
       this.projectFG.value.ProjectID = 0;
-      this.projectService.postProject(this.viewmodel).subscribe(data => {
+      this.projectService.postProject(this.project).subscribe(data => {
         this.openSnackBar('Saved');
         this.navigate_to_project_home_page();
         this.resetForm();
       });
     } else {
-      this.projectService.putProject(this.viewmodel).subscribe(data => {
+      this.projectService.putProject(this.project).subscribe(data => {
         this.openSnackBar('Saved');
         this.navigate_to_project_home_page();
         this.resetForm();

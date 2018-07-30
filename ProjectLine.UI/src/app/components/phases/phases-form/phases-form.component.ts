@@ -19,13 +19,13 @@ const helpers = new HelperService();
 
 export class PhasesFormComponent implements OnInit {
 
-  demoVideo: any;
+  demoVideo = '';
   fileName = '';
   dragAreaClass = 'dragarea';
   fileExt = 'mp4, ogg, mov';
   maxFiles = 1;
   maxSize = 10; // MB
-  files: any;
+  files: FileList;
   errors: Array<string> = [];
 
   phaseSelected = this.phaseService.phaseList;
@@ -34,8 +34,7 @@ export class PhasesFormComponent implements OnInit {
 
   onFileChange(event) {
     this.files = event.target.files;
-    this.fileName = this.files[0].name;
-    this.saveFiles(this.files);
+    this.addFiles(this.files);
   }
 
   @HostListener('dragover', ['$event']) onDragOver(event) {
@@ -62,73 +61,61 @@ export class PhasesFormComponent implements OnInit {
     this.dragAreaClass = 'dragarea';
     event.preventDefault();
     event.stopPropagation();
-    const files = event.dataTransfer.files;
-    console.log(files);
-    this.fileName = files[0].name;
-    this.saveFiles(files);
+    this.files = event.dataTransfer.files;
+    this.addFiles(this.files);
   }
 
-  saveFiles(files) {
-    this.errors = []; // Clear error
-    // Validate file size and allowed extensions
-    if (files.length > 0 && (!this.isValidFiles(files))) {
-        return;
-    }
-    if (files.length > 0) {
-      const formData: FormData = new FormData();
-      for (let j = 0; j < files.length; j++) {
-          formData.append('file[]', files[j], files[j].name);
-      }
-      this.phaseService.selectedPhase.DemoVideo = formData;
-      // this.fileService.upload(formData, parameters)
-      // .subscribe(
-      // success => {
-      //   this.uploadStatus.emit(true);
-      //   console.log(success);
-      // },
-      // error => {
-      //     this.uploadStatus.emit(true);
-      //     this.errors.push(error.ExceptionMessage);
-      // });
+  getBase64(file) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.demoVideo = reader.result;
+    };
+    reader.onerror = (error) => {
+      console.log('Error: ', error);
+    };
+ }
+
+  addFiles(files: FileList) {
+    this.errors = [];
+    if (files.length > 0 && (this.isValidFiles(files))) {
+      this.fileName = files[0].name;
+      this.getBase64(files[0]);
+    } else {
+      this.demoVideo = '';
     }
   }
 
   private isValidFiles(files) {
-    // Check Number of files
-     if (files.length > this.maxFiles) {
-         this.errors.push('Error: At a time you can upload only ' + this.maxFiles + ' files');
-         return;
-     }
-     this.isValidFileExtension(files);
-     return this.errors.length === 0;
-  }
-
-  private isValidFileExtension(files) {
-    // Make array of file extensions
-    const extensions = (this.fileExt.split(',')).map(function (x) { return x.toLocaleUpperCase().trim(); });
-    for (let i = 0; i < files.length; i++) {
-        // Get file extension
-        const ext = files[i].name.toUpperCase().split('.').pop() || files[i].name;
-        // Check the extension exists
-        const exists = extensions.includes(ext);
-        if (!exists) {
-            this.errors.push('Error (Extension): ' + files[i].name);
-        }
-        // Check file size
-        this.isValidFileSize(files[i]);
+    if (files.length > this.maxFiles) {
+        this.errors.push(`Error: At a time you can upload only ${this.maxFiles} files`);
+        return;
     }
+    this.isValidFileExtension(files);
+    return this.errors.length === 0;
   }
 
-  private isValidFileSize(file) {
+  isValidFileExtension(files) {
+    const extensions = (this.fileExt.split(',')).map(ex => ex.toLocaleUpperCase().trim());
+    const ext = files[0].name.toUpperCase().split('.').pop() || files[0].name;
+    const exists = extensions.includes(ext);
+    if (!exists) {
+        this.errors.push('Error (Extension): ' + files[0].name);
+    }
+    this.isValidFileSize(files[0]);
+  }
+
+  isValidFileSize(file) {
     const fileSizeinMB = file.size / (1024 * 1000);
-    const size = Math.round(fileSizeinMB * 100) / 100; // convert upto 2 decimal place
+    const size = Math.round(fileSizeinMB * 100) / 100;
     if (size > this.maxSize) {
-      this.errors.push('File capacity exceeds 10 MB');
+      this.errors.push(`File capacity exceeds ${this.maxSize} MB`);
     }
   }
 
   ngOnInit() {
-  }
+    this.fileName = this.phaseService.selectedPhase.DemoName === undefined ? '' : this.phaseService.selectedPhase.DemoName;
+  }P
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -136,15 +123,16 @@ export class PhasesFormComponent implements OnInit {
 
   updatePhase() {
     const indexPhase = this.phaseService.indexPhase;
+    this.phaseService.selectedPhase.DemoVideo = this.demoVideo.split(',').pop();
+    this.phaseService.selectedPhase.DemoName = this.fileName;
     this.phaseService.phaseList.splice(indexPhase, 1, this.phaseService.selectedPhase);
     this.dialogRef.close();
-    console.log(this.phaseService.selectedPhase);
   }
 
 
   removeChipVideo(): void {
     this.fileName = '';
-    this.files = [];
+    this.files = null;
     this.errors = [];
   }
 }

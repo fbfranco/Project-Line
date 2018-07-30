@@ -4,7 +4,6 @@ import { Http, Response, Headers, RequestOptions, RequestMethod } from '@angular
 import { Observable } from 'rxjs';
 import { Project } from '../models/project.model';
 import { ViewModelProject } from '../models/viewmodelproject.model';
-import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,18 +16,18 @@ export class ProjectService {
 
   constructor(private http: Http) { }
 
-  postProject(model: ViewModelProject) {
+  postProject(model: Project) {
     const body = JSON.stringify(model);
     const headerOptions = new Headers({ 'Content-Type': 'application/json' });
     const requestOptions = new RequestOptions({ method: RequestMethod.Post, headers: headerOptions });
     return this.http.post(`${this.apiURL}SaveProject`, body, requestOptions);
   }
 
-  putProject(model: ViewModelProject) {
+  putProject(model: Project) {
     const body = JSON.stringify(model);
     const headerOptions = new Headers({ 'Content-Type': 'application/json' });
     const requestOptions = new RequestOptions({ method: RequestMethod.Post, headers: headerOptions });
-    return this.http.put(`${this.apiURL}UpdateProjectAndPhases/${model.Project.ProjectID}`, body, requestOptions);
+    return this.http.put(`${this.apiURL}UpdateProjectAndPhases/${model.ProjectID}`, body, requestOptions);
   }
 
   getProjectsList(): Observable<Project[]> {

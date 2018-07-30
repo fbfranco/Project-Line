@@ -54,12 +54,12 @@
                     </div>
                   </div>
                 </div>
-                <div class="row" *ngIf="Phase.UrlValid">
+                <div class="row" *ngIf="Phase.DemoUrl.length > 0">
                   <div class="events-desc">
                     <div class="content-video">
                       <vg-player class="video-demo">
                         <video [vgMedia]="media" #media id="singleVideo" preload="auto" controls crossorigin>
-                          <source [src]="sanitizer.bypassSecurityTrustResourceUrl(Phase.DemoUrl)" type="video/mp4">
+                          <source [src]="sanitizer.bypassSecurityTrustResourceUrl('http://localhost:44226'+ Phase.DemoUrl)" type="video/mp4">
                         </video>
                       </vg-player>
                     </div>
