@@ -11,11 +11,11 @@
     </mat-autocomplete>
   </mat-form-field>
 </div>
-<div *ngIf="Hide" fxLayout="row wrap" fxLayoutAlign="center center">
+<div *ngIf="Hide" fxLayout="row wrap" fxLayoutAlign="center start">
   <div>
     <app-progress [phasesProject]="PhaseModel"></app-progress>
   </div>
-  <div class="VivaTimeline" fxFlex.gt-md="60%" fxFlex.lt-lg="100%">
+  <div class="VivaTimeline">
     <h1 class="project-title" LayoutAlign="center center">{{ DataProject.Title }}</h1>
     <dl class="vertical-line">
       <div *ngFor="let date of this.helperService.getMonthsInRange(DataProject.StartDate,DataProject.EndDate)">
@@ -23,7 +23,7 @@
         <div *ngFor="let Phase of PhaseModel; let i = index">
           <dd *ngIf="getValidate(Phase.EndDate,date)" [ngClass]="{'pos-right': i%2 != 0,'pos-left': i%2 == 0}" class="clearfix">
             <div class="circ"></div>
-            <div class="time">{{Phase.EndDate | date: 'MMM d'}}</div>
+            <div class="time">{{Phase.EndDate | date: 'MMMM d'}}</div>
             <div class="events" [ngClass]="{'ActivePhase':Phase.StatePhase == true}">
               <div class="events-header">{{Phase.Title}}</div>
               <div class="events-body" [ngClass]="{'PhasePassed': Phase.StatePhase == false}" ng-style="setStyles()">

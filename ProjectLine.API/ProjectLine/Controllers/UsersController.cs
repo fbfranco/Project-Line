@@ -89,5 +89,13 @@ namespace ProjectLine.Controllers
                 }
             }
         }
+
+        // Match Email:
+        public IHttpActionResult MatchEmail(string user)
+        {
+            Repository.MatchEmail(user);
+            return Ok();
+
+        }
     }
 }

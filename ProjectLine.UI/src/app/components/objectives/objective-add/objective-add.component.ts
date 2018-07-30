@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 
 // Services
@@ -19,7 +19,7 @@ export class ObjectiveAddComponent implements OnInit {
     private objectiveDialogRef: MatDialogRef<ObjectiveAddComponent>,
     private objectiveSnackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA)
-    private objectiveRowNumber: number,
+    private phaseIdNumber: number,
 
   ) { }
 
@@ -32,37 +32,30 @@ export class ObjectiveAddComponent implements OnInit {
   }
 
   newForm() {
-    if (this.objectiveRowNumber > 0) {
-      this.newFormAddObjective();
-    } else {
+    this.newFormObjective();
+    if (!this.phaseIdNumber) {
       this.newFormEditObjective();
     }
   }
 
-  newFormAddObjective() {
+  newFormObjective() {
     this.objectiveFormGroup = this.objectiveFormBuilder.group({
       objectiveId: 0,
-      title: '',
+      title: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9].*')]],
       description: '',
       completed: false,
       weight: 0,
       estimated: 0,
       effort: 0,
-      phaseId: this.objectiveRowNumber
+      phaseId: this.phaseIdNumber
     });
   }
 
   newFormEditObjective() {
-    this.objectiveFormGroup = this.objectiveFormBuilder.group({
-      objectiveId: this.objectiveService.selectedObjective.ObjectiveID,
-      title: this.objectiveService.selectedObjective.Title,
-      description: this.objectiveService.selectedObjective.Description,
-      completed: this.objectiveService.selectedObjective.Completed,
-      weight: this.objectiveService.selectedObjective.Weight,
-      estimated: this.objectiveService.selectedObjective.Estimated,
-      effort: this.objectiveService.selectedObjective.Effort,
-      phaseId: this.objectiveService.selectedObjective.PhaseID
-    });
+    this.objectiveFormGroup.controls['objectiveId'].patchValue(this.objectiveService.selectedObjective.ObjectiveID);
+    this.objectiveFormGroup.controls['title'].patchValue(this.objectiveService.selectedObjective.Title);
+    this.objectiveFormGroup.controls['description'].patchValue(this.objectiveService.selectedObjective.Description);
+    this.objectiveFormGroup.controls['completed'].patchValue(this.objectiveService.selectedObjective.Completed);
   }
 
   submitObjective() {

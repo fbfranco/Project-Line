@@ -74,6 +74,10 @@ export class UsersListComponent implements OnInit {
     this.userService.selectedUser = new User();
   }
 
+  getSelectedUser(user: User) {
+    this.userService.selectedUser = Object.assign({}, user);
+  }
+
   private assignedUser(id: number) {
     let assigned = false;
     this.ProjectsList.forEach(project => {

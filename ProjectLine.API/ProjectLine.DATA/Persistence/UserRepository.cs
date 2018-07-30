@@ -77,7 +77,6 @@ namespace ProjectLine.DATA.Persistence
                     update.Address = User.Address;
                     update.Phone = User.Phone;
                     update.Mobile = User.Mobile;
-                    update.Username = User.Username;
                     update.Password = User.Password;
                     update.Active = User.Active;
                     update.RoleID = User.RoleID;
@@ -108,6 +107,12 @@ namespace ProjectLine.DATA.Persistence
             {
                 Console.Write(ex);
             }
+        }
+
+        public bool MatchEmail(string id)
+        {
+            var result = true;
+            return result;
         }
     }
 }

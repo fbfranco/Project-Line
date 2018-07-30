@@ -55,6 +55,9 @@
                         $('.content-router-outlet').animate({
                             scrollTop: $(".CurrentPhase").offset().top - 120
                         }, 2500);
+                        $('.VivaTimeline').animate({
+                            scrollTop: $(".CurrentPhase").offset().top - 310
+                        }, 2500);
                     }
                 });
             self.target

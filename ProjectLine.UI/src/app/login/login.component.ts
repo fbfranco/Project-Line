@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HelperService } from '../services/helper.service';
 
 @Component({
@@ -17,8 +17,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.userFormGroup = this.userFormBuilder.group({
-      Username: '',
-      Password: ''
+      Email: ['', [Validators.required, Validators.email]],
+      Password: ['', Validators.required]
     });
   }
   submitLogin() {
