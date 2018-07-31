@@ -1,5 +1,4 @@
 import { Objective } from './objective.model';
-import { SafeResourceUrl } from '@angular/platform-browser';
 
 export class Phase {
     PhaseID: number;
@@ -7,10 +6,9 @@ export class Phase {
     Description: string;
     StartDate: Date;
     EndDate: Date;
-    DemoUrl: string;
-    Edit?: string;
-    Delete?: string;
-    UrlValid?: boolean;
+    DemoUrl?: string;
+    DemoVideo?: string;
+    DemoName?: string;
     StatePhase?: boolean;
     Objectives?: Objective[];
 }

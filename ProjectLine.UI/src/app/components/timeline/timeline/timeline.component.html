@@ -23,7 +23,7 @@
         <div *ngFor="let Phase of PhaseModel; let i = index">
           <dd *ngIf="getValidate(Phase.EndDate,date)" [ngClass]="{'pos-right': i%2 != 0,'pos-left': i%2 == 0}" class="clearfix">
             <div class="circ"></div>
-            <div class="time">{{Phase.EndDate | date: 'MMM d'}}</div>
+            <div class="time">{{Phase.EndDate | date: 'MMMM d'}}</div>
             <div class="events" [ngClass]="{'ActivePhase':Phase.StatePhase == true}">
               <div class="events-header">{{Phase.Title}}</div>
               <div class="events-body" [ngClass]="{'PhasePassed': Phase.StatePhase == false}" ng-style="setStyles()">
@@ -54,12 +54,12 @@
                     </div>
                   </div>
                 </div>
-                <div class="row" *ngIf="Phase.UrlValid">
+                <div class="row" *ngIf="Phase.DemoUrl !== null && Phase.DemoUrl.length > 0">
                   <div class="events-desc">
                     <div class="content-video">
                       <vg-player class="video-demo">
                         <video [vgMedia]="media" #media id="singleVideo" preload="auto" controls crossorigin>
-                          <source [src]="sanitizer.bypassSecurityTrustResourceUrl(Phase.DemoUrl)" type="video/mp4">
+                          <source [src]="sanitizer.bypassSecurityTrustResourceUrl('http://localhost:44226'+ Phase.DemoUrl)" type="video/mp4">
                         </video>
                       </vg-player>
                     </div>

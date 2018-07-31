@@ -1,0 +1,33 @@
+.error{
+  color: #f00;
+}
+
+.dragarea{
+  font-size: 1.3em;
+  border: 3px dashed #bbb; padding: 20px ;
+  background-color: #eff;
+  color: #aaa;
+}
+.droparea{
+  font-size: 1.3em;
+  border: 3px dashed #bbb; padding: 20px ;
+  background-color: rgb(212, 245, 245);
+  color: #aaa;
+}
+
+.mat-card {
+  box-shadow: none;
+  padding: 5px;
+}
+.chips {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.video-error {
+  font-weight: 400;
+  line-height: 1.125;
+  font-family: Roboto,"Helvetica Neue",sans-serif;
+  margin-left: 16px;
+  font-size: 11px;
+}

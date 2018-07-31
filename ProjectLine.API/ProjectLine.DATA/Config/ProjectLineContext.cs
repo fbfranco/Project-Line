@@ -40,6 +40,8 @@ namespace ProjectLine.DATA.Config
             modelBuilder.Entity<Phase>().Property(x => x.StartDate);
             modelBuilder.Entity<Phase>().Property(x => x.EndDate);
             modelBuilder.Entity<Phase>().Property(x => x.DemoUrl).HasMaxLength(255);
+            modelBuilder.Entity<Phase>().Property(x => x.DemoName).HasMaxLength(50);
+            modelBuilder.Entity<Phase>().Ignore(x => x.DemoVideo);
             #endregion
 
             #region Model Objective
@@ -62,7 +64,7 @@ namespace ProjectLine.DATA.Config
             modelBuilder.Entity<User>().Property(x => x.Address).HasMaxLength(150);
             modelBuilder.Entity<User>().Property(x => x.Phone).HasMaxLength(20);
             modelBuilder.Entity<User>().Property(x => x.Mobile).HasMaxLength(20);
-            modelBuilder.Entity<User>().Property(x => x.Password).HasMaxLength(25).IsRequired();
+            modelBuilder.Entity<User>().Property(x => x.Password).HasMaxLength(150).IsRequired();
             modelBuilder.Entity<User>().Property(x => x.Active);
             modelBuilder.Entity<User>().Property(x => x.RoleID).IsRequired();
             #endregion

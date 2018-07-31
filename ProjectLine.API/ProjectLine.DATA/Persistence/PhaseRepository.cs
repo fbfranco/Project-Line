@@ -108,6 +108,7 @@ namespace ProjectLine.DATA.Persistence
                 update.StartDate = phase.StartDate;
                 update.EndDate = phase.EndDate;
                 update.DemoUrl = phase.DemoUrl;
+                update.DemoName = phase.DemoName;
 
                 context.Entry(update).State = EntityState.Modified;
                 context.SaveChanges();
