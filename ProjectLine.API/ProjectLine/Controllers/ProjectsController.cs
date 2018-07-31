@@ -1,26 +1,28 @@
 ﻿using ProjectLine.CORE.Models;
+using ProjectLine.CORE.ViewModel;
 using ProjectLine.DATA.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace ProjectLine.Controllers
 {
-    //[EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class ProjectsController : ApiController
     {
         ProjectRepository Repository = new ProjectRepository();
 
         // GET: api/Projects
-        public async Task<IEnumerable<Project>>GetProjects()
+        public async Task<IEnumerable<Project>> GetProjects()
         {
             var project = await Repository.GetProjects();
             return project;
         }
-        
+
         //POST api/<controller>
-        public IHttpActionResult SaveProject([FromBody]Project model)
+        public IHttpActionResult SaveProject([FromBody]ProjectViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -34,8 +36,6 @@ namespace ProjectLine.Controllers
                     return Ok();
                 }
                 catch (Exception ex)
-
-
                 {
                     return BadRequest(ex.ToString());
                 }
@@ -43,9 +43,9 @@ namespace ProjectLine.Controllers
         }
 
         // PUT: api/Phases/5
-        public IHttpActionResult UpdateProjectAndPhases(int id, [FromBody]Project model)
+        public IHttpActionResult UpdateProjectAndPhases(int id, [FromBody]ProjectViewModel model)
         {
-            if (!ModelState.IsValid || id != model.ProjectID)
+            if (!ModelState.IsValid || id != model.Project.ProjectID)
             {
                 return BadRequest(ModelState);
             }
