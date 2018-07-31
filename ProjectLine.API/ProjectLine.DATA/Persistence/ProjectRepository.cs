@@ -1,5 +1,6 @@
 ﻿using ProjectLine.CORE.Interface;
 using ProjectLine.CORE.Models;
+using ProjectLine.CORE.ViewModel;
 using ProjectLine.DATA.Config;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,7 @@ namespace ProjectLine.DATA.Persistence
             }
         }
 
-        public void Create(Project project)
+        public void Create(ProjectViewModel project)
         {
             try
             {
@@ -41,10 +42,14 @@ namespace ProjectLine.DATA.Persistence
                 {
                     try
                     {
-                        Context.Projects.Add(project);
+                        Context.Projects.Add(project.Project);
                         Context.SaveChanges();
                         var id = Context.Projects.OrderByDescending(i => i.ProjectID).First().ProjectID;
-                        AddOrUpdatePhases(project, id, Context);
+                        foreach (var phase in project.Phases)
+                        {
+                            phase.ProjectID = id;
+                            Context.Phases.Add(phase);
+                        }
                         Context.SaveChanges();
                         Trans.Commit();
                     }
@@ -59,7 +64,6 @@ namespace ProjectLine.DATA.Persistence
             {
                 Console.Write(ex);
             }
-            Context.Dispose();
         }
         public void Update(Project project)
         {
