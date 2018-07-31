@@ -1,7 +1,7 @@
 <div class="Form-Container">
   <h1>{{titleForm}}</h1>
   <br>
-  <form novalidate [formGroup]="registrationFormGroup" (ngSubmit)="submitUsers()"  fxLayout="column">
+  <form novalidate [formGroup]="registrationFormGroup" (ngSubmit)="submitUsers()" fxLayout="column">
 
     <!-- UserID -->
     <div>
@@ -27,13 +27,12 @@
     <div class="date-content" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign.gt-xs="space-between start"
       fxLayoutAlign.md="space-between start">
 
-      <!-- Email -->
+      <!-- Company -->
       <mat-form-field>
-        <input type="email" matInput maxlength="150" placeholder="Email" formControlName="Email" required>
-        <mat-hint align="end">{{registrationFormGroup.get('Email').value?.length || 0}}/150</mat-hint>
-        <mat-error *ngIf="registrationFormGroup.get('Email').hasError('required')">This Field is Required.</mat-error>
-        <mat-error *ngIf="registrationFormGroup.get('Email').hasError('email')">Please enter a valid email address.</mat-error>
-        <mat-error *ngIf="registrationFormGroup.get('Email').hasError('emailUnique')">The email already exists.</mat-error>
+        <input matInput maxlength="150" placeholder="Company" formControlName="Company">
+        <mat-hint align="end">{{registrationFormGroup.get('Company').value?.length || 0}}/150</mat-hint>
+        <mat-error *ngIf="registrationFormGroup.get('Company').hasError('required')">This Field is Required.</mat-error>
+        <mat-error *ngIf="registrationFormGroup.get('Company').hasError('pattern')">Insert a valid Company Name.</mat-error>
       </mat-form-field>
 
       <!-- Role -->
@@ -47,14 +46,6 @@
       </mat-form-field>
 
     </div>
-
-    <!-- Company -->
-    <mat-form-field>
-      <input matInput maxlength="150" placeholder="Company" formControlName="Company">
-      <mat-hint align="end">{{registrationFormGroup.get('Company').value?.length || 0}}/150</mat-hint>
-      <mat-error *ngIf="registrationFormGroup.get('Company').hasError('required')">This Field is Required.</mat-error>
-      <mat-error *ngIf="registrationFormGroup.get('Company').hasError('pattern')">Insert a valid Company Name.</mat-error>
-    </mat-form-field>
 
     <!-- Address -->
     <mat-form-field>
@@ -86,17 +77,18 @@
       </mat-form-field>
     </div>
 
-    <!-- Username -->
+    <!-- Email -->
     <mat-form-field>
-      <input matInput maxlength="25" placeholder="Username" formControlName="Username" required>
-      <mat-hint align="end">{{registrationFormGroup.get('Username').value?.length || 0}}/25</mat-hint>
-      <mat-error *ngIf="registrationFormGroup.get('Username').hasError('required')">This Field is Required.</mat-error>
-      <mat-error *ngIf="registrationFormGroup.get('Username').hasError('pattern')">Insert a valid Username Name.</mat-error>
+      <input type="email" matInput maxlength="150" placeholder="Email" formControlName="Email" required>
+      <mat-hint align="end">{{registrationFormGroup.get('Email').value?.length || 0}}/150</mat-hint>
+      <mat-error *ngIf="registrationFormGroup.get('Email').hasError('required')">This Field is Required.</mat-error>
+      <mat-error *ngIf="registrationFormGroup.get('Email').hasError('email')">Please enter a valid email address.</mat-error>
+      <mat-error *ngIf="registrationFormGroup.get('Email').hasError('ValidateEmailNotMatch')">Pfasdfasdfasdf address.</mat-error>
     </mat-form-field>
 
     <!-- Password -->
     <mat-form-field [formGroup]="PasswordFormGroup">
-      <input matInput type="password"  matInput maxlength="25" placeholder="Password" formControlName="Password" required>
+      <input matInput type="password" matInput maxlength="25" placeholder="Password" formControlName="Password" required>
       <mat-hint align="end">{{PasswordFormGroup.get('Password').value?.length || 0}}/25</mat-hint>
       <mat-error *ngIf="PasswordFormGroup.get('Password').hasError('required')">Password is required.</mat-error>
       <mat-error *ngIf="PasswordFormGroup.get('Password').hasError('pattern')">Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters.</mat-error>
@@ -104,7 +96,8 @@
 
     <!-- ConfirmPassword -->
     <mat-form-field [formGroup]="PasswordFormGroup">
-      <input matInput type="password" matInput maxlength="25" placeholder="Confirm Password" formControlName="ConfirmPassword" [errorStateMatcher]="parentErrorStateMatcher" required>
+      <input matInput type="password" matInput maxlength="25" placeholder="Confirm Password" formControlName="ConfirmPassword"
+        [errorStateMatcher]="parentErrorStateMatcher" required>
       <mat-hint align="end">{{PasswordFormGroup.get('ConfirmPassword').value?.length || 0}}/25</mat-hint>
       <mat-error *ngIf="PasswordFormGroup.get('ConfirmPassword').hasError('required')">Repeat password is required</mat-error>
       <mat-error *ngIf="(PasswordFormGroup.get('ConfirmPassword').value !== PasswordFormGroup.get('Password').value) && PasswordFormGroup.get('ConfirmPassword').value !== ''">Password does not match</mat-error>
@@ -115,8 +108,7 @@
 
     <br>
     <div fxLayout="row" fxLayoutGap="1em" class="form-options">
-      <button mat-raised-button color="primary" type="submit" [disabled]="!registrationFormGroup.valid"
-        type="submit">Save</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!registrationFormGroup.valid" type="submit">Save</button>
       <a mat-raised-button color="warn" routerLink="/Users">Cancel</a>
     </div>
   </form>

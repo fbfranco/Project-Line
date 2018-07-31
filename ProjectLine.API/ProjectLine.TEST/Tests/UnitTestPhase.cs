@@ -75,7 +75,7 @@ namespace ProjectLine.TEST.Tests
                 Project = name,
                 Phases = ListPhase
             };
-            repos.Create(ViewModel);
+            // repos.Create(ViewModel);
         }
 
         ObjectiveRepository obj = new ObjectiveRepository();
