@@ -83,16 +83,18 @@ export class UsersAddComponent implements OnInit {
 
   newFormEditUser() {
     this.registrationFormGroup.get('Active').enable();
+    this.registrationFormGroup.reset();
+
     this.PasswordFormGroup = this.formBuilder.group({
-      Password: ['', [Validators.required, Validators.pattern(this.passwordPattern)]],
-      ConfirmPassword: ['', Validators.required]
+      Password: ['', [Validators.pattern(this.passwordPattern)]],
+      ConfirmPassword: ['']
     }, { validator: passwordConfirming });
 
     this.registrationFormGroup = this.formBuilder.group({
       UserID: [this.userService.selectedUser.UserID],
       FirstName: [this.userService.selectedUser.FirstName, [Validators.required, Validators.pattern('^[a-zA-Z0-9].*')]],
       LastName: [this.userService.selectedUser.LastName, [Validators.required, Validators.pattern('^[a-zA-Z0-9].*')]],
-      Email: [this.userService.selectedUser.Email,  [Validators.required, Validators.email],
+      Email: [this.userService.selectedUser.Email, [Validators.required, Validators.email],
       ValidateEmailUnique.Validate(this.userService)],
       RoleID: [this.userService.selectedUser.RoleID, Validators.required],
       Company: [this.userService.selectedUser.Company, Validators.pattern('^[a-zA-Z0-9].*')],
@@ -100,7 +102,7 @@ export class UsersAddComponent implements OnInit {
       Phone: [this.userService.selectedUser.Phone, [Validators.pattern('^[-0-9()+].*')]],
       Mobile: [this.userService.selectedUser.Mobile, [Validators.pattern('^[-0-9()+].*')]],
       Password: [''],
-      Active: [this.userService.selectedUser.Active ],
+      Active: [this.userService.selectedUser.Active],
       PasswordFormGroup: this.PasswordFormGroup
     });
   }
@@ -147,11 +149,18 @@ export class UsersAddComponent implements OnInit {
       });
   }
   editUsers() {
-    console.log( this.registrationFormGroup.value);
-    this.registrationFormGroup.value.Password = this.PasswordFormGroup.value.Password;
+    console.log(this.PasswordFormGroup.value.Password);
+    if (this.PasswordFormGroup.value.Password === '') {
+      this.registrationFormGroup.value.Password = this.userService.selectedUser.Password;
+    } else {
+      this.registrationFormGroup.value.Password = this.PasswordFormGroup.value.Password;
+    }
+
     this.userService.updateUser(this.registrationFormGroup.value)
-      .subscribe(good => this.navigate_to_user_home_page(),
-        error => console.error(error));
+      .subscribe(good => {
+        this.openSnackBar('Saved');
+        this.navigate_to_user_home_page();
+      });
   }
   navigate_to_user_home_page() {
     this.router.navigate(['/Users']);
