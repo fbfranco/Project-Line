@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { passwordConfirming } from '../../../validators/match-password.validator';
 import { ParentErrorStateMatcher } from '../../../validators/error-matcher.validator';
-/* import { ValidateEmailNotTaken } from '../../../validators/unique-email.validator'; */
+import { ValidateEmailUnique } from '../../../validators/unique-email.validator';
 
 
 @Component({
@@ -56,7 +56,7 @@ export class UsersAddComponent implements OnInit {
       UserID: [0],
       FirstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9].*')]],
       LastName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9].*')]],
-      Email: ['', [Validators.required, Validators.email]],
+      Email: ['', [Validators.required, Validators.email], ValidateEmailUnique.Validate(this.userService)],
       RoleID: ['', Validators.required],
       Company: ['', Validators.pattern('^[a-zA-Z0-9].*')],
       Address: ['', Validators.pattern('^[a-zA-Z0-9].*')],
@@ -92,7 +92,8 @@ export class UsersAddComponent implements OnInit {
       UserID: [this.userService.selectedUser.UserID],
       FirstName: [this.userService.selectedUser.FirstName, [Validators.required, Validators.pattern('^[a-zA-Z0-9].*')]],
       LastName: [this.userService.selectedUser.LastName, [Validators.required, Validators.pattern('^[a-zA-Z0-9].*')]],
-      Email: [this.userService.selectedUser.Email, [Validators.required, Validators.email]],
+      Email: [this.userService.selectedUser.Email,  [Validators.required, Validators.email],
+      ValidateEmailUnique.Validate(this.userService)],
       RoleID: [this.userService.selectedUser.RoleID, Validators.required],
       Company: [this.userService.selectedUser.Company, Validators.pattern('^[a-zA-Z0-9].*')],
       Address: [this.userService.selectedUser.Address, Validators.pattern('^[a-zA-Z0-9].*')],
