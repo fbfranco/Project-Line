@@ -4,11 +4,11 @@ using ProjectLine.CORE.ViewModel;
 using ProjectLine.DATA.Config;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
-using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace ProjectLine.DATA.Persistence
 {
@@ -21,7 +21,7 @@ namespace ProjectLine.DATA.Persistence
         {
             using (Context = new ProjectLineContext())
             {
-                var result = await Context.Projects.Include("User").Include("Phases").Include("Phases.Objectives").Where(x => x.Active == true).ToListAsync();
+                var result = await Context.Projects.Include("Phases").Include("Phases.Objectives").Where(x => x.Active == true).ToListAsync();
                 return result;
             }
         }
@@ -65,7 +65,7 @@ namespace ProjectLine.DATA.Persistence
                 Console.Write(ex);
             }
         }
-        public void Update(Project project)
+        public void Update(ProjectViewModel project)
         {
             try
             {
@@ -75,22 +75,51 @@ namespace ProjectLine.DATA.Persistence
                     try
                     {
                         //Get Project of the DB
-                        var update = FindById(project.ProjectID);
+                        var update = FindById(project.Project.ProjectID);
+
+                        foreach (var phaseDelete in update.Phases)
+                        {
+                            var phaseFound = false;
+                            foreach (var phaseView in project.Phases)
+                            {
+                                //Check exist phase of the DB
+                                if (phaseDelete.PhaseID == phaseView.PhaseID)
+                                {
+                                    phaseFound = true;
+                                    break;
+                                }
+                            }
+
+                            if (!phaseFound)
+                            {
+                                //Delete phase if no exist in the DB
+                                phaseRepository.Delete(phaseDelete.PhaseID, context);
+                            }
+                        }
 
                         //Update Project Data
-                        update.Title = project.Title;
-                        update.Description = project.Description;
-                        update.StartDate = project.StartDate;
-                        update.EndDate = project.EndDate;
-                        update.UserID = project.UserID;
-                        update.OwnerID = project.OwnerID;
+                        update.Title = project.Project.Title;
+                        update.Description = project.Project.Description;
+                        update.StartDate = project.Project.StartDate;
+                        update.EndDate = project.Project.EndDate;
 
                         context.Entry(update).State = EntityState.Modified;
                         context.SaveChanges();
 
-                        AddOrUpdatePhases(project, update.ProjectID, context);
-                        DeletePhasesExistens(project, context);
-
+                        foreach (var phase in project.Phases)
+                        {
+                            if (phase.PhaseID == 0)
+                            {
+                                //Add phase if no exist in the DB
+                                phase.ProjectID = project.Project.ProjectID;
+                                phaseRepository.Create(phase, context);
+                            }
+                            else
+                            {
+                                //Update phase if exist in the DB
+                                phaseRepository.Update(phase, context);
+                            }
+                        }
                         Trans.Commit();
                     }
                     catch (Exception ex)
@@ -106,6 +135,7 @@ namespace ProjectLine.DATA.Persistence
                 Console.Write(ex);
             }
         }
+
         public void DeletePasive(int id)
         {
             try
@@ -122,62 +152,6 @@ namespace ProjectLine.DATA.Persistence
             catch (Exception ex)
             {
                 Console.Write(ex);
-            }
-        }
-
-        private void AddOrUpdatePhases(Project project, int id, ProjectLineContext context)
-        {
-            foreach (var phase in project.Phases)
-            {
-                phase.ProjectID = id;
-                if (phase.DemoVideo != null)
-                {
-                    if (phase.DemoVideo.Equals(""))
-                    {
-                        phase.DemoUrl = "";
-                    }
-                    else
-                    {
-                        phase.DemoUrl = "/assets/Demo/" + phase.Title + "_" + phase.DemoName;
-                        SaveDemo(phase.DemoVideo, phase.DemoUrl);
-                    }
-                }
-
-                if (phase.PhaseID == 0)
-                {
-                    phaseRepository.Create(phase, context);
-                }
-                else
-                {
-                    phaseRepository.Update(phase, context);
-                }
-            }
-        }
-        private void SaveDemo(string video, string path)
-        {
-            byte[] demoFile = Convert.FromBase64String(video);
-            File.WriteAllBytes(HttpContext.Current.Server.MapPath(path), demoFile);
-        }
-        private void DeletePhasesExistens(Project projectExist, ProjectLineContext context)
-        {
-            foreach (var phaseDelete in projectExist.Phases)
-            {
-                var phaseFound = false;
-                foreach (var phaseView in projectExist.Phases)
-                {
-                    //Check exist phase of the DB
-                    if (phaseDelete.PhaseID == phaseView.PhaseID)
-                    {
-                        phaseFound = true;
-                        break;
-                    }
-                }
-
-                if (!phaseFound)
-                {
-                    //Delete phase if no exist in the DB
-                    phaseRepository.Delete(phaseDelete.PhaseID, context);
-                }
             }
         }
     }
