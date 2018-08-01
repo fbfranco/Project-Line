@@ -3,48 +3,48 @@
   <br>
   <form novalidate [formGroup]="projectFG" (ngSubmit)="onSubmit()" fxLayout="column">
     <input type="hidden" formControlName="ProjectID">
-    <!-- Title -->
-    <mat-form-field>
-      <input matInput maxlength="150" placeholder="Title" formControlName="Title">
-      <mat-hint align="end">{{projectFG.get('Title').value?.length || 0}}/150</mat-hint>
-      <mat-error *ngIf="projectFG.get('Title').hasError('required')">This Field is Required.</mat-error>
-      <mat-error *ngIf="projectFG.get('Title').hasError('pattern')">Title Invalid.</mat-error>
-    </mat-form-field>
 
-    <!-- UserId -->
-    <mat-form-field>
-      <input type="text" placeholder="Client" matInput [matAutocomplete]="UserId" formControlName="UserId">
-      <mat-error *ngIf="projectFG.get('UserId').hasError('isSelectedValid')">Select a client form the list.</mat-error>
-      <mat-autocomplete #UserId="matAutocomplete" autoActiveFirstOption [displayWith]="displayNameClient.bind(this)">
-        <mat-option *ngFor="let client of filteredClient | async" [value]="client.UserID">
-          {{ client.FirstName }}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
 
-    <!-- OwnerId -->
-    <mat-form-field>
-      <input type="text" placeholder="Product Owner" matInput [matAutocomplete]="OwnerId" formControlName="OwnerId">
-      <mat-error *ngIf="projectFG.get('OwnerId').hasError('isSelectedValid')">Select a client form the list.</mat-error>
-      <mat-autocomplete #OwnerId="matAutocomplete" autoActiveFirstOption [displayWith]="displayNameOwner.bind(this)">
-        <mat-option *ngFor="let owner of filteredOwner | async" [value]="owner.UserID">
-          {{ owner.FirstName }}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+      <!-- Title -->
+      <mat-form-field>
+        <input matInput maxlength="150" placeholder="Title" formControlName="Title">
+        <mat-hint align="end">{{projectFG.get('Title').value?.length || 0}}/150</mat-hint>
+        <mat-error *ngIf="projectFG.get('Title').hasError('required')">This Field is Required.</mat-error>
+        <mat-error *ngIf="projectFG.get('Title').hasError('pattern')">Title Invalid.</mat-error>
+      </mat-form-field>
+
+      <!-- UserId -->
+      <mat-form-field>
+        <input type="text" placeholder="Client" matInput [matAutocomplete]="UserId"  formControlName="UserId">
+        <mat-error *ngIf="projectFG.get('UserId').hasError('isSelectedValid')">Select a client form the list.</mat-error>
+        <mat-autocomplete #UserId="matAutocomplete" autoActiveFirstOption [displayWith]="displayNameClient.bind(this)">
+          <mat-option *ngFor="let client of filteredClient | async" [value]="client.UserID">
+            {{ client.FirstName }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <!-- OwnerId -->
+      <mat-form-field>
+        <input type="text" placeholder="Product Owner" matInput [matAutocomplete]="OwnerId"  formControlName="OwnerId">
+        <mat-error *ngIf="projectFG.get('OwnerId').hasError('isSelectedValid')">Select a owner form the list.</mat-error>
+        <mat-autocomplete #OwnerId="matAutocomplete" autoActiveFirstOption [displayWith]="displayNameOwner.bind(this)">
+          <mat-option *ngFor="let owner of filteredOwner | async" [value]="owner.UserID">
+            {{ owner.FirstName }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
 
     <!-- Description -->
     <mat-form-field>
-      <textarea matInput maxlength="1000" placeholder="Description" matTextareaAutosize matAutosizeMinRows="4" matAutosizeMaxRows="5"
-        formControlName="Description"></textarea>
+      <textarea matInput maxlength="1000" placeholder="Description" matTextareaAutosize matAutosizeMinRows="4" matAutosizeMaxRows="5" formControlName="Description"></textarea>
       <mat-hint align="end">{{projectFG.get('Description').value?.length || 0}}/1000</mat-hint>
     </mat-form-field>
-    <div class="date-content" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign.gt-xs="space-between start"
-      fxLayoutAlign.md="space-between start">
 
+    <div class="date-content" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign.gt-xs="space-between start" fxLayoutAlign.md="space-between start">
       <!-- Start Date -->
       <mat-form-field>
-        <input matInput [matDatepicker]="startdate" placeholder="Start Date" formControlName="StartDate">
+        <input matInput [max]="projectFG.value.EndDate" [matDatepicker]="startdate" placeholder="Start Date" formControlName="StartDate">
         <mat-error *ngIf="projectFG.get('StartDate').hasError('required')">This Field is Required.</mat-error>
         <mat-datepicker-toggle matSuffix [for]="startdate"></mat-datepicker-toggle>
         <mat-datepicker #startdate></mat-datepicker>
