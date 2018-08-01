@@ -58,7 +58,8 @@ export class UsersAddComponent implements OnInit {
       UserID: [0],
       FirstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9].*')]],
       LastName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9].*')]],
-      Email: ['', [Validators.required, Validators.email], ValidateEmailUnique.Validate(this.userService)],
+      Email: ['', [Validators.required, Validators.email],
+      ValidateEmailUnique.Validate(this.userService, 0)],
       RoleID: ['', Validators.required],
       Company: ['', Validators.pattern('^[a-zA-Z0-9].*')],
       Address: ['', Validators.pattern('^[a-zA-Z0-9].*')],
@@ -85,7 +86,6 @@ export class UsersAddComponent implements OnInit {
 
   newFormEditUser() {
     this.registrationFormGroup.get('Active').enable();
-    this.registrationFormGroup.reset();
 
     this.PasswordFormGroup = this.formBuilder.group({
       Password: ['', [Validators.pattern(this.passwordPattern)]],
@@ -96,8 +96,8 @@ export class UsersAddComponent implements OnInit {
       UserID: [this.userService.selectedUser.UserID],
       FirstName: [this.userService.selectedUser.FirstName, [Validators.required, Validators.pattern('^[a-zA-Z0-9].*')]],
       LastName: [this.userService.selectedUser.LastName, [Validators.required, Validators.pattern('^[a-zA-Z0-9].*')]],
-      Email: [this.userService.selectedUser.Email, [Validators.required, Validators.email],
-      ValidateEmailUnique.Validate(this.userService)],
+      Email: [this.userService.selectedUser.Email,
+      [Validators.required, Validators.email], ValidateEmailUnique.Validate(this.userService, this.userService.selectedUser.UserID )],
       RoleID: [this.userService.selectedUser.RoleID, Validators.required],
       Company: [this.userService.selectedUser.Company, Validators.pattern('^[a-zA-Z0-9].*')],
       Address: [this.userService.selectedUser.Address, Validators.pattern('^[a-zA-Z0-9].*')],
@@ -107,6 +107,7 @@ export class UsersAddComponent implements OnInit {
       Active: [this.userService.selectedUser.Active],
       PasswordFormGroup: this.PasswordFormGroup
     });
+
   }
 
   openSnackBar(message: string) {
@@ -152,12 +153,8 @@ export class UsersAddComponent implements OnInit {
       });
   }
   editUsers() {
-    console.log(this.PasswordFormGroup.value.Password);
-    if (this.PasswordFormGroup.value.Password === '') {
-      this.registrationFormGroup.value.Password = this.userService.selectedUser.Password;
-    } else {
-      this.registrationFormGroup.value.Password = this.PasswordFormGroup.value.Password;
-    }
+
+    this.registrationFormGroup.value.Password = this.PasswordFormGroup.value.Password;
 
     this.userService.updateUser(this.registrationFormGroup.value)
       .subscribe(good => {

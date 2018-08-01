@@ -32,15 +32,20 @@ export class UserService {
     return this.http.delete(`${this.apiURL}DeleteUser/${id}`);
   }
 
-  getUsersList(): Observable<User[]> {
+/*   getUsersList(): Observable<User[]> {
     return this.http.get(`${this.apiURL}Get/`).pipe(map((data: Response) => <User[]>data.json()));
+  } */
+
+  getUsersEdit(): Observable<User[]> {
+    return this.http.get(`${this.apiURL}GetUserEdit/`).pipe(map((data: Response) => <User[]>data.json()));
   }
 
   getUsersByRol(idRol): Observable<User[]> {
     return this.http.get(`${this.apiURL}GetUsersByRol/${idRol}`).pipe(map((data: Response) => <User[]>data.json()));
   }
 
-  validateEmailUnique(email: string): Observable<boolean> {
-    return this.http.get(`${this.apiURL}ValidateEmailUnique?email=${email}`).pipe(map((data: Response) => <boolean>data.json()));
+  validateEmailUnique(email: string, id: number): Observable<boolean> {
+    // tslint:disable-next-line:max-line-length
+    return this.http.get(`${this.apiURL}ValidateEmailUnique?email=${email}&id=${id}`).pipe(map((data: Response) => <boolean>data.json()));
   }
 }

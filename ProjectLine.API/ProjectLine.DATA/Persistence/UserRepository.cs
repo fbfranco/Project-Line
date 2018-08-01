@@ -25,6 +25,32 @@ namespace ProjectLine.DATA.Persistence
             }
         }
 
+        public async Task<IEnumerable<User>> GetUsersEdit()
+        {
+
+            using (Context = new ProjectLineContext())
+            {
+                var listusers = await Context.Users.Include("Role").ToListAsync();
+                var result = listusers.Select(u => new User()
+                {
+                    UserID = u.UserID,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    Company = u.Company,
+                    Phone = u.Phone,
+                    Mobile = u.Phone,
+                    Email = u.Email,
+                    Address = u.Address,
+                    Active = u.Active,
+                    RoleID = u.RoleID,
+                    Role = u.Role
+                    
+                    });
+                return result;
+            }
+          
+        }
+
         public async Task<IEnumerable<User>> GetUsersByRol(int id)
         {
             using (Context = new ProjectLineContext())
@@ -39,11 +65,11 @@ namespace ProjectLine.DATA.Persistence
             }
         }
 
-        public bool ValidateEmailUnique(string email)
+        public bool ValidateEmailUnique(string email,int id)
         {
             using (Context = new ProjectLineContext())
             {
-                var existEmail = Context.Users.Where(x => x.Email == email).Count();
+                var existEmail = Context.Users.Where(x => x.Email == email && x.RoleID != id).Count();
                 return existEmail > 0;
             }
         }
@@ -63,22 +89,10 @@ namespace ProjectLine.DATA.Persistence
             {
                 using (Context = new ProjectLineContext())
                 {
+                    User.Password = HashPassword(User.Password);
 
-                    User New = new User
-                    {
-                        FirstName = User.FirstName,
-                        LastName = User.LastName,
-                        Email = User.Email,
-                        Company = User.Company,
-                        Address = User.Address,
-                        Phone = User.Phone,
-                        Mobile = User.Mobile,
-                        Password = HashPassword(User.Password),
-                        Active = User.Active,
-                        RoleID = User.RoleID,
-                    };
 
-                    Context.Users.Add(New);
+                    Context.Users.Add(User);
                     Context.SaveChanges();
                 }
             }
@@ -95,16 +109,33 @@ namespace ProjectLine.DATA.Persistence
                 var update = FindById(User.UserID);
                 using (Context = new ProjectLineContext())
                 {
-                    update.FirstName = User.FirstName;
-                    update.LastName = User.LastName;
-                    update.Email = User.Email;
-                    update.Company = User.Company;
-                    update.Address = User.Address;
-                    update.Phone = User.Phone;
-                    update.Mobile = User.Mobile;
-                    update.Password = User.Password;
-                    update.Active = User.Active;
-                    update.RoleID = User.RoleID;
+
+                    if (User.Password == "")
+                    {
+                        update.FirstName = User.FirstName;
+                        update.LastName = User.LastName;
+                        update.Email = User.Email;
+                        update.Company = User.Company;
+                        update.Address = User.Address;
+                        update.Phone = User.Phone;
+                        update.Mobile = User.Mobile;
+                        update.Active = User.Active;
+                        update.RoleID = User.RoleID;
+                    }
+                    else
+                    {
+                        update.FirstName = User.FirstName;
+                        update.LastName = User.LastName;
+                        update.Email = User.Email;
+                        update.Company = User.Company;
+                        update.Address = User.Address;
+                        update.Phone = User.Phone;
+                        update.Mobile = User.Mobile;
+                        update.Password = HashPassword(User.Password);
+                        update.Active = User.Active;
+                        update.RoleID = User.RoleID;
+                    }
+
 
                     Context.Entry(update).State = EntityState.Modified;
                     Context.SaveChanges();
