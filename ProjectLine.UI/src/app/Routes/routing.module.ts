@@ -27,7 +27,7 @@ const routes: Routes = [
   { path: 'Users', component: UsersListComponent, canActivate: [UserGuard] },
   { path: 'Roles', component: RolesListComponent, canActivate: [UserGuard] },
   { path: 'Users/Add', component: UsersAddComponent, canActivate: [UserGuard] },
-  { path: 'Roles/Add', component: RolesAddComponent, canActivate: [UserGuard]},
+  { path: 'Roles/Add', component: RolesAddComponent, canActivate: [UserGuard] },
   { path: 'Home', component: HomeTestComponent }
 ];
 

@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 // Service
 import { HelperService } from '../services/helper.service';
-import { PermissionsService } from '../services/permissions.service';
 import { RolService } from '../services/rol.service';
 // Models
 import { Permissions } from '../models/Permissions.model';
@@ -21,7 +20,6 @@ export class LoginComponent implements OnInit {
     public helper: HelperService,
     private userFormBuilder: FormBuilder,
     private route: Router,
-    // private permissionService: PermissionsService,
     private roleService: RolService
   ) { }
 
@@ -33,7 +31,7 @@ export class LoginComponent implements OnInit {
   }
 
   submitLogin() {
-    const RolID = 2; // User Role Id
+    const RolID = 3; // User Role Id
     const permissions: string[] = [];
     this.roleService.getPermissionsByRole(RolID).subscribe((List: Permissions[]) => {
       if (List !== null) {
