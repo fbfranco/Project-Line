@@ -28,7 +28,7 @@
       <!-- OwnerId -->
       <mat-form-field>
         <input type="text" placeholder="Product Owner" matInput [matAutocomplete]="OwnerId"  formControlName="OwnerId">
-        <mat-error *ngIf="projectFG.get('OwnerId').hasError('isSelectedValid')">Select a client form the list.</mat-error>
+        <mat-error *ngIf="projectFG.get('OwnerId').hasError('isSelectedValid')">Select a owner form the list.</mat-error>
         <mat-autocomplete #OwnerId="matAutocomplete" autoActiveFirstOption [displayWith]="displayNameOwner.bind(this)">
           <mat-option *ngFor="let owner of filteredOwner | async" [value]="owner.UserID">
             {{ owner.FirstName }}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
@@ -17,6 +17,8 @@ import { Objective } from '../../../models/objective.model';
 import { ObjectiveAddComponent } from '../objective-add/objective-add.component';
 import { DialogConfirmationComponent } from '../../dialog/dialog-confirmation/dialog-confirmation.component';
 import { map, startWith } from 'rxjs/operators';
+import { PhaseValidate } from '../../../validators/phase-autocomplete.validator';
+import { ProjectValidate } from '../../../validators/project-autocomplete.validator';
 
 @Component({
   selector: 'app-objectives-list',
@@ -27,8 +29,7 @@ import { map, startWith } from 'rxjs/operators';
 export class ObjectivesListComponent implements OnInit {
 
   // List Projects
-  ListProjects: Project[];
-  ListPhases: Phase[];
+  formValidate = false;
   formGroup: FormGroup;
   projectIdNumber: number;
   phaseIdNumber: number;
@@ -59,40 +60,25 @@ export class ObjectivesListComponent implements OnInit {
 
   ngOnInit() {
     this.newGroup('', '');
-    this.listProjects = [];
-    this.listPhases = [];
     this.getProjectList();
     this.DataProject = new Project;
     this.DataPhase = new Phase;
-    this.filteredProyects = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => value ? this._filterProject(value) : this.listProjects)
-      );
   }
-  private _filterProject(value: string): Project[] {
-    const filterValue = value.toLowerCase();
 
+  resetData() {
+    this.newGroup('', '');
+    this.myControlPhase.patchValue('');
+    this.filteredPhases = new Phase()[0];
+    this.ListObjectives = [];
+  }
+   filterProject(value: string): Project[] {
+    const filterValue = value.toString().toLowerCase();
     return this.listProjects.filter(option => option.Title.toLowerCase().includes(filterValue));
   }
-  private _filterPhase(value: string): Phase[] {
-    const filterValue = value.toLowerCase();
-
+   filterPhase(value: string): Phase[] {
+    const filterValue = value.toString().toLowerCase();
     return this.listPhases.filter(option => option.Title.toLowerCase().includes(filterValue));
   }
-
-  // setOptionsProject() {
-  //   for (let index = 0; index < this.ListProjects.length; index++) {
-  //     const element = this.ListProjects[index];
-  //     this.listProjects.push(element.Title);
-  //   }
-  // }
-  // setOptionsPhase() {
-  //   for (let index = 0; index < this.ListPhases.length; index++) {
-  //     const element = this.ListPhases[index];
-  //     this.listPhases.push(element.Title);
-  //   }
-  // }
 
   newGroup(val, title): void {
     this.formGroup = this.fb.group({
@@ -101,47 +87,20 @@ export class ObjectivesListComponent implements OnInit {
     });
   }
 
-  // show Item Autocomplete
-  displayProjectFn(project): string {
-    if (!project) { return ''; }
-    return project ? project.Title : project;
-  }
-
-  displayPhaseFn(phase): string {
-    if (!phase) { return ''; }
-    return phase ? phase.Title : phase;
-  }
-
   // Event Get ProjectID
   projectChanged(event): void {
     this.listPhases = [];
-    this.ListProjects.forEach(element => {
-      if (element.Title === event.option.value) {
-        this.DataProject = this.projectService.selectedProject = element;
-      }
-    });
-    this.projectIdNumber = this.DataProject.ProjectID;
+    this.projectIdNumber = this.myControl.value;
     this.ListObjectives = null;
     this.getPhaseList();
-    this.filteredPhases = this.myControlPhase.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => value ? this._filterPhase(value) : this.listPhases)
-      );
     // reset values autocomplete
     this.newGroup('', '');
     this.myControlPhase.patchValue('');
-
   }
 
   // Event Get PhaseID
   phaseChanged(event): void {
-    this.ListPhases.forEach(element => {
-      if (element.Title === event.option.value) {
-        this.DataPhase = this.phasesServices.selectedPhase = element;
-      }
-    });
-    this.phaseIdNumber = this.DataPhase.PhaseID;
+    this.phaseIdNumber = this.myControlPhase.value;
     const title = this.formGroup.controls['PhaseTitle'].value;
     this.newGroup(this.phaseIdNumber, title);
     this.getObjectiveList();
@@ -149,24 +108,34 @@ export class ObjectivesListComponent implements OnInit {
 
   getProjectList() {
     this.projectService.getProjectsList().subscribe((datalist: Project[]) => {
-      this.ListProjects = datalist;
-      this.setOptionsProject();
+      this.listProjects = datalist;
+      this.filteredProyects = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => value ? this.filterProject(value) : this.listProjects)
+      );
+      this.myControl.setValidators([ProjectValidate(this.listProjects)]);
     }, error => {
       console.log('Error getting the list of projects');
     });
   }
 
   getPhaseList() {
-    this.phasesServices.getPhasesList(this.projectIdNumber).subscribe((datalistPhase: Phase[]) => {
-      this.ListPhases = datalistPhase;
-      this.setOptionsPhase();
+    this.phasesServices.getPhasesList(this.myControl.value).subscribe((datalistPhase: Phase[]) => {
+      this.listPhases = datalistPhase;
+      this.filteredPhases = this.myControlPhase.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => value ? this.filterPhase(value) : this.listPhases)
+      );
+      this.myControlPhase.setValidators([PhaseValidate(this.listPhases)]);
     }, error => {
       console.log('Error getting the list of Phases');
     });
   }
 
   getObjectiveList() {
-    this.objectiveServices.getObjectivesList(this.phaseIdNumber).subscribe((datalistPhase: Objective[]) => {
+    this.objectiveServices.getObjectivesList(this.myControlPhase.value).subscribe((datalistPhase: Objective[]) => {
       this.ListObjectives = datalistPhase;
     }, error => {
       console.log('Error getting the list of Phases');
@@ -185,6 +154,7 @@ export class ObjectivesListComponent implements OnInit {
       });
     }
   }
+
   openDialogEdit(objective: Objective) {
     this.objectiveServices.selectedObjective = Object.assign({}, objective);
     const dialogRef = this.dialog.open(ObjectiveAddComponent);
@@ -212,6 +182,18 @@ export class ObjectivesListComponent implements OnInit {
         horizontalPosition: 'right',
       });
     }
+  }
+
+  displayTitleProject(ProjectID) {
+    if (!ProjectID) { return ''; }
+    const index = this.listProjects.findIndex(project => project.ProjectID === ProjectID);
+    return this.listProjects[index].Title;
+  }
+
+  displayTitlePhase(PhaseID) {
+    if (!PhaseID) { return ''; }
+    const index = this.listPhases.findIndex(phase => phase.PhaseID === PhaseID);
+    return this.listPhases[index].Title;
   }
 
 }
