@@ -89,18 +89,4 @@ export class ProgressComponent implements OnInit {
     });
   }
 
-  sidenavState() {
-    const percentage = document.getElementsByClassName('percentage') as HTMLCollectionOf<HTMLElement>;
-    const legend = document.getElementsByClassName('legend') as HTMLCollectionOf<HTMLElement>;
-    if (percentage.length !== 0) {
-      if (this.helperService.SlideMenu.opened) {
-        percentage[0].setAttribute('style', 'position: fixed; top:200px; left:240px;');
-        legend[0].setAttribute('style', 'position: fixed; top:520px; left:332px;');
-      } else {
-        percentage[0].setAttribute('style', 'position: fixed; top:200px; left:2px;');
-        legend[0].setAttribute('style', 'position: fixed; top:520px; left:92px;');
-      }
-    }
-  }
-
 }
