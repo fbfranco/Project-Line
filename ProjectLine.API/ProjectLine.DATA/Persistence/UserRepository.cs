@@ -65,11 +65,11 @@ namespace ProjectLine.DATA.Persistence
             }
         }
 
-        public bool ValidateEmailUnique(string email)
+        public bool ValidateEmailUnique(string email,int id)
         {
             using (Context = new ProjectLineContext())
             {
-                var existEmail = Context.Users.Where(x => x.Email == email).Count();
+                var existEmail = Context.Users.Where(x => x.Email == email && x.RoleID != id).Count();
                 return existEmail > 0;
             }
         }
@@ -110,7 +110,7 @@ namespace ProjectLine.DATA.Persistence
                 using (Context = new ProjectLineContext())
                 {
 
-                    if (update.Password == "")
+                    if (User.Password == "")
                     {
                         update.FirstName = User.FirstName;
                         update.LastName = User.LastName;
@@ -131,7 +131,7 @@ namespace ProjectLine.DATA.Persistence
                         update.Address = User.Address;
                         update.Phone = User.Phone;
                         update.Mobile = User.Mobile;
-                        update.Password = User.Password;
+                        update.Password = HashPassword(User.Password);
                         update.Active = User.Active;
                         update.RoleID = User.RoleID;
                     }

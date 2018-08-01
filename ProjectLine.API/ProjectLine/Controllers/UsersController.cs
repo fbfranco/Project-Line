@@ -36,9 +36,9 @@ namespace ProjectLine.Controllers
 
         // GET: api/email
         [HttpGet]
-        public Boolean ValidateEmailUnique(string email)
+        public Boolean ValidateEmailUnique(string email, int id)
         {
-            return Repository.ValidateEmailUnique(email);
+            return Repository.ValidateEmailUnique(email,id);
         }
 
         // POST: api/Users/Create

@@ -56,7 +56,8 @@ export class UsersAddComponent implements OnInit {
       UserID: [0],
       FirstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9].*')]],
       LastName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9].*')]],
-      Email: ['', [Validators.required, Validators.email], ValidateEmailUnique.Validate(this.userService)],
+      Email: ['', [Validators.required, Validators.email],
+      ValidateEmailUnique.Validate(this.userService, 0)],
       RoleID: ['', Validators.required],
       Company: ['', Validators.pattern('^[a-zA-Z0-9].*')],
       Address: ['', Validators.pattern('^[a-zA-Z0-9].*')],
@@ -82,47 +83,28 @@ export class UsersAddComponent implements OnInit {
   }
 
   newFormEditUser() {
-   this.registrationFormGroup.get('Active').enable();
-/*      this.registrationFormGroup.get('UserID').enable();
+    this.registrationFormGroup.get('Active').enable();
 
     this.PasswordFormGroup = this.formBuilder.group({
       Password: ['', [Validators.pattern(this.passwordPattern)]],
       ConfirmPassword: ['']
-    }, { validator: passwordConfirming }); */
+    }, { validator: passwordConfirming });
 
-/*     this.registrationFormGroup.patchValue({
+    this.registrationFormGroup = this.formBuilder.group({
       UserID: [this.userService.selectedUser.UserID],
-      FirstName: [this.userService.selectedUser.FirstName],
-      LastName: [this.userService.selectedUser.LastName],
-      Email: [this.userService.selectedUser.Email],
-      Company: [this.userService.selectedUser.Company],
-      Address: [this.userService.selectedUser.Address],
-      Phone: [this.userService.selectedUser.Phone],
-      Mobile: [this.userService.selectedUser.Mobile],
+      FirstName: [this.userService.selectedUser.FirstName, [Validators.required, Validators.pattern('^[a-zA-Z0-9].*')]],
+      LastName: [this.userService.selectedUser.LastName, [Validators.required, Validators.pattern('^[a-zA-Z0-9].*')]],
+      Email: [this.userService.selectedUser.Email,
+      [Validators.required, Validators.email], ValidateEmailUnique.Validate(this.userService, this.userService.selectedUser.UserID )],
+      RoleID: [this.userService.selectedUser.RoleID, Validators.required],
+      Company: [this.userService.selectedUser.Company, Validators.pattern('^[a-zA-Z0-9].*')],
+      Address: [this.userService.selectedUser.Address, Validators.pattern('^[a-zA-Z0-9].*')],
+      Phone: [this.userService.selectedUser.Phone, [Validators.pattern('^[-0-9()+].*')]],
+      Mobile: [this.userService.selectedUser.Mobile, [Validators.pattern('^[-0-9()+].*')]],
       Password: [''],
       Active: [this.userService.selectedUser.Active],
       PasswordFormGroup: this.PasswordFormGroup
-    }); */
-
-/*     this.PasswordFormGroup = this.formBuilder.group({
-      Password: ['', [Validators.pattern(this.passwordPattern)]],
-      ConfirmPassword: ['']
-    }, { validator: passwordConfirming });
- */
-    this.registrationFormGroup.controls['UserID'].patchValue(this.userService.selectedUser.UserID);
-    this.registrationFormGroup.controls['FirstName'].patchValue(this.userService.selectedUser.FirstName);
-    this.registrationFormGroup.controls['LastName'].patchValue(this.userService.selectedUser.LastName);
-    this.registrationFormGroup.controls['Email'].patchValue(this.userService.selectedUser.Email);
-    this.registrationFormGroup.controls['Company'].patchValue(this.userService.selectedUser.Company);
-    this.registrationFormGroup.controls['Address'].patchValue(this.userService.selectedUser.Address);
-    this.registrationFormGroup.controls['Phone'].patchValue(this.userService.selectedUser.Phone);
-    this.registrationFormGroup.controls['Mobile'].patchValue(this.userService.selectedUser.Mobile);
-    this.registrationFormGroup.controls['Password'].patchValue('');
-    this.registrationFormGroup.controls['Active'].patchValue(this.userService.selectedUser.Active);
-    this.registrationFormGroup.controls['PasswordFormGroup'].patchValue(this.PasswordFormGroup);
-
-    this.PasswordFormGroup.controls['Password'].patchValue('');
-    this.PasswordFormGroup.controls['ConfirmPassword'].patchValue('');
+    });
 
   }
 
