@@ -69,7 +69,7 @@ namespace ProjectLine.DATA.Persistence
         {
             using (Context = new ProjectLineContext())
             {
-                var existEmail = Context.Users.Where(x => x.Email == email && x.RoleID != id).Count();
+                var existEmail = Context.Users.Where(x => x.Email == email && x.UserID != id).Count();
                 return existEmail > 0;
             }
         }
