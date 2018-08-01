@@ -1,0 +1,57 @@
+<div class="container">
+    <mat-card class="mat-card-header Archived" id="hvr-sweep-to-bottom" >
+        <div>
+            <div class="div-top">
+                <h1 class="hvr-icon">{{ArchivedProject}}</h1>
+            </div>
+            <div class="div-top">
+                <i class="fas fa-archive"></i>
+            </div>
+            <div class="div-center">
+                <p>Archived Projects</p>
+            </div>
+        </div>
+    </mat-card>
+    <mat-card class="mat-card-header Actived" (click)='goListProjects()'>
+        <div>
+            <div class="div-top">
+                <h1 class="hvr-icon">{{ActiveProject}}</h1>
+            </div>
+            <div class="div-top">
+                <i class="fas fa-briefcase"></i>
+            </div>
+            <div class="div-center">
+                <p>Active Projects</p>
+            </div>
+        </div>
+    </mat-card>
+    <mat-card class="mat-card-header Registered" (click)='goListClients()'>
+        <div>
+            <div class="div-top">
+                <h1 class="hvr-icon">{{RegisteredUsers}}</h1>
+            </div>
+            <div class="div-top">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="div-center">
+                <p>Registered Users</p>
+            </div>
+        </div>
+    </mat-card>
+</div>
+
+<mat-card class="container">
+    <mat-card class="mat-card-Project" *ngFor="let project of ListProjects" (click)='goRouteLink(project)'>
+        <h3>{{project.Title}}</h3>
+        <div class="div-left">
+            <h1>{{calculateProgress(project)}}%</h1>
+            <h4>Completed</h4>
+        </div>
+        <div class="div-right">
+            <h5>End Date</h5>
+            <h5>{{project.StartDate | date: 'MMMM d'}}</h5>
+            <h5>Star Date</h5>
+            <h5>{{project.EndDate | date: 'MMMM d'}}</h5>
+        </div>
+    </mat-card>
+</mat-card>

@@ -24,6 +24,14 @@ namespace ProjectLine.DATA.Persistence
                 return result;
             }
         }
+        public async Task<IEnumerable<Project>> GetArchivedProjects()
+        {
+            using (Context = new ProjectLineContext())
+            {
+                var result = await Context.Projects.Include("User").Include("Phases").Include("Phases.Objectives").Where(x => x.Active == false).ToListAsync();
+                return result;
+            }
+        }
         public Project FindById(int id)
         {
             using (Context = new ProjectLineContext())

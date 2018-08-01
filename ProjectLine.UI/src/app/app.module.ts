@@ -46,6 +46,8 @@ import { RolesAddComponent } from './components/roles/roles-add/roles-add.compon
 import { ProgressComponent } from './components/progress/progress.component';
 import { LoginComponent } from './login/login.component';
 import { SelectedValidator } from './Directives/client-owner-autocomplete.directive';
+import { AdminHomeComponent } from './components/homes/admin-home/admin-home.component';
+
 
 
 
@@ -72,7 +74,8 @@ import { SelectedValidator } from './Directives/client-owner-autocomplete.direct
     RolesAddComponent,
     ProgressComponent,
     LoginComponent,
-    SelectedValidator
+    SelectedValidator,
+    AdminHomeComponent,
   ],
   imports: [
     BrowserModule,

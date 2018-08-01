@@ -8,9 +8,10 @@ import { ObjectivesComponent } from '../components/objectives/objectives.compone
 import { ObjectiveAddComponent } from '../components/objectives/objective-add/objective-add.component';
 import { TimelineComponent } from '../components/timeline/timeline/timeline.component';
 import { UsersListComponent } from '../components/users/users-list/users-list.component';
-import { RolesListComponent  } from '../components/roles/roles-list/roles-list.component';
+import { RolesListComponent } from '../components/roles/roles-list/roles-list.component';
 import { UsersAddComponent } from '../components/users/users-add/users-add.component';
 import { RolesAddComponent } from '../components/roles/roles-add/roles-add.component';
+import { AdminHomeComponent } from '../components/homes/admin-home/admin-home.component';
 
 
 const routes: Routes = [
@@ -21,12 +22,13 @@ const routes: Routes = [
   { path: 'Clients', component: PhasesFormComponent },
   { path: 'Objectives', component: ObjectivesComponent },
   { path: 'Objectives/Add', component: ObjectiveAddComponent },
-  { path: 'ProjectTracking', component: TimelineComponent},
-  { path: 'Users', component: UsersListComponent},
-  { path: 'Roles', component: RolesListComponent},
+  { path: 'ProjectTracking', component: TimelineComponent },
+  { path: 'Users', component: UsersListComponent },
+  { path: 'Roles', component: RolesListComponent },
   { path: 'Users/Add', component: UsersAddComponent },
   { path: 'Users/Edit/:id', component: UsersAddComponent },
-  { path: 'Roles/Add', component: RolesAddComponent }
+  { path: 'Roles/Add', component: RolesAddComponent },
+  { path: 'AdminHome', component: AdminHomeComponent }
 ];
 
 @NgModule({

@@ -22,6 +22,7 @@ declare var $: any;
 export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
   PhaseModel: Phase[];
   ListProjects: Project[];
+  ListProjectsHome: Project[];
 
   // Variables when show the TimeLine
   Hide: boolean;
@@ -51,6 +52,10 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
       this.options.push(element.Title);
     }
   }
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  }
   ngOnInit() {
     this.DisplayCard = false;
     this.options = [];
@@ -62,15 +67,38 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
       );
     this.DataProject = new Project;
     this.Hide = false;
-  }
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+    this.HomeInit();
   }
   ngDoCheck() {
     if (this.InitTimeline) {
       $('.VivaTimeline').vivaTimeline({ carousel: false });
       this.InitTimeline = false;
+    }
+  }
+  // Get Project HomePage
+  HomeInit() {
+    if (this.projectService.selectedProject) {
+      this.myControl.patchValue(this.projectService.selectedProject.Title);
+      this.DataProject = this.projectService.selectedProject;
+      this.PhaseModel = this.DataProject.Phases;
+      this.sortPhaseDates(this.PhaseModel);
+      this.PhaseModel.forEach(phase => {
+        phase.UrlValid = this.ExistUrl(phase.DemoUrl);
+      });
+      this.Hide = true;
+      document.execCommand($('.events-body').slideUp());
+
+      this.PhaseModel.forEach(element => {
+        if (new Date().getTime() >= new Date(element.StartDate).getTime() && new Date().getTime() <= new Date(element.EndDate).getTime()) {
+          element.StatePhase = true;
+          console.log(element.StatePhase);
+        } else {
+          element.StatePhase = false;
+        }
+      });
+      this.InitTimeline = true;
+      this.ngDoCheck();
+      this.projectService.selectedProject = null;
     }
   }
   // Get the dates of the selected project
@@ -82,6 +110,7 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
       }
     });
     this.PhaseModel = this.DataProject.Phases;
+    console.log(this.PhaseModel);
     this.sortPhaseDates(this.PhaseModel);
     this.Hide = true;
 
@@ -93,11 +122,14 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
         element.StatePhase = false;
       }
     });
+    this.projectService.selectedProject = null;
   }
 
   inputEmpty(event: any) {
     if (event !== '') {
       this.Hide = false;
+      this.DisplayCard = false;
+      this.DataProject = new Project;
     }
   }
 

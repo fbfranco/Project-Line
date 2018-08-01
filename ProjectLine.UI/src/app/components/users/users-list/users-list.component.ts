@@ -59,7 +59,6 @@ export class UsersListComponent implements OnInit {
       console.log('Error getting the list of Projects');
     });
   }
-
   getRoleName(id: number): string {
     let roleName = 'undefined';
     this.RolesList.forEach(Role => {
