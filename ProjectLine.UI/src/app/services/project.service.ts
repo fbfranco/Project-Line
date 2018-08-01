@@ -11,6 +11,7 @@ import { ViewModelProject } from '../models/viewmodelproject.model';
 export class ProjectService {
 
   selectedProject: Project;
+  selectedProjectHome: Project;
   projectList: Project[];
   private apiURL = 'http://localhost:44226/api/Projects/';
 

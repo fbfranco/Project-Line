@@ -1,11 +1,10 @@
-import { Component, OnInit, DoCheck, AfterContentInit} from '@angular/core';
+import { Component, OnInit, DoCheck, AfterContentInit } from '@angular/core';
 // services
 import { UserService } from '../../../services/user.service';
 import { ProjectService } from '../../../services/project.service';
 // model
 import { Project } from '../../../models/project.model';
 import { Router } from '@angular/router';
-
 
 declare var $: any;
 @Component({
@@ -107,7 +106,7 @@ export class AdminHomeComponent implements OnInit, DoCheck, AfterContentInit {
     this.progressPercentage = 0;
   }
   goRouteLink(project: Project) {
-    this.projectService.selectedProject = project;
+    this.projectService.selectedProjectHome = project;
     this.router.navigate(['ProjectTracking']);
   }
   goListClients() {

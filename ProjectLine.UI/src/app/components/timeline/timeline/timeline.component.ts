@@ -77,14 +77,11 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
   }
   // Get Project HomePage
   HomeInit() {
-    if (this.projectService.selectedProject) {
-      this.myControl.patchValue(this.projectService.selectedProject.Title);
-      this.DataProject = this.projectService.selectedProject;
+    if (this.projectService.selectedProjectHome) {
+      this.myControl.patchValue(this.projectService.selectedProjectHome.Title);
+      this.DataProject = this.projectService.selectedProjectHome;
       this.PhaseModel = this.DataProject.Phases;
       this.sortPhaseDates(this.PhaseModel);
-      this.PhaseModel.forEach(phase => {
-        phase.UrlValid = this.ExistUrl(phase.DemoUrl);
-      });
       this.Hide = true;
       document.execCommand($('.events-body').slideUp());
 
@@ -98,7 +95,7 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
       });
       this.InitTimeline = true;
       this.ngDoCheck();
-      this.projectService.selectedProject = null;
+      this.projectService.selectedProjectHome = null;
     }
   }
   // Get the dates of the selected project
@@ -122,7 +119,6 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
         element.StatePhase = false;
       }
     });
-    this.projectService.selectedProject = null;
   }
 
   inputEmpty(event: any) {
