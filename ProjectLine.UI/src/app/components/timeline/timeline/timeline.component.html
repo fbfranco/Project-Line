@@ -29,25 +29,6 @@
               <div class="events-body" [ngClass]="{'PhasePassed': Phase.StatePhase == false}" ng-style="setStyles()">
                 <div class="row">
                   <div class="events-desc">
-                    <div class="slide-phase">
-                      <h5 class="title-slide-phase">
-                        <i class="far fa-calendar-alt"></i>StartDate:
-                        <span class="start-date">{{helperService.DateFormat(Phase.StartDate)}}</span>
-                      </h5>
-                      <h5 class="title-slide-phase">
-                        <i class="far fa-calendar-alt"></i>EndDate:
-                        <span class="end-date">{{helperService.DateFormat(Phase.EndDate)}}</span>
-                      </h5>
-                      <div class="cnt-description-slide-phase">
-                        <i class="fas fa-align-left"></i>
-                        <h5 class="title-slide-phase">Description:</h5>
-                        <p>{{Phase.Description}}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="events-desc">
                     <div class="objectives-list" *ngFor="let obj of Phase.Objectives">
                       <i [ngClass]="{'fa fa-check': obj.Completed == true, 'fas fa-circle': obj.Completed == false}"></i>
                       <p>{{obj.Title}}</p>
@@ -62,6 +43,25 @@
                           <source [src]="sanitizer.bypassSecurityTrustResourceUrl('http://localhost:44226'+ Phase.DemoUrl)" type="video/mp4">
                         </video>
                       </vg-player>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="events-desc">
+                    <div class="slide-phase">
+                      <h5 class="title-slide-phase">
+                        <i class="far fa-calendar-alt"></i>StartDate:
+                        <span class="start-date">{{helperService.DateFormat(Phase.StartDate)}}</span>
+                      </h5>
+                      <h5 class="title-slide-phase">
+                        <i class="far fa-calendar-alt"></i>EndDate:
+                        <span class="end-date">{{helperService.DateFormat(Phase.EndDate)}}</span>
+                      </h5>
+                      <div class="cnt-description-slide-phase" *ngIf="Phase.Description != ''">
+                        <i class="fas fa-align-left"></i>
+                        <h5 class="title-slide-phase">Description:</h5>
+                        <p>{{Phase.Description}}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
