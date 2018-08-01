@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck, AfterContentInit} from '@angular/core';
 // services
 import { UserService } from '../../../services/user.service';
 import { ProjectService } from '../../../services/project.service';
@@ -7,15 +7,16 @@ import { Project } from '../../../models/project.model';
 import { Router } from '@angular/router';
 
 
-
+declare var $: any;
 @Component({
   selector: 'app-admin-home',
   templateUrl: './admin-home.component.html',
   styleUrls: ['./admin-home.component.scss']
 })
-export class AdminHomeComponent implements OnInit {
+export class AdminHomeComponent implements OnInit, DoCheck, AfterContentInit {
 
 
+  InitTimeline: boolean;
   ListProjects: Project[];
   RegisteredUsers: number;
   ActiveProject: number;
@@ -23,6 +24,8 @@ export class AdminHomeComponent implements OnInit {
   objectiveNumber: number;
   objectiveCompleted: number;
   progressPercentage: number;
+  progressPending: number;
+
 
   constructor(
     private userService: UserService,
@@ -30,15 +33,17 @@ export class AdminHomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.ActiveProject = 0;
-    this.RegisteredUsers = 0;
-    this.ArchivedProject = 0;
-    this.objectiveNumber = 0;
-    this.objectiveCompleted = 0;
-    this.progressPercentage = 0;
+    this.InitializeVariables();
     this.getUserList();
     this.getProjectList();
     this.getArchivedProjectList();
+  }
+  ngDoCheck() {
+    console.log(this.InitTimeline);
+    if (this.InitTimeline) {
+      $('.VivaTimeline').vivaTimeline({ carousel: false });
+      this.InitTimeline = false;
+    }
   }
   getUserList() {
     this.userService.getUsersList().subscribe(List => {
@@ -63,6 +68,27 @@ export class AdminHomeComponent implements OnInit {
       console.log('Error getting the list of Users');
     });
   }
+  InitializeVariables() {
+    this.ActiveProject = 0;
+    this.RegisteredUsers = 0;
+    this.ArchivedProject = 0;
+    this.objectiveNumber = 0;
+    this.objectiveCompleted = 0;
+    this.progressPercentage = 0;
+    this.progressPending = 0;
+  }
+  calculateProgress(project: Project) {
+    this.resetNumbers();
+    for (const phase in project.Phases) {
+      if (project.Phases.hasOwnProperty(phase)) {
+        this.countObjectives(project.Phases[phase].Objectives);
+      }
+    }
+    if (this.objectiveNumber > 0) {
+      this.progressPercentage = (this.objectiveCompleted * 100) / this.objectiveNumber;
+    }
+    return Math.round(this.progressPercentage);
+  }
 
   countObjectives(phasesProject) {
     for (const obj in phasesProject) {
@@ -75,19 +101,6 @@ export class AdminHomeComponent implements OnInit {
       }
     }
   }
-
-  calculateProgress(project: Project) {
-    this.resetNumbers();
-    for (const phase in project.Phases) {
-      if (project.Phases.hasOwnProperty(phase)) {
-        this.countObjectives(project.Phases[phase].Objectives);
-      }
-    }
-    if (this.objectiveNumber > 0) {
-      this.progressPercentage = (this.objectiveCompleted * 100) / this.objectiveNumber;
-    }
-    return this.progressPercentage;
-  }
   resetNumbers() {
     this.objectiveNumber = 0;
     this.objectiveCompleted = 0;
@@ -96,6 +109,16 @@ export class AdminHomeComponent implements OnInit {
   goRouteLink(project: Project) {
     this.projectService.selectedProject = project;
     this.router.navigate(['ProjectTracking']);
+  }
+  goListClients() {
+    this.router.navigate(['Users']);
+  }
+  goListProjects() {
+    this.router.navigate(['Projects']);
+  }
+  ngAfterContentInit() {
+    $('.events-body').slideUp();
+    $('.events-footer').slideUp();
   }
 
 }

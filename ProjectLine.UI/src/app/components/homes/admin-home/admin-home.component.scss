@@ -9,10 +9,22 @@
     width: 200px;
     height: 85px;
     padding: 5px;
-    margin: 5px;
+    margin: 5px; //Style Hover
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    position: relative;
+    -webkit-transition-property: color;
+    transition-property: color;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    cursor: pointer; 
+    // background-color: #a6ebff;
     div {
         width: 100%;
         height: 100%;
+        color: white;
         .div-top {
             width: 50%;
             height: 80%;
@@ -34,11 +46,87 @@
     }
 }
 
+.mat-card-header:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #2098D1;
+    -webkit-transform: scaleY(0);
+    transform: scaleY(0);
+    -webkit-transform-origin: 50% 0;
+    transform-origin: 50% 0;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+}
+
+.mat-card-header .hvr-icon {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+}
+
+.mat-card-header:hover,
+.mat-card-header:focus,
+.mat-card-header:active {
+    color: white;
+}
+
+.mat-card-header:hover:before,
+.mat-card-header:focus:before,
+.mat-card-header:active:before {
+    -webkit-transform: scaleY(1);
+    transform: scaleY(1);
+}
+
+.mat-card-header:hover .hvr-icon,
+.mat-card-header:focus .hvr-icon,
+.mat-card-header:active .hvr-icon {
+    -webkit-transform: scale(1.5) translateZ(0);
+    transform: scale(1.5) translateZ(0);
+}
+
+.Archived {
+    background-color: #dd4b39;
+}
+
+.Actived {
+    background-color: #00a65a;
+}
+
+.Registered {
+    background-color: #f39c12;
+}
+
 .mat-card-Project {
     float: right;
     width: 250px;
     height: 190px;
-    margin: 5px;
+    margin: 10px; // Style Hover
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: box-shadow, transform;
+    transition-property: box-shadow, transform;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    background-color: #a6ebff;
     h3 {
         text-align: center;
     }
@@ -53,4 +141,12 @@
         float: right;
         padding-left: 15px;
     }
+}
+
+.mat-card-Project:hover,
+.mat-card-Project:focus,
+.mat-card-Project:active {
+    //box-shadow: 1 10px 10px -10px rgba(0, 0, 0, 0.5);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
 }

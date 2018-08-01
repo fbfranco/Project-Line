@@ -1,8 +1,8 @@
 <div class="container">
-    <mat-card class="mat-card-header">
+    <mat-card class="mat-card-header Archived" id="hvr-sweep-to-bottom" >
         <div>
             <div class="div-top">
-                <h1>{{ArchivedProject}}</h1>
+                <h1 class="hvr-icon">{{ArchivedProject}}</h1>
             </div>
             <div class="div-top">
                 <i class="fas fa-archive"></i>
@@ -12,10 +12,10 @@
             </div>
         </div>
     </mat-card>
-    <mat-card class="mat-card-header">
+    <mat-card class="mat-card-header Actived" (click)='goListProjects()'>
         <div>
             <div class="div-top">
-                <h1>{{ActiveProject}}</h1>
+                <h1 class="hvr-icon">{{ActiveProject}}</h1>
             </div>
             <div class="div-top">
                 <i class="fas fa-briefcase"></i>
@@ -25,10 +25,10 @@
             </div>
         </div>
     </mat-card>
-    <mat-card class="mat-card-header">
+    <mat-card class="mat-card-header Registered" (click)='goListClients()'>
         <div>
             <div class="div-top">
-                <h1>{{RegisteredUsers}}</h1>
+                <h1 class="hvr-icon">{{RegisteredUsers}}</h1>
             </div>
             <div class="div-top">
                 <i class="fas fa-users"></i>
