@@ -3,6 +3,7 @@ import { Validators, FormGroup, FormBuilder, EmailValidator } from '@angular/for
 // Services
 import { UserService } from '../../../services/user.service';
 import { RolService } from '../../../services/rol.service';
+import { HelperService } from '../../../services/helper.service';
 // Models
 import { User } from '../../../models/user.model';
 import { Rol } from '../../../models/rol';
@@ -39,6 +40,7 @@ export class UsersAddComponent implements OnInit {
     public snackBar: MatSnackBar,
     private formBuilder: FormBuilder,
     /*     private validateEmailNotTaken: ValidateEmailNotTaken */
+    private helperService: HelperService
   ) { }
   ngOnInit() {
     this.getRolesList();
@@ -133,6 +135,7 @@ export class UsersAddComponent implements OnInit {
 
   // For save users
   submitUsers() {
+    this.helperService.removeWhiteSpaces(this.registrationFormGroup);
     if (this.registrationFormGroup.controls.UserID.value) {
       this.editUsers();
     } else {

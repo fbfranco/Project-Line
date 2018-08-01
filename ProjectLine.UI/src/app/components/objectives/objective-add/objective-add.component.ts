@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { HelperService } from '../../../services/helper.service';
 
 // Services
 import { ObjectiveService } from '../../../services/objective.service';
@@ -20,14 +21,12 @@ export class ObjectiveAddComponent implements OnInit {
     private objectiveSnackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA)
     private phaseIdNumber: number,
-
+    private helperService: HelperService
   ) { }
 
   objectiveFormGroup: FormGroup;
 
   ngOnInit() {
-    console.log('this.userService.selectedUser');
-    console.log(this.objectiveService);
     this.newForm();
   }
 
@@ -59,6 +58,7 @@ export class ObjectiveAddComponent implements OnInit {
   }
 
   submitObjective() {
+    this.helperService.removeWhiteSpaces(this.objectiveFormGroup);
     if (this.objectiveFormGroup.controls.objectiveId.value) {
       this.editObjective();
     } else {

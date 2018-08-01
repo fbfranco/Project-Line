@@ -96,11 +96,18 @@ export class ProjectAddComponent implements OnInit {
     });
   }
 
+  trimSelectedPhase() {
+    const phase = this.phaseService.phaseList;
+    const index = this.phaseService.indexPhase;
+    this.helperService.removeWhiteSpacesArray(phase[index]);
+  }
+
   openDialog(dataPhases) {
     this.phaseService.indexPhase = this.phaseService.phaseList.indexOf(dataPhases);
     this.getSelectedPhase(dataPhases);
     const dialogRef = this.dialog.open(PhasesFormComponent);
     dialogRef.afterClosed().subscribe(result => {
+      this.trimSelectedPhase();
       this.dataSource = new MatTableDataSource(this.phaseService.phaseList);
     });
   }
@@ -112,6 +119,7 @@ export class ProjectAddComponent implements OnInit {
     });
   }
   onSubmit() {
+    this.helperService.removeWhiteSpaces(this.projectFG);
     this.getUserIdtoSaveProject(this.listClient, this.projectFG.value.UserId);
     this.getUserIdtoSaveProject(this.listOwner, this.projectFG.value.OwnerId);
     this.project = this.projectFG.value;

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { MatDialogRef, MatSnackBar } from '@angular/material';
 import { RolService } from '../../../services/rol.service';
+import { HelperService } from '../../../services/helper.service';
 @Component({
   selector: 'app-roles-add',
   templateUrl: './roles-add.component.html',
@@ -13,7 +14,8 @@ export class RolesAddComponent implements OnInit {
     private rolFormBuilder: FormBuilder,
     private rolService: RolService,
     private rolDialogRef: MatDialogRef<RolesAddComponent>,
-    private rolSnackBar: MatSnackBar
+    private rolSnackBar: MatSnackBar,
+    private helperService: HelperService
   ) { }
   RoleFormGroup: FormGroup;
 
@@ -28,6 +30,7 @@ export class RolesAddComponent implements OnInit {
     });
   }
   editRol() {
+    this.helperService.removeWhiteSpaces(this.RoleFormGroup);
     this.rolService.updateRol(this.RoleFormGroup.value)
       .subscribe(good => this.onSaveSuccess(),
         error => console.error(error));
