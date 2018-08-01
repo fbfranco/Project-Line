@@ -82,29 +82,48 @@ export class UsersAddComponent implements OnInit {
   }
 
   newFormEditUser() {
-    this.registrationFormGroup.get('Active').enable();
-    this.registrationFormGroup.reset();
+   this.registrationFormGroup.get('Active').enable();
+/*      this.registrationFormGroup.get('UserID').enable();
 
     this.PasswordFormGroup = this.formBuilder.group({
       Password: ['', [Validators.pattern(this.passwordPattern)]],
       ConfirmPassword: ['']
-    }, { validator: passwordConfirming });
+    }, { validator: passwordConfirming }); */
 
-    this.registrationFormGroup = this.formBuilder.group({
+/*     this.registrationFormGroup.patchValue({
       UserID: [this.userService.selectedUser.UserID],
-      FirstName: [this.userService.selectedUser.FirstName, [Validators.required, Validators.pattern('^[a-zA-Z0-9].*')]],
-      LastName: [this.userService.selectedUser.LastName, [Validators.required, Validators.pattern('^[a-zA-Z0-9].*')]],
-      Email: [this.userService.selectedUser.Email, [Validators.required, Validators.email],
-      ValidateEmailUnique.Validate(this.userService)],
-      RoleID: [this.userService.selectedUser.RoleID, Validators.required],
-      Company: [this.userService.selectedUser.Company, Validators.pattern('^[a-zA-Z0-9].*')],
-      Address: [this.userService.selectedUser.Address, Validators.pattern('^[a-zA-Z0-9].*')],
-      Phone: [this.userService.selectedUser.Phone, [Validators.pattern('^[-0-9()+].*')]],
-      Mobile: [this.userService.selectedUser.Mobile, [Validators.pattern('^[-0-9()+].*')]],
+      FirstName: [this.userService.selectedUser.FirstName],
+      LastName: [this.userService.selectedUser.LastName],
+      Email: [this.userService.selectedUser.Email],
+      Company: [this.userService.selectedUser.Company],
+      Address: [this.userService.selectedUser.Address],
+      Phone: [this.userService.selectedUser.Phone],
+      Mobile: [this.userService.selectedUser.Mobile],
       Password: [''],
       Active: [this.userService.selectedUser.Active],
       PasswordFormGroup: this.PasswordFormGroup
-    });
+    }); */
+
+/*     this.PasswordFormGroup = this.formBuilder.group({
+      Password: ['', [Validators.pattern(this.passwordPattern)]],
+      ConfirmPassword: ['']
+    }, { validator: passwordConfirming });
+ */
+    this.registrationFormGroup.controls['UserID'].patchValue(this.userService.selectedUser.UserID);
+    this.registrationFormGroup.controls['FirstName'].patchValue(this.userService.selectedUser.FirstName);
+    this.registrationFormGroup.controls['LastName'].patchValue(this.userService.selectedUser.LastName);
+    this.registrationFormGroup.controls['Email'].patchValue(this.userService.selectedUser.Email);
+    this.registrationFormGroup.controls['Company'].patchValue(this.userService.selectedUser.Company);
+    this.registrationFormGroup.controls['Address'].patchValue(this.userService.selectedUser.Address);
+    this.registrationFormGroup.controls['Phone'].patchValue(this.userService.selectedUser.Phone);
+    this.registrationFormGroup.controls['Mobile'].patchValue(this.userService.selectedUser.Mobile);
+    this.registrationFormGroup.controls['Password'].patchValue('');
+    this.registrationFormGroup.controls['Active'].patchValue(this.userService.selectedUser.Active);
+    this.registrationFormGroup.controls['PasswordFormGroup'].patchValue(this.PasswordFormGroup);
+
+    this.PasswordFormGroup.controls['Password'].patchValue('');
+    this.PasswordFormGroup.controls['ConfirmPassword'].patchValue('');
+
   }
 
   openSnackBar(message: string) {
@@ -149,12 +168,8 @@ export class UsersAddComponent implements OnInit {
       });
   }
   editUsers() {
-    console.log(this.PasswordFormGroup.value.Password);
-    if (this.PasswordFormGroup.value.Password === '') {
-      this.registrationFormGroup.value.Password = this.userService.selectedUser.Password;
-    } else {
-      this.registrationFormGroup.value.Password = this.PasswordFormGroup.value.Password;
-    }
+
+    this.registrationFormGroup.value.Password = this.PasswordFormGroup.value.Password;
 
     this.userService.updateUser(this.registrationFormGroup.value)
       .subscribe(good => {

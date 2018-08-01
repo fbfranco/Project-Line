@@ -14,5 +14,5 @@ export class User {
     Active?: boolean;
     RoleID: number;
 
-    Roles?: Rol[];
+    Role?: Rol[];
   }

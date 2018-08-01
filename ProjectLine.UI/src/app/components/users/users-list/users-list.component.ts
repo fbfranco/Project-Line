@@ -37,7 +37,7 @@ export class UsersListComponent implements OnInit {
   private getUserList() {
     this.getRoleList();
     this.getProjectsList();
-    this.userService.getUsersList().subscribe((List: User[]) => {
+    this.userService.getUsersEdit().subscribe((List: User[]) => {
       this.UsersList = List;
     }, error => {
       console.log('Error getting the list of Users');

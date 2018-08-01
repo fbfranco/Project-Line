@@ -27,6 +27,13 @@ namespace ProjectLine.Controllers
             return user;
         }
 
+        // GET: api/UserEdit/1
+        public async Task<IEnumerable<User>> GetUserEdit()
+        {
+            var user = await Repository.GetUsersEdit();
+            return user;
+        }
+
         // GET: api/email
         [HttpGet]
         public Boolean ValidateEmailUnique(string email)
