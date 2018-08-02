@@ -1,13 +1,11 @@
 .percentage {
-    display: flex;
-    width: 20%;
+    background-color: grey;
     @media screen and (min-width: 1280px) and (min-height: 640px) {
+        width: 16vw;
+        height: 16vw;
+        left: 0px;
+        top: 200px;
         position: absolute;
-        flex-direction: column;
-        height: 690px;
-    }
-    @if screen and (max-height: 639px) {
-        flex-direction: row;
     }
 }
 
@@ -17,14 +15,11 @@
 }
 
 .legend {
-    display: flex;
     flex-flow: row wrap;
-    align-self: center;
-    min-width: 140px;
-    min-height: 74px;
+    display: flex;
+    padding: 14px;
     width: 140px;
     height: 74px;
-    padding: 14px;
     background-color: rgb(200, 200, 200);
     .completed {
         background-color: rgb(6, 170, 214);
