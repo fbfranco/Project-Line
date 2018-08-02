@@ -2,16 +2,20 @@
 
   <div id="progress-circle" class="circle"></div>
 
-  <div class="legend">    
+  <div class="legend">
 
-    <div fxFlex="100%" fxLayoutAlign="space-between space-between">
-      <div class="completed"></div>
-      <p (click)="showProgressComplete(1)">Completed</p>
+    <div fxFlex="140px">
+      <div class="labelComplete">
+        <p class="iconCompleted"></p>
+        <p (click)="showProgressComplete(1)">Completed</p>
+      </div>
     </div>
 
-    <div fxFlex="100%" fxLayoutAlign="space-between space-between">
-      <div class="pending"></div>
-      <p (click)="showProgressPending(1)">Pending</p>
+    <div fxFlex="140px">
+      <div class="labelPending">
+        <p class="iconPending"></p>
+        <p (click)="showProgressPending(1)">Pending</p>
+      </div>
     </div>
 
   </div>
