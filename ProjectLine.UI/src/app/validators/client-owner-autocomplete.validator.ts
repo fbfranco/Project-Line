@@ -9,7 +9,7 @@ export function isSelectedValid(ListFiltered: User[]): ValidatorFn {
     });
     return function (control: AbstractControl): {[Key: string]: any} {
       if (control.dirty && typeof control.value === 'string' && control.value.length > 0) {
-        return ListID.lastIndexOf(control.value) !== -1 ? null : {'isSelectedValid': true};
+        return ListID.lastIndexOf(control.value.split(',').pop()) !== -1 ? null : {'isSelectedValid': true};
       } else {
         return null;
       }

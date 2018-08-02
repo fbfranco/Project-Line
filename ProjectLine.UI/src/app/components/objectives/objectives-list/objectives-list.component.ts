@@ -71,6 +71,11 @@ export class ObjectivesListComponent implements OnInit {
     this.filteredPhases = new Phase()[0];
     this.ListObjectives = [];
   }
+
+  resetObjectives() {
+    this.ListObjectives = [];
+  }
+
    filterProject(value: string): Project[] {
     const filterValue = value.toString().toLowerCase();
     return this.listProjects.filter(option => option.Title.toLowerCase().includes(filterValue));
