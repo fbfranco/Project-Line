@@ -21,7 +21,6 @@ import { ValidateEmailUnique } from '../../../validators/unique-email.validator'
   selector: 'app-users-add',
   templateUrl: './users-add.component.html',
   styleUrls: ['./users-add.component.scss'],
-  /*   providers: [ValidateEmailNotTaken] */
 })
 export class UsersAddComponent implements OnInit {
   titleForm = '';
@@ -31,7 +30,8 @@ export class UsersAddComponent implements OnInit {
   PasswordFormGroup: FormGroup;
   parentErrorStateMatcher = new ParentErrorStateMatcher();
   passwordPattern = '(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}';
-  test: boolean;
+  placeholderPassword: string;
+  placeholderConfirmPass: string;
   constructor(
     public route: ActivatedRoute,
     public router: Router,
@@ -39,7 +39,6 @@ export class UsersAddComponent implements OnInit {
     public roleService: RolService,
     public snackBar: MatSnackBar,
     private formBuilder: FormBuilder,
-    /*     private validateEmailNotTaken: ValidateEmailNotTaken */
     private helperService: HelperService
   ) { }
   ngOnInit() {
@@ -49,6 +48,9 @@ export class UsersAddComponent implements OnInit {
   }
 
   buildForm() {
+    this.placeholderPassword = 'Password *';
+    this.placeholderConfirmPass = 'Confirm Password *';
+
     this.PasswordFormGroup = this.formBuilder.group({
       Password: ['', [Validators.required, Validators.pattern(this.passwordPattern)]],
       ConfirmPassword: ['', Validators.required]
@@ -78,14 +80,18 @@ export class UsersAddComponent implements OnInit {
       } else {
         setTimeout(() => {
           this.newFormEditUser();
-        }, 200);
+        }, 100);
         this.titleForm = 'Edit User';
       }
     });
   }
 
   newFormEditUser() {
+
+    this.placeholderPassword = 'Password';
+    this.placeholderConfirmPass = 'Confirm Password';
     this.registrationFormGroup.get('Active').enable();
+
 
     this.PasswordFormGroup = this.formBuilder.group({
       Password: ['', [Validators.pattern(this.passwordPattern)]],

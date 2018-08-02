@@ -11,7 +11,6 @@
       <mat-form-field>
         <input matInput maxlength="150" placeholder="Title" name="Title" #Title="ngModel" [(ngModel)]="phaseService.selectedPhase.Title"
           required pattern="^[a-zA-Z0-9].*">
-        <mat-hint align="end">{{Title.value?.length || 0}}/150</mat-hint>
         <mat-error *ngIf="Title.invalid && Title.touched">
           The title of phase is required
         </mat-error>
@@ -19,7 +18,7 @@
       <!-- Description -->
       <mat-form-field class="example-full-width">
         <textarea matInput maxlength="1000" placeholder="Description" name="Description" #Description="ngModel" [(ngModel)]="phaseService.selectedPhase.Description"
-          matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5"></textarea>
+        matTextareaAutosize matAutosizeMinRows="4" matAutosizeMaxRows="5"></textarea>
         <mat-hint align="end">{{Description.value?.length || 0}}/1000</mat-hint>
       </mat-form-field>
       <div fxLayoutAlign="space-between start">
