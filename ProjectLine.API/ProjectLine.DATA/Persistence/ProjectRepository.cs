@@ -24,11 +24,39 @@ namespace ProjectLine.DATA.Persistence
                 return result;
             }
         }
+        public async Task<IEnumerable<Project>> GetProjectsPO(int id)
+        {
+
+            using (Context = new ProjectLineContext())
+            {
+                var result = await Context.Projects.Include("User").Include("Phases").Include("Phases.Objectives").Where(x => x.Active == true && x.OwnerID== id).ToListAsync();
+           
+                return result;
+            }
+        }
         public async Task<IEnumerable<Project>> GetArchivedProjects()
         {
             using (Context = new ProjectLineContext())
             {
                 var result = await Context.Projects.Include("User").Include("Phases").Include("Phases.Objectives").Where(x => x.Active == false).ToListAsync();
+                return result;
+            }
+        }
+        public async Task<IEnumerable<Project>> GetArchivedProjectsPO(int id)
+        {
+            using (Context = new ProjectLineContext())
+            {
+                var result = await Context.Projects.Include("User").Include("Phases").Include("Phases.Objectives").Where(x => x.Active == false && x.OwnerID==id).ToListAsync();
+                return result;
+            }
+        }
+        public async Task<IEnumerable<Project>> GetProjectsCL(int id)
+        {
+
+            using (Context = new ProjectLineContext())
+            {
+                var result = await Context.Projects.Include("User").Include("Phases").Include("Phases.Objectives").Where(x => x.Active == true && x.UserID == id).ToListAsync();
+
                 return result;
             }
         }

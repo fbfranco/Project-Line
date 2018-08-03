@@ -29,7 +29,7 @@ const routes: Routes = [
   { path: 'Users/Add', component: UsersAddComponent, canActivate: [UserGuard] },
   { path: 'Users/Edit/:id', component: UsersAddComponent, canActivate: [UserGuard] },
   { path: 'Roles/Add', component: RolesAddComponent, canActivate: [UserGuard] },
-  { path: 'AdminHome', component: AdminHomeComponent }
+  { path: 'Home', component: AdminHomeComponent }
 ];
 
 @NgModule({

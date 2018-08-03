@@ -1,5 +1,5 @@
 <div class="container">
-    <mat-card class="mat-card-header Archived" id="hvr-sweep-to-bottom" >
+    <mat-card class="mat-card-header Archived" id="hvr-sweep-to-bottom" *ngIf="RoleID ===1 || RoleID === 2">
         <div>
             <div class="div-top">
                 <h1 class="hvr-icon">{{ArchivedProject}}</h1>
@@ -12,7 +12,7 @@
             </div>
         </div>
     </mat-card>
-    <mat-card class="mat-card-header Actived" (click)='goListProjects()'>
+    <mat-card class="mat-card-header Actived" (click)='goListProjects()' *ngIf="RoleID ===1 || RoleID === 2">
         <div>
             <div class="div-top">
                 <h1 class="hvr-icon">{{ActiveProject}}</h1>
@@ -25,7 +25,7 @@
             </div>
         </div>
     </mat-card>
-    <mat-card class="mat-card-header Registered" (click)='goListClients()'>
+    <mat-card class="mat-card-header Registered" (click)='goListClients()' *ngIf="RoleID ===1">
         <div>
             <div class="div-top">
                 <h1 class="hvr-icon">{{RegisteredUsers}}</h1>
@@ -40,7 +40,7 @@
     </mat-card>
 </div>
 
-<mat-card class="container">
+<mat-card class="container" *ngIf="RoleID ===2 || RoleID===1">
     <mat-card class="mat-card-Project" *ngFor="let project of ListProjects" (click)='goRouteLink(project)'>
         <h3>{{project.Title}}</h3>
         <div class="div-left">
@@ -48,10 +48,33 @@
             <h4>Completed</h4>
         </div>
         <div class="div-right">
-            <h5>End Date</h5>
+            <h5>
+                <b>StarDate</b>
+            </h5>
             <h5>{{project.StartDate | date: 'MMMM d'}}</h5>
-            <h5>Star Date</h5>
+            <h5>
+                <b>EndDate</b>
+            </h5>
             <h5>{{project.EndDate | date: 'MMMM d'}}</h5>
+        </div>
+    </mat-card>
+</mat-card>
+<mat-card class="container" *ngIf="RoleID ===3">
+    <mat-card class="mat-card-Project" *ngFor="let project of ListProjects" (click)='goRouteLink(project)'>
+        <h3>{{project.Title}}</h3>
+        <div class="div-left">
+            <h1>{{calculateProgress(project)}}%</h1>
+            <h4>Completed</h4>
+        </div>
+        <div class="div-right">
+            <h5>
+                <b>PO Assigned:</b>
+            </h5>
+            <h5>{{OwnerName}}</h5>
+            <h5>
+                <b>Contact:</b>
+            </h5>
+            <h5>{{OwnerPhone}}</h5>
         </div>
     </mat-card>
 </mat-card>

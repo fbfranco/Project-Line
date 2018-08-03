@@ -12,7 +12,7 @@ export class ClientGuard implements CanActivate {
         if (permissions.includes('Project_View')) {
             return true;
         } else {
-            this.router.navigate(['/']);
+            this.router.navigate(['Home']);
         }
     }
 }
