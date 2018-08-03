@@ -31,6 +31,7 @@ export class ProjectListComponent implements OnInit {
     // getting service data
     this.projectService.getProjectsList().subscribe((datalist: Project[]) => {
       this.ListProjects = datalist;
+      console.log(this.ListProjects);
     }, error => {
       console.log('Error getting the list of projects');
     });

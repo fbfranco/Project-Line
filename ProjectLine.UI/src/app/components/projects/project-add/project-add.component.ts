@@ -106,6 +106,7 @@ export class ProjectAddComponent implements OnInit {
     this.phaseService.indexPhase = this.phaseService.phaseList.indexOf(dataPhases);
     this.getSelectedPhase(dataPhases);
     const dialogRef = this.dialog.open(PhasesFormComponent);
+    console.log(this.phaseService.selectedPhase);
     dialogRef.afterClosed().subscribe(result => {
       this.trimSelectedPhase();
       this.dataSource = new MatTableDataSource(this.phaseService.phaseList);

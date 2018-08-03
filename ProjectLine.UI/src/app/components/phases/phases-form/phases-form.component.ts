@@ -130,6 +130,7 @@ export class PhasesFormComponent implements OnInit {
                                                                           this.demoVideo.split(',').pop();
     this.phaseService.selectedPhase.DemoName = this.fileName;
     this.phaseService.phaseList.splice(indexPhase, 1, this.phaseService.selectedPhase);
+    console.log(this.phaseService.selectedPhase);
     this.dialogRef.close();
   }
 
