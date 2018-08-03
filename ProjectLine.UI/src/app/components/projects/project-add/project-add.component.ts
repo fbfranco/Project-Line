@@ -170,8 +170,7 @@ export class ProjectAddComponent implements OnInit {
   displayNameClient(UserID) {
     if (!UserID) { return ''; }
     const index = this.listClient.findIndex(client => client.UserID.toString() === UserID.split(',').pop());
-    console.log(this.listClient);
-    return `${this.listClient[index].FirstName}  ${this.listClient[index].LastName}`;
+    return this.listClient[index].FirstName;
   }
 
   displayNameOwner(OwnerID) {
@@ -185,7 +184,6 @@ export class ProjectAddComponent implements OnInit {
       this.listClient = datalist;
       this.filteredClient = this.projectFG.controls.UserId.valueChanges.pipe(
         startWith(''), map(value => value ? this.filter(value, 0) : this.listClient));
-        console.log(this.filteredClient);
       this.projectFG.controls['UserId'].setValidators([isSelectedValid(this.listClient), Validators.pattern(/^[a-zA-Z].*/)]);
     }, error => { console.log(error); });
   }
