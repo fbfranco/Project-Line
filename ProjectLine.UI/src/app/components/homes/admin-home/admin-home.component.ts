@@ -115,8 +115,8 @@ export class AdminHomeComponent implements OnInit {
     });
   }
   InitializeVariables() {
-    this.RoleID = 3;
-    this.UserID = 3;
+    this.RoleID = 1;
+    this.UserID = 1;
     this.ActiveProject = 0;
     this.RegisteredUsers = 0;
     this.ArchivedProject = 0;
