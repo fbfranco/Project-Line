@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck, AfterContentInit } from '@angular/core';
+import { Component, OnInit, DoCheck, AfterContentInit, HostListener } from '@angular/core';
 
 // Services
 import { ProjectService } from '../../../services/project.service';
@@ -45,15 +45,17 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
     public sanitizer: DomSanitizer,
     public media: ObservableMedia
   ) {
-    media.asObservable()
-      .pipe(
-        filter((change: MediaChange) => change.mqAlias === 'xs' || change.mqAlias === 'sm')
-      ).subscribe(() => this.dateFormat = 'MMM d');
-    media.asObservable()
-      .pipe(
-        filter((change: MediaChange) => change.mqAlias === 'md' || change.mqAlias === 'lg')
-      ).subscribe(() => this.dateFormat = 'MMMM d');
   }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    if (event.target.innerWidth < 768) {
+      this.dateFormat = 'MMM d';
+    } else {
+      this.dateFormat = 'MMMM d';
+    }
+  }
+
   getProjectList() {
     this.projectService.getProjectsList().subscribe((datalist: Project[]) => {
       this.ListProjects = datalist;
@@ -72,6 +74,7 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
   ngOnInit() {
+    this.onResize(event);
     this.DisplayCard = false;
     this.options = [];
     this.getProjectList();
@@ -83,7 +86,6 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
     this.DataProject = new Project;
     this.Hide = false;
     this.HomeInit();
-    console.log(this.dateFormat);
   }
   ngDoCheck() {
     if (this.InitTimeline) {
