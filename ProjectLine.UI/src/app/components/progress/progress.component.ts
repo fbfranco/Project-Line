@@ -25,7 +25,7 @@ export class ProgressComponent implements OnInit {
   ngOnInit() {
     this.startNumbers();
     this.calculateProgress();
-    this.showProgressComplete(2);
+    this.showProgressCompleted(2);
   }
 
   startNumbers() {
@@ -59,7 +59,7 @@ export class ProgressComponent implements OnInit {
     }
   }
 
-  showProgressComplete(load) {
+  showProgressCompleted(load) {
     $('#progress-circle').empty();
     $('#progress-circle').circliful({
       animation: load,

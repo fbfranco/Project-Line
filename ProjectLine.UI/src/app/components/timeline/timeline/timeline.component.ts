@@ -9,9 +9,10 @@ import { Project } from '../../../models/project.model';
 import { Observable } from 'rxjs';
 
 import { FormControl } from '@angular/forms';
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith, filter } from 'rxjs/operators';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NavigationEnd, Router } from '@angular/router';
+import { ObservableMedia, MediaChange } from '@angular/flex-layout';
 
 declare var $: any;
 @Component({
@@ -29,6 +30,7 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
   InitTimeline: boolean;
   DisplayCard: boolean;
   isPhaseActual: boolean;
+  dateFormat: string;
 
   // filter autocomplete
   myControl = new FormControl();
@@ -36,8 +38,21 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
   filteredOptions: Observable<string[]>;
   DataProject: Project;
 
-  constructor(private router: Router, public projectService: ProjectService, public helperService: HelperService,
-    public sanitizer: DomSanitizer) {
+  constructor(
+    private router: Router,
+    public projectService: ProjectService,
+    public helperService: HelperService,
+    public sanitizer: DomSanitizer,
+    public media: ObservableMedia
+  ) {
+    media.asObservable()
+      .pipe(
+        filter((change: MediaChange) => change.mqAlias === 'xs' || change.mqAlias === 'sm')
+      ).subscribe(() => this.dateFormat = 'MMM d');
+    media.asObservable()
+      .pipe(
+        filter((change: MediaChange) => change.mqAlias === 'md' || change.mqAlias === 'lg')
+      ).subscribe(() => this.dateFormat = 'MMMM d');
   }
   getProjectList() {
     this.projectService.getProjectsList().subscribe((datalist: Project[]) => {
@@ -68,6 +83,7 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
     this.DataProject = new Project;
     this.Hide = false;
     this.HomeInit();
+    console.log(this.dateFormat);
   }
   ngDoCheck() {
     if (this.InitTimeline) {

@@ -4,17 +4,17 @@
 
   <div class="legend">
 
-    <div fxFlex="140px">
-      <div class="labelComplete">
+    <div fxFlex="140px" (click)="showProgressCompleted(1)">
+      <div class="labelCompleted">
         <p class="iconCompleted"></p>
-        <p (click)="showProgressComplete(1)">Completed</p>
+        <p>Completed</p>
       </div>
     </div>
 
-    <div fxFlex="140px">
+    <div fxFlex="140px" (click)="showProgressPending(1)">
       <div class="labelPending">
         <p class="iconPending"></p>
-        <p (click)="showProgressPending(1)">Pending</p>
+        <p>Pending</p>
       </div>
     </div>
 

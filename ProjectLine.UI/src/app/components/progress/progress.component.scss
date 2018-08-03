@@ -1,3 +1,29 @@
+@mixin circleSize($circleSize) {
+    .circle {
+        width: $circleSize;
+        height: $circleSize;
+        min-width: $circleSize;
+        max-width: $circleSize;
+        min-height: $circleSize;
+        max-height: $circleSize;
+    }
+}
+
+@mixin topPosition() {
+    @media screen and(min-width: 768px) {
+        width: 180px;
+    }
+    @media screen and(max-width: 767px) {
+        width: 360px;
+    }
+    height: 180px;
+    display: flex;
+    padding-right: 20%;
+    flex-direction: row;
+    flex-flow: row nowrap;
+    @include circleSize(180px);
+}
+
 .percentage {
     @media screen and (min-width: 1280px) and (min-height: 640px) {
         width: 16vw;
@@ -5,56 +31,64 @@
         left: 0px;
         top: 200px;
         position: absolute;
+        @include circleSize(100%);
+    }
+    @media screen and (max-width: 1279px) {
+        @include topPosition();
+    }
+    @media screen and (max-height: 639px) {
+        @include topPosition();
     }
 }
 
-.circle {
+@mixin labelContainer() {
     width: 100%;
-    height: 100%;
-}
-
-@mixin labelContainer {
-    width: 100%;
+    padding: 10px;
     display: flex;
     flex-flow: row;
     border-radius: 0px;
-    padding: 10px 10px 0 10px;
+    padding-bottom: 0px;
     justify-content: space-between;
     background-color: rgb(200, 200, 200);
 }
 
-@mixin colorIcons($color) {
-    background-color: $color;
+@mixin showIcons($color) {
     width: 20px;
     height: 20px;
+    background-color: $color;
 }
 
 @mixin hoverCursor($color) {
-    background-color: $color;
     cursor: pointer;
+    background-color: $color;
 }
 
 .legend {
     width: 16vw;
     height: 74px;
-    padding: 0 20% 0 20%;
-    .labelComplete {
-        @include labelContainer;
+    display: flex;
+    padding-left: 10%;
+    padding-right: 10%;
+    align-self: center;
+    flex-flow: row wrap;
+    justify-content: center;
+    .labelCompleted {
+        @include labelContainer();
         &:hover {
             @include hoverCursor( rgb(6, 170, 214));
         }
     }
     .labelPending {
-        @include labelContainer;
+        @include labelContainer();
         &:hover {
             @include hoverCursor( rgb(210, 130, 10));
         }
     }
     .iconCompleted {
-        @include colorIcons( rgb(6, 170, 214));
+        @include showIcons( rgb(6, 170, 214));
     }
     .iconPending {
-        @include colorIcons( rgb(210, 130, 10));
+        @include showIcons( rgb(210, 130, 10));
     }
     p {
         font-weight: bolder;
