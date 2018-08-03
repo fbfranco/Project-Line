@@ -48,7 +48,6 @@ import { ProgressComponent } from './components/progress/progress.component';
 import { LoginComponent } from './login/login.component';
 import { SelectedValidator } from './Directives/client-owner-autocomplete.directive';
 import { AdminHomeComponent } from './components/homes/admin-home/admin-home.component';
-import { HomeTestComponent } from './components/home-test/home-test.component';
 import { UserGuard } from './services/user.guard.service';
 import { ClientGuard } from './services/client.guard.service';
 
@@ -77,7 +76,6 @@ import { ClientGuard } from './services/client.guard.service';
     LoginComponent,
     SelectedValidator,
     AdminHomeComponent,
-    HomeTestComponent,
   ],
   imports: [
     BrowserModule,

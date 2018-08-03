@@ -12,7 +12,6 @@ import { RolesListComponent } from '../components/roles/roles-list/roles-list.co
 import { UsersAddComponent } from '../components/users/users-add/users-add.component';
 import { RolesAddComponent } from '../components/roles/roles-add/roles-add.component';
 import { AdminHomeComponent } from '../components/homes/admin-home/admin-home.component';
-import { HomeTestComponent } from '../components/home-test/home-test.component';
 import { UserGuard } from '../services/user.guard.service';
 import { ClientGuard } from '../services/client.guard.service';
 
@@ -30,9 +29,7 @@ const routes: Routes = [
   { path: 'Users/Add', component: UsersAddComponent, canActivate: [UserGuard] },
   { path: 'Users/Edit/:id', component: UsersAddComponent, canActivate: [UserGuard] },
   { path: 'Roles/Add', component: RolesAddComponent, canActivate: [UserGuard] },
-  { path: 'AdminHome', component: AdminHomeComponent },
-  { path: 'Home', component: HomeTestComponent }
-
+  { path: 'AdminHome', component: AdminHomeComponent }
 ];
 
 @NgModule({

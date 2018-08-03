@@ -38,11 +38,10 @@ export class LoginComponent implements OnInit {
         List.forEach(p => {
           permissions.push(p.Name);
         });
-        // this.helper.HideLayout = true;
         localStorage.setItem('Active', 'true');
         localStorage.setItem('Permissions', JSON.stringify(permissions));
         console.log(JSON.parse(localStorage.getItem('Permissions')));
-        this.route.navigate(['/Home']);
+        this.route.navigate(['/AdminHome']);
       } else {
         console.error('No exist roles for this user');
       }
