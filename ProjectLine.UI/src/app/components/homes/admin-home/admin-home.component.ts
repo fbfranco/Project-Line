@@ -44,6 +44,7 @@ export class AdminHomeComponent implements OnInit, DoCheck, AfterContentInit {
       this.InitTimeline = false;
     }
   }
+
   getUserList() {
     this.userService.getUsersEdit().subscribe(List => {
       this.RegisteredUsers = List.length;

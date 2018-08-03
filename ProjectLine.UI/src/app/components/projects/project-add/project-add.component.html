@@ -7,8 +7,7 @@
 
       <!-- Title -->
       <mat-form-field>
-        <input matInput maxlength="150" placeholder="Title" formControlName="Title">
-        <mat-hint align="end">{{projectFG.get('Title').value?.length || 0}}/150</mat-hint>
+        <input matInput maxlength="150" placeholder="Title *" formControlName="Title">
         <mat-error *ngIf="projectFG.get('Title').hasError('required')">This Field is Required.</mat-error>
         <mat-error *ngIf="projectFG.get('Title').hasError('pattern')">Title Invalid.</mat-error>
       </mat-form-field>
@@ -44,7 +43,7 @@
     <div class="date-content" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign.gt-xs="space-between start" fxLayoutAlign.md="space-between start">
       <!-- Start Date -->
       <mat-form-field>
-        <input matInput [max]="projectFG.value.EndDate" [matDatepicker]="startdate" placeholder="Start Date" formControlName="StartDate">
+        <input matInput [max]="projectFG.value.EndDate" [matDatepicker]="startdate" placeholder="Start Date *" formControlName="StartDate">
         <mat-error *ngIf="projectFG.get('StartDate').hasError('required')">This Field is Required.</mat-error>
         <mat-datepicker-toggle matSuffix [for]="startdate"></mat-datepicker-toggle>
         <mat-datepicker #startdate></mat-datepicker>
@@ -52,7 +51,7 @@
 
       <!-- End Date -->
       <mat-form-field>
-        <input matInput [min]="projectFG.value.StartDate" [matDatepicker]="endDate" placeholder="Estimated End Date" formControlName="EndDate">
+        <input matInput [min]="projectFG.value.StartDate" [matDatepicker]="endDate" placeholder="Estimated End Date *" formControlName="EndDate">
         <mat-error *ngIf="projectFG.get('EndDate').hasError('required')">This Field is Required.</mat-error>
         <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
         <mat-datepicker #endDate></mat-datepicker>
