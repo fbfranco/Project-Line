@@ -12,7 +12,7 @@ export class UserGuard implements CanActivate {
         if (permissions.includes('User_View')) {
             return true;
         } else {
-            this.router.navigate(['/']);
+            this.router.navigate(['Home']);
         }
     }
 }

@@ -1,6 +1,7 @@
 <h1 style="text-align: left">Project Tracking</h1>
 
 <div class="div-Container">
+  <input type="hidden" value="test">
   <mat-form-field id="AutocompleteProject">
     <input type="text" (change)="inputEmpty($event)" placeholder="Project" aria-label="Number" [formControl]="myControl" matInput
       [matAutocomplete]="ProjectList">

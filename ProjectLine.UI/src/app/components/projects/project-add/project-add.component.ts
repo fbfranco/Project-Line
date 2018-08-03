@@ -82,7 +82,7 @@ export class ProjectAddComponent implements OnInit {
 
   DeleteRow(dataPhases) {
     const dialogRef = this.dialog.open(DialogConfirmationComponent, {
-      data: {title: 'Please confirm...', description: 'Are you sure you want to remove this item?'}
+      data: { title: 'Please confirm...', description: 'Are you sure you want to remove this item?' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -163,8 +163,8 @@ export class ProjectAddComponent implements OnInit {
   filter(value: string, type: number): User[] {
     const filterValue = value.toString().toLowerCase();
     return type === 0 ?
-            this.listClient.filter(option => option.FirstName.toLowerCase().includes(filterValue)) :
-            this.listOwner.filter(option => option.FirstName.toLowerCase().includes(filterValue));
+      this.listClient.filter(option => option.FirstName.toLowerCase().includes(filterValue)) :
+      this.listOwner.filter(option => option.FirstName.toLowerCase().includes(filterValue));
   }
 
   displayNameClient(UserID) {

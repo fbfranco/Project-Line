@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
   }
 
   submitLogin() {
-    const RolID = 1; // User Role Id
+    const RolID = 5; // User Role Id
     const permissions: string[] = [];
     this.roleService.getPermissionsByRole(RolID).subscribe((List: Permissions[]) => {
       if (List !== null) {
@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('Active', 'true');
         localStorage.setItem('Permissions', JSON.stringify(permissions));
         console.log(JSON.parse(localStorage.getItem('Permissions')));
-        this.route.navigate(['/AdminHome']);
+        this.route.navigate(['Home']);
       } else {
         console.error('No exist roles for this user');
       }
