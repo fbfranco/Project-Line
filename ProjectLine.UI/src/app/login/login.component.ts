@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
   }
 
   submitLogin() {
-    const RolID = 3; // User Role Id
+    const RolID = 1; // User Role Id
     const permissions: string[] = [];
     this.roleService.getPermissionsByRole(RolID).subscribe((List: Permissions[]) => {
       if (List !== null) {
