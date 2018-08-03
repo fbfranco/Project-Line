@@ -24,6 +24,15 @@ namespace ProjectLine.DATA.Persistence
                 return result;
             }
         }
+        public async Task<IEnumerable<User>> GetUserPO(int id)
+        {
+
+            using (Context = new ProjectLineContext())
+            {
+                var result = await Context.Users.Include("Role").Where(x => x.UserID == id).ToListAsync();
+                return result;
+            }
+        }
 
         public async Task<IEnumerable<User>> GetUsersByRol(int id)
         {

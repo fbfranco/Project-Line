@@ -35,6 +35,9 @@ export class UserService {
   getUsersList(): Observable<User[]> {
     return this.http.get(`${this.apiURL}Get/`).pipe(map((data: Response) => <User[]>data.json()));
   }
+  getUserPO(OwnerID: number): Observable<User[]> {
+    return this.http.get(`${this.apiURL}GetUserPO/${OwnerID}`).pipe(map((data: Response) => <User[]>data.json()));
+  }
 
   getUsersByRol(idRol): Observable<User[]> {
     return this.http.get(`${this.apiURL}GetUsersByRol/${idRol}`).pipe(map((data: Response) => <User[]>data.json()));

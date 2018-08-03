@@ -10,7 +10,7 @@ namespace ProjectLine.CORE.Interface
      public interface IUserRepository
     {
         Task<IEnumerable<User>> GetUsers();
-
+        Task<IEnumerable<User>> GetUserPO(int id);
         User FindById(int id);
         void Create(User User);
         void Update(User User);

@@ -18,10 +18,32 @@ namespace ProjectLine.Controllers
             var project = await Repository.GetProjects();
             return project;
         }
+        // GET: api/ProjectsOwner/1
+        public async Task<IEnumerable<Project>> GetProjectsPO(int id)
+        {
+
+            var projectPO = await Repository.GetProjectsPO(id);
+
+            return projectPO;
+        }
+        //GET: api/ProjectsCL/1
+        public async Task<IEnumerable<Project>> GetProjectsCL(int id)
+        {
+
+            var projectCL = await Repository.GetProjectsCL(id);
+
+            return projectCL;
+        }
         // GET: api/ProjectsArchiveds
         public async Task<IEnumerable<Project>> GetArchivedProjects()
         {
             var project = await Repository.GetArchivedProjects();
+            return project;
+        }
+        // GET: api/ProjectsArchivedsPO
+        public async Task<IEnumerable<Project>> GetArchivedProjectsPO(int id)
+        {
+            var project = await Repository.GetArchivedProjectsPO(id);
             return project;
         }
 
