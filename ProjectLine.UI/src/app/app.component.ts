@@ -13,5 +13,11 @@ export class AppComponent {
   ) {
     helper.Ocultar = false;
     helper.HideLayout = false;
+
+
+  }
+
+  Logueado() {
+    return localStorage.getItem('Active') === 'true';
   }
 }

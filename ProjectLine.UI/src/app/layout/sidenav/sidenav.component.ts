@@ -2,8 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { ObservableMedia, MediaChange } from '@angular/flex-layout';
 import { filter } from 'rxjs/operators';
-import { HelperService } from '../../services/helper.service';
 import { Router } from '@angular/router';
+// Services
+import { HelperService } from '../../services/helper.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -17,7 +18,7 @@ export class SidenavComponent implements OnInit {
   constructor(
     public media: ObservableMedia,
     public helperService: HelperService,
-    private router: Router
+    private router: Router,
   ) {
     media.asObservable()
       .pipe(
@@ -38,4 +39,10 @@ export class SidenavComponent implements OnInit {
       .then(() => this.router.navigate([url]));
   }
 
+  // Roles and Permissions
+
+  verifyPermission(permit: string): boolean {
+    const permissions: string[] = JSON.parse(localStorage.getItem('Permissions'));
+    return permissions.includes(permit);
+  }
 }

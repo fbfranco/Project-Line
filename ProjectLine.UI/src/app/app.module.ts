@@ -34,6 +34,7 @@ import { ViewModelProject } from './models/viewmodelproject.model';
 import { ProjectService } from './services/project.service';
 import { HelperService } from './services/helper.service';
 import { ObjectiveService } from './services/objective.service';
+import { AuthGuardService } from './services/auth-guard.service';
 // Angular Material
 import { AngularMaterialModule } from './material/angular-material.module';
 import { MatTableModule } from '@angular/material';
@@ -47,9 +48,9 @@ import { ProgressComponent } from './components/progress/progress.component';
 import { LoginComponent } from './login/login.component';
 import { SelectedValidator } from './Directives/client-owner-autocomplete.directive';
 import { AdminHomeComponent } from './components/homes/admin-home/admin-home.component';
-
-
-
+import { HomeTestComponent } from './components/home-test/home-test.component';
+import { UserGuard } from './services/user.guard.service';
+import { ClientGuard } from './services/client.guard.service';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { AdminHomeComponent } from './components/homes/admin-home/admin-home.com
     LoginComponent,
     SelectedValidator,
     AdminHomeComponent,
+    HomeTestComponent,
   ],
   imports: [
     BrowserModule,
@@ -101,7 +103,10 @@ import { AdminHomeComponent } from './components/homes/admin-home/admin-home.com
     ProjectService,
     ObjectiveService,
     ViewModelProject,
-    HelperService
+    HelperService,
+    AuthGuardService,
+    UserGuard,
+    ClientGuard
   ],
   bootstrap: [AppComponent]
 })

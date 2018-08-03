@@ -10,6 +10,7 @@ namespace ProjectLine.CORE.Interface
    public interface IRoleRepository
     {
         Task<IEnumerable<Role>> GetRoles();
+        IEnumerable<Permission> GetPermissionsByRole(int id);
         Role FindById(int id);
         void Create(Role rol);
         void Update(Role rol);

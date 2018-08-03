@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
@@ -21,10 +22,16 @@ namespace ProjectLine.Controllers
         private ProjectLineContext db = new ProjectLineContext();
         RoleRepository Repository = new RoleRepository();
 
-        // GET: api/Rols
-        public IEnumerable<Role> GetRols()
+        public async Task<IEnumerable<Role>> GetRols()
         {
-            return db.Roles;
+            var user = await Repository.GetRoles();
+            return user;
+        }
+
+        public IEnumerable<Permission> GetPermissionsByRole(int id)
+        {
+            var permissions = Repository.GetPermissionsByRole(id);
+            return permissions;
         }
 
         // GET: api/Rols/5

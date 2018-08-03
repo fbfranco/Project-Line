@@ -56,11 +56,33 @@ namespace ProjectLine.DATA.Persistence
             }
         }
 
+        public IEnumerable<Permission> GetPermissionsByRole(int id)
+        {
+            try
+            {
+                using (Context = new ProjectLineContext())
+                {
+                    var result = from p in Context.Permissions
+                                 join pr in Context.PermissionsRoles on p.PermissionID equals pr.PermissionID
+                                 join r in Context.Roles on pr.RoleID equals r.RoleID
+                                 where r.RoleID == id
+                                 select p;
+
+                    return result.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            
+        }
+
         public async Task<IEnumerable<Role>> GetRoles()
         {           
             using (Context = new ProjectLineContext())
             {
-                var result = await Context.Roles.Take(100).ToListAsync();
+                var result = await Context.Roles.ToListAsync();
                 return result;
             }
         }
