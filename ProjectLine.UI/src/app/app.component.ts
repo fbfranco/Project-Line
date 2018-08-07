@@ -12,12 +12,14 @@ export class AppComponent {
     public helper: HelperService
   ) {
     helper.Ocultar = false;
-    helper.HideLayout = false;
-
-
   }
 
-  Logueado() {
-    return localStorage.getItem('Active') === 'true';
+  TokenActive(): boolean {
+    let active = true;
+    if (localStorage.getItem('userToken') === null) {
+      active = false;
+    }
+    return active;
   }
+
 }

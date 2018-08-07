@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 // Service
-import { HelperService } from '../services/helper.service';
-import { RolService } from '../services/rol.service';
+import { UserService } from '../services/user.service';
+import { AuthService } from '../services/auth.service';
 // Models
-import { Permissions } from '../models/Permissions.model';
+import { User } from '../models/user.model';
+import { HttpErrorResponse } from '../../../node_modules/@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -15,12 +16,14 @@ import { Permissions } from '../models/Permissions.model';
 export class LoginComponent implements OnInit {
   Oculto: boolean;
   userFormGroup: FormGroup;
+  Token: string;
+  isLoginError: boolean;
 
   constructor(
-    public helper: HelperService,
     private userFormBuilder: FormBuilder,
     private route: Router,
-    private roleService: RolService
+    private authService: AuthService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -31,21 +34,17 @@ export class LoginComponent implements OnInit {
   }
 
   submitLogin() {
-    const RolID = 1; // User Role Id
-    const permissions: string[] = [];
-    this.roleService.getPermissionsByRole(RolID).subscribe((List: Permissions[]) => {
-      if (List !== null) {
-        List.forEach(p => {
-          permissions.push(p.Name);
+    this.authService.LoginUser(this.userFormGroup.value)
+      .subscribe((data: any) => {
+        this.Token = data._body;
+        this.userService.getUserByEmail(this.userFormGroup.value.Email).subscribe((user: User) => {
+          localStorage.setItem('user', JSON.stringify(user));
+          this.route.navigate(['Home']);
+          localStorage.setItem('userToken', this.Token);
         });
-        localStorage.setItem('Active', 'true');
-        localStorage.setItem('Permissions', JSON.stringify(permissions));
-        console.log(JSON.parse(localStorage.getItem('Permissions')));
-        this.route.navigate(['Home']);
-      } else {
-        console.error('No exist roles for this user');
-      }
-    });
+      }, (err: HttpErrorResponse) => {
+        this.isLoginError = true;
+      });
   }
 
 

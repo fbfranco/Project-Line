@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 // Models
 import { Permissions } from '../models/Permissions.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,8 @@ import { Permissions } from '../models/Permissions.model';
 export class RolService {
 
   public selectedRol: Rol;
+  public userActive: User;
+  public permissions: string[] = [];
   private apiURL = 'http://localhost:44226/api/Rols/';
   constructor(private http: Http) { }
 

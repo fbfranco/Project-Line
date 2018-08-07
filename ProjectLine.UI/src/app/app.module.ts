@@ -34,7 +34,7 @@ import { ViewModelProject } from './models/viewmodelproject.model';
 import { ProjectService } from './services/project.service';
 import { HelperService } from './services/helper.service';
 import { ObjectiveService } from './services/objective.service';
-import { AuthGuardService } from './services/auth-guard.service';
+import { AuthService } from './services/auth.service';
 // Angular Material
 import { AngularMaterialModule } from './material/angular-material.module';
 import { MatTableModule } from '@angular/material';
@@ -102,7 +102,7 @@ import { ClientGuard } from './services/client.guard.service';
     ObjectiveService,
     ViewModelProject,
     HelperService,
-    AuthGuardService,
+    AuthService,
     UserGuard,
     ClientGuard
   ],

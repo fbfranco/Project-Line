@@ -5,7 +5,7 @@
       <button mat-menu-item>Logout</button>
     </mat-menu>
     <button class="user-name" mat-button mat-button [matMenuTriggerFor]="menu" *ngIf="media.isActive('xs')">
-      fbfranco29
+      {{userName}}
       <i class="fas fa-circle"></i>
     </button>
     <button mat-button routerLink="Home">
