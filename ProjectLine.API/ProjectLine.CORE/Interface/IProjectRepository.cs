@@ -7,6 +7,7 @@ namespace ProjectLine.CORE.Interface
     public interface IProjectRepository
     {
         Task<IEnumerable<Project>> GetProjects();
+        Task<IEnumerable<Project>> GetProjectsDES();
         Task<IEnumerable<Project>> GetProjectsPO(int id);
         Task<IEnumerable<Project>> GetArchivedProjects();
         Task<IEnumerable<Project>> GetArchivedProjectsPO(int id);

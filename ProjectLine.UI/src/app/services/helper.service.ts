@@ -12,7 +12,7 @@ export class HelperService {
   SlideMenu: any;
   Ocultar: Boolean;
   HideLayout: Boolean;
-
+  HomeInit: boolean;
   constructor() {
     this.formats = {
       parse: {
@@ -25,6 +25,7 @@ export class HelperService {
         monthYearA11yLabel: 'MMMM YYYY'
       }
     };
+    this.HomeInit = false;
   }
 
   DateFormat(myDate: Date) {

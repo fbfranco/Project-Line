@@ -1,8 +1,9 @@
-import { Component, OnInit, DoCheck, AfterContentInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 // services
 import { UserService } from '../../../services/user.service';
 import { ProjectService } from '../../../services/project.service';
 import { RolService } from '../../../services/rol.service';
+import { HelperService } from '../../../services/helper.service';
 // model
 import { Project } from '../../../models/project.model';
 import { Router } from '@angular/router';
@@ -37,7 +38,8 @@ export class AdminHomeComponent implements OnInit {
     private userService: UserService,
     private projectService: ProjectService,
     private router: Router,
-    private roleService: RolService
+    private roleService: RolService,
+    private helperService: HelperService
   ) { }
 
   ngOnInit() {
@@ -66,10 +68,9 @@ export class AdminHomeComponent implements OnInit {
     });
   }
   getProjectList() {
-    this.projectService.getProjectsList().subscribe(datalist => {
+    this.projectService.getProjectsListDES().subscribe(datalist => {
       this.ListProjects = datalist;
       this.ActiveProject = datalist.length;
-      console.log(this.ListProjects);
     }, error => {
       console.log('Error getting the list of projects');
     });
@@ -168,6 +169,11 @@ export class AdminHomeComponent implements OnInit {
     this.router.navigate(['Users']);
   }
   goListProjects() {
+    this.helperService.HomeInit = false;
+    this.router.navigate(['Projects']);
+  }
+  goListProjectsArchived() {
+    this.helperService.HomeInit = true;
     this.router.navigate(['Projects']);
   }
 }
