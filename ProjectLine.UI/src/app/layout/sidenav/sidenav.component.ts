@@ -58,4 +58,11 @@ export class SidenavComponent implements OnInit {
       return permit;
     }
   }
+
+  GoStart() {
+    console.log('Action');
+    localStorage.clear();
+    this.roleService.permissions = [];
+    this.router.navigate(['/']);
+  }
 }
