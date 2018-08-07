@@ -1,5 +1,5 @@
 //Buttons and Controllers
-/* .div-controller{
+.div-controller{
     width: 100%;
     display: inline-block;
     margin-bottom: 1%;
@@ -9,22 +9,30 @@
             float: left;
         }
     }
-} */
+}
+
+
 //Data-Table
 .table-content{
-    position: relative;
-
     table{
         width: 100%;
         @media screen and (max-width: 1024px) {
             width: 100%;
-            
             display: block;
             overflow-x: auto;
         }
-        .mat-header-cell, .mat-cell {
-            min-width: 100px;
+
+        .mat-header-cell, .mat-cell, {
+            min-width: 120px;
           }
+
+        .mat-column-Active,
+        .mat-column-Edit,
+        .mat-column-Delete {
+            min-width: 10px;
+            max-width: 60px;
+
+        }
+          
     }
 }
-
