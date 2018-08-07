@@ -5,10 +5,13 @@ $color-dark: rgb(34, 45, 49);
 .div-controller{
     width: 100%;
     display: inline-block;
+    margin-bottom: 1%;
     button{
         float: right;
+        @media screen and (max-width: 1024px) {
+            float: left;
+        }
     }
-    margin-bottom: 1%;
 }
 
 
