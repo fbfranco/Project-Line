@@ -2,6 +2,7 @@ import { Component, OnInit, DoCheck, AfterContentInit } from '@angular/core';
 // services
 import { UserService } from '../../../services/user.service';
 import { ProjectService } from '../../../services/project.service';
+import { RolService } from '../../../services/rol.service';
 // model
 import { Project } from '../../../models/project.model';
 import { Router } from '@angular/router';
@@ -34,7 +35,9 @@ export class AdminHomeComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private projectService: ProjectService, private router: Router
+    private projectService: ProjectService,
+    private router: Router,
+    private roleService: RolService
   ) { }
 
   ngOnInit() {
@@ -116,8 +119,8 @@ export class AdminHomeComponent implements OnInit {
     });
   }
   InitializeVariables() {
-    this.RoleID = 1;
-    this.UserID = 1;
+    this.RoleID = this.roleService.userActive.RoleID;
+    this.UserID = this.roleService.userActive.UserID;
     this.ActiveProject = 0;
     this.RegisteredUsers = 0;
     this.ArchivedProject = 0;

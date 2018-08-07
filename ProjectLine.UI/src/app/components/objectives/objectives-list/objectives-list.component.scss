@@ -5,10 +5,13 @@ $color-dark: rgb(34, 45, 49);
 .div-controller{
     width: 100%;
     display: inline-block;
+    margin-bottom: 1%;
     button{
         float: right;
+        @media screen and (max-width: 1024px) {
+            float: left;
+        }
     }
-    margin-bottom: 1%;
 }
 
 
@@ -26,29 +29,10 @@ $color-dark: rgb(34, 45, 49);
     position: relative;
     table{
         width: 100%;
-        @media screen and (max-width: 900px) {
+        @media screen and (max-width: 1024px) {
             width: 100%;
             display: block;
             overflow-x: auto;
         }
     }
-    td{
-        margin: 0;
-        padding: 12px;
-    }
-    .long-cell{
-        width: 100%;
-        max-height:120px;
-        overflow-y: auto;
-        text-align: justify;
-        padding: 10px;
-        max-width: 850px;
-    }
-    .JustifyText{
-        text-align: justify;
-        max-height:120px;
-        overflow-y: auto;
-        max-width: 240px;
-    }
-    
 }

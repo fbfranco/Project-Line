@@ -51,4 +51,8 @@ export class UserService {
     // tslint:disable-next-line:max-line-length
     return this.http.get(`${this.apiURL}ValidateEmailUnique?email=${email}&id=${id}`).pipe(map((data: Response) => <boolean>data.json()));
   }
+
+  getUserByEmail(email: string): Observable<User> {
+    return this.http.get(`${this.apiURL}getUserByEmail?email=${email}`).pipe(map((data: Response) => <User>data.json()));
+  }
 }

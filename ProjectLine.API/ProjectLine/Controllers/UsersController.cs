@@ -48,6 +48,12 @@ namespace ProjectLine.Controllers
             return Repository.ValidateEmailUnique(email,id);
         }
 
+        [HttpGet]
+        public User getUserByEmail(string email)
+        {
+            return Repository.FindByEmail(email);
+        }
+
         // POST: api/Users/Create
         public IHttpActionResult PostUser([FromBody]User user)
         {

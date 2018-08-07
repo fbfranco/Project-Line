@@ -5,6 +5,7 @@ import { filter } from 'rxjs/operators';
 import { Router } from '@angular/router';
 // Services
 import { HelperService } from '../../services/helper.service';
+import { RolService } from '../../services/rol.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -15,10 +16,13 @@ export class SidenavComponent implements OnInit {
 
   @ViewChild('sidenav') public sideNav: MatSidenav;
 
+  public userName: string;
+
   constructor(
     public media: ObservableMedia,
     public helperService: HelperService,
     private router: Router,
+    private roleService: RolService
   ) {
     media.asObservable()
       .pipe(
@@ -32,6 +36,7 @@ export class SidenavComponent implements OnInit {
 
   ngOnInit() {
     this.helperService.SlideMenu = this.sideNav;
+    this.userName = this.roleService.userActive.Email;
   }
 
   goRouteLink(url: string) {
@@ -41,8 +46,16 @@ export class SidenavComponent implements OnInit {
 
   // Roles and Permissions
 
-  verifyPermission(permit: string): boolean {
-    const permissions: string[] = JSON.parse(localStorage.getItem('Permissions'));
-    return permissions.includes(permit);
+  verifyPermission(value: string): boolean {
+    const permissions: string[] = this.roleService.permissions;
+    let permit = false;
+    if (permissions.length > 0) {
+      permissions.forEach(permission => {
+        if (permission === value) {
+          permit = true;
+        }
+      });
+      return permit;
+    }
   }
 }

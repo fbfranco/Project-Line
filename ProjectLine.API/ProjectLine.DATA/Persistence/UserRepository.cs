@@ -93,6 +93,16 @@ namespace ProjectLine.DATA.Persistence
             }
         }
 
+        public User FindByEmail(string email)
+        {
+            using (Context = new ProjectLineContext())
+            {
+                var result = Context.Users.Where(s => s.Email == email).FirstOrDefaultAsync();
+                result.Result.Password = "";
+                return result.Result;
+            }
+        }
+
         public void Create(User User)
         {
             try
