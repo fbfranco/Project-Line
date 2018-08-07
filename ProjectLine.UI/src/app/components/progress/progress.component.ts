@@ -25,7 +25,7 @@ export class ProgressComponent implements OnInit {
   ngOnInit() {
     this.startNumbers();
     this.calculateProgress();
-    this.showProgressComplete(2);
+    this.showProgressCompleted(2);
   }
 
   startNumbers() {
@@ -59,7 +59,7 @@ export class ProgressComponent implements OnInit {
     }
   }
 
-  showProgressComplete(load) {
+  showProgressCompleted(load) {
     $('#progress-circle').empty();
     $('#progress-circle').circliful({
       animation: load,
@@ -87,20 +87,6 @@ export class ProgressComponent implements OnInit {
       backgroundColor: 'rgb(80, 80, 80)',
       percent: this.progressPending.toFixed(),
     });
-  }
-
-  sidenavState() {
-    const percentage = document.getElementsByClassName('percentage') as HTMLCollectionOf<HTMLElement>;
-    const legend = document.getElementsByClassName('legend') as HTMLCollectionOf<HTMLElement>;
-    if (percentage.length !== 0) {
-      if (this.helperService.SlideMenu.opened) {
-        percentage[0].setAttribute('style', 'position: fixed; top:200px; left:240px;');
-        legend[0].setAttribute('style', 'position: fixed; top:520px; left:332px;');
-      } else {
-        percentage[0].setAttribute('style', 'position: fixed; top:200px; left:2px;');
-        legend[0].setAttribute('style', 'position: fixed; top:520px; left:92px;');
-      }
-    }
   }
 
 }
