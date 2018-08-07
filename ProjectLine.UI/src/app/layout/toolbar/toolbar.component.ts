@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ObservableMedia } from '@angular/flex-layout';
+// Service
 import { HelperService } from '../../services/helper.service';
+import { Router } from '@angular/router';
+import { RolService } from '../../services/rol.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -9,8 +12,16 @@ import { HelperService } from '../../services/helper.service';
 })
 export class ToolbarComponent implements OnInit {
 
-  constructor(public media: ObservableMedia, public helperService: HelperService) { }
+  public userName: string;
+
+  constructor(public media: ObservableMedia,
+    public helperService: HelperService,
+    private router: Router,
+    private roleService: RolService
+  ) { }
+
   ngOnInit() {
+    this.userName = this.roleService.userActive.Email;
   }
   SideNavToggle() {
     this.helperService.SlideMenu.toggle();
@@ -29,6 +40,8 @@ export class ToolbarComponent implements OnInit {
     }
   }
   GoStart() {
-    this.helperService.HideLayout = false;
+    localStorage.clear();
+    this.roleService.permissions = [];
+    this.router.navigate(['/']);
   }
 }

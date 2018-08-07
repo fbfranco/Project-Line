@@ -3,6 +3,9 @@ import { Http, Response, Headers, RequestOptions, RequestMethod } from '@angular
 import { Rol } from '../models/rol';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+// Models
+import { Permissions } from '../models/Permissions.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +13,8 @@ import { map } from 'rxjs/operators';
 export class RolService {
 
   public selectedRol: Rol;
+  public userActive: User;
+  public permissions: string[] = [];
   private apiURL = 'http://localhost:44226/api/Rols/';
   constructor(private http: Http) { }
 
@@ -25,4 +30,8 @@ export class RolService {
     const requestOptions = new RequestOptions({ method: RequestMethod.Post, headers: headerOptions });
     return this.http.put(`${this.apiURL}UpdateRol/`, body, requestOptions);
   }
+  getPermissionsByRole(RoleId: number): Observable<Permissions[]> {
+    return this.http.get(`${this.apiURL}GetPermissionsByRole/${RoleId}`).pipe(map((data: Response) => <Permissions[]>data.json()));
+  }
+
 }

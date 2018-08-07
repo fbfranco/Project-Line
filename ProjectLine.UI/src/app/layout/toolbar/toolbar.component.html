@@ -9,13 +9,12 @@
       </button>
     </div>
     <div class="content-title" fxLayout="row" fxLayoutAlign="space-between center">
-      <h3 class="ProjectTitle" routerLink="">ProjectLine</h3>
+      <h3 class="ProjectTitle" routerLink="Home">ProjectLine</h3>
       <mat-menu #menu="matMenu" xPosition="before" [overlapTrigger]="false">
         <button mat-menu-item (click)="GoStart()">Logout</button>
-        <button mat-menu-item></button>
       </mat-menu>
       <button class="user-name" mat-button [matMenuTriggerFor]="menu" *ngIf="!media.isActive('xs')">
-        fbfranco29
+        {{userName}}
         <i class="fas fa-circle"></i>
       </button>
     </div>

@@ -41,16 +41,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interface\IObjectiveRepository.cs" />
+    <Compile Include="Interface\IPermissionRepository.cs" />
+    <Compile Include="Interface\IPermissionRoleRepository.cs" />
     <Compile Include="Interface\IPhaseRepository.cs" />
     <Compile Include="Interface\IProjectRepository.cs" />
     <Compile Include="Interface\IUserRepository.cs" />
     <Compile Include="Interface\IRoleRepository.cs" />
     <Compile Include="Models\Objective.cs" />
+    <Compile Include="Models\Permission.cs" />
+    <Compile Include="Models\PermissionRole.cs" />
     <Compile Include="Models\Phase.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\LoginRequest.cs" />
     <Compile Include="ViewModel\ProjectViewModel.cs" />
   </ItemGroup>
   <ItemGroup />

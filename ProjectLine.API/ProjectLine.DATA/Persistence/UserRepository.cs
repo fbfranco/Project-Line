@@ -24,6 +24,15 @@ namespace ProjectLine.DATA.Persistence
                 return result;
             }
         }
+        public async Task<IEnumerable<User>> GetUserPO(int id)
+        {
+
+            using (Context = new ProjectLineContext())
+            {
+                var result = await Context.Users.Include("Role").Where(x => x.UserID == id).ToListAsync();
+                return result;
+            }
+        }
 
         public async Task<IEnumerable<User>> GetUsersEdit()
         {
@@ -79,6 +88,16 @@ namespace ProjectLine.DATA.Persistence
             using (Context = new ProjectLineContext())
             {
                 var result = Context.Users.Where(s => s.UserID == id).FirstOrDefaultAsync();
+                return result.Result;
+            }
+        }
+
+        public User FindByEmail(string email)
+        {
+            using (Context = new ProjectLineContext())
+            {
+                var result = Context.Users.Where(s => s.Email == email).FirstOrDefaultAsync();
+                result.Result.Password = "";
                 return result.Result;
             }
         }

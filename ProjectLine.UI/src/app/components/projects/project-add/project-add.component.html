@@ -17,10 +17,15 @@
 
       <!-- UserId -->
       <mat-form-field>
+<<<<<<< HEAD
         <input type="text" placeholder="Client" matInput [matAutocomplete]="UserId" formControlName="UserId">
         <mat-error *ngIf="projectFG.get('UserId').hasError('isSelectedValid')">Select a client form the list.</mat-error>
+=======
+        <input type="text" placeholder="Client" matInput [matAutocomplete]="UserId"  formControlName="UserId" >
+        <mat-error *ngIf="projectFG.get('UserId').hasError('isSelectedValid') || projectFG.get('UserId').hasError('pattern')">Select a client form the list.</mat-error>
+>>>>>>> 1a96abec8bdec8508c4f0813631cd6ff3b046f33
         <mat-autocomplete #UserId="matAutocomplete" autoActiveFirstOption [displayWith]="displayNameClient.bind(this)">
-          <mat-option *ngFor="let client of filteredClient | async" [value]="client.UserID">
+          <mat-option *ngFor="let client of filteredClient | async" [value]="'prefix,' + client.UserID">
             {{ client.FirstName }}
           </mat-option>
         </mat-autocomplete>
@@ -28,10 +33,15 @@
 
       <!-- OwnerId -->
       <mat-form-field>
+<<<<<<< HEAD
         <input type="text" placeholder="Product Owner" matInput [matAutocomplete]="OwnerId" formControlName="OwnerId">
         <mat-error *ngIf="projectFG.get('OwnerId').hasError('isSelectedValid')">Select a owner form the list.</mat-error>
+=======
+        <input type="text" placeholder="Product Owner" matInput [matAutocomplete]="OwnerId"  formControlName="OwnerId">
+        <mat-error *ngIf="projectFG.get('OwnerId').hasError('isSelectedValid') || projectFG.get('OwnerId').hasError('pattern')">Select a owner form the list.</mat-error>
+>>>>>>> 1a96abec8bdec8508c4f0813631cd6ff3b046f33
         <mat-autocomplete #OwnerId="matAutocomplete" autoActiveFirstOption [displayWith]="displayNameOwner.bind(this)">
-          <mat-option *ngFor="let owner of filteredOwner | async" [value]="owner.UserID">
+          <mat-option *ngFor="let owner of filteredOwner | async" [value]="'prefix,' + owner.UserID">
             {{ owner.FirstName }}
           </mat-option>
         </mat-autocomplete>

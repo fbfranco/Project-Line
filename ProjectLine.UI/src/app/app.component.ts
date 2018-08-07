@@ -12,6 +12,14 @@ export class AppComponent {
     public helper: HelperService
   ) {
     helper.Ocultar = false;
-    helper.HideLayout = false;
   }
+
+  TokenActive(): boolean {
+    let active = true;
+    if (localStorage.getItem('userToken') === null) {
+      active = false;
+    }
+    return active;
+  }
+
 }

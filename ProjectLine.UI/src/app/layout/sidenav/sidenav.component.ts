@@ -2,8 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { ObservableMedia, MediaChange } from '@angular/flex-layout';
 import { filter } from 'rxjs/operators';
-import { HelperService } from '../../services/helper.service';
 import { Router } from '@angular/router';
+// Services
+import { HelperService } from '../../services/helper.service';
+import { RolService } from '../../services/rol.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -14,10 +16,13 @@ export class SidenavComponent implements OnInit {
 
   @ViewChild('sidenav') public sideNav: MatSidenav;
 
+  public userName: string;
+
   constructor(
     public media: ObservableMedia,
     public helperService: HelperService,
-    private router: Router
+    private router: Router,
+    private roleService: RolService
   ) {
     media.asObservable()
       .pipe(
@@ -31,6 +36,7 @@ export class SidenavComponent implements OnInit {
 
   ngOnInit() {
     this.helperService.SlideMenu = this.sideNav;
+    this.userName = this.roleService.userActive.Email;
   }
 
   goRouteLink(url: string) {
@@ -38,4 +44,18 @@ export class SidenavComponent implements OnInit {
       .then(() => this.router.navigate([url]));
   }
 
+  // Roles and Permissions
+
+  verifyPermission(value: string): boolean {
+    const permissions: string[] = this.roleService.permissions;
+    let permit = false;
+    if (permissions.length > 0) {
+      permissions.forEach(permission => {
+        if (permission === value) {
+          permit = true;
+        }
+      });
+      return permit;
+    }
+  }
 }

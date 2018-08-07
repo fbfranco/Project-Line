@@ -2,9 +2,11 @@ import { Component, OnInit, DoCheck, AfterContentInit } from '@angular/core';
 // services
 import { UserService } from '../../../services/user.service';
 import { ProjectService } from '../../../services/project.service';
+import { RolService } from '../../../services/rol.service';
 // model
 import { Project } from '../../../models/project.model';
 import { Router } from '@angular/router';
+import { User } from '../../../models/user.model';
 
 declare var $: any;
 @Component({
@@ -12,7 +14,7 @@ declare var $: any;
   templateUrl: './admin-home.component.html',
   styleUrls: ['./admin-home.component.scss']
 })
-export class AdminHomeComponent implements OnInit, DoCheck, AfterContentInit {
+export class AdminHomeComponent implements OnInit {
 
 
   InitTimeline: boolean;
@@ -24,24 +26,35 @@ export class AdminHomeComponent implements OnInit, DoCheck, AfterContentInit {
   objectiveCompleted: number;
   progressPercentage: number;
   progressPending: number;
-
+  RoleID: number;
+  UserID: number;
+  OwnerID: number;
+  OwnerName: string;
+  OwnerPhone: string;
+  ListPO: User[];
 
   constructor(
     private userService: UserService,
-    private projectService: ProjectService, private router: Router
+    private projectService: ProjectService,
+    private router: Router,
+    private roleService: RolService
   ) { }
 
   ngOnInit() {
     this.InitializeVariables();
-    this.getUserList();
-    this.getProjectList();
-    this.getArchivedProjectList();
-  }
-  ngDoCheck() {
-    console.log(this.InitTimeline);
-    if (this.InitTimeline) {
-      $('.VivaTimeline').vivaTimeline({ carousel: false });
-      this.InitTimeline = false;
+    switch (this.RoleID) {
+      case 1:
+        this.getUserList();
+        this.getProjectList();
+        this.getArchivedProjectList();
+        break;
+      case 2:
+        this.getProjectListPO();
+        this.getArchivedProjectListPO();
+        break;
+      case 3:
+        this.getProjectListCL();
+        break;
     }
   }
 
@@ -52,23 +65,62 @@ export class AdminHomeComponent implements OnInit, DoCheck, AfterContentInit {
       console.log('Error getting the list of Users');
     });
   }
-
   getProjectList() {
-    this.projectService.getProjectsList().subscribe((datalist: Project[]) => {
+    this.projectService.getProjectsList().subscribe(datalist => {
       this.ListProjects = datalist;
       this.ActiveProject = datalist.length;
+      console.log(this.ListProjects);
     }, error => {
       console.log('Error getting the list of projects');
+    });
+  }
+  getProjectListPO() {
+    this.projectService.getProjectsListPO(this.UserID).subscribe(List => {
+      this.ListProjects = List;
+      this.ActiveProject = List.length;
+    }, error => {
+      console.log('Error getting the list of ProjectsList');
+    });
+  }
+  getProjectListCL() {
+    this.projectService.getProjectsListCL(this.UserID).subscribe(List => {
+      this.ListProjects = List;
+      this.ListProjects.forEach(element => {
+        this.OwnerID = element.OwnerID;
+      });
+      this.getUserPO();
+    }, error => {
+      console.log('Error getting the list of ProjectsList');
+    });
+  }
+  getUserPO() {
+    this.userService.getUserPO(this.OwnerID).subscribe(List => {
+      this.ListPO = List;
+      this.ListPO.forEach(element => {
+        this.OwnerName = element.FirstName;
+        this.OwnerPhone = element.Mobile;
+      });
+    }, error => {
+      console.log('Error getting the list of ProjectsList');
     });
   }
   getArchivedProjectList() {
     this.projectService.getArchivedProjectsList().subscribe(List => {
       this.ArchivedProject = List.length;
     }, error => {
-      console.log('Error getting the list of Users');
+      console.log('Error getting the list of ProjectsList');
+    });
+  }
+  getArchivedProjectListPO() {
+    this.projectService.getArchivedProjectsListPO(this.UserID).subscribe(List => {
+      this.ArchivedProject = List.length;
+    }, error => {
+      console.log('Error getting the list of ProjectsList');
     });
   }
   InitializeVariables() {
+    this.RoleID = this.roleService.userActive.RoleID;
+    this.UserID = this.roleService.userActive.UserID;
     this.ActiveProject = 0;
     this.RegisteredUsers = 0;
     this.ArchivedProject = 0;
@@ -76,6 +128,8 @@ export class AdminHomeComponent implements OnInit, DoCheck, AfterContentInit {
     this.objectiveCompleted = 0;
     this.progressPercentage = 0;
     this.progressPending = 0;
+    this.OwnerName = '';
+    this.OwnerPhone = '';
   }
   calculateProgress(project: Project) {
     this.resetNumbers();
@@ -116,9 +170,4 @@ export class AdminHomeComponent implements OnInit, DoCheck, AfterContentInit {
   goListProjects() {
     this.router.navigate(['Projects']);
   }
-  ngAfterContentInit() {
-    $('.events-body').slideUp();
-    $('.events-footer').slideUp();
-  }
-
 }

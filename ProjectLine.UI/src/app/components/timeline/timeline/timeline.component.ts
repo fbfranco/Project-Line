@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck, AfterContentInit } from '@angular/core';
+import { Component, OnInit, DoCheck, AfterContentInit} from '@angular/core';
 
 // Services
 import { ProjectService } from '../../../services/project.service';
@@ -71,6 +71,7 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
   }
   ngDoCheck() {
     if (this.InitTimeline) {
+      console.log(this.InitTimeline);
       $('.VivaTimeline').vivaTimeline({ carousel: false });
       this.InitTimeline = false;
     }
@@ -78,6 +79,7 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
   // Get Project HomePage
   HomeInit() {
     if (this.projectService.selectedProjectHome) {
+      this.InitTimeline = true;
       this.myControl.patchValue(this.projectService.selectedProjectHome.Title);
       this.DataProject = this.projectService.selectedProjectHome;
       this.PhaseModel = this.DataProject.Phases;
@@ -88,13 +90,10 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
       this.PhaseModel.forEach(element => {
         if (new Date().getTime() >= new Date(element.StartDate).getTime() && new Date().getTime() <= new Date(element.EndDate).getTime()) {
           element.StatePhase = true;
-          console.log(element.StatePhase);
         } else {
           element.StatePhase = false;
         }
       });
-      this.InitTimeline = true;
-      this.ngDoCheck();
       this.projectService.selectedProjectHome = null;
     }
   }
@@ -107,20 +106,16 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
       }
     });
     this.PhaseModel = this.DataProject.Phases;
-    console.log(this.PhaseModel);
     this.sortPhaseDates(this.PhaseModel);
     this.Hide = true;
-
     this.PhaseModel.forEach(element => {
       if (new Date().getTime() >= new Date(element.StartDate).getTime() && new Date().getTime() <= new Date(element.EndDate).getTime()) {
         element.StatePhase = true;
-        console.log(element.StatePhase);
       } else {
         element.StatePhase = false;
       }
     });
   }
-
   inputEmpty(event: any) {
     if (event !== '') {
       this.Hide = false;
@@ -138,8 +133,7 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
   }
 
   ngAfterContentInit() {
-    $('.events-body').slideUp();
-    $('.events-footer').slideUp();
+    this.InitTimeline = true;
   }
 
   getValidate(phaseDate: Date, strDate: string): boolean {

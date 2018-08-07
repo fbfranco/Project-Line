@@ -26,6 +26,13 @@ namespace ProjectLine.Controllers
             var user = await Repository.GetUsers();
             return user;
         }
+        public async Task<IEnumerable<User>> GetUserPO(int id)
+        {
+
+            var objective = await Repository.GetUserPO(id);
+
+            return objective;
+        }
 
         // GET: api/UserEdit/1
         public async Task<IEnumerable<User>> GetUserEdit()
@@ -39,6 +46,12 @@ namespace ProjectLine.Controllers
         public Boolean ValidateEmailUnique(string email, int id)
         {
             return Repository.ValidateEmailUnique(email,id);
+        }
+
+        [HttpGet]
+        public User getUserByEmail(string email)
+        {
+            return Repository.FindByEmail(email);
         }
 
         // POST: api/Users/Create

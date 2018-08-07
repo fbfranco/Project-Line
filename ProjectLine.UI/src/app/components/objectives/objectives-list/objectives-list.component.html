@@ -11,7 +11,7 @@
       </mat-autocomplete>
     </mat-form-field>
   <mat-form-field class="AutocompletePhases">
-    <input type="text" placeholder="Phase" aria-label="Number" matInput [matAutocomplete]="PhasesList"  [formControl]="myControlPhase">
+    <input type="text" placeholder="Phase" (keyup)="resetObjectives()" aria-label="Number" matInput [matAutocomplete]="PhasesList"  [formControl]="myControlPhase">
     <mat-error *ngIf="myControlPhase.invalid">Select a Phase form the list.</mat-error>
     <mat-autocomplete #PhasesList="matAutocomplete" (optionSelected)="phaseChanged($event)" autoActiveFirstOption [displayWith]="displayTitlePhase.bind(this)">
       <mat-option matTooltip={{phase}} *ngFor="let phase of filteredPhases | async" [value]="phase.PhaseID">
