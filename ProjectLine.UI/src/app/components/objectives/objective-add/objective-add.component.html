@@ -1,4 +1,7 @@
-<h1 mat-dialog-title fxFlex.gt-xs="300px" fxLayoutAlign="center">Objective</h1>
+<h1 mat-dialog-title fxFlex.gt-xs="300px" fxLayoutAlign="center">
+  Objective
+</h1>
+
 <form novalidate [formGroup]="objectiveFormGroup" (ngSubmit)="submitObjective()">
   <div mat-dialog-content fxLayout="column">
     <mat-form-field>
@@ -11,7 +14,7 @@
       <mat-hint align="end">{{Description.value?.length || 0}}/1000</mat-hint>
     </mat-form-field>
     <mat-checkbox formControlName="completed" color="primary">Completed</mat-checkbox>
-    <div fxFlex="10px"></div>
+    <div fxFlex="40px"></div>
   </div>
   <div mat-dialog-actions fxLayoutAlign="center" fxLayoutGap="1em">
     <button mat-raised-button color="primary" [disabled]="!objectiveFormGroup.valid" type="submit">Save</button>
