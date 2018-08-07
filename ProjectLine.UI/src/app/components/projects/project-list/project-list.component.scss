@@ -20,5 +20,8 @@
             display: block;
             overflow-x: auto;
         }
+        .mat-header-cell, .mat-cell {
+            min-width: 120px;
+          }
     }
 }
