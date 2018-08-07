@@ -106,24 +106,17 @@ export class ProjectAddComponent implements OnInit {
     this.phaseService.indexPhase = this.phaseService.phaseList.indexOf(dataPhases);
     this.getSelectedPhase(dataPhases);
     const dialogRef = this.dialog.open(PhasesFormComponent);
-    console.log(this.phaseService.selectedPhase);
     dialogRef.afterClosed().subscribe(result => {
       this.trimSelectedPhase();
       this.dataSource = new MatTableDataSource(this.phaseService.phaseList);
     });
   }
-  getUserIdtoSaveProject(list, control) {
-    list.forEach(element => {
-      if (element.FirstName === control) {
-        control = element.UserID;
-      }
-    });
-  }
+
   onSubmit() {
     this.helperService.removeWhiteSpaces(this.projectFG);
-    this.getUserIdtoSaveProject(this.listClient, this.projectFG.value.UserId);
-    this.getUserIdtoSaveProject(this.listOwner, this.projectFG.value.OwnerId);
     this.project = this.projectFG.value;
+    this.projectFG.value.UserId = this.projectFG.value.UserId === undefined ? null : this.projectFG.value.UserId.UserID;
+    this.projectFG.value.OwnerId = this.projectFG.value.OwnerId === undefined ? null : this.projectFG.value.OwnerId.UserID;
     this.project.Phases = this.phaseService.phaseList;
 
     if (this.projectFG.value.ProjectID === '') {
@@ -164,20 +157,18 @@ export class ProjectAddComponent implements OnInit {
   filter(value: string, type: number): User[] {
     const filterValue = value.toString().toLowerCase();
     return type === 0 ?
-      this.listClient.filter(option => option.FirstName.toLowerCase().includes(filterValue)) :
-      this.listOwner.filter(option => option.FirstName.toLowerCase().includes(filterValue));
+      this.listClient.filter(option => `${option.FirstName} ${option.LastName}`.toLowerCase().includes(filterValue)) :
+      this.listOwner.filter(option => `${option.FirstName} ${option.LastName}`.toLowerCase().includes(filterValue));
   }
 
-  displayNameClient(UserID) {
-    if (!UserID) { return ''; }
-    const index = this.listClient.findIndex(client => client.UserID.toString() === UserID.split(',').pop());
-    return this.listClient[index].FirstName;
+  displayNameClient(client) {
+    if (!client) { return ''; }
+    return `${client.FirstName} ${client.LastName}`;
   }
 
-  displayNameOwner(OwnerID) {
-    if (!OwnerID) { return ''; }
-    const index = this.listOwner.findIndex(owner => owner.UserID.toString() === OwnerID.split(',').pop());
-    return this.listOwner[index].FirstName;
+  displayNameOwner(owner) {
+    if (!owner) { return ''; }
+    return `${owner.FirstName} ${owner.LastName}`;
   }
 
   loadClient() {
@@ -185,7 +176,7 @@ export class ProjectAddComponent implements OnInit {
       this.listClient = datalist;
       this.filteredClient = this.projectFG.controls.UserId.valueChanges.pipe(
         startWith(''), map(value => value ? this.filter(value, 0) : this.listClient));
-      this.projectFG.controls['UserId'].setValidators([isSelectedValid(this.listClient), Validators.pattern(/^[a-zA-Z].*/)]);
+      this.projectFG.controls['UserId'].setValidators([isSelectedValid(this.listClient)]);
     }, error => { console.log(error); });
   }
 
@@ -194,7 +185,7 @@ export class ProjectAddComponent implements OnInit {
       this.listOwner = datalist;
       this.filteredOwner = this.projectFG.controls.OwnerId.valueChanges.pipe(
         startWith(''), map(value => value ? this.filter(value, 1) : this.listOwner));
-      this.projectFG.controls['OwnerId'].setValidators([isSelectedValid(this.listOwner), Validators.pattern(/^[a-zA-Z].*/)]);
+      this.projectFG.controls['OwnerId'].setValidators([isSelectedValid(this.listOwner)]);
     }, error => { console.log(error); });
   }
 
@@ -210,11 +201,16 @@ export class ProjectAddComponent implements OnInit {
     });
   }
 
+  displayUserById(id: number, list: User[]): User {
+    const index = list.findIndex(x => x.UserID === id);
+    return list[index];
+  }
+
   newFormEditProject() {
     this.projectFG.patchValue({
       ProjectID: this.projectService.selectedProject.ProjectID,
-      UserId: this.projectService.selectedProject.UserID,
-      OwnerId: this.projectService.selectedProject.OwnerID,
+      UserId: this.displayUserById(this.projectService.selectedProject.UserID, this.listClient),
+      OwnerId: this.displayUserById(this.projectService.selectedProject.OwnerID, this.listOwner),
       Title: this.projectService.selectedProject.Title,
       Description: this.projectService.selectedProject.Description,
       StartDate: this.projectService.selectedProject.StartDate,

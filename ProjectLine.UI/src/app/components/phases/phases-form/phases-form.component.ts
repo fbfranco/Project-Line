@@ -126,11 +126,10 @@ export class PhasesFormComponent implements OnInit {
 
   updatePhase() {
     const indexPhase = this.phaseService.indexPhase;
-    this.phaseService.selectedPhase.DemoVideo = this.demoVideo === null ? this.phaseService.selectedPhase.DemoVideo :
-                                                                          this.demoVideo.split(',').pop();
     this.phaseService.selectedPhase.DemoName = this.fileName;
+    this.phaseService.selectedPhase.DemoVideo = this.phaseService.selectedPhase.DemoName === '' ?
+                                                null : this.demoVideo.split(',').pop();
     this.phaseService.phaseList.splice(indexPhase, 1, this.phaseService.selectedPhase);
-    console.log(this.phaseService.selectedPhase);
     this.dialogRef.close();
   }
 

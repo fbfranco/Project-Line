@@ -162,11 +162,11 @@ namespace ProjectLine.DATA.Persistence
             foreach (var phase in project.Phases)
             {
                 phase.ProjectID = id;
-                if (phase.DemoName.Equals(""))
+                if (phase.DemoName == null || phase.DemoName.Equals(""))
                 {
                     phase.DemoUrl = "";
                 }
-                else
+                else if (phase.DemoVideo != null)
                 {
                     phase.DemoUrl = "/assets/Demo/" + phase.Title + "_" + phase.DemoName;
                     SaveDemo(phase.DemoVideo, phase.DemoUrl);

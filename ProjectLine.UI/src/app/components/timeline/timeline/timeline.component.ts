@@ -71,7 +71,6 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
   }
   ngDoCheck() {
     if (this.InitTimeline) {
-      console.log(this.InitTimeline);
       $('.VivaTimeline').vivaTimeline({ carousel: false });
       this.InitTimeline = false;
     }

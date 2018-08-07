@@ -39,7 +39,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-	<Reference Include="System.Web" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,6 +50,11 @@
   <ItemGroup>
     <Compile Include="Config\InitializeDB.cs" />
     <Compile Include="Config\ProjectLineContext.cs" />
+    <Compile Include="Migrations\201808071234209_Init.cs" />
+    <Compile Include="Migrations\201808071234209_Init.Designer.cs">
+      <DependentUpon>201808071234209_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\ObjectiveRepository.cs" />
     <Compile Include="Persistence\PermissionRoleRepository.cs" />
     <Compile Include="Persistence\PermissionsRepository.cs" />
@@ -68,6 +73,11 @@
       <Project>{7b699e0f-775d-4082-b523-ec4371d55a9c}</Project>
       <Name>ProjectLine.CORE</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201808071234209_Init.resx">
+      <DependentUpon>201808071234209_Init.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
