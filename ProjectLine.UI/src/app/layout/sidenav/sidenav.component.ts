@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { ObservableMedia, MediaChange } from '@angular/flex-layout';
 import { filter } from 'rxjs/operators';
@@ -17,6 +17,8 @@ export class SidenavComponent implements OnInit {
   @ViewChild('sidenav') public sideNav: MatSidenav;
 
   public userName: string;
+  sidenavMode: string;
+  sidenavHide: boolean;
 
   constructor(
     public media: ObservableMedia,
@@ -34,14 +36,46 @@ export class SidenavComponent implements OnInit {
       ).subscribe(() => this.sideNav.open());
   }
 
+  @HostListener('window:resize', ['$event'])
+
+  onResize(event) {
+    if (event.target.innerWidth < 768) {
+      this.sidenavMode = 'over';
+      this.sidenavHide = true;
+    } else {
+      this.sidenavMode = 'side';
+      this.sidenavHide = false;
+    }
+  }
+
+  onStart() {
+    if (window.innerWidth < 768) {
+      this.sidenavMode = 'over';
+      this.sidenavHide = true;
+      this.sideNav.close();
+    } else {
+      this.sidenavMode = 'side';
+      this.sidenavHide = false;
+      this.sideNav.open();
+    }
+  }
+
   ngOnInit() {
     this.helperService.SlideMenu = this.sideNav;
     this.userName = this.roleService.userActive.Email;
+    this.onStart();
   }
 
-  goRouteLink(url: string) {
-    this.router.navigateByUrl('', { skipLocationChange: true })
-      .then(() => this.router.navigate([url]));
+  goRouteLink(url: string, reload: boolean) {
+    if (this.sidenavHide) {
+      this.sideNav.close();
+    }
+    if (reload) {
+      this.router.navigateByUrl('', { skipLocationChange: true })
+        .then(() => this.router.navigate([url]));
+    } else {
+      this.router.navigate([url]);
+    }
   }
 
   // Roles and Permissions
@@ -58,4 +92,5 @@ export class SidenavComponent implements OnInit {
       return permit;
     }
   }
+
 }
