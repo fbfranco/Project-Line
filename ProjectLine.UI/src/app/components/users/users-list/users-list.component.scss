@@ -1,6 +1,6 @@
 //Buttons and Controllers
 .div-controller{
-    width: 100%;
+/*     width: 100%;
     display: inline-block;
     margin-bottom: 1%;
     button{
@@ -8,10 +8,10 @@
         @media screen and (max-width: 1024px) {
             float: left;
         }
-    }
+    } */
 }
 //Data-Table
-.table-content{
+/* .table-content{
     position: relative;
     table{
         width: 100%;
@@ -21,8 +21,18 @@
             overflow-x: auto;
         }
     }
-    td{
-        margin: 0;
-        padding: 12px;
+} */
+table {
+    width: 100%;
+    /* table-layout: fixed; */
+    position: relative;
+    @media screen and (max-width: 1024px) {
+        width: 100%;
+        display: block;
+        overflow: flex; 
     }
+/*     .mat-column-Edit,
+    .mat-column-Delete {
+        max-width: 50px;  
+    } */
 }
