@@ -86,8 +86,8 @@ export class AdminHomeComponent implements OnInit {
     });
   }
   ShortName(title) {
-    if (title.length >= 10) {
-      return `${title.substr(0, 10)}...`;
+    if (title.length >= 18) {
+      return `${title.substr(0, 18)}...`;
     } else {
       return title;
     }
