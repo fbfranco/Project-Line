@@ -1,6 +1,6 @@
 <!-- Sidenav -->
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #sidenav mode="side" opened class="content-sidenav">
+<mat-sidenav-container class="sidenav-container" [hasBackdrop]="false">
+  <mat-sidenav #sidenav mode={{sidenavMode}} class="content-sidenav">
     <mat-menu #menu="matMenu" xPosition="before" [overlapTrigger]="false">
       <button (click)="GoStart()" mat-menu-item>Logout</button>
     </mat-menu>
@@ -8,47 +8,44 @@
       {{userName}}
       <i class="fas fa-circle"></i>
     </button>
-    <button mat-button routerLink="Home">
+    <button mat-button (click)="goRouteLink('Home')">
       &nbsp;
       <i class="fas fa-home"></i>Home
     </button>
-    <mat-expansion-panel class="SubMenu-Styles" hideToggle="true" *ngIf="verifyPermission('User_View')">
+    <mat-expansion-panel class="SubMenu-Styles mat-elevation-z0" *ngIf="verifyPermission('User_View')">
       <mat-expansion-panel-header>
         <mat-panel-title class="Sub-Title">
           <i class="fas fa-users"></i> &nbsp;&nbsp; User Management
-          <i class="fas fa-angle-down toggle-icon" style="padding-left: 12px;"></i>
         </mat-panel-title>
       </mat-expansion-panel-header>
       <ul>
         <li>
-          <a routerLink="/Users"> Users</a>
+          <a (click)="goRouteLink('Users')"> Users</a>
         </li>
         <li>
-          <a routerLink="/Roles"> Roles</a>
+          <a (click)="goRouteLink('Roles')"> Roles</a>
         </li>
       </ul>
     </mat-expansion-panel>
-    <mat-expansion-panel class="SubMenu-Styles" hideToggle="true" *ngIf="verifyPermission('Project_View')">
+    <mat-expansion-panel class="SubMenu-Styles mat-elevation-z0" *ngIf="verifyPermission('Project_View')">
       <mat-expansion-panel-header>
         <mat-panel-title class="Sub-Title">
           <i class="fas fa-briefcase"></i> &nbsp;&nbsp; Project Management
-          <i class="fas fa-angle-down toggle-icon"></i>
         </mat-panel-title>
       </mat-expansion-panel-header>
       <ul>
         <li>
-          <a (click)="goRouteLink('/Projects')"> Projects</a>
+          <a (click)="goRouteLink('Projects', true)"> Projects</a>
         </li>
         <li>
-          <a (click)="goRouteLink('/Objectives')"> Objectives</a>
+          <a (click)="goRouteLink('Objectives', true)"> Objectives</a>
         </li>
       </ul>
     </mat-expansion-panel>
-    <button mat-button (click)="goRouteLink('/ProjectTracking')" *ngIf="verifyPermission('ProjectTracking_View')">
+    <button mat-button (click)="goRouteLink('ProjectTracking', true)" *ngIf="verifyPermission('ProjectTracking_View')">
       &nbsp;
       <i class="fas fa-chart-line"></i>Project Tracking
     </button>
-
   </mat-sidenav>
   <mat-sidenav-content class="main-container" fxLayout="column">
     <app-main-container></app-main-container>
