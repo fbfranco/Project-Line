@@ -88,19 +88,25 @@ export class UsersListComponent implements OnInit {
   }
 
   openDialogDelete(id: number) {
-    if (!this.assignedUser(id)) {
-      const dialogRef = this.dialog.open(DialogConfirmationComponent, {
-        data: { title: 'Please confirm...', description: 'Are you sure you want to remove this item?' }
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        if (result === 'confirm') {
-          this.userService.deleteUser(id)
-            .subscribe(data => this.getUserList(),
-              error => console.error(error));
-        }
-      });
+    if (this.rolService.userActive.UserID !== id) {
+      if (!this.assignedUser(id) && this.rolService.userActive.UserID !== id) {
+        const dialogRef = this.dialog.open(DialogConfirmationComponent, {
+          data: { title: 'Please confirm...', description: 'Are you sure you want to remove this item?' }
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          if (result === 'confirm') {
+            this.userService.deleteUser(id)
+              .subscribe(data => this.getUserList(),
+                error => console.error(error));
+          }
+        });
+      } else {
+        this.snackBar.open('The user is assigned to a project and cannot be deleted.', 'OK', {
+          horizontalPosition: 'right',
+        });
+      }
     } else {
-      this.snackBar.open('The user is assigned to a project and cannot be deleted.', 'OK', {
+      this.snackBar.open('This user has logged in,and cannot be deleted.', 'OK', {
         horizontalPosition: 'right',
       });
     }
