@@ -1,10 +1,11 @@
-<h1>Projects</h1>
-<div class="div-controller">
+<h1 *ngIf="Home === false">Projects</h1>
+<h1 *ngIf="Home === true">Archived Projects</h1>
+<div class="div-controller" *ngIf="Home === false">
   <a routerLink="/Projects/Add">
     <button mat-raised-button color="primary" (click)="newProject()"> Add Project</button>
   </a>
 </div>
-<div class="table-content">
+<div class="table-content" *ngIf="Home === false">
   <table mat-table [dataSource]="ListProjects" class="mat-elevation-z8">
     <!-- Title Column -->
     <ng-container matColumnDef="Title">
@@ -48,5 +49,33 @@
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="HeaderColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: HeaderColumns;"></tr>
+  </table>
+</div>
+<div class="table-content" *ngIf="Home === true">
+  <table mat-table [dataSource]="ListProjects" class="mat-elevation-z8">
+    <!-- Title Column -->
+    <ng-container matColumnDef="Title">
+      <th mat-header-cell *matHeaderCellDef> Title </th>
+      <td mat-cell *matCellDef="let project"><div class="JustifyText">{{project.Title}}</div> </td>
+    </ng-container>
+    <!-- Description Column -->
+    <ng-container matColumnDef="Description">
+      <th mat-header-cell *matHeaderCellDef> Description </th>
+      <td mat-cell *matCellDef="let project">
+        <div class="long-cell"> {{project.Description}} </div>
+      </td>
+    </ng-container>
+    <!-- StartDate Column -->
+    <ng-container matColumnDef="StartDate">
+      <th mat-header-cell *matHeaderCellDef> Start Date </th>
+      <td mat-cell *matCellDef="let project"> {{project.StartDate | date: 'MM/dd/yyyy'}} </td>
+    </ng-container>
+    <!-- EndDate Column -->
+    <ng-container matColumnDef="EndDate">
+      <th mat-header-cell *matHeaderCellDef> Estimated End Date </th>
+      <td mat-cell *matCellDef="let project"> {{project.EndDate | date: 'MM/dd/yyyy'}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="HeaderColumnsArchived"></tr>
+    <tr mat-row *matRowDef="let row; columns: HeaderColumnsArchived;"></tr>
   </table>
 </div>

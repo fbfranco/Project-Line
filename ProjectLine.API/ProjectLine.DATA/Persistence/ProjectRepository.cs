@@ -24,12 +24,20 @@ namespace ProjectLine.DATA.Persistence
                 return result;
             }
         }
+        public async Task<IEnumerable<Project>> GetProjectsDES()
+        {
+            using (Context = new ProjectLineContext())
+            {
+                var result = await Context.Projects.Include("User").Include("Phases").Include("Phases.Objectives").Where(x => x.Active == true).OrderByDescending(x => x.ProjectID).ToListAsync();
+                return result;
+            }
+        }
         public async Task<IEnumerable<Project>> GetProjectsPO(int id)
         {
 
             using (Context = new ProjectLineContext())
             {
-                var result = await Context.Projects.Include("User").Include("Phases").Include("Phases.Objectives").Where(x => x.Active == true && x.OwnerID== id).ToListAsync();
+                var result = await Context.Projects.Include("User").Include("Phases").Include("Phases.Objectives").Where(x => x.Active == true && x.OwnerID== id).OrderByDescending(x => x.ProjectID).ToListAsync();
            
                 return result;
             }
@@ -55,7 +63,7 @@ namespace ProjectLine.DATA.Persistence
 
             using (Context = new ProjectLineContext())
             {
-                var result = await Context.Projects.Include("User").Include("Phases").Include("Phases.Objectives").Where(x => x.Active == true && x.UserID == id).ToListAsync();
+                var result = await Context.Projects.Include("User").Include("Phases").Include("Phases.Objectives").Where(x => x.Active == true && x.UserID == id).OrderByDescending(x => x.ProjectID).ToListAsync();
 
                 return result;
             }

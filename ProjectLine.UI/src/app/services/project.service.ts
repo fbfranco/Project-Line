@@ -34,6 +34,9 @@ export class ProjectService {
   getProjectsList(): Observable<Project[]> {
     return this.http.get(`${this.apiURL}GetProjects/`).pipe(map((data: Response) => <Project[]>data.json()));
   }
+  getProjectsListDES(): Observable<Project[]> {
+    return this.http.get(`${this.apiURL}GetProjectsDES/`).pipe(map((data: Response) => <Project[]>data.json()));
+  }
   getProjectsListPO(OwnerID: number): Observable<Project[]> {
     return this.http.get(`${this.apiURL}GetProjectsPO/${OwnerID}`).pipe(map((data: Response) => <Project[]>data.json()));
   }

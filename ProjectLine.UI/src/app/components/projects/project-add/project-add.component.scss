@@ -26,7 +26,6 @@
 
 //Data-Table
 .table-content{
-  position: relative;
   table{
       width: 100%;
       @media screen and (max-width: 1024px) {
@@ -34,5 +33,10 @@
           display: block;
           overflow-x: auto;
       }
+
+      .mat-header-cell, .mat-cell, {
+          min-width: 120px;
+        }
+
   }
 }

@@ -47,7 +47,7 @@ namespace ProjectLine.DATA.Persistence
                     LastName = u.LastName,
                     Company = u.Company,
                     Phone = u.Phone,
-                    Mobile = u.Phone,
+                    Mobile = u.Mobile,
                     Email = u.Email,
                     Address = u.Address,
                     Active = u.Active,

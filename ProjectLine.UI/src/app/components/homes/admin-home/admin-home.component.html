@@ -1,5 +1,5 @@
 <div class="container">
-    <mat-card class="mat-card-header Archived" id="hvr-sweep-to-bottom" *ngIf="RoleID ===1 || RoleID === 2">
+    <mat-card class="mat-card-header Archived" id="hvr-sweep-to-bottom" (click)='goListProjectsArchived()' *ngIf="RoleID ===1 || RoleID === 2">
         <div>
             <div class="div-top">
                 <h1 class="hvr-icon">{{ArchivedProject}}</h1>
@@ -41,27 +41,30 @@
 </div>
 
 <mat-card class="container" *ngIf="RoleID ===2 || RoleID===1">
+    <h1 *ngIf="RoleID ===1">Projects</h1>
+    <h1 *ngIf="RoleID ===2 || RoleID ===3">My Projects</h1>
     <mat-card class="mat-card-Project" *ngFor="let project of ListProjects" (click)='goRouteLink(project)'>
-        <h3>{{project.Title}}</h3>
+        <h3 matTooltip={{project.Title}}>{{ShortName(project.Title)}}</h3>
         <div class="div-left">
             <h1>{{calculateProgress(project)}}%</h1>
             <h4>Completed</h4>
         </div>
         <div class="div-right">
             <h5>
-                <b>StarDate</b>
+                <b>Start Date</b>
             </h5>
-            <h5>{{project.StartDate | date: 'MMMM d'}}</h5>
+            <h5>{{project.StartDate | date: 'M/d/y'}}</h5>
             <h5>
-                <b>EndDate</b>
+                <b>Estimated End Date</b>
             </h5>
-            <h5>{{project.EndDate | date: 'MMMM d'}}</h5>
+            <h5>{{project.EndDate | date: 'M/d/y'}}</h5>
         </div>
     </mat-card>
 </mat-card>
 <mat-card class="container" *ngIf="RoleID ===3">
+    <h1 *ngIf="RoleID ===2 || RoleID ===3">My Projects</h1>
     <mat-card class="mat-card-Project" *ngFor="let project of ListProjects" (click)='goRouteLink(project)'>
-        <h3>{{project.Title}}</h3>
+        <h3 matTooltip={{project.Title}}>{{ShortName(project.Title)}}</h3>
         <div class="div-left">
             <h1>{{calculateProgress(project)}}%</h1>
             <h4>Completed</h4>
