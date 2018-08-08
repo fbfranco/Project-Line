@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 // services
 import { UserService } from '../../../services/user.service';
 import { ProjectService } from '../../../services/project.service';
@@ -33,6 +33,8 @@ export class AdminHomeComponent implements OnInit {
   OwnerName: string;
   OwnerPhone: string;
   ListPO: User[];
+  Title: string;
+  str: string;
 
   constructor(
     private userService: UserService,
@@ -82,6 +84,13 @@ export class AdminHomeComponent implements OnInit {
     }, error => {
       console.log('Error getting the list of ProjectsList');
     });
+  }
+  ShortName(title) {
+    if (title.length >= 10) {
+      return `${title.substr(0, 10)}...`;
+    } else {
+      return title;
+    }
   }
   getProjectListCL() {
     this.projectService.getProjectsListCL(this.UserID).subscribe(List => {

@@ -41,8 +41,10 @@
 </div>
 
 <mat-card class="container" *ngIf="RoleID ===2 || RoleID===1">
+    <h1 *ngIf="RoleID ===1">Projects</h1>
+    <h1 *ngIf="RoleID ===2 || RoleID ===3">My Projects</h1>
     <mat-card class="mat-card-Project" *ngFor="let project of ListProjects" (click)='goRouteLink(project)'>
-        <h3>{{project.Title}}</h3>
+        <h3 matTooltip={{project.Title}}>{{ShortName(project.Title)}}</h3>
         <div class="div-left">
             <h1>{{calculateProgress(project)}}%</h1>
             <h4>Completed</h4>
@@ -51,17 +53,18 @@
             <h5>
                 <b>Start Date</b>
             </h5>
-            <h5>{{project.StartDate | date: 'MMMM d'}}</h5>
+            <h5>{{project.StartDate | date: 'M/d/y'}}</h5>
             <h5>
                 <b>End Date</b>
             </h5>
-            <h5>{{project.EndDate | date: 'MMMM d'}}</h5>
+            <h5>{{project.EndDate | date: 'M/d/y'}}</h5>
         </div>
     </mat-card>
 </mat-card>
 <mat-card class="container" *ngIf="RoleID ===3">
+    <h1 *ngIf="RoleID ===2 || RoleID ===3">My Projects</h1>
     <mat-card class="mat-card-Project" *ngFor="let project of ListProjects" (click)='goRouteLink(project)'>
-        <h3>{{project.Title}}</h3>
+        <h3 matTooltip={{project.Title}}>{{ShortName(project.Title)}}</h3>
         <div class="div-left">
             <h1>{{calculateProgress(project)}}%</h1>
             <h4>Completed</h4>

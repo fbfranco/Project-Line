@@ -5,7 +5,7 @@
       <input  type="text"  placeholder="Project" (keyup)="resetData()" aria-label="Number" [formControl]="myControl" matInput [matAutocomplete]="ProjectList">
       <mat-error *ngIf="myControl.invalid">Select a Project from the list.</mat-error>
       <mat-autocomplete #ProjectList="matAutocomplete"  (optionSelected)="projectChanged($event)"  autoActiveFirstOption [displayWith]="displayTitleProject.bind(this)">
-        <mat-option  matTooltip={{project}} *ngFor="let project of filteredProyects | async" [value]="project.ProjectID">
+        <mat-option  matTooltip={{project.Title}} *ngFor="let project of filteredProyects | async" [value]="project.ProjectID">
           {{ project.Title }}
         </mat-option>
       </mat-autocomplete>
@@ -14,7 +14,7 @@
     <input type="text" placeholder="Phase" (keyup)="resetObjectives()" aria-label="Number" matInput [matAutocomplete]="PhasesList"  [formControl]="myControlPhase">
     <mat-error *ngIf="myControlPhase.invalid">Select a Phase from the list.</mat-error>
     <mat-autocomplete #PhasesList="matAutocomplete" (optionSelected)="phaseChanged($event)" autoActiveFirstOption [displayWith]="displayTitlePhase.bind(this)">
-      <mat-option matTooltip={{phase}} *ngFor="let phase of filteredPhases | async" [value]="phase.PhaseID">
+      <mat-option matTooltip={{phase.Title}} *ngFor="let phase of filteredPhases | async" [value]="phase.PhaseID">
         {{ phase.Title }}
       </mat-option>
     </mat-autocomplete>
