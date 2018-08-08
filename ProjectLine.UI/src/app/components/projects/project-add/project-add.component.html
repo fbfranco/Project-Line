@@ -50,7 +50,7 @@
       fxLayoutAlign.md="space-between start">
       <!-- Start Date -->
       <mat-form-field>
-        <input matInput [max]="projectFG.value.EndDate" [matDatepicker]="startdate" placeholder="Start Date *" formControlName="StartDate">
+        <input matInput [matDatepicker]="startdate" placeholder="Start Date *" formControlName="StartDate">
         <mat-error *ngIf="projectFG.get('StartDate').hasError('required')">This Field is Required.</mat-error>
         <mat-datepicker-toggle matSuffix [for]="startdate"></mat-datepicker-toggle>
         <mat-datepicker #startdate></mat-datepicker>
