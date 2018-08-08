@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 // Services
 import { ProjectService } from '../../../services/project.service';
 import { PhaseService } from '../../../services/phase.service';
+import { HelperService } from '../../../services/helper.service';
 // Models
 import { Project } from '../../../models/project.model';
 import { MatDialog } from '@angular/material';
@@ -19,17 +20,34 @@ export class ProjectListComponent implements OnInit {
   // List Projects
   ListProjects: Project[];
   HeaderColumns = ['Title', 'Description', 'StartDate', 'EndDate', 'Edit', 'Delete'];
+  HeaderColumnsArchived = ['Title', 'Description', 'StartDate', 'EndDate'];
   VariableSet: string;
+  Home: boolean;
 
   constructor(
     public projectService: ProjectService,
     private phasesService: PhaseService,
-    public dialog: MatDialog
-  ) { }
+    public dialog: MatDialog, private helperService: HelperService
+  ) {  }
 
   ngOnInit() {
-    // getting service data
+    this.Home = this.helperService.HomeInit;
+    if (this.Home === true) {
+      this.getProjectListArchived();
+      this.helperService.HomeInit = false;
+    } else {
+      this.getProjectList();
+    }
+  }
+  getProjectList() {
     this.projectService.getProjectsList().subscribe((datalist: Project[]) => {
+      this.ListProjects = datalist;
+    }, error => {
+      console.log('Error getting the list of projects');
+    });
+  }
+  getProjectListArchived() {
+    this.projectService.getArchivedProjectsList().subscribe((datalist: Project[]) => {
       this.ListProjects = datalist;
     }, error => {
       console.log('Error getting the list of projects');
@@ -54,12 +72,11 @@ export class ProjectListComponent implements OnInit {
           this.ListProjects = datalist;
         });
       });
-
   }
 
   openDialog(ids): void {
     const dialogRef = this.dialog.open(DialogConfirmationComponent, {
-      data: { title: 'Please confirm...', description: 'Are you sure you want to archive this item?' }
+      data: { title: 'Please confirm...', description: 'Are you sure you want to archive this item? This action cannot be undone' }
     });
     dialogRef.afterClosed().subscribe(result => {
       this.VariableSet = result;

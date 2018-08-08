@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck, AfterContentInit} from '@angular/core';
+import { Component, OnInit, DoCheck, AfterContentInit, HostListener } from '@angular/core';
 
 // Services
 import { ProjectService } from '../../../services/project.service';
@@ -29,6 +29,7 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
   InitTimeline: boolean;
   DisplayCard: boolean;
   isPhaseActual: boolean;
+  dateFormat: string;
 
   // filter autocomplete
   myControl = new FormControl();
@@ -36,9 +37,31 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
   filteredOptions: Observable<string[]>;
   DataProject: Project;
 
-  constructor(private router: Router, public projectService: ProjectService, public helperService: HelperService,
-    public sanitizer: DomSanitizer) {
+  constructor(
+    private router: Router,
+    public projectService: ProjectService,
+    public helperService: HelperService,
+    public sanitizer: DomSanitizer
+  ) { }
+
+  @HostListener('window:resize', ['$event'])
+
+  onResize(event) {
+    if (event.target.innerWidth < 768) {
+      this.dateFormat = 'MMM d';
+    } else {
+      this.dateFormat = 'MMMM d';
+    }
   }
+
+  onStart() {
+    if (window.innerWidth < 768) {
+      this.dateFormat = 'MMM d';
+    } else {
+      this.dateFormat = 'MMMM d';
+    }
+  }
+
   getProjectList() {
     this.projectService.getProjectsList().subscribe((datalist: Project[]) => {
       this.ListProjects = datalist;
@@ -68,10 +91,10 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
     this.DataProject = new Project;
     this.Hide = false;
     this.HomeInit();
+    this.onStart();
   }
   ngDoCheck() {
     if (this.InitTimeline) {
-      console.log(this.InitTimeline);
       $('.VivaTimeline').vivaTimeline({ carousel: false });
       this.InitTimeline = false;
     }

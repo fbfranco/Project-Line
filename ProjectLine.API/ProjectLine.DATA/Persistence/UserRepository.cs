@@ -68,7 +68,8 @@ namespace ProjectLine.DATA.Persistence
                 var result = listusers.Select(u => new User()
                 {
                     UserID = u.UserID,
-                    FirstName = u.FirstName
+                    FirstName = u.FirstName,
+                    LastName = u.LastName
                 });
                 return result;
             }
@@ -154,7 +155,6 @@ namespace ProjectLine.DATA.Persistence
                         update.Active = User.Active;
                         update.RoleID = User.RoleID;
                     }
-
 
                     Context.Entry(update).State = EntityState.Modified;
                     Context.SaveChanges();

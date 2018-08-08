@@ -1,46 +1,97 @@
-.percentage {
-    display: flex;
-    min-width: 20%;
-    @media screen and (min-width: 1280px) and (min-height: 720px) {
-        position: absolute;
-        flex-direction: column;
-    }
-    @if screen and (max-height: 719px) {
-        flex-direction: row;
+@mixin circleSize($circleSize) {
+    .circle {
+        width: $circleSize;
+        height: $circleSize;
+        min-width: $circleSize;
+        max-width: $circleSize;
+        min-height: $circleSize;
+        max-height: $circleSize;
     }
 }
 
-.circle {
-    min-width: 180px;
-    max-width: 100%;
+@mixin topPosition() {
+    @media screen and(min-width: 768px) {
+        width: 180px;
+    }
+    @media screen and(max-width: 767px) {
+        width: 360px;
+    }
+    height: 180px;
+    display: flex;
+    padding-right: 20%;
+    flex-direction: row;
+    flex-flow: row nowrap;
+    @include circleSize(180px);
+}
+
+.percentage {
+    @media screen and (min-width: 1280px) and (min-height: 640px) {
+        width: 16vw;
+        height: 16vw;
+        left: 0px;
+        top: 200px;
+        position: absolute;
+        @include circleSize(100%);
+    }
+    @media screen and (max-width: 1279px) {
+        @include topPosition();
+    }
+    @media screen and (max-height: 639px) {
+        @include topPosition();
+    }
+}
+
+@mixin labelContainer() {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-flow: row;
+    border-radius: 0px;
+    padding-bottom: 0px;
+    justify-content: space-between;
+    background-color: rgb(200, 200, 200);
+}
+
+@mixin showIcons($color) {
+    width: 20px;
+    height: 20px;
+    background-color: $color;
+}
+
+@mixin hoverCursor($color) {
+    cursor: pointer;
+    background-color: $color;
 }
 
 .legend {
-    display: flex;
-    flex-flow: row wrap;
-    align-self: center;
-    min-width: 140px;
-    min-height: 74px;
-    width: 140px;
+    width: 16vw;
     height: 74px;
-    padding: 14px;
-    background-color: rgb(200, 200, 200);
-    .completed {
-        background-color: rgb(6, 170, 214);
-        width: 20px;
-        height: 20px;
+    display: flex;
+    padding-left: 10%;
+    padding-right: 10%;
+    align-self: center;
+    flex-flow: row wrap;
+    justify-content: center;
+    .labelCompleted {
+        @include labelContainer();
+        &:hover {
+            @include hoverCursor( rgb(6, 170, 214));
+        }
     }
-    .pending {
-        background-color: rgb(210, 130, 10);
-        width: 20px;
-        height: 20px;
+    .labelPending {
+        @include labelContainer();
+        &:hover {
+            @include hoverCursor( rgb(210, 130, 10));
+        }
+    }
+    .iconCompleted {
+        @include showIcons( rgb(6, 170, 214));
+    }
+    .iconPending {
+        @include showIcons( rgb(210, 130, 10));
     }
     p {
         font-weight: bolder;
         font-size: 12px;
-        &:hover {
-            cursor: pointer;
-            font-style: italic;
-        }
     }
 }

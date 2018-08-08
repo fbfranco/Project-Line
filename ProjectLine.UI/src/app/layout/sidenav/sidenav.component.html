@@ -2,7 +2,7 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #sidenav mode="side" opened class="content-sidenav">
     <mat-menu #menu="matMenu" xPosition="before" [overlapTrigger]="false">
-      <button mat-menu-item>Logout</button>
+      <button (click)="GoStart()" mat-menu-item>Logout</button>
     </mat-menu>
     <button class="user-name" mat-button mat-button [matMenuTriggerFor]="menu" *ngIf="media.isActive('xs')">
       {{userName}}
@@ -37,7 +37,7 @@
       </mat-expansion-panel-header>
       <ul>
         <li>
-          <a routerLink="/Projects"> Projects</a>
+          <a (click)="goRouteLink('/Projects')"> Projects</a>
         </li>
         <li>
           <a (click)="goRouteLink('/Objectives')"> Objectives</a>

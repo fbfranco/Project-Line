@@ -1,5 +1,5 @@
 <div class="container">
-    <mat-card class="mat-card-header Archived" id="hvr-sweep-to-bottom" *ngIf="RoleID ===1 || RoleID === 2">
+    <mat-card class="mat-card-header Archived" id="hvr-sweep-to-bottom" (click)='goListProjectsArchived()' *ngIf="RoleID ===1 || RoleID === 2">
         <div>
             <div class="div-top">
                 <h1 class="hvr-icon">{{ArchivedProject}}</h1>
@@ -49,11 +49,11 @@
         </div>
         <div class="div-right">
             <h5>
-                <b>StarDate</b>
+                <b>Start Date</b>
             </h5>
             <h5>{{project.StartDate | date: 'MMMM d'}}</h5>
             <h5>
-                <b>EndDate</b>
+                <b>End Date</b>
             </h5>
             <h5>{{project.EndDate | date: 'MMMM d'}}</h5>
         </div>

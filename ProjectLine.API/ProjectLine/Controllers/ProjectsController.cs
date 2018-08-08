@@ -18,6 +18,12 @@ namespace ProjectLine.Controllers
             var project = await Repository.GetProjects();
             return project;
         }
+        // GET: api/Projects DESC
+        public async Task<IEnumerable<Project>> GetProjectsDES()
+        {
+            var project = await Repository.GetProjectsDES();
+            return project;
+        }
         // GET: api/ProjectsOwner/1
         public async Task<IEnumerable<Project>> GetProjectsPO(int id)
         {

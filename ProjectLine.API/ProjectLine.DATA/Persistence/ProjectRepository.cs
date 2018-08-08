@@ -24,12 +24,20 @@ namespace ProjectLine.DATA.Persistence
                 return result;
             }
         }
+        public async Task<IEnumerable<Project>> GetProjectsDES()
+        {
+            using (Context = new ProjectLineContext())
+            {
+                var result = await Context.Projects.Include("User").Include("Phases").Include("Phases.Objectives").Where(x => x.Active == true).OrderByDescending(x => x.ProjectID).ToListAsync();
+                return result;
+            }
+        }
         public async Task<IEnumerable<Project>> GetProjectsPO(int id)
         {
 
             using (Context = new ProjectLineContext())
             {
-                var result = await Context.Projects.Include("User").Include("Phases").Include("Phases.Objectives").Where(x => x.Active == true && x.OwnerID== id).ToListAsync();
+                var result = await Context.Projects.Include("User").Include("Phases").Include("Phases.Objectives").Where(x => x.Active == true && x.OwnerID== id).OrderByDescending(x => x.ProjectID).ToListAsync();
            
                 return result;
             }
@@ -162,17 +170,14 @@ namespace ProjectLine.DATA.Persistence
             foreach (var phase in project.Phases)
             {
                 phase.ProjectID = id;
-                if (phase.DemoVideo != null)
+                if (phase.DemoName == null || phase.DemoName.Equals(""))
                 {
-                    if (phase.DemoVideo.Equals(""))
-                    {
-                        phase.DemoUrl = "";
-                    }
-                    else
-                    {
-                        phase.DemoUrl = "/assets/Demo/" + phase.Title + "_" + phase.DemoName;
-                        SaveDemo(phase.DemoVideo, phase.DemoUrl);
-                    }
+                    phase.DemoUrl = "";
+                }
+                else if (phase.DemoVideo != null)
+                {
+                    phase.DemoUrl = "/assets/Demo/" + phase.Title + "_" + phase.DemoName;
+                    SaveDemo(phase.DemoVideo, phase.DemoUrl);
                 }
 
                 if (phase.PhaseID == 0)
