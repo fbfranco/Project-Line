@@ -25,34 +25,30 @@ export class SidenavComponent implements OnInit {
     public helperService: HelperService,
     private router: Router,
     private roleService: RolService
-  ) {
-    media.asObservable()
-      .pipe(
-        filter((change: MediaChange) => change.mqAlias === 'xs')
-      ).subscribe(() => this.sideNav.close());
-    media.asObservable()
-      .pipe(
-        filter((change: MediaChange) => change.mqAlias === 'sm')
-      ).subscribe(() => this.sideNav.open());
-  }
+  ) { }
 
   @HostListener('window:resize', ['$event'])
 
   onResize(event) {
-    if (event.target.innerWidth < 768) {
+    if (event.target.innerWidth <= 800) {
       this.sidenavMode = 'over';
       this.sidenavHide = true;
+      if (this.sideNav.opened) {
+        this.sideNav.close();
+      }
     } else {
       this.sidenavMode = 'side';
       this.sidenavHide = false;
+      if (!this.sideNav.opened) {
+        this.sideNav.open();
+      }
     }
   }
 
   onStart() {
-    if (window.innerWidth < 768) {
+    if (window.innerWidth <= 800) {
       this.sidenavMode = 'over';
       this.sidenavHide = true;
-      this.sideNav.close();
     } else {
       this.sidenavMode = 'side';
       this.sidenavHide = false;
@@ -76,7 +72,7 @@ export class SidenavComponent implements OnInit {
     } else {
       this.router.navigate([url]);
     }
-    document.getElementById('menu').blur();
+    document.getElementById('buttonMenu').blur();
   }
 
   // Roles and Permissions
