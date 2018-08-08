@@ -177,6 +177,11 @@ export class ProjectAddComponent implements OnInit {
       this.filteredClient = this.projectFG.controls.UserId.valueChanges.pipe(
         startWith(''), map(value => value ? this.filter(value, 0) : this.listClient));
       this.projectFG.controls['UserId'].setValidators([isSelectedValid(this.listClient)]);
+      this.activateRoute.params.subscribe(param => {
+        if (param['id'] !== undefined) {
+          this.projectFG.controls['UserId'].setValue(this.displayUserById(this.projectService.selectedProject.UserID, this.listClient));
+        }
+      });
     }, error => { console.log(error); });
   }
 
@@ -186,6 +191,11 @@ export class ProjectAddComponent implements OnInit {
       this.filteredOwner = this.projectFG.controls.OwnerId.valueChanges.pipe(
         startWith(''), map(value => value ? this.filter(value, 1) : this.listOwner));
       this.projectFG.controls['OwnerId'].setValidators([isSelectedValid(this.listOwner)]);
+      this.activateRoute.params.subscribe(param => {
+        if (param['id'] !== undefined) {
+          this.projectFG.controls['OwnerId'].setValue(this.displayUserById(this.projectService.selectedProject.OwnerID, this.listOwner));
+        }
+      });
     }, error => { console.log(error); });
   }
 
@@ -202,15 +212,19 @@ export class ProjectAddComponent implements OnInit {
   }
 
   displayUserById(id: number, list: User[]): User {
-    const index = list.findIndex(x => x.UserID === id);
+    let index = -1;
+    for (let i = 0; i < list.length; i++) {
+      const element = list[i];
+      if (element.UserID === id) {
+        index = i;
+      }
+    }
     return list[index];
   }
 
   newFormEditProject() {
     this.projectFG.patchValue({
       ProjectID: this.projectService.selectedProject.ProjectID,
-      UserId: this.displayUserById(this.projectService.selectedProject.UserID, this.listClient),
-      OwnerId: this.displayUserById(this.projectService.selectedProject.OwnerID, this.listOwner),
       Title: this.projectService.selectedProject.Title,
       Description: this.projectService.selectedProject.Description,
       StartDate: this.projectService.selectedProject.StartDate,
