@@ -6,6 +6,9 @@ import { Router } from '@angular/router';
 // Services
 import { HelperService } from '../../services/helper.service';
 import { RolService } from '../../services/rol.service';
+import { ProjectService } from '../../services/project.service';
+// Models
+import { Project } from '../../models/project.model';
 
 @Component({
   selector: 'app-sidenav',
@@ -19,12 +22,17 @@ export class SidenavComponent implements OnInit {
   public userName: string;
   sidenavMode: string;
   sidenavHide: boolean;
+  ListProject: Project[];
+  optionsProjects: string[] = [];
+  UserID: number;
+  RoleID: number;
 
   constructor(
     public media: ObservableMedia,
     public helperService: HelperService,
     private router: Router,
-    private roleService: RolService
+    private roleService: RolService,
+    private projectService: ProjectService
   ) {
     media.asObservable()
       .pipe(
@@ -61,6 +69,9 @@ export class SidenavComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.UserID = this.roleService.userActive.UserID;
+    this.RoleID = this.roleService.userActive.RoleID;
+    this.getProjectList();
     this.helperService.SlideMenu = this.sideNav;
     this.userName = this.roleService.userActive.Email;
     this.onStart();
@@ -99,6 +110,26 @@ export class SidenavComponent implements OnInit {
     localStorage.clear();
     this.roleService.permissions = [];
     this.router.navigate(['/']);
+  }
+
+  setOptionsProject() {
+    for (let index = 0; index < this.ListProject.length; index++) {
+      const element = this.ListProject[index];
+      this.optionsProjects.push(element.Title);
+    }
+  }
+  getProjectList() {
+    this.projectService.getProjectsListCL(this.UserID).subscribe((datalistProject: Project[]) => {
+      this.ListProject = datalistProject;
+      this.setOptionsProject();
+    }, error => {
+      console.log('Error getting the list of Phases');
+    });
+  }
+
+  goRouteProjects(project: Project) {
+    this.projectService.selectedProjectHome = project;
+    this.router.navigate(['/']).then(() => { this.router.navigate(['ProjectTracking'] ); });
   }
 
 }
