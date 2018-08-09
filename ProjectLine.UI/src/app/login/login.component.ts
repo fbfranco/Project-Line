@@ -47,6 +47,10 @@ export class LoginComponent implements OnInit {
       });
   }
 
+  ChangeStateVariable() {
+    this.isLoginError = false;
+  }
+
 
 
 }

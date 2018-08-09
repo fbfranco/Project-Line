@@ -20,8 +20,10 @@ export class AdminHomeComponent implements OnInit {
 
   InitTimeline: boolean;
   ListProjects: Project[];
+  ListProjectsPO: Project[];
   RegisteredUsers: number;
   ActiveProject: number;
+  ActiveProjectPC: number;
   ArchivedProject: number;
   objectiveNumber: number;
   objectiveCompleted: number;
@@ -54,7 +56,7 @@ export class AdminHomeComponent implements OnInit {
         break;
       case 2:
         this.getProjectListPO();
-        this.getArchivedProjectListPO();
+        this.getArchivedProjectList();
         break;
       case 3:
         this.getProjectListCL();
@@ -80,6 +82,12 @@ export class AdminHomeComponent implements OnInit {
   getProjectListPO() {
     this.projectService.getProjectsListPO(this.UserID).subscribe(List => {
       this.ListProjects = List;
+      this.ActiveProjectPC = List.length;
+    }, error => {
+      console.log('Error getting the list of ProjectsList');
+    });
+    this.projectService.getProjectsList().subscribe(List => {
+      this.ListProjectsPO = List;
       this.ActiveProject = List.length;
     }, error => {
       console.log('Error getting the list of ProjectsList');
@@ -95,6 +103,7 @@ export class AdminHomeComponent implements OnInit {
   getProjectListCL() {
     this.projectService.getProjectsListCL(this.UserID).subscribe(List => {
       this.ListProjects = List;
+      this.ActiveProject = this.ListProjects.length;
       this.ListProjects.forEach(element => {
         this.OwnerID = element.OwnerID;
       });

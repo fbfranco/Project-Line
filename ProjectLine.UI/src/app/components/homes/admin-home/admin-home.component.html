@@ -41,8 +41,8 @@
 </div>
 
 <mat-card class="container" *ngIf="RoleID ===2 || RoleID===1">
-    <h1 *ngIf="RoleID ===1">Projects</h1>
-    <h1 *ngIf="RoleID ===2 || RoleID ===3">My Projects</h1>
+    <h1 *ngIf="RoleID ===1 && ActiveProject > 0">Projects</h1>
+    <h1 *ngIf="RoleID ===2 && ActiveProjectPC > 0">My Projects</h1>
     <mat-card class="mat-card-Project" *ngFor="let project of ListProjects" (click)='goRouteLink(project)'>
         <h3 matTooltip={{project.Title}}>{{ShortName(project.Title)}}</h3>
         <div class="div-left">
@@ -62,7 +62,7 @@
     </mat-card>
 </mat-card>
 <mat-card class="container" *ngIf="RoleID ===3">
-    <h1 *ngIf="RoleID ===2 || RoleID ===3">My Projects</h1>
+    <h1 *ngIf="RoleID ===3 && ActiveProject > 0">My Projects</h1>
     <mat-card class="mat-card-Project" *ngFor="let project of ListProjects" (click)='goRouteLink(project)'>
         <h3 matTooltip={{project.Title}}>{{ShortName(project.Title)}}</h3>
         <div class="div-left">

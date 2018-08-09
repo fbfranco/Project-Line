@@ -10,13 +10,13 @@
         <form novalidate [formGroup]="userFormGroup" (ngSubmit)="submitLogin()">
             <mat-card-content mat-dialog-content fxLayout="column">
                 <mat-form-field appearance="outline">
-                    <input type="email" matInput #Email placeholder="Email" maxlength="25" formControlName="Email">
+                    <input type="email" matInput #Email placeholder="Email" maxlength="25" formControlName="Email" (focus)="ChangeStateVariable()">
                     <mat-icon matSuffix>
                         <i class="fas fa-user" hide=true></i>
                     </mat-icon>
                 </mat-form-field>
                 <mat-form-field appearance="outline" required>
-                    <input matInput #Password placeholder="Password" maxlength="25" type="password" formControlName="Password" pattern="^[a-zA-Z0-9].*">
+                    <input matInput #Password placeholder="Password" maxlength="25" type="password" (focus)="ChangeStateVariable()" formControlName="Password" pattern="^[a-zA-Z0-9].*">
                     <mat-icon matSuffix>
                         <i class="fas fa-unlock-alt" hide=true></i>
                     </mat-icon>
