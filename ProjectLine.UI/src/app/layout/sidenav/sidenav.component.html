@@ -42,10 +42,29 @@
         </li>
       </ul>
     </mat-expansion-panel>
-    <button mat-button (click)="goRouteLink('ProjectTracking', true)" *ngIf="verifyPermission('ProjectTracking_View')">
+        <button mat-button (click)="goRouteLink('ProjectTracking', true)" *ngIf="RoleID === 1 || RoleID === 2">
       &nbsp;
       <i class="fas fa-chart-line"></i>Project Tracking
     </button>
+    <mat-expansion-panel class="SubMenu-Styles mat-elevation-z0" *ngIf="RoleID === 3">
+      <mat-expansion-panel-header>
+        <mat-panel-title class="Sub-Title">
+          <i class="fas fa-chart-line"></i>&nbsp;&nbsp; Project Tracking
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <ul *ngIf="RoleID === 3">
+        <mat-nav-list #Projects >
+          <mat-list-item *ngFor="let project of ListProject"  (click)='goRouteProjects(project)' >
+            <li>
+              <a matLine>{{ project.Title }}</a>
+            </li>
+          </mat-list-item>
+        </mat-nav-list>
+      </ul>
+
+    </mat-expansion-panel>
+
   </mat-sidenav>
   <mat-sidenav-content class="main-container" fxLayout="column">
     <app-main-container></app-main-container>

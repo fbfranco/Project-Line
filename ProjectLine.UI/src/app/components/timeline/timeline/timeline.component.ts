@@ -2,6 +2,7 @@ import { Component, OnInit, DoCheck, AfterContentInit, HostListener } from '@ang
 
 // Services
 import { ProjectService } from '../../../services/project.service';
+import { RolService } from '../../../services/rol.service';
 import { HelperService } from '../../../services/helper.service';
 // Models
 import { Phase } from '../../../models/phase.model';
@@ -37,9 +38,13 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
   filteredOptions: Observable<Project[]>;
   DataProject: Project;
 
+  // Others
+  RoleID: number;
+
   constructor(
     private router: Router,
     public projectService: ProjectService,
+    private roleService: RolService,
     public helperService: HelperService,
     public sanitizer: DomSanitizer
   ) { }
@@ -87,6 +92,7 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
   }
 
   ngOnInit() {
+    this.RoleID = this.roleService.userActive.RoleID;
     this.DisplayCard = false;
     this.options = [];
     this.getProjectList();
