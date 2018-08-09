@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { MatSidenav } from '@angular/material';
-import { ObservableMedia, MediaChange } from '@angular/flex-layout';
-import { filter } from 'rxjs/operators';
+import { ObservableMedia } from '@angular/flex-layout';
+import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 // Services
 import { HelperService } from '../../services/helper.service';
@@ -24,7 +24,8 @@ export class SidenavComponent implements OnInit {
     public media: ObservableMedia,
     public helperService: HelperService,
     private router: Router,
-    private roleService: RolService
+    private roleService: RolService,
+    private snackBar: MatSnackBar
   ) { }
 
   @HostListener('window:resize', ['$event'])
@@ -73,6 +74,7 @@ export class SidenavComponent implements OnInit {
       this.router.navigate([url]);
     }
     document.getElementById('buttonMenu').blur();
+    this.snackBar.dismiss();
   }
 
   // Roles and Permissions
