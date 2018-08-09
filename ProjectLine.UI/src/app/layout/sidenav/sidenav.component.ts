@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { MatSidenav } from '@angular/material';
-import { ObservableMedia } from '@angular/flex-layout';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 // Services
@@ -21,7 +20,6 @@ export class SidenavComponent implements OnInit {
   sidenavHide: boolean;
 
   constructor(
-    public media: ObservableMedia,
     public helperService: HelperService,
     private router: Router,
     private roleService: RolService,
