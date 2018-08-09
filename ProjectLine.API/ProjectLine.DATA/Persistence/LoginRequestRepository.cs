@@ -26,7 +26,8 @@ namespace ProjectLine.DATA.Persistence
                 {
                     var equal = true;
                     /* Fetch the stored value */
-                    string savedPasswordHash = Context.Users.Where(u => u.Email == credentials.Email).Select(u => u.Password).First();
+                    //string savedPasswordHash = Context.Users.Where(u => u.Email == credentials.Email).Select(u => u.Password).First();
+                    string savedPasswordHash = Context.Users.Where(u => u.Email == credentials.Email && u.Active == true).Select(u => u.Password).First();
                     /* Extract the bytes */
                     byte[] hashBytes = Convert.FromBase64String(savedPasswordHash);
                     /* Get the salt */

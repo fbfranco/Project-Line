@@ -31,7 +31,6 @@ export class RolesListComponent implements OnInit {
   }
   getRoleList() {
     this.rolService.getRolesList().subscribe((datalist: Rol[]) => {
-      console.log(datalist);
       this.ListRoles = datalist;
     }, error => {
       console.log('Error getting the list of projects');
