@@ -33,8 +33,8 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
 
   // filter autocomplete
   myControl = new FormControl();
-  options: string[];
-  filteredOptions: Observable<string[]>;
+  options: Project[];
+  filteredOptions: Observable<Project[]>;
   DataProject: Project;
 
   constructor(
@@ -62,6 +62,11 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
     }
   }
 
+  displayNameProject(project) {
+    if (!project) { return ''; }
+    return project.Title;
+  }
+
   getProjectList() {
     this.projectService.getProjectsList().subscribe((datalist: Project[]) => {
       this.ListProjects = datalist;
@@ -72,13 +77,15 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
   setOptions() {
     for (let index = 0; index < this.ListProjects.length; index++) {
       const element = this.ListProjects[index];
-      this.options.push(element.Title);
+      this.options.push(element);
     }
   }
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  private _filter(value: string): Project[] {
+    console.log(value);
+    const filterValue = value.toString().toLowerCase();
+    return this.options.filter(option => option.Title.toLowerCase().includes(filterValue));
   }
+
   ngOnInit() {
     this.DisplayCard = false;
     this.options = [];
@@ -122,12 +129,8 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
   }
   // Get the dates of the selected project
   projectChanged(event): void {
-    this.InitTimeline = event.option.value === this.DataProject.Title ? false : true;
-    this.ListProjects.forEach(element => {
-      if (element.Title === event.option.value) {
-        this.DataProject = this.projectService.selectedProject = element;
-      }
-    });
+    this.InitTimeline = this.myControl.value.Title === this.DataProject.Title ? false : true;
+    this.DataProject = this.myControl.value;
     this.PhaseModel = this.DataProject.Phases;
     this.sortPhaseDates(this.PhaseModel);
     this.Hide = true;

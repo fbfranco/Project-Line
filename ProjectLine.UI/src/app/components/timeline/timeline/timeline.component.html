@@ -5,9 +5,9 @@
   <mat-form-field id="AutocompleteProject">
     <input type="text" (change)="inputEmpty($event)" placeholder="Project" aria-label="Number" [formControl]="myControl" matInput
       [matAutocomplete]="ProjectList">
-    <mat-autocomplete #ProjectList="matAutocomplete" (optionSelected)="projectChanged($event)" autoActiveFirstOption>
-      <mat-option matTooltip={{option}} *ngFor="let option of filteredOptions | async" [value]="option">
-        {{ option }}
+    <mat-autocomplete #ProjectList="matAutocomplete" (optionSelected)="projectChanged($event)" autoActiveFirstOption [displayWith]="displayNameProject">
+      <mat-option matTooltip={{option.Title}} *ngFor="let option of filteredOptions | async" [value]="option">
+        {{ option.Title }}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>

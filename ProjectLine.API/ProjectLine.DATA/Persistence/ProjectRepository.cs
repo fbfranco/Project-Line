@@ -116,6 +116,7 @@ namespace ProjectLine.DATA.Persistence
                     {
                         //Get Project of the DB
                         var update = FindById(project.ProjectID);
+                        DeletePhasesExistens(update,project, context);
 
                         //Update Project Data
                         update.Title = project.Title;
@@ -129,7 +130,6 @@ namespace ProjectLine.DATA.Persistence
                         context.SaveChanges();
 
                         AddOrUpdatePhases(project, update.ProjectID, context);
-                        DeletePhasesExistens(project, context);
 
                         Trans.Commit();
                     }
@@ -195,9 +195,9 @@ namespace ProjectLine.DATA.Persistence
             byte[] demoFile = Convert.FromBase64String(video);
             File.WriteAllBytes(HttpContext.Current.Server.MapPath(path), demoFile);
         }
-        private void DeletePhasesExistens(Project projectExist, ProjectLineContext context)
+        private void DeletePhasesExistens(Project updateProject, Project projectExist, ProjectLineContext context)
         {
-            foreach (var phaseDelete in projectExist.Phases)
+            foreach (var phaseDelete in updateProject.Phases)
             {
                 var phaseFound = false;
                 foreach (var phaseView in projectExist.Phases)

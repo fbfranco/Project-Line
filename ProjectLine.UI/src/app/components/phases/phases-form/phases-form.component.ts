@@ -100,7 +100,7 @@ export class PhasesFormComponent implements OnInit {
     const ext = files[0].name.toUpperCase().split('.').pop() || files[0].name;
     const exists = extensions.includes(ext);
     if (!exists) {
-        this.errors.push('Error (Extension): ' + files[0].name);
+        this.errors.push(`File format is invalid`);
     }
     this.isValidFileSize(files[0]);
   }
