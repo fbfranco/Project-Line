@@ -106,7 +106,7 @@ export class UsersListComponent implements OnInit {
         });
       }
     } else {
-      this.snackBar.open('This user has logged in,and cannot be deleted.', 'OK', {
+      this.snackBar.open('This user has logged in, and cannot be deleted.', 'OK', {
         horizontalPosition: 'right',
       });
     }

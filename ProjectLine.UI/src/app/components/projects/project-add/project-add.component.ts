@@ -75,7 +75,7 @@ export class ProjectAddComponent implements OnInit {
       Title: `New Phase`,
       Description: '',
       StartDate: this.projectFG.get('StartDate').value,
-      EndDate: new Date()
+      EndDate: this.projectFG.get('StartDate').value
     });
     this.dataSource = new MatTableDataSource(this.phaseService.phaseList);
   }
