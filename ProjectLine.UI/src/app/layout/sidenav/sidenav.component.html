@@ -8,7 +8,7 @@
       {{userName}}
       <i class="fas fa-circle"></i>
     </button>
-    <button mat-button (click)="goRouteLink('Home')">
+    <button mat-button (click)="goRouteLink('Home', true)">
       &nbsp;
       <i class="fas fa-home"></i>Home
     </button>
@@ -20,10 +20,10 @@
       </mat-expansion-panel-header>
       <ul>
         <li>
-          <a (click)="goRouteLink('Users')"> Users</a>
+          <a (click)="goRouteLink('Users', true)"> Users</a>
         </li>
         <li>
-          <a (click)="goRouteLink('Roles')"> Roles</a>
+          <a (click)="goRouteLink('Roles', true)"> Roles</a>
         </li>
       </ul>
     </mat-expansion-panel>
@@ -42,7 +42,7 @@
         </li>
       </ul>
     </mat-expansion-panel>
-        <button mat-button (click)="goRouteLink('ProjectTracking', true)" *ngIf="RoleID === 1 || RoleID === 2">
+    <button mat-button (click)="goRouteLink('ProjectTracking', true)" *ngIf="RoleID === 1 || RoleID === 2">
       &nbsp;
       <i class="fas fa-chart-line"></i>Project Tracking
     </button>
@@ -54,8 +54,8 @@
       </mat-expansion-panel-header>
 
       <ul *ngIf="RoleID === 3">
-        <mat-nav-list #Projects >
-          <mat-list-item *ngFor="let project of ListProject"  (click)='goRouteProjects(project)' >
+        <mat-nav-list #Projects>
+          <mat-list-item *ngFor="let project of ListProject" (click)='goRouteProjects(project)'>
             <li>
               <a matLine>{{ project.Title }}</a>
             </li>

@@ -53,9 +53,13 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
 
   onResize(event) {
     if (event.target.innerWidth < 768) {
-      this.dateFormat = 'MMM d';
+      if (this.dateFormat === 'MMMM d') {
+        this.dateFormat = 'MMM d';
+      }
     } else {
-      this.dateFormat = 'MMMM d';
+      if (this.dateFormat === 'MMM d') {
+        this.dateFormat = 'MMMM d';
+      }
     }
   }
 
@@ -86,7 +90,6 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
     }
   }
   private _filter(value: string): Project[] {
-    console.log(value);
     const filterValue = value.toString().toLowerCase();
     return this.options.filter(option => option.Title.toLowerCase().includes(filterValue));
   }

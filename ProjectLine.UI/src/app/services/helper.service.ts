@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as _moment from 'moment';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 const moment = _moment;
 
@@ -47,42 +47,12 @@ export class HelperService {
     return monthsValues;
   }
 
-  notAllowStartWithSpace(formGroup: FormGroup) {
-    const controls = formGroup.controls;
-    for (const key in controls) {
-      if (controls.hasOwnProperty(key)) {
-        if (typeof controls[key].value === 'string') {
-          controls[key].valueChanges.subscribe(
-            data => {
-              if (data.charAt(0) === ' ') {
-                controls[key].patchValue(controls[key].value.trim());
-              }
-            }
-          );
-        }
-      }
-    }
-  }
-
-  notAllowStartWithSpaceSpecific(formGroup: FormGroup, controlName: string) {
-    formGroup.controls[controlName].valueChanges.subscribe(
-      data => {
-        if (data.charAt(0) === ' ') {
-          formGroup.controls[controlName].patchValue(
-            formGroup.controls[controlName].value.trim()
-          );
-        }
-      }
-    );
-  }
-
   removeWhiteSpaces(formGroup: FormGroup) {
     const controls = formGroup.controls;
     for (const key in controls) {
       if (controls.hasOwnProperty(key)) {
         if (typeof controls[key].value === 'string') {
           controls[key].patchValue(controls[key].value.trim());
-          console.log(controls[key].value);
         }
       }
     }
@@ -96,28 +66,6 @@ export class HelperService {
         }
       }
     }
-  }
-
-  replaceWhiteSpaces(formGroup: FormGroup) {
-    const controls = formGroup.controls;
-    for (const key in controls) {
-      if (controls.hasOwnProperty(key)) {
-        if (typeof controls[key].value === 'string') {
-          controls[key].patchValue(controls[key].value.replace(/\s\s+/g, ' '));
-          controls[key].patchValue(controls[key].value.trim());
-        }
-      }
-    }
-  }
-
-  notAllowStartWithSpaceControl(formControl: FormControl) {
-    formControl.valueChanges.subscribe(
-      data => {
-        if (data.charAt(0) === ' ') {
-          formControl.patchValue('');
-        }
-      }
-    );
   }
 
 }

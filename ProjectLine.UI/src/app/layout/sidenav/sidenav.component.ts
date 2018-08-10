@@ -35,16 +35,7 @@ export class SidenavComponent implements OnInit {
     private roleService: RolService,
     private snackBar: MatSnackBar,
     private projectService: ProjectService
-  ) {
-/*     media.asObservable()
-      .pipe(
-        filter((change: MediaChange) => change.mqAlias === 'xs')
-      ).subscribe(() => this.sideNav.close());
-    media.asObservable()
-      .pipe(
-        filter((change: MediaChange) => change.mqAlias === 'sm')
-      ).subscribe(() => this.sideNav.open()); */
-  }
+  ) { }
 
   @HostListener('window:resize', ['$event'])
 
