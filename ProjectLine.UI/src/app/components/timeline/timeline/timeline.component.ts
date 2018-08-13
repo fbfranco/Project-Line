@@ -125,7 +125,7 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
       document.execCommand($('.events-body').slideUp());
 
       this.PhaseModel.forEach(element => {
-        if (new Date().getTime() >= new Date(element.StartDate).getTime() && new Date().getTime() <= new Date(element.EndDate).getTime()) {
+        if (new Date().getDate() >= new Date(element.StartDate).getDate() && new Date().getDate() <= new Date(element.EndDate).getDate()) {
           element.StatePhase = true;
         } else {
           element.StatePhase = false;
