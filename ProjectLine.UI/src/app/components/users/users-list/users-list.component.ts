@@ -10,6 +10,7 @@ import { Rol } from '../../../models/rol';
 // Components
 import { DialogConfirmationComponent } from '../../dialog/dialog-confirmation/dialog-confirmation.component';
 import { Project } from '../../../models/project.model';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-users-list',
@@ -27,7 +28,8 @@ export class UsersListComponent implements OnInit {
     public rolService: RolService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -88,8 +90,8 @@ export class UsersListComponent implements OnInit {
   }
 
   openDialogDelete(id: number) {
-    if (this.rolService.userActive.UserID !== id) {
-      if (!this.assignedUser(id) && this.rolService.userActive.UserID !== id) {
+    if (this.authService.UserID !== id) {
+      if (!this.assignedUser(id)) {
         const dialogRef = this.dialog.open(DialogConfirmationComponent, {
           data: { title: 'Please confirm...', description: 'Are you sure you want to remove this item?' }
         });

@@ -3,11 +3,10 @@ import { MatSidenav } from '@angular/material';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { ObservableMedia } from '@angular/flex-layout';
-
 // Services
 import { HelperService } from '../../services/helper.service';
-import { RolService } from '../../services/rol.service';
 import { ProjectService } from '../../services/project.service';
+import { AuthService } from '../../services/auth.service';
 // Models
 import { Project } from '../../models/project.model';
 
@@ -32,11 +31,10 @@ export class SidenavComponent implements OnInit {
     public media: ObservableMedia,
     public helperService: HelperService,
     private router: Router,
-    private roleService: RolService,
     private snackBar: MatSnackBar,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private authService: AuthService
   ) { }
-
   @HostListener('window:resize', ['$event'])
 
   onResize(event) {
@@ -67,11 +65,11 @@ export class SidenavComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.UserID = this.roleService.userActive.UserID;
-    this.RoleID = this.roleService.userActive.RoleID;
+    this.UserID = this.authService.UserID;
+    this.RoleID = this.authService.RoleID;
     this.getProjectList();
     this.helperService.SlideMenu = this.sideNav;
-    this.userName = this.roleService.userActive.Email;
+    this.userName = this.authService.Email;
     this.onStart();
   }
 
@@ -89,10 +87,8 @@ export class SidenavComponent implements OnInit {
     this.snackBar.dismiss();
   }
 
-  // Roles and Permissions
-
   verifyPermission(value: string): boolean {
-    const permissions: string[] = this.roleService.permissions;
+    const permissions: string[] = this.authService.permissions;
     let permit = false;
     if (permissions.length > 0) {
       permissions.forEach(permission => {
@@ -106,7 +102,7 @@ export class SidenavComponent implements OnInit {
 
   GoStart() {
     localStorage.clear();
-    this.roleService.permissions = [];
+    this.authService.permissions = [];
     this.router.navigate(['/']);
   }
 

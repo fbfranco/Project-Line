@@ -1,4 +1,5 @@
-﻿using ProjectLine.CORE.ViewModel;
+﻿using ProjectLine.CORE.Models;
+using ProjectLine.CORE.ViewModel;
 using ProjectLine.DATA.Config;
 using ProjectLine.DATA.Security;
 using System;
@@ -15,7 +16,21 @@ namespace ProjectLine.DATA.Persistence
         private ProjectLineContext Context;
         public string LoginAuthentication(LoginRequest credentials)
         {
-            return Hash(credentials) ? TokenGenerator.GenerateTokenJwt(credentials.Email) : "";
+            using (Context = new ProjectLineContext())
+            {
+                try
+                {
+                    User user = Context.Users.Where(u => u.Email == credentials.Email).First();
+                    return Hash(credentials) ? TokenGenerator.GenerateTokenJwt(credentials.Email, user) : "";
+                }
+                catch (Exception)
+                {
+
+                    return "";
+                }
+            }
+            
+            
         }
         public bool Hash(LoginRequest credentials)
         {

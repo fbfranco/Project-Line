@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 // services
 import { UserService } from '../../../services/user.service';
 import { ProjectService } from '../../../services/project.service';
-import { RolService } from '../../../services/rol.service';
+import { AuthService } from '../../../services/auth.service';
 import { HelperService } from '../../../services/helper.service';
 // model
 import { Project } from '../../../models/project.model';
@@ -16,7 +16,6 @@ declare var $: any;
   styleUrls: ['./admin-home.component.scss']
 })
 export class AdminHomeComponent implements OnInit {
-
 
   InitTimeline: boolean;
   ListProjects: Project[];
@@ -42,8 +41,8 @@ export class AdminHomeComponent implements OnInit {
     private userService: UserService,
     private projectService: ProjectService,
     private router: Router,
-    private roleService: RolService,
-    private helperService: HelperService
+    private helperService: HelperService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -138,8 +137,8 @@ export class AdminHomeComponent implements OnInit {
     });
   }
   InitializeVariables() {
-    this.RoleID = this.roleService.userActive.RoleID;
-    this.UserID = this.roleService.userActive.UserID;
+    this.RoleID = this.authService.RoleID;
+    this.UserID = this.authService.UserID;
     this.ActiveProject = 0;
     this.RegisteredUsers = 0;
     this.ArchivedProject = 0;

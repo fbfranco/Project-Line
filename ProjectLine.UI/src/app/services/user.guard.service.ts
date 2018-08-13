@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
-import { RolService } from './rol.service';
+// Services
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class UserGuard implements CanActivate {
     constructor(
         private router: Router,
-        private roleService: RolService
+        private authService: AuthService
     ) { }
 
     canActivate() {
         let active = false;
-        this.roleService.permissions.forEach(permission => {
+        this.authService.permissions.forEach(permission => {
             if (permission === 'User_View') {
                 active = true;
             }

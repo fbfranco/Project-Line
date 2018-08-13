@@ -2,7 +2,6 @@ import { Component, OnInit, DoCheck, AfterContentInit, HostListener } from '@ang
 
 // Services
 import { ProjectService } from '../../../services/project.service';
-import { RolService } from '../../../services/rol.service';
 import { HelperService } from '../../../services/helper.service';
 // Models
 import { Phase } from '../../../models/phase.model';
@@ -12,7 +11,7 @@ import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { DomSanitizer } from '@angular/platform-browser';
-import { NavigationEnd, Router } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 
 declare var $: any;
 @Component({
@@ -42,11 +41,10 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
   RoleID: number;
 
   constructor(
-    private router: Router,
     public projectService: ProjectService,
-    private roleService: RolService,
     public helperService: HelperService,
-    public sanitizer: DomSanitizer
+    public sanitizer: DomSanitizer,
+    private autService: AuthService
   ) { }
 
   @HostListener('window:resize', ['$event'])
@@ -95,7 +93,7 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
   }
 
   ngOnInit() {
-    this.RoleID = this.roleService.userActive.RoleID;
+    this.RoleID = this.autService.RoleID;
     this.DisplayCard = false;
     this.options = [];
     this.getProjectList();
