@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { Http, Response, Headers, RequestOptions, RequestMethod } from '@angular/http';
-import { Observable } from 'rxjs';
+import { Http, Headers, RequestOptions, RequestMethod } from '@angular/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  // Navigation variables
+  public UserID: number;
+  public RoleID: number;
+  public Email: string;
+  public permissions: string[] = [];
 
   private apiURL = 'http://localhost:44226/api/Login/';
 
