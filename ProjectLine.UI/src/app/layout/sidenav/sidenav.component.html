@@ -2,7 +2,7 @@
 <mat-sidenav-container class="sidenav-container" [hasBackdrop]="false">
   <mat-sidenav #sidenav mode={{sidenavMode}} class="content-sidenav">
     <mat-menu #menu="matMenu" xPosition="before" [overlapTrigger]="false">
-      <button (click)="GoStart()" mat-menu-item>Logout</button>
+      <button (click)="GoStart()" mat-menu-item>Log out</button>
     </mat-menu>
     <button class="user-name" mat-button mat-button [matMenuTriggerFor]="menu" *ngIf="media.isActive('xs')">
       {{userName}}

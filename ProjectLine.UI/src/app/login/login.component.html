@@ -3,8 +3,8 @@
         <mat-card-header fxLayoutAlign="center start">
             <mat-card-title>
             </mat-card-title>
-            <div *ngIf="isLoginError" style="color: red; margin-bottom: 10px;" class="red-text center error-message">
-                <i class="material-icons">error</i> Login failed. Invalid email or password supplied.
+            <div *ngIf="isLoginError"  class="classMessage">
+                <i class="fas fa-exclamation-circle">  </i>   Login failed. Invalid email or password supplied.
             </div>
         </mat-card-header>
         <form novalidate [formGroup]="userFormGroup" (ngSubmit)="submitLogin()">

@@ -11,7 +11,7 @@
     <div class="content-title" fxLayout="row" fxLayoutAlign="space-between center">
       <h3 class="ProjectTitle" routerLink="Home">ProjectLine</h3>
       <mat-menu #menu="matMenu" xPosition="before" [overlapTrigger]="false">
-        <button mat-menu-item (click)="GoStart()">Logout</button>
+        <button mat-menu-item (click)="GoStart()">Log out</button>
       </mat-menu>
       <button class="user-name" mat-button [matMenuTriggerFor]="menu" *ngIf="!media.isActive('xs')">
         {{userName}}
