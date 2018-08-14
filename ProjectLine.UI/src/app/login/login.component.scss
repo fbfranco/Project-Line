@@ -1,0 +1,56 @@
+@mixin centered($top) {
+    position: absolute;
+    top: $top;
+    left: 50%;
+    margin: auto;
+    transform: translate(-50%, -50%);
+}
+
+.dialogdemoBasicUsage #popupContainer {
+    position: relative;
+}
+
+.container {
+    width: 400px;
+    height: 500px;
+    @include centered(50%);
+    @media screen and (max-width: 500px) {
+        width: 80vw;
+    }
+}
+
+#login-dialog {
+    max-width: 90%;
+    width: 500px;
+}
+
+img {
+    height: 150px;
+    @include centered(10%);
+}
+
+.mat-card {
+    width: 100%;
+    height: 285px;
+    @include centered(60%);
+}
+
+.form-row {
+    display: flex;
+}
+
+.form-row input {
+    flex: 1;
+}
+
+.fa-exclamation-circle:before {
+    content: "\f06a";
+    font-size: 13px;
+    float: left;
+}
+
+.classMessage {
+    color: red;
+    margin-bottom: 10px;
+    font-size: 12px;
+}
