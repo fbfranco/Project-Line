@@ -1,5 +1,5 @@
 // Config
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -35,7 +35,7 @@ const helpers = new HelperService();
     { provide: MAT_DATE_FORMATS, useValue: helpers.formats },
   ]
 })
-export class ProjectAddComponent implements OnInit {
+export class ProjectAddComponent implements OnInit, OnDestroy {
 
   projectFormGroup: FormGroup;
   titleForm = '';
@@ -69,6 +69,11 @@ export class ProjectAddComponent implements OnInit {
     this.loadClient();
     this.loadOwner();
     this.addOrEditForm();
+    this.helperService.DiscardInit = true;
+  }
+
+  ngOnDestroy() {
+    this.helperService.DiscardInit = false;
   }
 
   AddRows() {
