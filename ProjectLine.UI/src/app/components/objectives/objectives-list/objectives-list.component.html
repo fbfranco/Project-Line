@@ -1,24 +1,27 @@
 <h1>Objectives</h1>
 <form novalidate (ngSubmit)="openDialog()" [formGroup]="formGroup">
   <input type="hidden" #phaseID formControlName="id" required/>
-  <mat-form-field class="AutocompleteProject">
-      <input  type="text"  placeholder="Project" (keyup)="resetData()" aria-label="Number" [formControl]="myControl" matInput [matAutocomplete]="ProjectList">
-      <mat-error *ngIf="myControl.invalid">Select a Project from the list.</mat-error>
-      <mat-autocomplete #ProjectList="matAutocomplete"  (optionSelected)="projectChanged($event)"  autoActiveFirstOption [displayWith]="displayTitleProject.bind(this)">
-        <mat-option  matTooltip={{project.Title}} *ngFor="let project of filteredProyects | async" [value]="project.ProjectID">
-          {{ project.Title }}
+  <div fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign.gt-xs="space-between start"
+  fxLayoutAlign.md="space-between start">
+    <mat-form-field class="AutocompleteProject">
+        <input  type="text"  placeholder="Project" (keyup)="resetData()" aria-label="Number" [formControl]="myControl" matInput [matAutocomplete]="ProjectList">
+        <mat-error *ngIf="myControl.invalid">Select a Project from the list.</mat-error>
+        <mat-autocomplete #ProjectList="matAutocomplete"  (optionSelected)="projectChanged($event)"  autoActiveFirstOption [displayWith]="displayTitleProject.bind(this)">
+          <mat-option  matTooltip={{project.Title}} *ngFor="let project of filteredProyects | async" [value]="project.ProjectID">
+            {{ project.Title }}
+          </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field class="AutocompletePhases">
+      <input type="text" placeholder="Phase" (keyup)="resetObjectives()" aria-label="Number" matInput [matAutocomplete]="PhasesList"  [formControl]="myControlPhase">
+      <mat-error *ngIf="myControlPhase.invalid">Select a Phase from the list.</mat-error>
+      <mat-autocomplete #PhasesList="matAutocomplete" (optionSelected)="phaseChanged($event)" autoActiveFirstOption [displayWith]="displayTitlePhase.bind(this)">
+        <mat-option matTooltip={{phase.Title}} *ngFor="let phase of filteredPhases | async" [value]="phase.PhaseID">
+          {{ phase.Title }}
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-  <mat-form-field class="AutocompletePhases">
-    <input type="text" placeholder="Phase" (keyup)="resetObjectives()" aria-label="Number" matInput [matAutocomplete]="PhasesList"  [formControl]="myControlPhase">
-    <mat-error *ngIf="myControlPhase.invalid">Select a Phase from the list.</mat-error>
-    <mat-autocomplete #PhasesList="matAutocomplete" (optionSelected)="phaseChanged($event)" autoActiveFirstOption [displayWith]="displayTitlePhase.bind(this)">
-      <mat-option matTooltip={{phase.Title}} *ngFor="let phase of filteredPhases | async" [value]="phase.PhaseID">
-        {{ phase.Title }}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
+  </div>
 
   <div class="div-controller ">
     <button mat-raised-button color="primary" type="submit" [disabled]="formGroup.invalid || (myControl.invalid || myControlPhase.invalid) || (myControl.value.length === 0 || myControlPhase.value.length === 0)"> Add Objective </button>

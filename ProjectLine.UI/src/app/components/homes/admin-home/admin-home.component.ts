@@ -31,8 +31,8 @@ export class AdminHomeComponent implements OnInit {
   RoleID: number;
   UserID: number;
   OwnerID: number;
-  OwnerName: string;
-  OwnerPhone: string;
+  OwnerName: string [] = [];
+  OwnerPhone: string [] = [];
   ListPO: User[];
   Title: string;
   str: string;
@@ -102,11 +102,12 @@ export class AdminHomeComponent implements OnInit {
   getProjectListCL() {
     this.projectService.getProjectsListCL(this.UserID).subscribe(List => {
       this.ListProjects = List;
+      console.log(this.ListProjects);
       this.ActiveProject = this.ListProjects.length;
       this.ListProjects.forEach(element => {
         this.OwnerID = element.OwnerID;
+        this.getUserPO();
       });
-      this.getUserPO();
     }, error => {
       console.log('Error getting the list of ProjectsList');
     });
@@ -114,9 +115,10 @@ export class AdminHomeComponent implements OnInit {
   getUserPO() {
     this.userService.getUserPO(this.OwnerID).subscribe(List => {
       this.ListPO = List;
+      console.log(this.ListPO);
       this.ListPO.forEach(element => {
-        this.OwnerName = element.FirstName;
-        this.OwnerPhone = element.Mobile;
+        this.OwnerName.push(element.FirstName);
+        this.OwnerPhone.push(element.Mobile);
       });
     }, error => {
       console.log('Error getting the list of ProjectsList');
@@ -146,8 +148,6 @@ export class AdminHomeComponent implements OnInit {
     this.objectiveCompleted = 0;
     this.progressPercentage = 0;
     this.progressPending = 0;
-    this.OwnerName = '';
-    this.OwnerPhone = '';
   }
   calculateProgress(project: Project) {
     this.resetNumbers();
@@ -186,11 +186,15 @@ export class AdminHomeComponent implements OnInit {
     this.router.navigate(['Users']);
   }
   goListProjects() {
-    this.helperService.HomeInit = false;
-    this.router.navigate(['Projects']);
+    if (this.ActiveProject > 0) {
+      this.helperService.HomeInit = false;
+      this.router.navigate(['Projects']);
+    }
   }
   goListProjectsArchived() {
-    this.helperService.HomeInit = true;
-    this.router.navigate(['Projects']);
+    if (this.ArchivedProject > 0) {
+      this.helperService.HomeInit = true;
+      this.router.navigate(['Projects']);
+    }
   }
 }

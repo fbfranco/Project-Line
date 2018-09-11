@@ -8,7 +8,7 @@
   }
 
   .form-options {
-    margin-bottom: 2em;
+    margin-bottom: 1em;
     margin-top: 1em; 
   }
   @media screen and(max-width: 1080px) {
@@ -39,4 +39,7 @@
         }
 
   }
+}
+mat-spinner{
+  margin: 0 auto;
 }
