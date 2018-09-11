@@ -13,6 +13,7 @@ export class HelperService {
   Ocultar: Boolean;
   HideLayout: Boolean;
   HomeInit: boolean;
+  DiscardInit: boolean;
   constructor() {
     this.formats = {
       parse: {

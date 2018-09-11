@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
-import { MatSidenav } from '@angular/material';
+import { MatSidenav, MatDialog } from '@angular/material';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { ObservableMedia } from '@angular/flex-layout';
@@ -9,6 +9,7 @@ import { ProjectService } from '../../services/project.service';
 import { AuthService } from '../../services/auth.service';
 // Models
 import { Project } from '../../models/project.model';
+import { DialogConfirmationComponent } from '../../components/dialog/dialog-confirmation/dialog-confirmation.component';
 
 @Component({
   selector: 'app-sidenav',
@@ -26,8 +27,11 @@ export class SidenavComponent implements OnInit {
   optionsProjects: string[] = [];
   UserID: number;
   RoleID: number;
+  UrlNavigate: string;
+  ReloadComponent: boolean;
 
   constructor(
+    public dialog: MatDialog,
     public media: ObservableMedia,
     public helperService: HelperService,
     private router: Router,
@@ -74,17 +78,42 @@ export class SidenavComponent implements OnInit {
   }
 
   goRouteLink(url: string, reload: boolean) {
+    this.UrlNavigate = url;
+    this.ReloadComponent = reload;
+    this.snackBar.dismiss();
+    this.confirmDiscardChanges();
+  }
+
+  confirmDiscardChanges() {
+    if (this.helperService.DiscardInit === true) {
+      const dialogRef = this.dialog.open(DialogConfirmationComponent, {
+        data: {
+          title: 'Please confirm...',
+          description: 'Are you sure you want to leave this page?'
+        }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        const VariableSet = result;
+        if (VariableSet === 'confirm') {
+          this.navigate();
+        }
+      });
+    } else {
+      this.navigate();
+    }
+  }
+
+  navigate() {
+    if (this.ReloadComponent) {
+      this.router.navigateByUrl('', { skipLocationChange: true })
+        .then(() => this.router.navigate([this.UrlNavigate]));
+    } else {
+      this.router.navigate([this.UrlNavigate]);
+    }
     if (this.sidenavHide) {
       this.sideNav.close();
+      document.getElementById('buttonMenu').blur();
     }
-    if (reload) {
-      this.router.navigateByUrl('', { skipLocationChange: true })
-        .then(() => this.router.navigate([url]));
-    } else {
-      this.router.navigate([url]);
-    }
-    document.getElementById('buttonMenu').blur();
-    this.snackBar.dismiss();
   }
 
   verifyPermission(value: string): boolean {
@@ -123,7 +152,7 @@ export class SidenavComponent implements OnInit {
 
   goRouteProjects(project: Project) {
     this.projectService.selectedProjectHome = project;
-    this.router.navigate(['/']).then(() => { this.router.navigate(['ProjectTracking'] ); });
+    this.router.navigate(['/']).then(() => { this.router.navigate(['ProjectTracking']); });
   }
 
 }

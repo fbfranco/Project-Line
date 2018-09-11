@@ -103,5 +103,6 @@
       <button mat-raised-button color="primary" type="submit" [disabled]="!registrationFormGroup.valid" type="submit">Save</button>
       <a mat-raised-button color="warn" routerLink="/Users">Cancel</a>
     </div>
+    <mat-spinner *ngIf="loading" [diameter]="50"></mat-spinner>
   </form>
 </div>
