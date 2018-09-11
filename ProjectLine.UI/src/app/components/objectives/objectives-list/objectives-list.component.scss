@@ -15,14 +15,11 @@ $color-dark: rgb(34, 45, 49);
 }
 
 
-.AutocompleteProject{
-    width: 45%;
-    float: left;
-}
-.AutocompletePhases
-{
-    width: 45%;
-    float: right;
+.mat-form-field {
+  width: 47%;
+  @media screen and(max-width: 960px) {
+    width: 100%;
+  }
 }
 //Data-Table
 .table-content{
