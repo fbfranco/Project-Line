@@ -27,5 +27,7 @@
                 <button [disabled]="!userFormGroup.valid" mat-raised-button color="primary" type="submit">Login</button>
             </div>
         </form>
+        <br>
+        <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
     </mat-card>
 </div>

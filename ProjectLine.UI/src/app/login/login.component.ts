@@ -14,12 +14,15 @@ export class LoginComponent implements OnInit {
   Oculto: boolean;
   userFormGroup: FormGroup;
   isLoginError: boolean;
+  loading: boolean;
 
   constructor(
     private userFormBuilder: FormBuilder,
     private route: Router,
     private authService: AuthService,
-  ) { }
+  ) {
+    this.loading = false;
+   }
 
   ngOnInit() {
     this.userFormGroup = this.userFormBuilder.group({
@@ -29,11 +32,14 @@ export class LoginComponent implements OnInit {
   }
 
   submitLogin() {
+    this.loading = true;
     this.authService.LoginUser(this.userFormGroup.value)
       .subscribe((data: any) => {
         localStorage.setItem('userToken', data._body);
         this.route.navigate(['Home']);
+        this.loading = false;
       }, (err: HttpErrorResponse) => {
+        this.loading = false;
         this.isLoginError = true;
       });
   }

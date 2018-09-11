@@ -49,6 +49,7 @@ export class ProjectAddComponent implements OnInit {
   dataSource = new MatTableDataSource(this.phaseService.phaseList);
   varSet: string;
   projectFG: FormGroup;
+  loading: boolean;
 
   constructor(public dialog: MatDialog,
     private activateRoute: ActivatedRoute,
@@ -60,6 +61,7 @@ export class ProjectAddComponent implements OnInit {
     public helperService: HelperService,
     private snackBar: MatSnackBar) {
     helperService = new HelperService();
+    this.loading = false;
   }
 
   ngOnInit() {
@@ -113,6 +115,7 @@ export class ProjectAddComponent implements OnInit {
   }
 
   onSubmit() {
+    this.loading = true;
     this.helperService.removeWhiteSpaces(this.projectFG);
     this.project = this.projectFG.value;
     this.projectFG.value.UserId = this.projectFG.value.UserId === undefined ? null : this.projectFG.value.UserId.UserID;
@@ -125,12 +128,14 @@ export class ProjectAddComponent implements OnInit {
         this.openSnackBar('Saved');
         this.navigate_to_project_home_page();
         this.resetForm();
+        this.loading = false;
       });
     } else {
       this.projectService.putProject(this.project).subscribe(data => {
         this.openSnackBar('Saved');
         this.navigate_to_project_home_page();
         this.resetForm();
+        this.loading = false;
       });
     }
   }
