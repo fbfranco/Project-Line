@@ -63,7 +63,7 @@
 </mat-card>
 <mat-card class="container" *ngIf="RoleID ===3">
     <h1 *ngIf="RoleID ===3 && ActiveProject > 0">My Projects</h1>
-    <mat-card class="mat-card-Project" *ngFor="let project of ListProjects" (click)='goRouteLink(project)'>
+    <mat-card class="mat-card-Project" *ngFor="let project of ListProjects; let i = index" (click)='goRouteLink(project)'>
         <h3 matTooltip={{project.Title}}>{{ShortName(project.Title)}}</h3>
         <div class="div-left">
             <h1>{{calculateProgress(project)}}%</h1>
@@ -73,11 +73,11 @@
             <h5>
                 <b>PO Assigned:</b>
             </h5>
-            <h5>{{OwnerName}}</h5>
+            <h5>{{OwnerName[i]}}</h5>
             <h5>
                 <b>Contact:</b>
             </h5>
-            <h5>{{OwnerPhone}}</h5>
+            <h5>{{OwnerPhone[i]}}</h5>
         </div>
     </mat-card>
 </mat-card>
