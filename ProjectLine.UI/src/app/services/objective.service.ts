@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
 export class ObjectiveService {
 
   public selectedObjective: Objective;
-  private apiURL = 'http://localhost:44226/api/Objectives/';
+  private apiURL = 'http://172.30.3.10:44226/api/Objectives/';
 
   constructor(private http: Http) { }
 

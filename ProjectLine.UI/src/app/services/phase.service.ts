@@ -14,7 +14,7 @@ export class PhaseService {
   selectedPhase: Phase;
   phaseList: Phase[];
   indexPhase: number;
-  private apiURL = 'http://localhost:44226/api/Phases/';
+  private apiURL = 'http://172.30.3.10:44226/api/Phases/';
 
   constructor(private http: Http) { }
 

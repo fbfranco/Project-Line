@@ -12,7 +12,7 @@ import { Permissions } from '../models/Permissions.model';
 export class RolService {
 
   public selectedRol: Rol;
-  private apiURL = 'http://localhost:44226/api/Rols/';
+  private apiURL = 'http://172.30.3.10:44226/api/Rols/';
   constructor(private http: Http) { }
 
   getRolesList(): Observable<Rol[]> {
