@@ -20,11 +20,13 @@ import {
   MatCheckboxModule,
   MatAutocompleteModule,
   MatTableModule,
-  MatChipsModule
+  MatChipsModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   imports: [
@@ -49,7 +51,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatSnackBarModule,
     MatTableModule,
     MatTooltipModule,
-    MatChipsModule
+    MatChipsModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule
   ],
   exports: [
     CommonModule,
@@ -73,7 +77,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatSnackBarModule,
     MatTableModule,
     MatTooltipModule,
-    MatChipsModule
+    MatChipsModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule
   ]
 })
 

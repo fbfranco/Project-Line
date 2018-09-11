@@ -32,7 +32,7 @@ namespace ProjectLine.Controllers
             return Ok($" IPrincipal-user: {identity.Name} - IsAuthenticated: {identity.IsAuthenticated}");
         }
 
-        [HttpPost]
+        [AcceptVerbs("GET", "POST")]
         //[Route("api/Login/authenticate")]
         public IHttpActionResult Authenticate(LoginRequest login)
         {
