@@ -50,6 +50,10 @@ import { SelectedValidator } from './Directives/client-owner-autocomplete.direct
 import { AdminHomeComponent } from './components/homes/admin-home/admin-home.component';
 import { UserGuard } from './services/user.guard.service';
 import { ClientGuard } from './services/client.guard.service';
+import { AddProjectGuardService } from './services/AddProjectGuard.service';
+import { AddUserGuardService } from './services/AddUserGuard.service';
+
+
 
 @NgModule({
   declarations: [
@@ -104,7 +108,9 @@ import { ClientGuard } from './services/client.guard.service';
     HelperService,
     AuthService,
     UserGuard,
-    ClientGuard
+    ClientGuard,
+    AddUserGuardService,
+    AddProjectGuardService
   ],
   bootstrap: [AppComponent]
 })

@@ -17,7 +17,7 @@ export class ClientGuard implements CanActivate {
         if (this.RoleID === 1 || this.RoleID === 2) {
             return true;
         } else {
-            this.router.navigate(['']);
+            this.router.navigate(['Home']);
         }
     }
 

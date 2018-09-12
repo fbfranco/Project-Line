@@ -3,7 +3,7 @@ import { Router, CanActivate } from '@angular/router';
 import { AuthService } from './auth.service';
 
 @Injectable()
-export class AddUserGuardService implements CanActivate {
+export class AddProjectGuardService implements CanActivate {
 
   constructor(
     private router: Router,
@@ -13,14 +13,14 @@ export class AddUserGuardService implements CanActivate {
   canActivate() {
     let active = false;
     this.authService.permissions.forEach(permission => {
-      if (permission === 'User_Add') {
+      if (permission === 'Project_Add') {
         active = true;
       }
     });
     if (active) {
       return true;
     } else {
-      this.router.navigate(['Users']);
+      this.router.navigate(['Projects']);
     }
   }
 
