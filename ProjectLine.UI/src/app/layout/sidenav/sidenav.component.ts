@@ -89,7 +89,7 @@ export class SidenavComponent implements OnInit {
       const dialogRef = this.dialog.open(DialogConfirmationComponent, {
         data: {
           title: 'Please confirm...',
-          description: 'Are you sure you want to leave this page?'
+          description: 'Are you sure you want to leave this page? The data you have entered may not be saved.'
         }
       });
       dialogRef.afterClosed().subscribe(result => {
