@@ -3,9 +3,10 @@
 <div class="div-Container" *ngIf="RoleID === 1 || RoleID === 2">
   <input type="hidden" value="test">
   <mat-form-field id="AutocompleteProject">
-    <input type="text" (change)="inputEmpty($event)" placeholder="Project" aria-label="Number" [formControl]="myControl" matInput
-      [matAutocomplete]="ProjectList">
-    <mat-autocomplete #ProjectList="matAutocomplete" (optionSelected)="projectChanged($event)" autoActiveFirstOption [displayWith]="displayNameProject">
+    <input type="text" (change)="inputEmpty($event)" placeholder="Project" aria-label="Number" [formControl]="myControl"
+      matInput [matAutocomplete]="ProjectList">
+    <mat-autocomplete #ProjectList="matAutocomplete" (optionSelected)="projectChanged($event)" autoActiveFirstOption
+      [displayWith]="displayNameProject">
       <mat-option matTooltip={{option.Title}} *ngFor="let option of filteredOptions | async" [value]="option">
         {{ option.Title }}
       </mat-option>
@@ -31,8 +32,10 @@
                 <div class="row">
                   <div class="events-desc">
                     <div class="objectives-list" *ngFor="let obj of Phase.Objectives">
-                      <i [ngClass]="{'fa fa-check': obj.Completed == true, 'fas fa-circle': obj.Completed == false}"></i>
-                      <p>{{obj.Title}}</p>
+                      <i class="fas fa-circle fa-xs"></i>
+                      <p>{{obj.Title}}&nbsp;</p>
+                      <i [ngClass]="{'fas fa-check': obj.Completed == true}" [ngStyle]="{ 'color': 'green' }" ></i>
+
                     </div>
                   </div>
                 </div>

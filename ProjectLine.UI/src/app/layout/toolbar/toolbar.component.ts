@@ -42,6 +42,6 @@ export class ToolbarComponent implements OnInit {
   GoStart() {
     localStorage.clear();
     this.authServices.permissions = [];
-    this.router.navigate(['/']);
+    this.router.navigateByUrl('/');
   }
 }

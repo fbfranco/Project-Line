@@ -14,11 +14,14 @@ import { RolesAddComponent } from '../components/roles/roles-add/roles-add.compo
 import { AdminHomeComponent } from '../components/homes/admin-home/admin-home.component';
 import { UserGuard } from '../services/user.guard.service';
 import { ClientGuard } from '../services/client.guard.service';
+import { AddUserGuardService } from '../services/AddUserGuard.service';
+import { AddProjectGuardService } from '../services/AddProjectGuard.service';
+
 
 const routes: Routes = [
   { path: 'Projects', component: ProjectListComponent, canActivate: [ClientGuard] },
-  { path: 'Projects/Add', component: ProjectAddComponent, canActivate: [ClientGuard] },
-  { path: 'Projects/Edit/:id', component: ProjectAddComponent, canActivate: [ClientGuard] },
+  { path: 'Projects/Add', component: ProjectAddComponent, canActivate: [AddProjectGuardService] },
+  { path: 'Projects/Edit/:id', component: ProjectAddComponent, canActivate: [AddProjectGuardService] },
   { path: 'Projects/Add/Phase', component: PhasesFormComponent, canActivate: [ClientGuard] },
   { path: 'Clients', component: PhasesFormComponent },
   { path: 'Objectives', component: ObjectivesComponent, canActivate: [ClientGuard] },
@@ -26,8 +29,8 @@ const routes: Routes = [
   { path: 'ProjectTracking', component: TimelineComponent },
   { path: 'Users', component: UsersListComponent, canActivate: [UserGuard] },
   { path: 'Roles', component: RolesListComponent, canActivate: [UserGuard] },
-  { path: 'Users/Add', component: UsersAddComponent, canActivate: [UserGuard] },
-  { path: 'Users/Edit/:id', component: UsersAddComponent, canActivate: [UserGuard] },
+  { path: 'Users/Add', component: UsersAddComponent, canActivate: [AddUserGuardService] },
+  { path: 'Users/Edit/:id', component: UsersAddComponent, canActivate: [AddUserGuardService] },
   { path: 'Roles/Add', component: RolesAddComponent, canActivate: [UserGuard] },
   { path: 'Home', component: AdminHomeComponent },
   { path: '', component: AdminHomeComponent }

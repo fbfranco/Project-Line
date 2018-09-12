@@ -132,7 +132,7 @@ export class SidenavComponent implements OnInit {
   GoStart() {
     localStorage.clear();
     this.authService.permissions = [];
-    this.router.navigate(['/']);
+    this.router.navigateByUrl('/');
   }
 
   setOptionsProject() {
