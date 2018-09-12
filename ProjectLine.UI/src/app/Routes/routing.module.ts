@@ -14,6 +14,8 @@ import { RolesAddComponent } from '../components/roles/roles-add/roles-add.compo
 import { AdminHomeComponent } from '../components/homes/admin-home/admin-home.component';
 import { UserGuard } from '../services/user.guard.service';
 import { ClientGuard } from '../services/client.guard.service';
+import { AddUserGuardService } from '../services/AddUserGuard.service';
+
 
 const routes: Routes = [
   { path: 'Projects', component: ProjectListComponent, canActivate: [ClientGuard] },
@@ -26,7 +28,7 @@ const routes: Routes = [
   { path: 'ProjectTracking', component: TimelineComponent },
   { path: 'Users', component: UsersListComponent, canActivate: [UserGuard] },
   { path: 'Roles', component: RolesListComponent, canActivate: [UserGuard] },
-  { path: 'Users/Add', component: UsersAddComponent, canActivate: [UserGuard] },
+  { path: 'Users/Add', component: UsersAddComponent, canActivate: [AddUserGuardService] },
   { path: 'Users/Edit/:id', component: UsersAddComponent, canActivate: [UserGuard] },
   { path: 'Roles/Add', component: RolesAddComponent, canActivate: [UserGuard] },
   { path: 'Home', component: AdminHomeComponent },
