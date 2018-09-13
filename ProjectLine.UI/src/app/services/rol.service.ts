@@ -10,7 +10,7 @@ import { Permissions } from '../models/Permissions.model';
   providedIn: 'root'
 })
 export class RolService {
-
+  token = 'Bearer ' + localStorage.getItem('userToken');
   public selectedRol: Rol;
   private apiURL = 'http://172.30.3.10:44226/api/Rols/';
   constructor(private http: Http) { }
@@ -23,7 +23,7 @@ export class RolService {
   }
   updateRol(rol: Rol) {
     const body = JSON.stringify(rol);
-    const headerOptions = new Headers({ 'Content-Type': 'application/json' });
+    const headerOptions = new Headers({ 'Content-Type': 'application/json', 'Authorization': this.token });
     const requestOptions = new RequestOptions({ method: RequestMethod.Post, headers: headerOptions });
     return this.http.put(`${this.apiURL}UpdateRol/`, body, requestOptions);
   }

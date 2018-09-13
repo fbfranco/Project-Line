@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 })
 
 export class ObjectiveService {
-
+  token = 'Bearer ' + localStorage.getItem('userToken');
   public selectedObjective: Objective;
   private apiURL = 'http://172.30.3.10:44226/api/Objectives/';
 
@@ -17,14 +17,14 @@ export class ObjectiveService {
 
   createObjective(objective: Objective) {
     const body = JSON.stringify(objective);
-    const headerOptions = new Headers({ 'Content-Type': 'application/json' });
+    const headerOptions = new Headers({ 'Content-Type': 'application/json', 'Authorization': this.token });
     const requestOptions = new RequestOptions({ method: RequestMethod.Post, headers: headerOptions });
     return this.http.post(`${this.apiURL}PostObjective/`, body, requestOptions);
   }
 
   updateObjective(objective: Objective) {
     const body = JSON.stringify(objective);
-    const headerOptions = new Headers({ 'Content-Type': 'application/json' });
+    const headerOptions = new Headers({ 'Content-Type': 'application/json', 'Authorization': this.token });
     const requestOptions = new RequestOptions({ method: RequestMethod.Post, headers: headerOptions });
     return this.http.put(`${this.apiURL}UpdateObjective/`, body, requestOptions);
   }

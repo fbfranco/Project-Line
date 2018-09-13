@@ -1,7 +1,7 @@
 // Config
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
+import { HttpModule, RequestOptions } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
@@ -35,6 +35,7 @@ import { ProjectService } from './services/project.service';
 import { HelperService } from './services/helper.service';
 import { ObjectiveService } from './services/objective.service';
 import { AuthService } from './services/auth.service';
+import { SendTokenService } from './services/sendToken.service';
 // Angular Material
 import { AngularMaterialModule } from './material/angular-material.module';
 import { MatTableModule } from '@angular/material';
@@ -110,7 +111,9 @@ import { AddUserGuardService } from './services/AddUserGuard.service';
     UserGuard,
     ClientGuard,
     AddUserGuardService,
-    AddProjectGuardService
+    AddProjectGuardService,
+    AuthService,
+    {provide: RequestOptions, useClass: SendTokenService}
   ],
   bootstrap: [AppComponent]
 })

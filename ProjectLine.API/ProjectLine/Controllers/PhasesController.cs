@@ -8,7 +8,7 @@ using ProjectLine.DATA.Persistence;
 
 namespace ProjectLine.Controllers
 {
-    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+    [Authorize]
     public class PhasesController : ApiController
     {
         PhaseRepository Repository = new PhaseRepository();

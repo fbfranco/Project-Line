@@ -16,7 +16,7 @@ using ProjectLine.DATA.Persistence;
 
 namespace ProjectLine.Controllers
 {
-    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+    [Authorize]
     public class RolsController : ApiController
     {
         private ProjectLineContext db = new ProjectLineContext();

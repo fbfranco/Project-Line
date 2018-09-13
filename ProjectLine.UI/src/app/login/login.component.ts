@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { HttpErrorResponse } from '../../../node_modules/@angular/common/http';
 // Service
 import { AuthService } from '../services/auth.service';
+import { TokenService } from '../services/token.service';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
     private userFormBuilder: FormBuilder,
     private route: Router,
     private authService: AuthService,
+    private tokenService: TokenService
   ) {
     this.loading = false;
    }
@@ -36,7 +38,7 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.authService.LoginUser(this.userFormGroup.value)
       .subscribe((data: any) => {
-        localStorage.setItem('userToken', data._body);
+        localStorage.setItem('userToken', JSON.parse(data._body));
         this.route.navigate(['Home']);
         this.loading = false;
       }, (err: HttpErrorResponse) => {

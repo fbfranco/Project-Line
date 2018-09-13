@@ -8,7 +8,7 @@ using System.Web.Http.Cors;
 
 namespace ProjectLine.Controllers
 {
-    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+    [Authorize]
     public class UsersController : ApiController
     {
         UserRepository Repository = new UserRepository();

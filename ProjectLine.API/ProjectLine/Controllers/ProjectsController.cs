@@ -7,11 +7,10 @@ using System.Web.Http;
 
 namespace ProjectLine.Controllers
 {
-    //[EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+    [Authorize]
     public class ProjectsController : ApiController
     {
         ProjectRepository Repository = new ProjectRepository();
-
         // GET: api/Projects
         public async Task<IEnumerable<Project>>GetProjects()
         {

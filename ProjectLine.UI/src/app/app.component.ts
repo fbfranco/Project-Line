@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HelperService } from './services/helper.service';
+import { TokenService } from './services/token.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,8 @@ import { HelperService } from './services/helper.service';
 export class AppComponent {
   title = 'app';
   constructor(
-    public helper: HelperService
+    public helper: HelperService,
+    private tokenService: TokenService
   ) {
     helper.Ocultar = false;
   }

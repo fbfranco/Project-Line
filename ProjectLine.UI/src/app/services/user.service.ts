@@ -8,7 +8,7 @@ import { User } from '../models/user.model';
   providedIn: 'root'
 })
 export class UserService {
-
+  token = 'Bearer ' + localStorage.getItem('userToken');
   public selectedUser: User;
   private apiURL = 'http://172.30.3.10:44226/api/Users/';
 
@@ -16,14 +16,14 @@ export class UserService {
 
   createUser(user: User) {
     const body = JSON.stringify(user);
-    const headerOptions = new Headers({ 'Content-Type': 'application/json' });
+    const headerOptions = new Headers({ 'Content-Type': 'application/json', 'Authorization': this.token });
     const requestOptions = new RequestOptions({ method: RequestMethod.Post, headers: headerOptions });
     return this.http.post(`${this.apiURL}PostUser/`, body, requestOptions);
   }
 
   updateUser(user: User) {
     const body = JSON.stringify(user);
-    const headerOptions = new Headers({ 'Content-Type': 'application/json' });
+    const headerOptions = new Headers({ 'Content-Type': 'application/json', 'Authorization': this.token });
     const requestOptions = new RequestOptions({ method: RequestMethod.Post, headers: headerOptions });
     return this.http.put(`${this.apiURL}UpdateUser/`, body, requestOptions);
   }
