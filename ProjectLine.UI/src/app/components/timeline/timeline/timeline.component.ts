@@ -125,11 +125,7 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
       document.execCommand($('.events-body').slideUp());
 
       this.PhaseModel.forEach(element => {
-        if (new Date().getTime() >= new Date(element.StartDate).getTime() && new Date().getTime() <= new Date(element.EndDate).getTime()) {
-          element.StatePhase = true;
-        } else {
-          element.StatePhase = false;
-        }
+        element.StatePhase = this.helperService.currentPhase(element.StartDate, element.EndDate);
       });
       this.projectService.selectedProjectHome = null;
     }
@@ -142,11 +138,7 @@ export class TimelineComponent implements OnInit, DoCheck, AfterContentInit {
     this.sortPhaseDates(this.PhaseModel);
     this.Hide = true;
     this.PhaseModel.forEach(element => {
-      if (new Date().getTime() >= new Date(element.StartDate).getTime() && new Date().getTime() <= new Date(element.EndDate).getTime()) {
-        element.StatePhase = true;
-      } else {
-        element.StatePhase = false;
-      }
+      element.StatePhase = this.helperService.currentPhase(element.StartDate, element.EndDate);
     });
   }
   inputEmpty(event: any) {

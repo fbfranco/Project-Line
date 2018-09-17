@@ -33,6 +33,13 @@ export class HelperService {
     return moment(myDate).format('MM/DD/YYYY');
   }
 
+  currentPhase(dateStart: Date, dateEnd: Date): boolean {
+    const start = this.DateFormat(dateStart);
+    const end = this.DateFormat(dateEnd);
+    const current = this.DateFormat(new Date());
+    return current >= start && current <= end;
+  }
+
   MonthYearFormat(myDate: Date) {
     return moment(myDate).format('MMMM YYYY');
   }
