@@ -28,7 +28,6 @@ $color-dark: rgb(34, 45, 49);
         width: 100%;
         @media screen and (max-width: 1024px) {
             width: 100%;
-            display: block;
             overflow-x: auto;
         }
         .mat-header-cell, .mat-cell {
