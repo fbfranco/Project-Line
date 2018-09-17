@@ -8,7 +8,7 @@ import { Project } from '../models/project.model';
   providedIn: 'root'
 })
 export class ProjectService {
-  token = 'Bearer ' + localStorage.getItem('userToken');
+  token = 'Bearer ' + localStorage.getItem('userToken').replace(/"/g, '');
 
   selectedProject: Project;
   selectedProjectHome: Project;

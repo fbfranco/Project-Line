@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 })
 
 export class ObjectiveService {
-  token = 'Bearer ' + localStorage.getItem('userToken');
+  token = 'Bearer ' + localStorage.getItem('userToken').replace(/"/g, '');
   public selectedObjective: Objective;
   private apiURL = 'http://172.30.3.10:44226/api/Objectives/';
 

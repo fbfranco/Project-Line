@@ -8,7 +8,7 @@ import { User } from '../models/user.model';
   providedIn: 'root'
 })
 export class UserService {
-  token = 'Bearer ' + localStorage.getItem('userToken');
+  token = 'Bearer ' + localStorage.getItem('userToken').replace(/"/g, '');
   public selectedUser: User;
   private apiURL = 'http://172.30.3.10:44226/api/Users/';
 

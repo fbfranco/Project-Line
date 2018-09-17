@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {BaseRequestOptions, RequestOptions, RequestOptionsArgs} from '@angular/http';
-import { TokenService } from './token.service';
 
 const AUTHORIZATION_HEADER = 'Authorization';
 @Injectable({
