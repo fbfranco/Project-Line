@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthService
   ) {
     this.loading = false;
-   }
+  }
 
   ngOnInit() {
     this.userFormGroup = this.userFormBuilder.group({
