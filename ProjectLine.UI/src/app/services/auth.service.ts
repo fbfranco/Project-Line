@@ -11,7 +11,7 @@ export class AuthService {
   public Email: string;
   public permissions: string[] = [];
 
-  private apiURL = 'http://172.30.3.10:44226/api/Login/';
+  private apiURL = 'http://www.projectline.somee.com/api/Login/';
 
   constructor(private http: Http) { }
 
