@@ -102,7 +102,6 @@ export class AdminHomeComponent implements OnInit {
   getProjectListCL() {
     this.projectService.getProjectsListCL(this.UserID).subscribe(List => {
       this.ListProjects = List;
-      console.log(this.ListProjects);
       this.ActiveProject = this.ListProjects.length;
       this.ListProjects.forEach(element => {
         this.OwnerID = element.OwnerID;
@@ -115,7 +114,6 @@ export class AdminHomeComponent implements OnInit {
   getUserPO() {
     this.userService.getUserPO(this.OwnerID).subscribe(List => {
       this.ListPO = List;
-      console.log(this.ListPO);
       this.ListPO.forEach(element => {
         this.OwnerName.push(element.FirstName);
         this.OwnerPhone.push(element.Mobile);
