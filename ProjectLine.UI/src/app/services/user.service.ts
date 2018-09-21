@@ -10,7 +10,7 @@ import { User } from '../models/user.model';
 export class UserService {
   token = 'Bearer ' + localStorage.getItem('userToken').replace(/"/g, '');
   public selectedUser: User;
-  private apiURL = 'http://172.30.3.10:44226/api/Users/';
+  private apiURL = 'http://www.projectline.somee.com/api/Users/';
 
   constructor(private http: Http) { }
 

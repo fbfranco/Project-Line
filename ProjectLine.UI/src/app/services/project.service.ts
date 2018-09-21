@@ -13,7 +13,7 @@ export class ProjectService {
   selectedProject: Project;
   selectedProjectHome: Project;
   projectList: Project[];
-  private apiURL = 'http://172.30.3.10:44226/api/Projects/';
+  private apiURL = 'http://www.projectline.somee.com/api/Projects/';
 
   constructor(private http: Http) {
   }
