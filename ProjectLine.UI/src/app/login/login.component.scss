@@ -24,7 +24,10 @@
     width: 500px;
 }
 
-img {
+#img {
+    background-image: url(../../assets/ProjectLine.png);
+    background-size: 265px 150px;
+    width: 265px;
     height: 150px;
     @include centered(10%);
 }
